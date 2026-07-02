@@ -7,9 +7,9 @@
     }
   },
   "appType": "APP",
-  "name": " Medical Certificate of Cause of Death",
+  "name": " Medical Certification of Cause of Death",
   "version": "2.0.0",
-  "description": " Medical Certificate of Cause of Death",
+  "description": " Medical Certification of Cause of Death",
   "icons": {
     "16": "assets/icons/image001.png",
     "48": "assets/icons/image001.png",
@@ -19,5 +19,5 @@
     "name": "Simon Kununka",
     "url": "http://dhis2.org"
   },
-  "manifest_generated_at": "Tue Jun 30 2026 22:39:43 GMT+0300 (East Africa Time)"
+  "manifest_generated_at": "Wed Jul 01 2026 19:04:54 GMT+0300 (East Africa Time)"
 }

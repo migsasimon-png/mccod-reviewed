@@ -1,0 +1,164 @@
+CHILD DEATH REVIEW FORM
+HEALTH FACILITY: ............................................CODE ............. LEVEL ....................
+SUB-COUNTY / DIVISION............................................................................................
+HSD: ...................................................................................................................
+DISTRICT: ..........................................................................................................
+DATE OPENED: ......................................  DATE CLOSED: ..............................
+MINISITRY OF HEALTH
+CONFIDENTIAL
+CHILD DEATH REVIEW FORM
+NOTE:
+The Child Death review form must be completed for all deaths of Children from 8 days to 17 years
+If information is not available from records i.e. where information is obtained by interview, please add an asterisk (*).
+Review and Complete the form in duplicate within 7days of death. The original remains at the facility where the death occurred.
+Enter the filled child death review form into DHIS2 under events capture mapplication.
+Date of Review: ……………………………………….
+SECTION ONE: IDENTIFICATION
+Identification of Facility reporting/Reviewing the death
+Name of the Health Facility…………………............................
+Ownership: ◻Public         ◻PNFP           ◻PFP
+1.1.3     Level of H/F: ◻NRH ◻RRH ◻GH ◻HCIV  ◻HCIII   ◻HCII
+1.2 Identification of the Child
+1.2.1 Initials of Child Who Died: ………………........................…  1.2.2 IPNo. ............................…...…
+1.2.3 Age: Years……Months …...Days.… (Days only if <1 month)   1.2.4 Sex:  ◻Male      ◻Female
+1.2.5 Nationality: ◻Ugandan        ◻Refugee             ◻Foreigner
+1.2.6. Residence: Village: ……..........Parish: .............. Sub county:…………….District/City: ……………
+1.2.7. N.O. K’s (Relationship) ………...Age: ..... (yrs.)  Level of Education………. Occupation………….
+SECTION TWO- CIRCUMSTANCES SURROUNDING THE DEATH
+Date of Death(dd/mm/yr) ……/……/…...  2.2 Time of Death(24hrs) ……/…….
+2.3 Place of Death: ◻Health Facility   ◻Home   ◻In transit from Home   ◻During Referral
+2.4 If place of Death was in HF: Time Spent in H/F before death (days/hrs./min) …. /…./……
+2.4 Was Child Referred?  ◻Yes    ◻No
+If yes; from?   ◻Health Facility      ◻VHT     ◻TBA     ◻Others(specify)…....................................
+If referred from health facility, name of the facility ………...................................................................
+SECTION THREE- CONDITION AT ADMISSION.
+3.1.1 Major signs and symptoms at admissions – select all that apply
+◻Fever   ◻Cough   ◻DIB    ◻Diarrhea   ◻Refusal to feed    ◻Vomiting    ◻Reduced level of consciousness    ◻Oedema/body swelling    ◻Convulsions    ◻Injury/trauma    ◻Pain   ◻Abdominal distention ◻Others(specify)…………………………………………………………………………………………………
+3.1.2 Major findings on Physical Examination at time of admission
+………………………………………………………………………………………………………………………
+3.2.1 On admission was the child screened for malnutrition ◻Yes               ◻No
+3.2.2 If yes, comment on the nutrition status ◻No Malnutrition           ◻MAM            ◻SAM
+3.3.1 On admission, was the child’s immunization status uptodate    ◻Yes        ◻No          ◻Unknown
+3.3.2 If no, list the doses, that the child had missed………………………………………………………….
+3.4 What was the Child’s HIV status at time death…………………………………………………………..
+3.4 Diagnosis at admission ………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………
+3.5 Had the Child been an inpatient in the past three months?  ◻Yes             ◻No            ◻Unknown
+Skip Section 4 If Child age<28 days
+SECTION FOUR: MATERNAL RISK FACTORS
+ANC
+4.1 Did the mother attend Antenatal care: ◻ Yes 	◻No             ◻Unknown
+4.2 If yes how many times……………….  Gestational age at first visit………………………..
+4.3 Known Conditions during pregnancy (tick all applicable)
+◻Antepartum Hemorrhage 	 ◻Hypertension      ◻Pre-labour rupture of membranes         ◻Diabetes         ◻Anemia      ◻UTI 	 ◻ Malaria 	 ◻Trauma-accidental     ◻Gender based violence    ◻Others specify…………………….........................................….......................
+Labour and Birth
+4.4 Weeks of amenorrhea at delivery……………………….   Birth Weight of the baby…………..
+4.5 Place of delivery ◻Health facility      ◻Home       ◻TBA     ◻Others Specify………………………
+4.6 Mode of Delivery: ◻Normal Delivery   ◻Caesarean Section     ◻Vacuum or Forceps
+4.7 For GA <37 WOA Did the mother receive Antenatal Corticosteroids   ◻Yes   ◻No    ◻Unknown
+4.8 Was their Preterm Rupture of Membranes    ◻Yes       ◻No          ◻Unknown
+4.9 If Yes, Did the Mother receive Prophylactic Antibiotics ◻Yes        ◻No
+SECTION FIVE: CASE MANAGMENT
+5.1.1 Comment on the Key Investigations done and findings for the patient
+No.
+Investigation
+Done (Y/N)
+Results/Key Findings
+1
+B/S or mRDT
+2
+CBC/Hb
+3
+Urinalysis
+4
+Blood culture
+5
+CSF analysis
+6
+X-Ray
+7
+U/S Scan
+8
+Blood Sugar
+9
+Blood Chemistry (LFTs, RFTs)
+10
+Others (Specify)
+5.1.2 Was any necessary investigation not available? ◻ Yes   ◻No   Specify……………………………
+5.2 What was the Final Diagnosis for the patient?.................................................................................
+5.3.1 Summary of treatment/procedures/interventions prescribed
+………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………
+5.3.2 Was the prescribed treatment/procedure received fully ◻Yes             ◻No
+If No Comment on the gaps     …………………………………………………………………………………………………………………………………………………………………………………………………………………………………………..
+5.3.3 Was the treatment provided as per national guidelines ◻Yes   ◻No
+If No , Comment on the Gaps…………………………………………………………………………………………………………….
+5.3.4 Were there any complications from the treatment/procedure?
+No
+Yes
+If yes, (Specify)…………………………………………………………..
+5.3.5 Were any necessary drugs/supplies not available during care for the patient?
+No
+Yes (please specify the drug and reason). Possible reasons include ‘stockout’.’
+No.
+Missing Drug/Supplies
+Reason
+SECTION 6: FINAL CASE REVIEW
+6.1 Case Summary
+………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………
+6.2 Cause of Death (Remember to complete the HMIS FOM100 while completing this section)
+Frame A: Medical data: Part 1 and 2
+Report disease or condition directly leading to death in line (a)
+Report chain of events ‘due to’ (b to d) in order of occurrence (if applicable)
+State the underlying cause of death on the lowest used line.
+Cause of death
+Time interval from onset of condition to death
+a.
+b.
+c.
+d.
+2  Other significant conditions contributing to death  (time intervals can be included in brackets after the condition)
+6.3 Modifiable Factors
+Avoidable Factors
+Yes
+Specify
+Personal/Family/Community Factors
+Delay to seeking Health Care
+Delay to reach the health facility
+Refusal of treatment or admission
+Use of alternative medication (e.g herbal medication)
+Refusal of transfer to higher facility
+Lack of family support/Child Neglect/violence
+Logistical Systems
+Lack of transport from home to health facility
+Lack of transport between facilities
+Supply Health System Factors
+Lack of resuscitation equipment
+Lack of blood, blood products and supplies
+Lack of appropriate medicines/supplies
+Personnel Health System Factors
+Misdiagnosis
+Inappropriate intervention / treatment/ doses given
+Inadequate numbers of staff
+Absence of critical human resource
+Staff lack of skill/ expertise
+Staff professional misconduct
+Others Specify
+Others
+SECTION 7: ACTION PLAN
+Action plan summary form (please supply follow-up actions to implement the above recommendations).
+Gap(s) identified
+Recommended action
+Responsible person
+Timeline
+THIS FORM WAS COMPLETED BY:
+Name:……………………………………………Tel:…………………………Email:………
+Other team members.
+Name							Signature
+………………………………………………………………………	………………………….
+………………………………………………………………………	………………………….
+………………………………………………………………………	………………………….
+………………………………………………………………………	………………………….
+………………………………………………………………………	………………………….
+………………………………………………………………………	………………………….
+………………………………………………………………………	………………………….
+………………………………………………………………………
+Signature of the person completing the form:

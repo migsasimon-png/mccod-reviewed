@@ -1,0 +1,1287 @@
+<style type="text/css">
+ :root {
+    --primary: #1f7a4d;
+    --primary-dark: #155c39;
+    --primary-soft: #e8f3ed;
+    --subhead-bg: #eef2f4;
+    --border: #d4dadd;
+    --border-strong: #b9c2c7;
+    --text: #1f2a30;
+    --muted: #5a6b73;
+    --row-hover: #f3f8f5;
+    --field-bg: #ffffff;
+    --field-focus: #1f7a4d;
+ }
+
+ body {
+    font-family: "Lato", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    font-size: 13.5px;
+    line-height: 1.45;
+    background-color: #f7f9fa;
+ }
+
+ /* ---------- Layout wrapper ---------- */
+ .dataentryform {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(31, 42, 48, 0.06);
+    margin-bottom: 4px;
+ }
+
+ .dataentryform td {
+    border: 1px solid var(--border);
+    padding: 7px 10px;
+    vertical-align: middle;
+    color: var(--text);
+ }
+
+ /* ---------- Section headers ---------- */
+ .section-head td {
+    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    padding: 10px 12px;
+    border-color: var(--primary-dark);
+ }
+
+ .section-head td i {
+    font-weight: 400;
+    opacity: 0.9;
+ }
+
+ /* ---------- Sub-section headers ---------- */
+ .section-subhead td {
+    background-color: var(--subhead-bg);
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.3px;
+    border-color: var(--border-strong);
+ }
+
+ /* ---------- Inputs / selects / textareas ---------- */
+ .dataentryform input,
+ .dataentryform select,
+ .dataentryform textarea,
+ input.entryfield {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    border: 1px solid var(--border-strong);
+    border-radius: 5px;
+    background-color: var(--field-bg);
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+ }
+
+ .dataentryform input:focus,
+ .dataentryform select:focus,
+ .dataentryform textarea:focus {
+    outline: none;
+    border-color: var(--field-focus);
+    box-shadow: 0 0 0 2px rgba(31, 122, 77, 0.18);
+ }
+
+ .Select-input {
+    padding-left: 0;
+    height: inherit;
+    width: 100% !important;
+    min-width: 80px;
+ }
+
+ .Select-input > input {
+    width: 100% !important;
+    border: none;
+    box-shadow: none;
+ }
+
+ /* ---------- Row hover ---------- */
+ .dataentryform tr:hover td {
+    background-color: var(--row-hover);
+ }
+
+ .section-head:hover td,
+ .section-subhead:hover td {
+    background-color: inherit;
+ }
+
+ /* ---------- Disabled rows ---------- */
+ .disable-table-row {
+    pointer-events: none;
+ }
+
+ .disable-table-row input,
+ .disable-table-row select,
+ .disable-table-row textarea {
+    pointer-events: none;
+    background-color: #f0f2f3;
+    color: var(--muted);
+ }
+
+ /* ---------- MCCOD button ---------- */
+ .mccod-button,
+ #mcodbutton {
+    padding: 9px 22px;
+    font-weight: 600;
+    margin: 4px 0 8px;
+    background-color: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 1px 2px rgba(31, 42, 48, 0.15);
+ }
+
+ .mccod-button:hover,
+ #mcodbutton:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 2px 6px rgba(31, 42, 48, 0.25);
+ }
+
+ /* ---------- Collapsible sections (accordion) ---------- */
+ .section-head {
+    cursor: pointer;
+    user-select: none;
+ }
+
+ .section-head td {
+    transition: background 0.15s ease;
+ }
+
+ .section-head:hover td {
+    filter: brightness(1.08);
+ }
+
+ .acc-caret {
+    display: inline-block;
+    margin-right: 9px;
+    font-size: 11px;
+    line-height: 1;
+    transform: rotate(0deg);
+    transition: transform 0.18s ease;
+ }
+
+ .section-head.collapsed .acc-caret {
+    transform: rotate(-90deg);
+ }
+
+ /* ---------- Top toolbar (expand / collapse all) ---------- */
+ .form-toolbar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 10px;
+    padding: 8px 10px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(31, 42, 48, 0.06);
+ }
+
+ .form-toolbar .toolbar-title {
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-right: auto;
+    font-size: 13.5px;
+ }
+
+ .toolbar-btn {
+    padding: 6px 14px;
+    font-weight: 600;
+    font-size: 12.5px;
+    color: var(--primary-dark);
+    background: var(--primary-soft);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+ }
+
+ .toolbar-btn:hover {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+ }
+
+ /* ---------- Responsive ---------- */
+ @media (max-width: 820px) {
+    body {
+       font-size: 13px;
+    }
+
+    .dataentryform td {
+       padding: 6px 7px;
+       word-break: break-word;
+    }
+
+    .section-head td {
+       font-size: 13px;
+       padding: 9px 9px;
+    }
+
+    .dataentryform input,
+    .dataentryform select,
+    .dataentryform textarea {
+       font-size: 12.5px;
+       padding: 5px 6px;
+    }
+ }
+
+ @media (max-width: 560px) {
+    .form-toolbar .toolbar-title {
+       width: 100%;
+       margin-bottom: 4px;
+    }
+
+    .dataentryform td {
+       padding: 5px 5px;
+    }
+ }
+
+ /* ---------- Fit to DHIS2 capture screen (no horizontal overflow) ---------- */
+ html,
+ body {
+    max-width: 100%;
+    overflow-x: hidden;
+ }
+
+ /* Each section is wrapped in this scroll container so a wide table
+    scrolls inside its own card instead of pushing past the screen. */
+ .table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 4px;
+    border-radius: 8px;
+ }
+
+ .table-scroll .dataentryform {
+    margin-bottom: 0;
+ }
+
+ .dataentryform td {
+    overflow-wrap: break-word;
+    vertical-align: top;
+ }
+
+ /* Let the DHIS2 field widgets shrink to their cell instead of forcing width */
+ .dataentryform td input,
+ .dataentryform td select,
+ .dataentryform td textarea,
+ .dataentryform td > div {
+    max-width: 100%;
+    min-width: 0;
+ }
+
+ .form-toolbar {
+    max-width: 100%;
+    box-sizing: border-box;
+ }
+</style>
+<script>
+if (!scriptLoaded) {
+	var scriptLoaded = true;
+	var des = [
+		"RpkIvgOOZJt",
+		"rDI0uhcVLAk",
+		// "ZBvxrMFv9aW",  // sex
+		"ZKBE8Xm9DJG",
+		"xpJgWYFpvht",
+		"hTYVRRvhYEt",
+		"T0f4UTwxd6Q",
+		"rjoVXlCWLYM", //age in minutes
+		"rDI0uhcVLAk", //age in hours
+		"quKRjZzkSRA", //age in days
+		"m8jUvzBgYga", //Weeks of amenorrhea at delivery
+		"T0f4UTwxd6Q", //village
+		"dKQIx7sVFbD", //parish
+		"H34bcwaOliX", //IP Number
+		"t5nTEmlScSt", // district
+		"u44XP9fZweA", //subcounty
+	];
+
+	var disabledFields = [
+		"CGz50G2MY16-sfpqAeqKeyQ-val",
+		"CGz50G2MY16-Ylht9kCLSRW-val",
+		"CGz50G2MY16-WkXxkKEJLsg-val",
+		"CGz50G2MY16-zb7uTuBCPrN-val",
+		"CGz50G2MY16-myydnkmLfhp-val",
+		"CGz50G2MY16-fleGy9CvHYh-val",
+		"CGz50G2MY16-aC64sB86ThG-val",
+		"CGz50G2MY16-QGFYJK00ES7-val",
+		"CGz50G2MY16-hO8No9fHVd2-val",
+		"CGz50G2MY16-CnPGhOcERFF-val",
+		"CGz50G2MY16-cmZrrHfTxW3-val",
+		"CGz50G2MY16-eCVDO6lt4go-val",
+		"CGz50G2MY16-xeE5TQLvucB-val",
+	];
+
+	document.querySelectorAll(".disable-table-row").forEach((el) => {
+		// disable inputs and pointer events
+		el.style.pointerEvents = "none";
+		el.querySelectorAll("input, select, textarea").forEach((el) => {
+			el.readonly = true;
+		});
+	});
+
+	var urlparts = window.location.pathname.split("/");
+	var indexidx = urlparts.findIndex((p) => p === "index.html");
+	var baseurl =
+		window.location.origin + urlparts.slice(0, indexidx - 1).join("/");
+
+	var params = new URLSearchParams(
+		document.location.hash.substr(1).replace(/^\/\w+\?/, "")
+	);
+	var orgUnit = params.get("orgUnitId");
+	var eventId = params.get("viewEventId");
+	var natinalityEls = document.querySelectorAll(
+		'div[data-test="scope-selector"] h4'
+	);
+	var natinalityEl;
+	var babyName = "DECEASED BABY";
+
+	for (var i = 0; i < natinalityEls.length; i++) {
+		if (natinalityEls[i].textContent.trim() === "Nationality") {
+			natinalityEl = natinalityEls[i];
+			break;
+		}
+	}
+	var nationality =
+		natinalityEl?.nextElementSibling?.firstElementChild?.textContent;
+
+	if (nationality == undefined) {
+		nationality = document.querySelector(
+			'button[data-test="category-selector-container"] .value'
+		)?.textContent;
+	}
+
+	var triggerInputChange = (node, inputValue) => {
+		const descriptor = Object.getOwnPropertyDescriptor(node, "value");
+
+		node.value = `${inputValue}#`;
+		if (descriptor && descriptor.configurable) {
+			delete node.value;
+		}
+		node.value = inputValue;
+
+		const e = document.createEvent("HTMLEvents");
+		e.initEvent("change", true, false);
+		node.dispatchEvent(e);
+
+		if (descriptor) {
+			Object.defineProperty(node, "value", descriptor);
+		}
+
+		updateSaveState();
+	};
+
+	var ifrm;
+
+	function buildQueryString(params) {
+		return Object.entries(params)
+			.filter(([key, value]) => value !== null && value !== undefined)
+			.map(
+				([key, value]) =>
+					`${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+			)
+			.join("&");
+	}
+
+	function gotomcod() {
+		console.log("go to mccod");
+
+		var inputElement = document.querySelector(
+			`#CGz50G2MY16-ZKBE8Xm9DJG-val input`
+		);
+
+		// Check if the input element is found
+		if (inputElement) {
+			// Get the current value
+			var currentValue = inputElement.value;
+
+			// Check if the current value already contains "PERI -"
+			if (!currentValue.includes("PERI -")) {
+				// Add the string to the current value
+				var modifiedValue = "PERI - " + currentValue;
+
+				// Set the new value to the input element
+				inputElement.value = modifiedValue;
+
+				// Log the modified value to the console
+				console.log("form17 case nmbr", modifiedValue);
+			} else {
+				// Log a message indicating that "F17" is already present
+				console.log("case nmbr already contains 'form17':", currentValue);
+			}
+		} else {
+			console.error("Input element not found.");
+		}
+
+		var olsdata = {
+			orgUnit,
+			nationality,
+			event: eventId,
+			babyName,
+			//ZBvxrMFv9aW, //sex
+			//ZkNDFfFSTYg: defaultValueZkNDFfFSTYg // Add ZkNDFfFSTYg with default linked value to olsdata
+		};
+		des.forEach((deId) => {
+			olsdata[deId] = document.querySelector(
+				`#CGz50G2MY16-${deId}-val input,#CGz50G2MY16-${deId}-val select`
+			)?.value;
+		});
+		olsdata["ZBvxrMFv9aW"] = document.querySelector(
+			"#CGz50G2MY16-ZBvxrMFv9aW-val .has-value :not(:has(*))"
+		)?.textContent;
+		console.log("olsdata", olsdata);
+		localStorage.setItem("mcodtemp", JSON.stringify(olsdata));
+
+		ifrm = document.createElement("iframe");
+		//ifrm.setAttribute("src", baseurl + "/api/apps/Medical-Certificate-of-Cause-of-Death/index.html");
+		ifrm.setAttribute(
+			"src",
+			//"http://localhost:3000?iframe_edit=true&" + buildQueryString(olsdata)
+
+			baseurl +
+				"/api/apps/Medical-Certificate-of-Cause-of-Death/index.html?iframe_edit=true&" +
+				buildQueryString(olsdata)
+		);
+		ifrm.style.width = "calc(100% - 40px)";
+		ifrm.style.minHeight = "640px";
+		ifrm.style.position = "absolute";
+		ifrm.style.top = "10px";
+		ifrm.style.left = "20px";
+		ifrm.style.border = "1px solid black";
+		ifrm.style.boxShadow = "2px 4px 12px 9px rgba(0,0,0,0.4)";
+
+		console.log("iff", ifrm);
+		document.body.appendChild(ifrm);
+
+		ifrm.onload = function () {
+			var iframeDocument =
+				ifrm.contentDocument || ifrm.contentWindow.document;
+			var headerElement = iframeDocument
+				.getElementById("root")
+				.querySelector("header");
+			headerElement.style.display = "none";
+		};
+	}
+
+	window.returntoreview = function (values = {}) {
+		Object.keys(values).forEach((key) => {
+			var el = document.querySelector(
+				`#CGz50G2MY16-${key}-val input,#CGz50G2MY16-${key}-val select`
+			);
+			if (!!el) el.value = values[key];
+		});
+
+		// Get the input element for ZkNDFfFSTYg (linked value)
+		var inputElementZkNDFfFSTYg = document.querySelector(
+			`#CGz50G2MY16-ZkNDFfFSTYg-val input`
+		);
+
+		// Check if the input element is found
+		if (inputElementZkNDFfFSTYg) {
+			// Get the current value of ZkNDFfFSTYg
+			var valueZkNDFfFSTYg = inputElementZkNDFfFSTYg.value;
+
+			// Set the default value for ZkNDFfFSTYg
+			var defaultValueZkNDFfFSTYg =
+				valueZkNDFfFSTYg.trim() === "" ? "Linked" : valueZkNDFfFSTYg;
+			triggerInputChange(inputElementZkNDFfFSTYg, defaultValueZkNDFfFSTYg);
+			inputElementZkNDFfFSTYg.focus();
+			inputElementZkNDFfFSTYg.blur();
+
+			// Log the value of ZkNDFfFSTYg to the console
+			console.log("ZkNDFfFSTYg value:", defaultValueZkNDFfFSTYg);
+		} else {
+			console.error("Input element for ZkNDFfFSTYg not found.");
+		}
+	};
+
+	window.closeIframe = function () {
+		document.body.removeChild(ifrm);
+	};
+
+	var toggleSaveBtn = (save = false) => {
+		const saveBtn = document.querySelector(
+			'div[data-test="main-button"] button[data-test="dhis2-uicore-splitbutton-button"]'
+		);
+		if (!!saveBtn) {
+           saveBtn.disabled = !save;
+           saveBtn.textContent = save ? "Save and exit" : "Link to MCCOD";
+         }
+
+		const saveToggleBtn = document.querySelector(
+			'div[data-test="main-button"] button[data-test="dhis2-uicore-splitbutton-toggle"]'
+		);
+		if (!!saveToggleBtn) saveToggleBtn.disabled = !save;
+
+		const editSaveBtn = document.querySelector(
+			'button[data-test="dhis2-uicore-button"].primary'
+		);
+		//if (editSaveBtn?.textContent == "Save") editSaveBtn.disabled = !save;
+        if (editSaveBtn) {
+        editSaveBtn.disabled = !save;
+        // Change the text content of the button
+        editSaveBtn.textContent = save ? "Save" : "Link to MCCOD";
+    }
+
+
+	};
+
+	var updateSaveState = () => {
+		const linked = document.querySelector(
+			`#CGz50G2MY16-ZkNDFfFSTYg-val input`
+		);
+		console.log("cval", linked?.value);
+		if (linked && linked.value != "Linked") {
+			toggleSaveBtn(false);
+		} else {
+			toggleSaveBtn(true);
+		}
+	};
+
+	updateSaveState();
+}
+
+if (!!disabledFields) {
+	console.log("disabling fields", disabledFields);
+	disabledFields.forEach((f) => {
+		var el = document.querySelector(
+			`#${f} input, #${f} select, #${f} textarea`
+		);
+		if (!!el) {
+			el.readonly = true;
+		}
+		var dropdown = document.querySelector(`#${f} .Select-arrow-zone`);
+		if (!!dropdown) {
+			dropdown.style.display = "none";
+		}
+	});
+}
+
+function updateCaseNumber() {
+ const casel = document.querySelector(`#CGz50G2MY16-ZKBE8Xm9DJG-val input`);
+
+	if (!!casel && !casel.value) {
+		fetch(baseurl + "/api/33/system/id.json")
+			.then((response) => response.json())
+			.then(({ codes }) => {
+				casel.value = codes[0];
+				triggerInputChange(casel, codes[0]);
+				casel.focus();
+				casel.blur();
+
+				// var ev2 = new Event('input', { bubbles: true});
+				// casel.dispatchEvent(ev2);
+			});
+	}
+	const caseNo = casel.value;
+	// Define the URL
+	const url = `/api/38/tracker/events?page=1&pageSize=15&program=vf8dN49jprI&programStage=aKclf7Yl1PE&orgUnit=FvewOonC8lS&fields=dataValues,occurredAt,event,status,orgUnit,program,programType,updatedAt,createdAt,assignedUser&ouMode=SELECTED&order=occurredAt:desc&filter=ZKBE8Xm9DJG:like:${caseNo}&attributeCc=UjXPudXlraY&attributeCos=l4UMmqvSBe5`;
+
+	// Function to check if case number exists
+	async function checkCaseNumber(caseNumber) {
+		//var linked = document.querySelector(`#YXed7PnLRco-ZkNDFfFSTYg-val input`);
+		try {
+			// Fetch data from the URL
+			const response = await fetch(baseurl + url);
+
+			// Check if the response is successful
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+
+			// Parse the response as JSON
+			const responseData = await response.json();
+
+			// Check if instances array exists in the response data
+			if (responseData.instances && responseData.instances.length > 0) {
+				console.log(`Case number ${caseNumber} exists.`);
+
+				updateInputField();
+			} else {
+				console.log(`Case number ${caseNumber} does not exist.`);
+			}
+		} catch (error) {
+			console.error("There was a problem with the fetch operation:", error);
+		}
+
+
+//new test function
+ //const api = `/api/event/${caseNumber}`;
+//console.log("search api", baseurl + api);
+		try {
+			// check case number
+			const response = await fetch(baseurl + url);
+
+			// Check if the response is successful
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+
+			// Parse the response as JSON
+			const responseData = await response.json();
+             //console.log("response", responseData );     
+
+			// Check if instances array exists in the response data
+			if (responseData.instances && responseData.instances.length > 0) {
+				console.log(`the searched Case number ${caseNumber} exists.`);
+                toggleSaveBtn(true);
+
+			
+			} else {
+				console.log(`Case number ${caseNumber} does not exist.`);
+                toggleSaveBtn(false);
+			}
+		} catch (error) {
+			console.error("There was a problem with the fetch operation:", error);
+            toggleSaveBtn(false);
+		}
+
+	}
+
+	checkCaseNumber(caseNo);
+}
+
+updateCaseNumber();
+
+// Define a function to update the input field
+function updateInputField() {
+	const linked = document.querySelector(`#CGz50G2MY16-ZkNDFfFSTYg-val input`);
+
+	if (linked && !linked.value) {
+		linked.value = "Linked";
+		triggerInputChange(linked, linked.value);
+		linked.focus();
+		linked.blur();
+		console.log("Input field updated to 'Linked'");
+	} else {
+		console.log("Input field already has a value:", linked.value);
+	}
+}
+
+</script>
+<table width="100%">
+	<tbody>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr>
+						<td>Ministry of Health National Case Number</td>
+						<td><input id="CGz50G2MY16-ZKBE8Xm9DJG-val" name="entryfield" title="HMIS_100_  Ministry of Health National Case Number" value="[ HMIS_100_  Ministry of Health National Case Number ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="7">SECTION ONE: Identification</td>
+					</tr>
+					<tr>
+						<td>1.1 IPNO.<b> (Mother): </b></td>
+						<td colspan="2"><input id="CGz50G2MY16-eb82Wa1qOS8-val" name="entryfield" title="017-ID01. IPNo (Mother)" value="[ 017-ID01. IPNo (Mother) ]" /></td>
+						<td colspan="2">1.1.2 IPNo. (Newborn)</td>
+						<td colspan="2"><input id="CGz50G2MY16-H34bcwaOliX-val" name="entryfield" title="017-ID02. IPNo (Newborn)" value="[ 017-ID02. IPNo (Newborn) ]" /></td>
+					</tr>
+					<tr>
+						<td>1.5.3 Village:</td>
+						<td colspan="2"><input id="CGz50G2MY16-T0f4UTwxd6Q-val" name="entryfield" title="017-ID03. Village" value="[ 017-ID03. Village ]" /></td>
+						<td colspan="2">Parish:</td>
+						<td colspan="2"><input id="CGz50G2MY16-dKQIx7sVFbD-val" name="entryfield" title="017-ID04. Parish" value="[ 017-ID04. Parish ]" /></td>
+					</tr>
+					<tr>
+						<td>&nbsp; &nbsp; &nbsp; &nbsp; District:</td>
+						<td colspan="2"><input id="CGz50G2MY16-t5nTEmlScSt-val" name="entryfield" title="HMIS_100_  Subcounty" value="[ HMIS_100_  Subcounty ]" /></td>
+						<td colspan="2">Subcounty:</td>
+						<td colspan="2"><input id="CGz50G2MY16-u44XP9fZweA-val" name="entryfield" title="HMIS_100_  District" value="[ HMIS_100_  District ]" /></td>
+					</tr>
+					<tr>
+						<td>1.5 Mother&#39;s initials</td>
+						<td colspan="2"><input id="CGz50G2MY16-xpJgWYFpvht-val" name="entryfield" title="017-ID05. Mother’s initials" value="[ 017-ID05. Mother’s initials ]" /></td>
+						<td colspan="2">1.5.2 Age:<b> </b>(years)</td>
+						<td colspan="2"><input id="CGz50G2MY16-hTYVRRvhYEt-val" name="entryfield" title="017-ID06. Age" value="[ 017-ID06. Age ]" /></td>
+					</tr>
+					<tr>
+						<td>Age of the baby:</td>
+						<td>Minutes:</td>
+						<td><input id="CGz50G2MY16-rjoVXlCWLYM-val" name="entryfield" title="017-ID07. Age of the baby (Minutes)" value="[ 017-ID07. Age of the baby (Minutes) ]" /></td>
+						<td>Hours:</td>
+						<td><input id="CGz50G2MY16-rDI0uhcVLAk-val" name="entryfield" title="017-ID08. Age of the baby (Hours)" value="[ 017-ID08. Age of the baby (Hours) ]" /></td>
+						<td>Days:</td>
+						<td><input id="CGz50G2MY16-quKRjZzkSRA-val" name="entryfield" title="017-ID09. Age of the baby (Days)" value="[ 017-ID09. Age of the baby (Days) ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="3">1.6 Was baby referred?</td>
+						<td colspan="4"><input id="CGz50G2MY16-bS24JUbPyQv-val" name="entryfield" title="017-ID10. Was baby referred?" value="[ 017-ID10. Was baby referred? ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="3">1.7 If Yes; from?</td>
+						<td colspan="4"><input id="CGz50G2MY16-o03g3QSYR0b-val" name="entryfield" title="017-ID11. If Yes; where referred from?" value="[ 017-ID11. If Yes; where referred from? ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="3">1.8 If referred from health facility, name of the facility</td>
+						<td colspan="4"><input id="CGz50G2MY16-HJd1MWPsvUC-val" name="entryfield" title="017-ID13. If referred from health facility,  name of the facility" value="[ 017-ID13. If referred from health facility,  name of the facility ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="12">SECTION TWO: Pregnancy progress and Care</td>
+					</tr>
+					<tr>
+						<td>2.1 Mother&#39;s Parity</td>
+						<td><input id="CGz50G2MY16-gnNPEZQc8io-val" name="entryfield" title="017-PP01. Mothers Parity" value="[ 017-PP01. Mothers Parity ]" /></td>
+						<td colspan="5">2.1.2 No. of mother&#39;s living children</td>
+						<td colspan="5"><input id="CGz50G2MY16-OburkrE8yhu-val" name="entryfield" title="017-PP02. No. of mother’s living children" value="[ 017-PP02. No. of mother’s living children ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">2.2<b> </b>Type of pregnancy</td>
+						<td colspan="10"><input id="CGz50G2MY16-CY6W9fagQ0e-val" name="entryfield" title="017-PP03. Type of pregnancy" value="[ 017-PP03. Type of pregnancy ]" /></td>
+					</tr>
+					<tr>
+						<td>Attendance of Antenatal care:</td>
+						<td><input id="CGz50G2MY16-GOC04o3duHu-val" name="entryfield" title="017-PP04. Attendance of Antenatal care:" value="[ 017-PP04. Attendance of Antenatal care: ]" /></td>
+						<td colspan="5">2.4 If yes how many times</td>
+						<td colspan="5"><input id="CGz50G2MY16-laCeT3RhMUh-val" name="entryfield" title="017-PP05. If yes, how many times?" value="[ 017-PP05. If yes, how many times? ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="12"><b>2.5 Core ANC Interventions (tick appropriately)</b></td>
+					</tr>
+					<tr>
+						<td colspan="2" rowspan="2">2.5.1 Malaria prophylaxis:</td>
+						<td colspan="2" rowspan="1">IPT1:</td>
+						<td colspan="3" rowspan="1"><input id="CGz50G2MY16-MEk5ws6HFaz-val" name="entryfield" title="017-PP06. Core ANC Interventions - Malaria prophylaxis (IPT1)" value="[ 017-PP06. Core ANC Interventions - Malaria prophylaxis (IPT1) ]" /></td>
+						<td colspan="4" rowspan="1">IPT2:</td>
+						<td rowspan="1"><input id="CGz50G2MY16-kKZnZPrggaX-val" name="entryfield" title="017-PP07. Core ANC Interventions - Malaria prophylaxis (IPT2)" value="[ 017-PP07. Core ANC Interventions - Malaria prophylaxis (IPT2) ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2" rowspan="1">IPT3:&nbsp;</td>
+						<td colspan="3" rowspan="1"><input id="CGz50G2MY16-J8cM570ZGHa-val" name="entryfield" title="017-PP08. Core ANC Interventions - Malaria prophylaxis ( IPT3)" value="[ 017-PP08. Core ANC Interventions - Malaria prophylaxis ( IPT3) ]" /></td>
+						<td colspan="4" rowspan="1">IPT3+:&nbsp;</td>
+						<td rowspan="1"><input id="CGz50G2MY16-biBZmUjxguG-val" name="entryfield" title="017-PP09. Core ANC Interventions - Malaria prophylaxis (IPT3+)" value="[ 017-PP09. Core ANC Interventions - Malaria prophylaxis (IPT3+) ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">2.5.2 Tetanus Diptheria:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td colspan="2">Td1</td>
+						<td><input id="CGz50G2MY16-EC4nyhCs66y-val" name="entryfield" title="017-PP10. Core ANC Interventions - Tetanus Diptheria (TD1)" value="[ 017-PP10. Core ANC Interventions - Tetanus Diptheria (TD1) ]" /></td>
+						<td colspan="2">Td2</td>
+						<td><input id="CGz50G2MY16-wizIGlVHHLE-val" name="entryfield" title="017-PP11. Core ANC Interventions - Tetanus Diptheria (TD2)" value="[ 017-PP11. Core ANC Interventions - Tetanus Diptheria (TD2) ]" /></td>
+						<td colspan="2">Td3</td>
+						<td colspan="2"><input id="CGz50G2MY16-WYGPAumPdxH-val" name="entryfield" title="017-PP12. Core ANC Interventions - Tetanus Diptheria (TD3)" value="[ 017-PP12. Core ANC Interventions - Tetanus Diptheria (TD3) ]" /></td>
+					</tr>
+					<tr>
+						<td>2.5.2 HIV test done&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td><input id="CGz50G2MY16-ywMAGkuvTjq-val" name="entryfield" title="017-PP13. HIV test done" value="[ 017-PP13. HIV test done ]" /></td>
+						<td>2.5.3 HIV test results&nbsp;</td>
+						<td colspan="4"><input id="CGz50G2MY16-VnDcrZ4gCdR-val" name="entryfield" title="017-PP14. HIV test results" value="[ 017-PP14. HIV test results ]" /></td>
+						<td>2.5.4 If HIV positive:</td>
+						<td colspan="4"><input id="CGz50G2MY16-VtF7Nx2yjat-val" name="entryfield" title="017-PP15. If HIV positive" value="[ 017-PP15. If HIV positive ]" /></td>
+					</tr>
+					<tr>
+						<td>2.5.3 Syphilis test done;</td>
+						<td><input id="CGz50G2MY16-DPG74K71T7a-val" name="entryfield" title="017-PP16. Syphilis test done" value="[ 017-PP16. Syphilis test done ]" /></td>
+						<td colspan="5">2.5.4 Syphilis test results</td>
+						<td colspan="5"><input id="CGz50G2MY16-qnhVulYBuyO-val" name="entryfield" title="017-PP17. Syphilis test results" value="[ 017-PP17. Syphilis test results ]" /></td>
+					</tr>
+					<tr>
+						<td>Hb done</td>
+						<td><input id="CGz50G2MY16-noTA8bNu7Er-val" name="entryfield" title="017-PP18. Hb done" value="[ 017-PP18. Hb done ]" /></td>
+						<td>If yes, Hb Level</td>
+						<td colspan="3"><input id="CGz50G2MY16-g7cj6HmiFHJ-val" name="entryfield" title="017-PP19. If yes, Hb Level" value="[ 017-PP19. If yes, Hb Level ]" /></td>
+						<td>Hepatitis B status</td>
+						<td colspan="5"><input id="CGz50G2MY16-riyahnxUdTf-val" name="entryfield" title="017-PP20. Hepatitis B status" value="[ 017-PP20. Hepatitis B status ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="12">2.6 Known Conditions in present pregnancy (tick all applicable)</td>
+					</tr>
+					<tr>
+						<td>1. Antepartum Hemorrhage&nbsp;&nbsp;</td>
+						<td><input id="CGz50G2MY16-Wb2SCeKzukC-val" name="entryfield" title="017-PP21. Known Conditions in present pregnancy(Antepartum Hemorrhage)" value="[ 017-PP21. Known Conditions in present pregnancy(Antepartum Hemorrhage) ]" /></td>
+						<td colspan="2">2.Hypertension</td>
+						<td colspan="3"><input id="CGz50G2MY16-c78xosOwe3g-val" name="entryfield" title="017-PP22. Known Conditions in present pregnancy(Hypertension)" value="[ 017-PP22. Known Conditions in present pregnancy(Hypertension) ]" /></td>
+						<td colspan="3">3. Pre-labor rupture of membranes</td>
+						<td colspan="2"><input id="CGz50G2MY16-wXDjq0ttSDX-val" name="entryfield" title="017-PP23. Known Conditions in present pregnancy(Pre-labour rupture of membranes)" value="[ 017-PP23. Known Conditions in present pregnancy(Pre-labour rupture of membranes) ]" /></td>
+					</tr>
+					<tr>
+						<td>4. Diabetes</td>
+						<td><input id="CGz50G2MY16-S6o6VBlyOWf-val" name="entryfield" title="017-PP24. Known Conditions in present pregnancy(Diabetes)" value="[ 017-PP24. Known Conditions in present pregnancy(Diabetes) ]" /></td>
+						<td colspan="2">5.Anaemia</td>
+						<td colspan="3"><input id="CGz50G2MY16-ccwzYUHvWIT-val" name="entryfield" title="017-PP25. Known Conditions in present pregnancy(Anaemia)" value="[ 017-PP25. Known Conditions in present pregnancy(Anaemia) ]" /></td>
+						<td colspan="3">6.UTI</td>
+						<td colspan="2"><input id="CGz50G2MY16-mRZoapzYOlM-val" name="entryfield" title="017-PP26. Known Conditions in present pregnancy(UTI)" value="[ 017-PP26. Known Conditions in present pregnancy(UTI) ]" /></td>
+					</tr>
+					<tr>
+						<td>7. Malaria</td>
+						<td><input id="CGz50G2MY16-fdBg2KI2irO-val" name="entryfield" title="017-PP27. Known Conditions in present pregnancy(Malaria)" value="[ 017-PP27. Known Conditions in present pregnancy(Malaria) ]" /></td>
+						<td colspan="2">8.Trauma-accidental</td>
+						<td colspan="3"><input id="CGz50G2MY16-W3PCd6BTecX-val" name="entryfield" title="017-PP28. Known Conditions in present pregnancy(Trauma-accidental)" value="[ 017-PP28. Known Conditions in present pregnancy(Trauma-accidental) ]" /></td>
+						<td colspan="3">9.Gender based violence</td>
+						<td colspan="2"><input id="CGz50G2MY16-M9lvHItvuaq-val" name="entryfield" title="017-PP29. Known Conditions in present pregnancy(Gender based violence)" value="[ 017-PP29. Known Conditions in present pregnancy(Gender based violence) ]" /></td>
+					</tr>
+					<tr>
+						<td>10. Multiple pregnancy</td>
+						<td><input id="CGz50G2MY16-w4GmUG25zuQ-val" name="entryfield" title="017-PP30. Known Conditions in present pregnancy(Multiple pregnancy)" value="[ 017-PP30. Known Conditions in present pregnancy(Multiple pregnancy) ]" /></td>
+						<td colspan="2">11. Drugs/Medicines (specify)</td>
+						<td colspan="3"><input id="CGz50G2MY16-qa379ul9HX5-val" name="entryfield" title="017-PP31. Known Conditions in present pregnancy(Drugs/Medicines-Specify)" value="[ 017-PP31. Known Conditions in present pregnancy(Drugs/Medicines-Specify) ]" /></td>
+						<td colspan="3">12.Others specify</td>
+						<td colspan="2"><input id="CGz50G2MY16-ZrNVjAt6LW2-val" name="entryfield" title="017-PP32. Known Conditions in present pregnancy(Others)" value="[ 017-PP32. Known Conditions in present pregnancy(Others) ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="12">N.B.<i>If multiple pregnancy, indicate birth order of the newborn.&nbsp; Fill separate form for each perinatal death</i></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="9">SECTION THREE: Labour and Birth</td>
+					</tr>
+					<tr>
+						<td>3.1 Weeks of amenorrhea at delivery <b>&nbsp;</b></td>
+						<td colspan="2"><input id="CGz50G2MY16-m8jUvzBgYga-val" name="entryfield" title="017-LB01. Weeks of amenorrhea at delivery" value="[ 017-LB01. Weeks of amenorrhea at delivery ]" /></td>
+						<td>3.1.2. Date and time of delivery</td>
+						<td colspan="5" rowspan="1"><input id="CGz50G2MY16-RpkIvgOOZJt-val" name="entryfield" title="017-LB02. Date and time of delivery" value="[ 017-LB02. Date and time of delivery ]" /></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">&nbsp;</td>
+						<td>Date and Time of Death</td>
+						<td colspan="5" rowspan="1"><input id="CGz50G2MY16-Dq9aH0aZ2wb-val" name="entryfield" title="017-LB04. Date and time of Death" value="[ 017-LB04. Date and time of Death ]" /></td>
+					</tr>
+					<tr>
+						<td>3.2 Place of delivery</td>
+						<td colspan="3"><input id="CGz50G2MY16-LjrdbcFRI1d-val" name="entryfield" title="017-LB05. Place of delivery" value="[ 017-LB05. Place of delivery ]" /></td>
+						<td>3.2.1 If health facility specify name</td>
+						<td colspan="4"><input id="CGz50G2MY16-Boui663joOP-val" name="entryfield" title="017-LB06. If health facility specify name" value="[ 017-LB06. If health facility specify name ]" /></td>
+					</tr>
+					<tr>
+						<td>3.3 On admission, were there fetal heart sounds present</td>
+						<td colspan="3"><input id="CGz50G2MY16-t1udXNXQ5hc-val" name="entryfield" title="017-LB07. On admission, were there fetal heart sounds present?" value="[ 017-LB07. On admission, were there fetal heart sounds present? ]" /></td>
+						<td>3.4 Was partograph used?</td>
+						<td colspan="4"><input id="CGz50G2MY16-aLvTannWmvI-val" name="entryfield" title="017-LB08. Was partograph used?" value="[ 017-LB08. Was partograph used? ]" /></td>
+					</tr>
+					<tr>
+						<td>If &#39;Yes&#39; was partograph used correctly?</td>
+						<td colspan="3"><input id="CGz50G2MY16-o69aE6o8LfO-val" name="entryfield" title="017-LB09. If ‘Yes’ was partograph used correctly?" value="[ 017-LB09. If ‘Yes’ was partograph used correctly? ]" /></td>
+						<td>If No indicate the gap</td>
+						<td colspan="4"><input id="CGz50G2MY16-b9JlESs135J-val" name="entryfield" title="017-LB10. If No indicate the gap" value="[ 017-LB10. If No indicate the gap ]" /></td>
+					</tr>
+					<tr>
+						<td>3.5 Mode of Delivery:</td>
+						<td colspan="5"><input id="CGz50G2MY16-CQUQiCpk4um-val" name="entryfield" title="017-LB11. Mode of Delivery" value="[ 017-LB11. Mode of Delivery ]" /></td>
+						<td>4. Other mode, specify:</td>
+						<td colspan="3"><input id="CGz50G2MY16-NDzItgcGQhW-val" name="entryfield" title="017-LB12. Mode of Delivery (Others)" value="[ 017-LB12. Mode of Delivery (Others) ]" /></td>
+					</tr>
+					<tr>
+						<td>3.5.2 Indication for Instrumental /or Caesarean section:</td>
+						<td colspan="3"><input id="CGz50G2MY16-LxlVFKhBOT8-val" name="entryfield" title="017-LB13. Indication for Instrumental /or Caesarean section:" value="[ 017-LB13. Indication for Instrumental /or Caesarean section: ]" /></td>
+						<td>3.6 Time between decisions for Cesarean section /instrumental and actual delivery of the baby:</td>
+						<td colspan="4"><input id="CGz50G2MY16-eL4O6FOxzcr-val" name="entryfield" title="017-LB14. Time between decisions for Cesarean section /instrumental and actual delivery of the baby:" value="[ 017-LB14. Time between decisions for Cesarean section /instrumental and actual delivery of the baby: ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="5">3.6.1 Did vaginal delivery occur in spite of decision to do caesarean section?</td>
+						<td colspan="4"><input id="CGz50G2MY16-MRJAZcGBg14-val" name="entryfield" title="017-LB15. Did vaginal delivery occur in spite of decision to do caesarean section?" value="[ 017-LB15. Did vaginal delivery occur in spite of decision to do caesarean section? ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="9">3.7 Condition of the Baby</td>
+					</tr>
+					<tr>
+						<td>3.7.1 Apgar score</td>
+						<td>At 1 min</td>
+						<td><input id="CGz50G2MY16-RmrshOepF86-val" name="entryfield" title="017-LB16. Apgar score (1 min)" value="[ 017-LB16. Apgar score (1 min) ]" /></td>
+						<td>At 5min</td>
+						<td><input id="CGz50G2MY16-kOCe0LCjbVv-val" name="entryfield" title="017-LB17. Apgar score (5 min)" value="[ 017-LB17. Apgar score (5 min) ]" /></td>
+						<td>At 10 min</td>
+						<td><input id="CGz50G2MY16-pimd0GLDogv-val" name="entryfield" title="017-LB18. Apgar score (10 min)" value="[ 017-LB18. Apgar score (10 min) ]" /></td>
+						<td>Don&#39;t know</td>
+						<td><input id="CGz50G2MY16-Yis06rsFWQz-val" name="entryfield" title="017-LB19. Apgar score (Don't know)" value="[ 017-LB19. Apgar score (Don't know) ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="5">3.7.2 Resuscitation done:</td>
+						<td colspan="4"><input id="CGz50G2MY16-x7k2caL4psq-val" name="entryfield" title="017-LB20. Resuscitation done" value="[ 017-LB20. Resuscitation done ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="9">3.7.3 If &#39;Yes&#39; what was done?</td>
+					</tr>
+					<tr>
+						<td colspan="2">1. Stimulation</td>
+						<td><input id="CGz50G2MY16-mkQMb4ANZ1C-val" name="entryfield" title="017-LB22. Stimulation" value="[ 017-LB22. Stimulation ]" /></td>
+						<td>2.Suction</td>
+						<td><input id="CGz50G2MY16-x7fsCQzTP4G-val" name="entryfield" title="017-LB23. Suction" value="[ 017-LB23. Suction ]" /></td>
+						<td>3.Bag and mask</td>
+						<td><input id="CGz50G2MY16-HeOmzW0Bj8f-val" name="entryfield" title="017-LB24. Bag and Mask" value="[ 017-LB24. Bag and Mask ]" /></td>
+						<td>4. Oxygen given</td>
+						<td><input id="CGz50G2MY16-IELb95GgJhj-val" name="entryfield" title="017-LB25. Oxygen given" value="[ 017-LB25. Oxygen given ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">5. Endotracheal and Positive pressure ventilation&nbsp;&nbsp;</td>
+						<td><input id="CGz50G2MY16-YPDveEOR7Cz-val" name="entryfield" title="017-LB26. Endotracheal and Positive pressure ventilation" value="[ 017-LB26. Endotracheal and Positive pressure ventilation ]" /></td>
+						<td>6.CPR</td>
+						<td><input id="CGz50G2MY16-yCUx2f9ed7R-val" name="entryfield" title="017-LB27. CPR" value="[ 017-LB27. CPR ]" /></td>
+						<td>7. Medication</td>
+						<td><input id="CGz50G2MY16-CprvAYJIWNv-val" name="entryfield" title="017-LB28. Medication" value="[ 017-LB28. Medication ]" /></td>
+						<td>8.All</td>
+						<td><input id="CGz50G2MY16-QP3u2BU4E9p-val" name="entryfield" title="017-LB29. All" value="[ 017-LB29. All ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="9">3.7.4 Resuscitation done by</td>
+					</tr>
+					<tr>
+						<td colspan="2">1. Midwife</td>
+						<td><input id="CGz50G2MY16-q4YXJgj2sIZ-val" name="entryfield" title="017-LB31. Midwife" value="[ 017-LB31. Midwife ]" /></td>
+						<td colspan="2" rowspan="1">2.Nurse</td>
+						<td rowspan="1"><input id="CGz50G2MY16-LF6ukmshijY-val" name="entryfield" title="017-LB32. Nurse" value="[ 017-LB32. Nurse ]" /></td>
+						<td>3. Doctor</td>
+						<td colspan="2"><input id="CGz50G2MY16-PlzGmmIbpK5-val" name="entryfield" title="017-LB33. Doctor" value="[ 017-LB33. Doctor ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">4.Anesthetist</td>
+						<td><input id="CGz50G2MY16-bRddgcYH9Qn-val" name="entryfield" title="017-LB34. Anesthetist" value="[ 017-LB34. Anesthetist ]" /></td>
+						<td colspan="2">5.Trainee</td>
+						<td><input id="CGz50G2MY16-fv703VfWJli-val" name="entryfield" title="017-LB35. Trainee" value="[ 017-LB35. Trainee ]" /></td>
+						<td>6. Others (specify)</td>
+						<td colspan="2"><input id="CGz50G2MY16-J3VHBvaXyyb-val" name="entryfield" title="017-LB36. Others (specify):" value="[ 017-LB36. Others (specify): ]" /></td>
+					</tr>
+					<tr>
+						<td>3.7.5 Weight of the baby:</td>
+						<td colspan="3"><input id="CGz50G2MY16-bDWkcVeQLUc-val" name="entryfield" title="017-LB37. Weight of the baby" value="[ 017-LB37. Weight of the baby ]" /></td>
+						<td>3.7.6 Sex:&nbsp;</td>
+						<td colspan="4"><input id="CGz50G2MY16-ZBvxrMFv9aW-val" name="entryfield" title="017-LB38. Sex" value="[ 017-LB38. Sex ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="5"><span style="line-height:153%">3.8 Type of Perinatal Death</span></td>
+						<td colspan="4"><input id="CGz50G2MY16-TiPl1iLI30H-val" name="entryfield" title="017-LB39. Type of Perinatal Death" value="[ 017-LB39. Type of Perinatal Death ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="9">If neonatal death, reason for admission/diagnosis at admission (Tick all applicable)</td>
+					</tr>
+					<tr>
+						<td colspan="2">1. Difficult feeding (baby)</td>
+						<td><input id="CGz50G2MY16-qaJDxXfEWPv-val" name="entryfield" title="017-LB40. Reason for admission/ diagnosis at admission-Difficult feeding (baby)" value="[ 017-LB40. Reason for admission/ diagnosis at admission-Difficult feeding (baby) ]" /></td>
+						<td>2.Difficult breast feeding (mother)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td><input id="CGz50G2MY16-Rqn5P8xXXqp-val" name="entryfield" title="017-LB41. Reason for admission/ diagnosis at admission-Difficult breast feeding (mother)" value="[ 017-LB41. Reason for admission/ diagnosis at admission-Difficult breast feeding (mother) ]" /></td>
+						<td>3. Jaundice</td>
+						<td><input id="CGz50G2MY16-WlknV4Af2se-val" name="entryfield" title="017-LB42. Reason for admission/ diagnosis at admission-Jaundice" value="[ 017-LB42. Reason for admission/ diagnosis at admission-Jaundice ]" /></td>
+						<td>4. Anaemia</td>
+						<td><input id="CGz50G2MY16-cbCv995TsyQ-val" name="entryfield" title="017-LB43. Reason for admission/ diagnosis at admission-Anaemia" value="[ 017-LB43. Reason for admission/ diagnosis at admission-Anaemia ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">5. Difficult breathing</td>
+						<td><input id="CGz50G2MY16-OeL1eJ2tGsN-val" name="entryfield" title="017-LB44. Reason for admission/ diagnosis at admission-Difficult breathing" value="[ 017-LB44. Reason for admission/ diagnosis at admission-Difficult breathing ]" /></td>
+						<td>6. Hypoglycaemia&nbsp;</td>
+						<td><input id="CGz50G2MY16-prGljHyx851-val" name="entryfield" title="017-LB45. Reason for admission/ diagnosis at admission-Hypoglycaemia" value="[ 017-LB45. Reason for admission/ diagnosis at admission-Hypoglycaemia ]" /></td>
+						<td>7. Septicaemia</td>
+						<td><input id="CGz50G2MY16-XoWWbJlnMsi-val" name="entryfield" title="017-LB46. Reason for admission/ diagnosis at admission-Septicaemia" value="[ 017-LB46. Reason for admission/ diagnosis at admission-Septicaemia ]" /></td>
+						<td>8.Hypothermia&nbsp;</td>
+						<td><input id="CGz50G2MY16-T609w4wbcim-val" name="entryfield" title="017-LB47. Reason for admission/ diagnosis at admission-Hypothermia" value="[ 017-LB47. Reason for admission/ diagnosis at admission-Hypothermia ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">9. Bulging fontanelle&nbsp;&nbsp;</td>
+						<td><input id="CGz50G2MY16-YV5WasxuoTN-val" name="entryfield" title="017-LB48. Reason for admission/ diagnosis at admission-Bulging fontanelle" value="[ 017-LB48. Reason for admission/ diagnosis at admission-Bulging fontanelle ]" /></td>
+						<td>10. Fever&nbsp;</td>
+						<td><input id="CGz50G2MY16-M5zzpq6O4xU-val" name="entryfield" title="017-LB49. Reason for admission/ diagnosis at admission-Fever" value="[ 017-LB49. Reason for admission/ diagnosis at admission-Fever ]" /></td>
+						<td>11. Convulsions&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td><input id="CGz50G2MY16-Hq66gDflc5k-val" name="entryfield" title="017-LB50. Reason for admission/ diagnosis at admission-Convulsions" value="[ 017-LB50. Reason for admission/ diagnosis at admission-Convulsions ]" /></td>
+						<td>12. Bleeding</td>
+						<td><input id="CGz50G2MY16-vnKvRqyjngA-val" name="entryfield" title="017-LB51. Reason for admission/ diagnosis at admission-Bleeding" value="[ 017-LB51. Reason for admission/ diagnosis at admission-Bleeding ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="5">Other conditions specify:</td>
+						<td colspan="4"><input id="CGz50G2MY16-XZRrIoCTb3P-val" name="entryfield" title="017-LB52. Reason for admission/ diagnosis at admission-Other conditions" value="[ 017-LB52. Reason for admission/ diagnosis at admission-Other conditions ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-subhead">
+						<td colspan="6">3.9. Probable cause of death:&nbsp;<em>Tick all applicable</em>&nbsp;</td>
+					</tr>
+					<tr class="section-subhead">
+						<td>Code</td>
+						<td>Cause of death</td>
+						<td>&nbsp;</td>
+						<td>Code</td>
+						<td>Cause of death</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>A 33</td>
+						<td>Tetanus&nbsp;</td>
+						<td><input id="CGz50G2MY16-Q6HnSrUTl39-val" name="entryfield" title="017-LB56. A33 Probable cause of death(Tetanus)" value="[ 017-LB56. A33 Probable cause of death(Tetanus) ]" /></td>
+						<td>Q 80</td>
+						<td>Congenital Anomalies</td>
+						<td><input id="CGz50G2MY16-UaGg4B3DUac-val" name="entryfield" title="017-LB53. Q80 Probable cause of death(Congenital Anomalies)" value="[ 017-LB53. Q80 Probable cause of death(Congenital Anomalies) ]" /></td>
+					</tr>
+					<tr>
+						<td>P 36&nbsp;</td>
+						<td>Septicaemia</td>
+						<td><input id="CGz50G2MY16-jSaonaOE68O-val" name="entryfield" title="017-LB57. P36 Probable cause of death(Septicaemia)" value="[ 017-LB57. P36 Probable cause of death(Septicaemia) ]" /></td>
+						<td>&nbsp;</td>
+						<td>Other- specify</td>
+						<td><input id="CGz50G2MY16-xYenYvBElrk-val" name="entryfield" title="017-LB54. Q80 Probable cause of death(Others)" value="[ 017-LB54. Q80 Probable cause of death(Others) ]" /></td>
+					</tr>
+					<tr>
+						<td>P 15</td>
+						<td>Birth trauma</td>
+						<td><input id="CGz50G2MY16-xjeIBJ2XyPd-val" name="entryfield" title="017-LB58. P15 Probable cause of death(Birth trauma)" value="[ 017-LB58. P15 Probable cause of death(Birth trauma) ]" /></td>
+						<td>P 07</td>
+						<td>*Prematurity complications specify.</td>
+						<td><input id="CGz50G2MY16-H4iDsba7jkw-val" name="entryfield" title="017-LB60. P07 Probable cause of death(Prematurity complications)-Specify" value="[ 017-LB60. P07 Probable cause of death(Prematurity complications)-Specify ]" /></td>
+					</tr>
+					<tr>
+						<td>P 22</td>
+						<td>Birth Asphyxia</td>
+						<td><input id="CGz50G2MY16-apgGGC11v8Y-val" name="entryfield" title="017-LB59. P22 Probable cause of death(Birth Asphyxia)" value="[ 017-LB59. P22 Probable cause of death(Birth Asphyxia) ]" /></td>
+						<td>&nbsp;</td>
+						<td>Unknown</td>
+						<td><input id="CGz50G2MY16-Y5T6DMJiZPJ-val" name="entryfield" title="017-LB55. Q80 Probable cause of death(Unknown)" value="[ 017-LB55. Q80 Probable cause of death(Unknown) ]" /></td>
+					</tr>
+					<tr class="disable-table-row">
+						<td colspan="3">Form Linked</td>
+						<td colspan="3"><input id="CGz50G2MY16-ZkNDFfFSTYg-val" name="entryfield" title="HMIS_100_Linked" value="[ HMIS_100_Linked ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="6">
+						<p>*<i>Premature: Born after 28 weeks but before 37 weeks of gestation</i></p>
+
+						<p style="padding: 0"><button class="btn btn-primary primary button mccod-button" id="mcodbutton" onclick="gotomcod()" type="button">Edit From MCCOD</button></p>
+
+						<p>&nbsp;</p>
+						</td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr class="section-subhead">
+						<td>3.10 Avoidable factors/missed opportunities/substandard care. Which of the following factors were present (tick all appropriate)</td>
+					</tr>
+					<tr>
+						<td>1. Delay to seek health care</td>
+						<td><input id="CGz50G2MY16-hRprz4XEDrz-val" name="entryfield" title="017-LB61. Delay to seek health care  (Avoidable factors)" value="[ 017-LB61. Delay to seek health care  (Avoidable factors) ]" /></td>
+					</tr>
+					<tr>
+						<td>2. Delay to reach the health facility</td>
+						<td><input id="CGz50G2MY16-EV93HrESugB-val" name="entryfield" title="017-LB62. Delay to reach the health facility (Avoidable factors)" value="[ 017-LB62. Delay to reach the health facility (Avoidable factors) ]" /></td>
+					</tr>
+					<tr>
+						<td>3. Delay to provide care</td>
+						<td><input id="CGz50G2MY16-MFBT0aG5S6p-val" name="entryfield" title="017-LB63. Delay to provide care (Avoidable factors)" value="[ 017-LB63. Delay to provide care (Avoidable factors) ]" /></td>
+					</tr>
+					<tr>
+						<td>4. Absence of critical human resources</td>
+						<td><input id="CGz50G2MY16-SVPoIi25jCw-val" name="entryfield" title="017-LB64. Absence of critical human resources(Avoidable factors)" value="[ 017-LB64. Absence of critical human resources(Avoidable factors) ]" /></td>
+					</tr>
+					<tr>
+						<td>5. Lack of resuscitation equipment</td>
+						<td><input id="CGz50G2MY16-rLyf2TuYbn3-val" name="entryfield" title="017-LB65. Lack of resuscitation equipment(Avoidable factors)" value="[ 017-LB65. Lack of resuscitation equipment(Avoidable factors) ]" /></td>
+					</tr>
+					<tr>
+						<td>6. Lack of supplies and drugs including blood</td>
+						<td><input id="CGz50G2MY16-LfjWOPewHml-val" name="entryfield" title="017-LB66. Lack of supplies and drugs including blood(Avoidable factors)" value="[ 017-LB66. Lack of supplies and drugs including blood(Avoidable factors) ]" /></td>
+					</tr>
+					<tr>
+						<td>7. Misdiagnosis</td>
+						<td><input id="CGz50G2MY16-We0QqTPk1Oj-val" name="entryfield" title="017-LB67. Misdiagnosis(Avoidable factors)" value="[ 017-LB67. Misdiagnosis(Avoidable factors) ]" /></td>
+					</tr>
+					<tr>
+						<td>8. Inappropriate intervention</td>
+						<td><input id="CGz50G2MY16-sFrh6MH8xJ2-val" name="entryfield" title="017-LB68. Inappropriate intervention(Avoidable factors)" value="[ 017-LB68. Inappropriate intervention(Avoidable factors) ]" /></td>
+					</tr>
+					<tr>
+						<td>10. Others specify</td>
+						<td><input id="CGz50G2MY16-pRYm5u9S8Ag-val" name="entryfield" title="017-LB69. Others specify(Avoidable factors)" value="[ 017-LB69. Others specify(Avoidable factors) ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="9">
+						<p style="margin-top:0cm; margin-right:0cm; margin-bottom:5.4pt; margin-left:-.25pt"><b><i>Comments on avoidable factors and missed opportunities: </i></b></p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="9"><input id="CGz50G2MY16-BOUN3iTMTzU-val" name="entryfield" title="017-LB70. Comments on avoidable factors and missed opportunities" value="[ 017-LB70. Comments on avoidable factors and missed opportunities ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="9">
+						<p style="margin-left:-.25pt">Agreed upon Actions to address the avoidable factors</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="9"><input id="CGz50G2MY16-nAc07V7ZYUL-val" name="entryfield" title="017-LB71. Agreed upon Actions to address the avoidable factors" value="[ 017-LB71. Agreed upon Actions to address the avoidable factors ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<script>
+(function () {
+	function isSectionRow(node) {
+		return !!(node && node.querySelector && node.querySelector(".section-head"));
+	}
+
+	function collectTargets(head) {
+		var targets = [];
+
+		var headTable = head.closest("table");
+		if (headTable) {
+			var rows = Array.prototype.slice.call(
+				headTable.querySelectorAll("tr")
+			);
+			var idx = rows.indexOf(head);
+			for (var i = idx + 1; i < rows.length; i++) {
+				targets.push(rows[i]);
+			}
+
+			var outerCell = headTable.closest("td");
+			var outerRow = outerCell ? outerCell.closest("tr") : null;
+			if (outerRow) {
+				var sib = outerRow.nextElementSibling;
+				while (sib) {
+					if (isSectionRow(sib)) break;
+					targets.push(sib);
+					sib = sib.nextElementSibling;
+				}
+			}
+		}
+		return targets;
+	}
+
+	function setSection(head, collapsed) {
+		head.classList.toggle("collapsed", collapsed);
+		collectTargets(head).forEach(function (el) {
+			el.style.display = collapsed ? "none" : "";
+		});
+	}
+
+	function setAll(collapsed) {
+		document.querySelectorAll("tr.section-head").forEach(function (head) {
+			setSection(head, collapsed);
+		});
+	}
+
+	function addToolbar() {
+		if (document.getElementById("form17-toolbar")) return;
+
+		var anchor = document.querySelector(".dataentryform");
+		if (!anchor) return;
+
+		var mainTable = anchor.closest("table");
+		var climber = mainTable;
+		while (climber) {
+			mainTable = climber;
+			var parent = climber.parentElement;
+			climber = parent ? parent.closest("table") : null;
+		}
+		if (!mainTable || !mainTable.parentNode) return;
+
+		var bar = document.createElement("div");
+		bar.id = "form17-toolbar";
+		bar.className = "form-toolbar";
+
+		var title = document.createElement("span");
+		title.className = "toolbar-title";
+		title.textContent = "Perinatal Death Review \u2013 Form 017";
+		bar.appendChild(title);
+
+		var expandBtn = document.createElement("button");
+		expandBtn.type = "button";
+		expandBtn.className = "toolbar-btn";
+		expandBtn.textContent = "Expand all";
+		expandBtn.addEventListener("click", function () {
+			setAll(false);
+		});
+
+		var collapseBtn = document.createElement("button");
+		collapseBtn.type = "button";
+		collapseBtn.className = "toolbar-btn";
+		collapseBtn.textContent = "Collapse all";
+		collapseBtn.addEventListener("click", function () {
+			setAll(true);
+		});
+
+		bar.appendChild(expandBtn);
+		bar.appendChild(collapseBtn);
+		mainTable.parentNode.insertBefore(bar, mainTable);
+	}
+
+	function initAccordion() {
+		document.querySelectorAll("tr.section-head").forEach(function (head) {
+			if (head.dataset.accordionInit === "1") return;
+			head.dataset.accordionInit = "1";
+
+			var firstCell = head.querySelector("td");
+			if (firstCell && !firstCell.querySelector(".acc-caret")) {
+				var caret = document.createElement("span");
+				caret.className = "acc-caret";
+				caret.textContent = "\u25BE";
+				firstCell.insertBefore(caret, firstCell.firstChild);
+			}
+
+			head.addEventListener("click", function () {
+				setSection(head, !head.classList.contains("collapsed"));
+			});
+		});
+	}
+
+	function wrapTables() {
+		document.querySelectorAll(".dataentryform").forEach(function (tbl) {
+			var parent = tbl.parentNode;
+			if (
+				parent &&
+				parent.classList &&
+				parent.classList.contains("table-scroll")
+			) {
+				return;
+			}
+			var wrap = document.createElement("div");
+			wrap.className = "table-scroll";
+			parent.insertBefore(wrap, tbl);
+			wrap.appendChild(tbl);
+		});
+	}
+
+	function init() {
+		wrapTables();
+		initAccordion();
+		addToolbar();
+	}
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", init);
+	} else {
+		init();
+	}
+})();
+</script>

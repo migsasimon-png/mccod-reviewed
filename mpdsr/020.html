@@ -1,0 +1,2015 @@
+<style type="text/css">
+ :root {
+    --primary: #1f7a4d;
+    --primary-dark: #155c39;
+    --primary-soft: #e8f3ed;
+    --subhead-bg: #eef2f4;
+    --border: #d4dadd;
+    --border-strong: #b9c2c7;
+    --text: #1f2a30;
+    --muted: #5a6b73;
+    --row-hover: #f3f8f5;
+    --field-bg: #ffffff;
+    --field-focus: #1f7a4d;
+ }
+
+ body {
+    font-family: "Lato", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    font-size: 13.5px;
+    line-height: 1.45;
+    background-color: #f7f9fa;
+ }
+
+ /* ---------- Layout wrapper ---------- */
+ .dataentryform {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(31, 42, 48, 0.06);
+    margin-bottom: 4px;
+ }
+
+ .dataentryform td {
+    border: 1px solid var(--border);
+    padding: 7px 10px;
+    vertical-align: middle;
+ }
+
+ /* Labels (cells without inputs read as labels) */
+ .dataentryform td {
+    color: var(--text);
+ }
+
+ /* ---------- Section headers ---------- */
+ .section-head td {
+    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    padding: 10px 12px;
+    border-color: var(--primary-dark);
+ }
+
+ .section-head td i {
+    font-weight: 400;
+    opacity: 0.9;
+ }
+
+ /* ---------- Sub-section headers ---------- */
+ .section-subhead td {
+    background-color: var(--subhead-bg);
+    color: var(--primary-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    border-color: var(--border-strong);
+ }
+
+ /* ---------- Inputs / selects / textareas ---------- */
+ .dataentryform input,
+ .dataentryform select,
+ .dataentryform textarea,
+ input.entryfield {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    border: 1px solid var(--border-strong);
+    border-radius: 5px;
+    background-color: var(--field-bg);
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+ }
+
+ .dataentryform input:focus,
+ .dataentryform select:focus,
+ .dataentryform textarea:focus {
+    outline: none;
+    border-color: var(--field-focus);
+    box-shadow: 0 0 0 2px rgba(31, 122, 77, 0.18);
+ }
+
+ .Select-input {
+    padding-left: 0;
+    height: inherit;
+    width: 100% !important;
+    min-width: 80px;
+ }
+
+ .Select-input > input {
+    width: 100% !important;
+    border: none;
+    box-shadow: none;
+ }
+
+ /* ---------- Row hover ---------- */
+ .dataentryform tr:hover td {
+    background-color: var(--row-hover);
+ }
+
+ .section-head:hover td,
+ .section-subhead:hover td {
+    background-color: inherit;
+ }
+
+ /* ---------- Disabled rows ---------- */
+ .disable-table-row {
+    pointer-events: none;
+ }
+
+ .disable-table-row input,
+ .disable-table-row select,
+ .disable-table-row textarea {
+    pointer-events: none;
+    background-color: #f0f2f3;
+    color: var(--muted);
+ }
+
+ /* ---------- MCCOD button ---------- */
+ .mccod-button {
+    padding: 9px 22px;
+    font-weight: 600;
+    margin: 4px 0 8px;
+    background-color: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 1px 2px rgba(31, 42, 48, 0.15);
+ }
+
+ .mccod-button:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 2px 6px rgba(31, 42, 48, 0.25);
+ }
+
+ /* ---------- Collapsible sections (accordion) ---------- */
+ .section-head {
+    cursor: pointer;
+    user-select: none;
+ }
+
+ .section-head td {
+    transition: background 0.15s ease;
+ }
+
+ .section-head:hover td {
+    filter: brightness(1.08);
+ }
+
+ .acc-caret {
+    display: inline-block;
+    margin-right: 9px;
+    font-size: 11px;
+    line-height: 1;
+    transform: rotate(0deg);
+    transition: transform 0.18s ease;
+ }
+
+ .section-head.collapsed .acc-caret {
+    transform: rotate(-90deg);
+ }
+
+ /* ---------- Top toolbar (expand / collapse all) ---------- */
+ .form-toolbar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 10px;
+    padding: 8px 10px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(31, 42, 48, 0.06);
+ }
+
+ .form-toolbar .toolbar-title {
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-right: auto;
+    font-size: 13.5px;
+ }
+
+ .toolbar-btn {
+    padding: 6px 14px;
+    font-weight: 600;
+    font-size: 12.5px;
+    color: var(--primary-dark);
+    background: var(--primary-soft);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+ }
+
+ .toolbar-btn:hover {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+ }
+
+ /* ---------- Responsive ---------- */
+ @media (max-width: 820px) {
+    body {
+       font-size: 13px;
+    }
+
+    .dataentryform td {
+       padding: 6px 7px;
+       word-break: break-word;
+    }
+
+    .section-head td {
+       font-size: 13px;
+       padding: 9px 9px;
+    }
+
+    .dataentryform input,
+    .dataentryform select,
+    .dataentryform textarea {
+       font-size: 12.5px;
+       padding: 5px 6px;
+    }
+ }
+
+ @media (max-width: 560px) {
+    .form-toolbar .toolbar-title {
+       width: 100%;
+       margin-bottom: 4px;
+    }
+
+    .dataentryform td {
+       padding: 5px 5px;
+    }
+ }
+
+ /* ---------- Fit to DHIS2 capture screen (no horizontal overflow) ---------- */
+ html,
+ body {
+    max-width: 100%;
+    overflow-x: hidden;
+ }
+
+ /* Each section is wrapped in this scroll container so a wide table
+    scrolls inside its own card instead of pushing past the screen. */
+ .table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 4px;
+    border-radius: 8px;
+ }
+
+ .table-scroll .dataentryform {
+    margin-bottom: 0;
+ }
+
+ .dataentryform td {
+    overflow-wrap: break-word;
+    vertical-align: top;
+ }
+
+ /* Let the DHIS2 field widgets shrink to their cell instead of forcing width */
+ .dataentryform td input,
+ .dataentryform td select,
+ .dataentryform td textarea,
+ .dataentryform td > div {
+    max-width: 100%;
+    min-width: 0;
+ }
+
+ .form-toolbar {
+    max-width: 100%;
+    box-sizing: border-box;
+ }
+</style>
+<table width="100%">
+	<tbody>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr>
+						<td>Ministry of Health National Case Number</td>
+						<td><input id="YXed7PnLRco-ZKBE8Xm9DJG-val" name="entryfield" title="HMIS_100_  Ministry of Health National Case Number" value="[ HMIS_100_  Ministry of Health National Case Number ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="8">SECTION 2: DETAILS OF THE DECEASED:</td>
+					</tr>
+					<tr>
+						<td colspan="2">Initials:</td>
+						<td colspan="3"><input id="YXed7PnLRco-FIfoObQJvNp-val" name="entryfield" title="020-DD01.Intials" value="[ 020-DD01.Intials ]" /></td>
+						<td colspan="2">NIN</td>
+						<td><input id="YXed7PnLRco-CupbOInqvJI-val" name="entryfield" title="020-DD10.NIN" value="[ 020-DD10.NIN ]" /></td>
+					</tr>
+					<tr>
+						<td>Inpatient number:</td>
+						<td><input id="YXed7PnLRco-BRtcz4HV7Ak-val" name="entryfield" title="020-DD03.Inpatient number" value="[ 020-DD03.Inpatient number ]" /></td>
+						<td colspan="6">&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="2" rowspan="2">Usual Residence Address:</td>
+						<td>Village:</td>
+						<td><input id="YXed7PnLRco-hcu4LCAMSkz-val" name="entryfield" title="020-DD04.Usual Residence address (Village)" value="[ 020-DD04.Usual Residence address (Village) ]" /></td>
+						<td>Sub-county:</td>
+						<td colspan="3" rowspan="1"><input id="YXed7PnLRco-ioXkKfrgCJa-val" name="entryfield" title="020-DD05. Usual Residence address (Subcounty)" value="[ 020-DD05. Usual Residence address (Subcounty) ]" /></td>
+					</tr>
+					<tr>
+						<td>District</td>
+						<td colspan="5" rowspan="1"><input id="YXed7PnLRco-FHmHV9mElbD-val" name="entryfield" title="020-DD06. Usual Residence address (District)" value="[ 020-DD06. Usual Residence address (District) ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">Age in completed years:</td>
+						<td colspan="6"><input id="YXed7PnLRco-iJqBq0kQtWO-val" name="entryfield" title="020-DD07. Age in completed years" value="[ 020-DD07. Age in completed years ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">Marital status:</td>
+						<td colspan="6"><input id="YXed7PnLRco-eTVI19PiJmM-val" name="entryfield" title="020-DD08. Marital Status" value="[ 020-DD08. Marital Status ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">Religion:</td>
+						<td colspan="6"><input id="YXed7PnLRco-sd185WRKepb-val" name="entryfield" title="020-DD09. Religon" value="[ 020-DD09. Religon ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="9">SECTION 3: ADMISSION AT HEALTH FACILITY WHERE DEATH OCCURRED / WAS REPORTED</td>
+					</tr>
+					<tr>
+						<td>At time of admission:</td>
+						<td>i) Gravida</td>
+						<td><input id="YXed7PnLRco-wmNrbtFpcdy-val" name="entryfield" title="020-AD01. At time of admission (Gravita)" value="[ 020-AD01. At time of admission (Gravita) ]" /></td>
+						<td>Para</td>
+						<td><input id="YXed7PnLRco-ByIsCiqkq4v-val" name="entryfield" title="020-AD02a.  Para (Viable Gestational Age)" value="[ 020-AD02a.  Para (Viable Gestational Age) ]" /></td>
+						<td>+</td>
+						<td><input id="YXed7PnLRco-vORgqb7tQBu-val" name="entryfield" title="020-AD02b.  Para (Abortus)" value="[ 020-AD02b.  Para (Abortus) ]" /></td>
+						<td>ii) Gestation in weeks</td>
+						<td><input id="YXed7PnLRco-jdxl2rdeDEk-val" name="entryfield" title="020-AD03. At time of admission(Gestation in weeks)" value="[ 020-AD03. At time of admission(Gestation in weeks) ]" /></td>
+					</tr>
+					<tr>
+						<td>Date and time of admission:</td>
+						<td colspan="8"><input id="YXed7PnLRco-c5kDr80smH8-val" name="entryfield" title="020-AD05. Date and time of admission" value="[ 020-AD05. Date and time of admission ]" /></td>
+					</tr>
+					<tr>
+						<td>Date and time of death:</td>
+						<td colspan="8"><input id="YXed7PnLRco-WzauwhVOwM0-val" name="entryfield" title="020-AD06. Date and time of death" value="[ 020-AD06. Date and time of death ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">Duration of stay in facility before death:</td>
+						<td>Days</td>
+						<td><input id="YXed7PnLRco-IH7NTNcSZYk-val" name="entryfield" title="020-AD07a. Duration of stay in facility before death (days)" value="[ 020-AD07a. Duration of stay in facility before death (days) ]" /></td>
+						<td>Hours</td>
+						<td><input id="YXed7PnLRco-ww21ycTPDb6-val" name="entryfield" title="020-AD07b. Duration of stay in facility before death (hours)" value="[ 020-AD07b. Duration of stay in facility before death (hours) ]" /></td>
+						<td colspan="2">Minutes</td>
+						<td colspan="2"><input id="YXed7PnLRco-BJXbwUs4tGF-val" name="entryfield" title="020-AD07c. Duration of stay in facility before death (minutes)" value="[ 020-AD07c. Duration of stay in facility before death (minutes) ]" /></td>
+					</tr>
+					<tr>
+						<td>Referred:</td>
+						<td colspan="8"><input id="YXed7PnLRco-iAgu1y93XAB-val" name="entryfield" title="020-AD08. Referred" value="[ 020-AD08. Referred ]" /></td>
+					</tr>
+					<tr>
+						<td>If yes from:</td>
+						<td colspan="8"><input id="YXed7PnLRco-eJwpqR9t7YM-val" name="entryfield" title="020-AD09. Referred from" value="[ 020-AD09. Referred from ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-subhead">
+						<td colspan="5">Condition on admission</td>
+					</tr>
+					<tr class="section-subhead">
+						<td>&nbsp;</td>
+						<td>Category</td>
+						<td>Abnormal vital signs</td>
+						<td>Unconscious</td>
+						<td>Dead on arrival</td>
+					</tr>
+					<tr>
+						<td>1.</td>
+						<td>Abortion</td>
+						<td><input id="YXed7PnLRco-GropdEXdkL0-val" name="entryfield" title="020-AD10b. Condition on admission-Abortion(Abnormal vital signs)" value="[ 020-AD10b. Condition on admission-Abortion(Abnormal vital signs) ]" /></td>
+						<td><input id="YXed7PnLRco-QkwqwhwVBSx-val" name="entryfield" title="020-AD10c. Condition on admission-Abortion(Unconcious)" value="[ 020-AD10c. Condition on admission-Abortion(Unconcious) ]" /></td>
+						<td><input id="YXed7PnLRco-PkkDS8oCueZ-val" name="entryfield" title="020-AD10d. Condition on admission-Abortion(Dead on arrival)" value="[ 020-AD10d. Condition on admission-Abortion(Dead on arrival) ]" /></td>
+					</tr>
+					<tr>
+						<td>2.&nbsp;</td>
+						<td>Ectopic Pregnancy</td>
+						<td><input id="YXed7PnLRco-f0L5gbFIYgN-val" name="entryfield" title="020-AD11b. Condition on admission-Ectopic Pregenancy(Abnormal vital signs)" value="[ 020-AD11b. Condition on admission-Ectopic Pregenancy(Abnormal vital signs) ]" /></td>
+						<td><input id="YXed7PnLRco-m9XP3U3zhGs-val" name="entryfield" title="020-AD11c. Condition on admission-Ectopic Pregenancy(Unconcious)" value="[ 020-AD11c. Condition on admission-Ectopic Pregenancy(Unconcious) ]" /></td>
+						<td><input id="YXed7PnLRco-JrphiR5eL7e-val" name="entryfield" title="020-AD11d. Condition on admission-Ectopic Pregenancy(Dead on arrival)" value="[ 020-AD11d. Condition on admission-Ectopic Pregenancy(Dead on arrival) ]" /></td>
+					</tr>
+					<tr>
+						<td>3.</td>
+						<td>Antenatal</td>
+						<td><input id="YXed7PnLRco-ezA6qoeiMaY-val" name="entryfield" title="020-AD12b. Condition on admission-Antental(Abnormal vital signs)" value="[ 020-AD12b. Condition on admission-Antental(Abnormal vital signs) ]" /></td>
+						<td><input id="YXed7PnLRco-dzhuimTFxAp-val" name="entryfield" title="020-AD12c. Condition on admission-Antental(Unconcious)" value="[ 020-AD12c. Condition on admission-Antental(Unconcious) ]" /></td>
+						<td><input id="YXed7PnLRco-UktXJadJhId-val" name="entryfield" title="020-AD12d. Condition on admission-Antental(Dead on arrival)" value="[ 020-AD12d. Condition on admission-Antental(Dead on arrival) ]" /></td>
+					</tr>
+					<tr>
+						<td>4.&nbsp;</td>
+						<td>Intrapartum</td>
+						<td><input id="YXed7PnLRco-LI8e6zZG0A4-val" name="entryfield" title="020-AD13b. Condition on admission-Intrapartum(Abnormal vital signs)" value="[ 020-AD13b. Condition on admission-Intrapartum(Abnormal vital signs) ]" /></td>
+						<td><input id="YXed7PnLRco-lOEl43oH1YS-val" name="entryfield" title="020-AD13c. Condition on admission-Intrapartum(Unconcious)" value="[ 020-AD13c. Condition on admission-Intrapartum(Unconcious) ]" /></td>
+						<td><input id="YXed7PnLRco-Wkx3fzsB2dd-val" name="entryfield" title="020-AD13d. Condition on admission-Intrapartum(Dead on arrival)" value="[ 020-AD13d. Condition on admission-Intrapartum(Dead on arrival) ]" /></td>
+					</tr>
+					<tr>
+						<td>5.</td>
+						<td>Postpartum</td>
+						<td><input id="YXed7PnLRco-HN4IkP51eko-val" name="entryfield" title="020-AD14b. Condition on admission-Postpartum(Abnormal vital signs)" value="[ 020-AD14b. Condition on admission-Postpartum(Abnormal vital signs) ]" /></td>
+						<td><input id="YXed7PnLRco-iUSa5C2APFN-val" name="entryfield" title="020-AD14c. Condition on admission-Postpartum(Unconcious)" value="[ 020-AD14c. Condition on admission-Postpartum(Unconcious) ]" /></td>
+						<td><input id="YXed7PnLRco-Agzf9GaJ6G2-val" name="entryfield" title="020-AD14d. Condition on admission-Postpartum(Dead on arrival)" value="[ 020-AD14d. Condition on admission-Postpartum(Dead on arrival) ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-subhead">
+						<td colspan="9">Vital signs recorded on admission</td>
+					</tr>
+					<tr>
+						<td>Blood Pressure</td>
+						<td colspan="3"><input id="YXed7PnLRco-Rrs7OQx1yMS-val" name="entryfield" title="020-AD16. Vital signs recorded on admission (Blood pressure)" value="[ 020-AD16. Vital signs recorded on admission (Blood pressure) ]" /></td>
+						<td colspan="2">Blood pressure reading (mmHg)</td>
+						<td colspan="2"><input id="YXed7PnLRco-ejbJJ1gTnQb-val" name="entryfield" title="020-AD17a. Vital signs recorded on admission (Blood pressure reading systolic)" value="[ 020-AD17a. Vital signs recorded on admission (Blood pressure reading systolic) ]" /></td>
+						<td><input id="YXed7PnLRco-Hn09AcoW4Mk-val" name="entryfield" title="020-AD17b. Vital signs recorded on admission (Blood pressure reading diastolic)" value="[ 020-AD17b. Vital signs recorded on admission (Blood pressure reading diastolic) ]" /></td>
+					</tr>
+					<tr>
+						<td>Temperature</td>
+						<td colspan="3"><input id="YXed7PnLRco-rn8cGimwQ3a-val" name="entryfield" title="020-AD18. Vital signs recorded on admission (Temperature)" value="[ 020-AD18. Vital signs recorded on admission (Temperature) ]" /></td>
+						<td colspan="4">Temperature reading (Centigrade / celcius)</td>
+						<td><input id="YXed7PnLRco-c8hsSJy63ay-val" name="entryfield" title="020-AD19. Vital signs recorded on admission (Temperature reading)" value="[ 020-AD19. Vital signs recorded on admission (Temperature reading) ]" /></td>
+					</tr>
+					<tr>
+						<td>Respiration</td>
+						<td colspan="3"><input id="YXed7PnLRco-OWhIguUYA66-val" name="entryfield" title="020-AD20. Vital signs recorded on admission (Respiration)" value="[ 020-AD20. Vital signs recorded on admission (Respiration) ]" /></td>
+						<td colspan="4">Respiration reading (BpM)</td>
+						<td><input id="YXed7PnLRco-MDXum0oNBQb-val" name="entryfield" title="020-AD21. Vital signs recorded on admission (Respiration reading)" value="[ 020-AD21. Vital signs recorded on admission (Respiration reading) ]" /></td>
+					</tr>
+					<tr>
+						<td>Level of consciousness</td>
+						<td colspan="8"><input id="YXed7PnLRco-W7EN3QVTdMD-val" name="entryfield" title="020-AD22 Vital signs recorded on admission (Level of consciousness)" value="[ 020-AD22 Vital signs recorded on admission (Level of consciousness) ]" /></td>
+					</tr>
+					<tr>
+						<td>Reason for admission and complaints on admission:</td>
+						<td colspan="8"><input id="YXed7PnLRco-lSthTlIFbEh-val" name="entryfield" title="020-AD23. Reasons for admission/complaints on admission" value="[ 020-AD23. Reasons for admission/complaints on admission ]" /></td>
+					</tr>
+					<tr>
+						<td>Diagnosis of admission:</td>
+						<td colspan="8"><input id="YXed7PnLRco-ocMXxDCF6DF-val" name="entryfield" title="020-AD24. Diagnosis on admission" value="[ 020-AD24. Diagnosis on admission ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="5">SECTION 4: ANTENATAL CARE</td>
+					</tr>
+					<tr>
+						<td>Did the mother book for antenatal care?&nbsp; /receive antenatal care?</td>
+						<td colspan="4"><input id="YXed7PnLRco-QidQVyBFspW-val" name="entryfield" title="020-AC01. Did the mother book for antenatal care/receive antenatal care?" value="[ 020-AC01. Did the mother book for antenatal care/receive antenatal care? ]" /></td>
+					</tr>
+					<tr>
+						<td>If Yes, How many times did she attend?</td>
+						<td colspan="4"><input id="YXed7PnLRco-hZlRNVrmS1y-val" name="entryfield" title="020-AC02. If “Yes”,How many times did she attend?" value="[ 020-AC02. If “Yes”,How many times did she attend? ]" /></td>
+					</tr>
+					<tr>
+						<td>Type of health facility where she attended ANC?</td>
+						<td colspan="4"><input id="YXed7PnLRco-a5fh4wtDzmi-val" name="entryfield" title="020-AC03. Type of health facility where she attended ANC" value="[ 020-AC03. Type of health facility where she attended ANC ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-subhead">
+						<td colspan="5">Antenatal risk factors</td>
+					</tr>
+					<tr>
+						<td>Risk History</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>Hypertension</td>
+						<td><input id="YXed7PnLRco-y0B7fm7rguE-val" name="entryfield" title="020.AC04. Antenatal risk factors(Hypertension)" value="[ 020.AC04. Antenatal risk factors(Hypertension) ]" /></td>
+					</tr>
+					<tr>
+						<td>Bleeding</td>
+						<td><input id="YXed7PnLRco-kRQ3g914TCz-val" name="entryfield" title="020.AC05. Antenatal risk factors(Bleeding)" value="[ 020.AC05. Antenatal risk factors(Bleeding) ]" /></td>
+					</tr>
+					<tr>
+						<td>Proteinuria</td>
+						<td><input id="YXed7PnLRco-TxyHEYfHKrF-val" name="entryfield" title="020.AC06. Antenatal risk factors(Proteinuria)" value="[ 020.AC06. Antenatal risk factors(Proteinuria) ]" /></td>
+					</tr>
+					<tr>
+						<td>Glycosuria</td>
+						<td><input id="YXed7PnLRco-Hg1Jyk0pakg-val" name="entryfield" title="020.AC07. Antenatal risk factors(Glycosuria)" value="[ 020.AC07. Antenatal risk factors(Glycosuria) ]" /></td>
+					</tr>
+					<tr>
+						<td>Anaemia</td>
+						<td><input id="YXed7PnLRco-kUecSo0kdJ3-val" name="entryfield" title="020.AC08. Antenatal risk factors(Anaemia)" value="[ 020.AC08. Antenatal risk factors(Anaemia) ]" /></td>
+					</tr>
+					<tr>
+						<td>Abnormal lie</td>
+						<td><input id="YXed7PnLRco-wwmxSrEknn8-val" name="entryfield" title="020.AC09. Antenatal risk factors(Abnormal lie)" value="[ 020.AC09. Antenatal risk factors(Abnormal lie) ]" /></td>
+					</tr>
+					<tr>
+						<td>Previous Caesarean section</td>
+						<td><input id="YXed7PnLRco-byW52kaC6pR-val" name="entryfield" title="020.AC10. Antenatal risk factors(Previous Caesarean section)" value="[ 020.AC10. Antenatal risk factors(Previous Caesarean section) ]" /></td>
+					</tr>
+					<tr>
+						<td>Fever</td>
+						<td><input id="YXed7PnLRco-W2Dxjt6PxN5-val" name="entryfield" title="020.AC011. Antenatal risk factors(Fever)" value="[ 020.AC011. Antenatal risk factors(Fever) ]" /></td>
+					</tr>
+					<tr>
+						<td>Other, specify</td>
+						<td><input id="YXed7PnLRco-nw15Ko1SKnq-val" name="entryfield" title="020-AC12. Others specify)" value="[ 020-AC12. Others specify) ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr>
+						<td colspan="1" rowspan="3">Medication received during ANC</td>
+						<td>IPT</td>
+						<td><input id="YXed7PnLRco-fA4uVOOV7Gl-val" name="entryfield" title="020-AC13. Medication received during ANC(IPT)" value="[ 020-AC13. Medication received during ANC(IPT) ]" /></td>
+						<td>Tetanus diphtheria</td>
+						<td><input id="YXed7PnLRco-yajntikIgCk-val" name="entryfield" title="020-AC14.Medication received during ANC(Tetanus diphtheria(Td)" value="[ 020-AC14.Medication received during ANC(Tetanus diphtheria(Td) ]" /></td>
+					</tr>
+					<tr>
+						<td>Ferrous</td>
+						<td><input id="YXed7PnLRco-HwJeCYbUnDL-val" name="entryfield" title="020-AC15.Medication received during ANC(Ferrous)" value="[ 020-AC15.Medication received during ANC(Ferrous) ]" /></td>
+						<td>De-wormers</td>
+						<td><input id="YXed7PnLRco-Us9t4jzNMSd-val" name="entryfield" title="020-AC16.Medication received during ANC(De- wormers)" value="[ 020-AC16.Medication received during ANC(De- wormers) ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">Other (Specify)</td>
+						<td colspan="2"><input id="YXed7PnLRco-BxBqvKhoJvj-val" name="entryfield" title="020-AC17.Medication received during ANC.Other specify" value="[ 020-AC17.Medication received during ANC.Other specify ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="5" style="text-align: center">Investigations done during ANC</td>
+					</tr>
+					<tr>
+						<td>HIV test during present pregnancy</td>
+						<td colspan="4"><input id="YXed7PnLRco-vVP5ClqKkHQ-val" name="entryfield" title="020-AC19.HIV test during present pregnancy" value="[ 020-AC19.HIV test during present pregnancy ]" /></td>
+					</tr>
+					<tr>
+						<td>HIV test results</td>
+						<td colspan="4"><input id="YXed7PnLRco-oz0vASbQvq5-val" name="entryfield" title="020-AC20.HIV test results" value="[ 020-AC20.HIV test results ]" /></td>
+					</tr>
+					<tr>
+						<td>If HIV positive, is she enrolled on care?</td>
+						<td colspan="4"><input id="YXed7PnLRco-IACcLw1GbkR-val" name="entryfield" title="020-AC21.If HIV positive; Is she enrolled on care ?" value="[ 020-AC21.If HIV positive; Is she enrolled on care ? ]" /></td>
+					</tr>
+					<tr>
+						<td>If HIV positive, CD4 count</td>
+						<td colspan="4"><input id="YXed7PnLRco-OJVwBSHC4b0-val" name="entryfield" title="020-AC22.If HIV Positive, CD4 count" value="[ 020-AC22.If HIV Positive, CD4 count ]" /></td>
+					</tr>
+					<tr>
+						<td>Syphilis test during pregnancy</td>
+						<td colspan="4"><input id="YXed7PnLRco-x4luCocBY5h-val" name="entryfield" title="020-AC23.Syphilis test during pregnancy" value="[ 020-AC23.Syphilis test during pregnancy ]" /></td>
+					</tr>
+					<tr>
+						<td>Syphilis test results</td>
+						<td colspan="4"><input id="YXed7PnLRco-z8bU25JRAGG-val" name="entryfield" title="020-AC24.Syphilis test results" value="[ 020-AC24.Syphilis test results ]" /></td>
+					</tr>
+					<tr>
+						<td>HB level</td>
+						<td colspan="4"><input id="YXed7PnLRco-T3QwXHphTIu-val" name="entryfield" title="020-AC25.Hb Level 1" value="[ 020-AC25.Hb Level 1 ]" /></td>
+					</tr>
+					<tr>
+						<td>Hepatitis B status</td>
+						<td colspan="4"><input id="YXed7PnLRco-QPw7nHXJqe9-val" name="entryfield" title="020-AC26.Hepatitis B-Status1" value="[ 020-AC26.Hepatitis B-Status1 ]" /></td>
+					</tr>
+					<tr>
+						<td>Urinalysis - Protein/Sugar/Casts</td>
+						<td colspan="4"><input id="YXed7PnLRco-c6gVPQ5rTOo-val" name="entryfield" title="020-AC27.Urinalysis–Protein/Sugar/casts" value="[ 020-AC27.Urinalysis–Protein/Sugar/casts ]" /></td>
+					</tr>
+					<tr>
+						<td>Others</td>
+						<td colspan="4"><input id="YXed7PnLRco-fuRsZ7wn5Q5-val" name="entryfield" title="020-AC28.Others" value="[ 020-AC28.Others ]" /></td>
+					</tr>
+					<tr>
+						<td>Comment on investigations done</td>
+						<td colspan="4"><input id="YXed7PnLRco-cqVj2lrYx2W-val" name="entryfield" title="020-AC29.Comment on investigations done" value="[ 020-AC29.Comment on investigations done ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="2">SECTION 5: DELIVERY AND PUERPERIUM INFORMATION</td>
+					</tr>
+					<tr>
+						<td>Did labor occur?</td>
+						<td><input id="YXed7PnLRco-J11gxMDNvv7-val" name="entryfield" title="020-DP01. Did labour occur" value="[ 020-DP01. Did labour occur ]" /></td>
+					</tr>
+					<tr>
+						<td>Was a partogram filled?</td>
+						<td><input id="YXed7PnLRco-E0OEw6yVcJm-val" name="entryfield" title="020-DP02. Was a partogram filled" value="[ 020-DP02. Was a partogram filled ]" /></td>
+					</tr>
+					<tr>
+						<td>If Yes, was a partogram correctly used?</td>
+						<td><input id="YXed7PnLRco-v9BgVEytqsi-val" name="entryfield" title="020-DP03. Partogram correctly used" value="[ 020-DP03. Partogram correctly used ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-subhead">
+						<td colspan="2">Duration of labour <i>(enter appropriate code below)</i></td>
+					</tr>
+					<tr>
+						<td>Latent Stage</td>
+						<td><input id="YXed7PnLRco-NKKunKgeJiD-val" name="entryfield" title="020-DP04. Duration of labour (latent)" value="[ 020-DP04. Duration of labour (latent) ]" /></td>
+					</tr>
+					<tr>
+						<td>Active Labor</td>
+						<td><input id="YXed7PnLRco-pVGyUKsZywW-val" name="entryfield" title="020-DP05. Duration of labour (Active labour)" value="[ 020-DP05. Duration of labour (Active labour) ]" /></td>
+					</tr>
+					<tr>
+						<td>Second stage</td>
+						<td><input id="YXed7PnLRco-tkiEm0lt9cV-val" name="entryfield" title="020-DP06. Duration of labour (Second)" value="[ 020-DP06. Duration of labour (Second) ]" /></td>
+					</tr>
+					<tr>
+						<td>Third stage</td>
+						<td><input id="YXed7PnLRco-HJhEdW3YNL3-val" name="entryfield" title="020-DP07. Duration of labour (Third)" value="[ 020-DP07. Duration of labour (Third) ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr>
+						<td>Did delivery take place?</td>
+						<td><input id="YXed7PnLRco-PbayNOhXnyx-val" name="entryfield" title="020-DP08. Did delivery take place" value="[ 020-DP08. Did delivery take place ]" /></td>
+					</tr>
+					<tr>
+						<td>No of days after&nbsp; delivery/ abortion (<i>if not applicable enter 99</i>)</td>
+						<td><input id="YXed7PnLRco-LFYN9XzE4cB-val" name="entryfield" title="020-DP09. No of days after delivery/abortion" value="[ 020-DP09. No of days after delivery/abortion ]" /></td>
+					</tr>
+					<tr>
+						<td>Place of delivery</td>
+						<td><input id="YXed7PnLRco-AqXDMjrPUEE-val" name="entryfield" title="020-DP10. Place of delivery" value="[ 020-DP10. Place of delivery ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-subhead">
+						<td colspan="2">Mode of delivery</td>
+					</tr>
+					<tr>
+						<td>Vaginal (spontaneous vertex)</td>
+						<td><input id="YXed7PnLRco-TKWaMxLDj7J-val" name="entryfield" title="020-DP11. Mode of delivery (viginal)" value="[ 020-DP11. Mode of delivery (viginal) ]" /></td>
+					</tr>
+					<tr>
+						<td>Vaginal (breech)</td>
+						<td><input id="YXed7PnLRco-kHdz10PWtjp-val" name="entryfield" title="020-DP12. Mode of delivery (Vaginal breech)" value="[ 020-DP12. Mode of delivery (Vaginal breech) ]" /></td>
+					</tr>
+					<tr>
+						<td>Instrumental vaginal - vacuum</td>
+						<td><input id="YXed7PnLRco-brmlMKiNrZt-val" name="entryfield" title="020-DP13. Mode of delivery (Instrumental vaginal vaccum)" value="[ 020-DP13. Mode of delivery (Instrumental vaginal vaccum) ]" /></td>
+					</tr>
+					<tr>
+						<td>Instrumental vaginal - forceps</td>
+						<td><input id="YXed7PnLRco-On3EvqCavl1-val" name="entryfield" title="020-DP14. Mode of delivery (Instrumental vaginal forcepts)" value="[ 020-DP14. Mode of delivery (Instrumental vaginal forcepts) ]" /></td>
+					</tr>
+					<tr>
+						<td>Caesarean section - Emergency</td>
+						<td><input id="YXed7PnLRco-NAnhGvDjMRF-val" name="entryfield" title="020-DP15. Mode of delivery (Caesarean section emergency)" value="[ 020-DP15. Mode of delivery (Caesarean section emergency) ]" /></td>
+					</tr>
+					<tr>
+						<td>Caesarean section - Elective</td>
+						<td><input id="YXed7PnLRco-sju2IsSkUZG-val" name="entryfield" title="020-DP16. Mode of delivery (Caesarean section elective)" value="[ 020-DP16. Mode of delivery (Caesarean section elective) ]" /></td>
+					</tr>
+					<tr>
+						<td>Destructive operations</td>
+						<td><input id="YXed7PnLRco-Wy8zkenyVr4-val" name="entryfield" title="020-DP17. Mode of delivery (Destructive operations)" value="[ 020-DP17. Mode of delivery (Destructive operations) ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-subhead">
+						<td colspan="2">Main Assistant at delivery</td>
+					</tr>
+					<tr>
+						<td>Doctor</td>
+						<td><input id="YXed7PnLRco-OP5Jr95bkkW-val" name="entryfield" title="020-DP18. Main assistant at delivery (Doctor)" value="[ 020-DP18. Main assistant at delivery (Doctor) ]" /></td>
+					</tr>
+					<tr>
+						<td>Midwife</td>
+						<td><input id="YXed7PnLRco-BLbGQB5NTX1-val" name="entryfield" title="020-DP19. Main assistant at delivery (Midwife)" value="[ 020-DP19. Main assistant at delivery (Midwife) ]" /></td>
+					</tr>
+					<tr>
+						<td>Nursing assistant</td>
+						<td><input id="YXed7PnLRco-ZMq8DHxtwCP-val" name="entryfield" title="020-DP20. Main assistant at delivery (Nursing assistant)" value="[ 020-DP20. Main assistant at delivery (Nursing assistant) ]" /></td>
+					</tr>
+					<tr>
+						<td>TBA</td>
+						<td><input id="YXed7PnLRco-OdQkbYCACsT-val" name="entryfield" title="020-DP21. Main assistant at delivery (TBA)" value="[ 020-DP21. Main assistant at delivery (TBA) ]" /></td>
+					</tr>
+					<tr>
+						<td>Member of the family</td>
+						<td><input id="YXed7PnLRco-ZOZFaanQLAD-val" name="entryfield" title="020-DP22. Main assistant at delivery (Member of the family)" value="[ 020-DP22. Main assistant at delivery (Member of the family) ]" /></td>
+					</tr>
+					<tr>
+						<td>Self</td>
+						<td><input id="YXed7PnLRco-YHBzpuYWQg1-val" name="entryfield" title="020-DP23. Main assistant at delivery (Self)" value="[ 020-DP23. Main assistant at delivery (Self) ]" /></td>
+					</tr>
+					<tr>
+						<td>Other, specify</td>
+						<td><input id="YXed7PnLRco-STVD72fHWYK-val" name="entryfield" title="020-DP24. Main assistant at delivery (Other)" value="[ 020-DP24. Main assistant at delivery (Other) ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr>
+						<td>Outcome of pregnancy</td>
+						<td><input id="YXed7PnLRco-aCzqBYUkfDe-val" name="entryfield" title="020-DP27.Outcome of pregnancy" value="[ 020-DP27.Outcome of pregnancy ]" /></td>
+					</tr>
+					<tr>
+						<td>If delivered, baby&#39;s weight in grams</td>
+						<td><input id="YXed7PnLRco-XW2CKaAiMKc-val" name="entryfield" title="020-DP25. Baby weight in grams" value="[ 020-DP25. Baby weight in grams ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-subhead">
+						<td colspan="2">Obstetrical complications</td>
+					</tr>
+					<tr>
+						<td>APH</td>
+						<td><input id="YXed7PnLRco-LA1WtCaWi2M-val" name="entryfield" title="020-DP26a. Obstetrical complications (APH)" value="[ 020-DP26a. Obstetrical complications (APH) ]" /></td>
+					</tr>
+					<tr>
+						<td>PPH</td>
+						<td><input id="YXed7PnLRco-owuXac0M85O-val" name="entryfield" title="020-DP26b. Obstetrical complications (PPH)" value="[ 020-DP26b. Obstetrical complications (PPH) ]" /></td>
+					</tr>
+					<tr>
+						<td>Sepsis</td>
+						<td><input id="YXed7PnLRco-A1eKHTfGYfT-val" name="entryfield" title="020-DP26c. Obstetrical complications (Sepsis)" value="[ 020-DP26c. Obstetrical complications (Sepsis) ]" /></td>
+					</tr>
+					<tr>
+						<td>Eclampsia</td>
+						<td><input id="YXed7PnLRco-Yj5FTl1DukQ-val" name="entryfield" title="020-DP26d. Obstetrical complications (Eclampsia)" value="[ 020-DP26d. Obstetrical complications (Eclampsia) ]" /></td>
+					</tr>
+					<tr>
+						<td>Ruptured uterus</td>
+						<td><input id="YXed7PnLRco-brdup6zLcEo-val" name="entryfield" title="020-DP26e.Obstetrical complication-Ruptured uterus" value="[ 020-DP26e.Obstetrical complication-Ruptured uterus ]" /></td>
+					</tr>
+					<tr>
+						<td>Shock/sudden collapse</td>
+						<td><input id="YXed7PnLRco-Xo0I6fvmmha-val" name="entryfield" title="020-DP26f.Obs complications-Shock/sudden colapse" value="[ 020-DP26f.Obs complications-Shock/sudden colapse ]" /></td>
+					</tr>
+					<tr>
+						<td>Other, specify</td>
+						<td><input id="YXed7PnLRco-ezUwUwLOWDO-val" name="entryfield" title="020-DP26g. Obstetrical complications - Other" value="[ 020-DP26g. Obstetrical complications - Other ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="6">SECTION 6: INTERVENTIONS</td>
+					</tr>
+					<tr class="section-subhead">
+						<td>&nbsp;</td>
+						<td>Intervention</td>
+						<td colspan="4" rowspan="1">Stage of pregnancy</td>
+					</tr>
+					<tr class="section-subhead">
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>Early pregnancy</td>
+						<td>Antenatal</td>
+						<td>Intrapartum</td>
+						<td>Postpartum</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Evacuation</td>
+						<td><input id="YXed7PnLRco-hUT25oOxMmX-val" name="entryfield" title="020-IN01a. Evacuation (Early Pregnancy)" value="[ 020-IN01a. Evacuation (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-zRnpKj8GISp-val" name="entryfield" title="020-IN01b. Evacuation (Antenatal)" value="[ 020-IN01b. Evacuation (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-qm3ga81qmEC-val" name="entryfield" title="020-IN01c. Evacuation (Intrapartum)" value="[ 020-IN01c. Evacuation (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-LojuydZv8Me-val" name="entryfield" title="020-IN01d. Evacuation (Postpartum)" value="[ 020-IN01d. Evacuation (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>IV fluids</td>
+						<td><input id="YXed7PnLRco-aOIkElUMfoW-val" name="entryfield" title="020-IN02a. IV Fluids (Early Pregnancy)" value="[ 020-IN02a. IV Fluids (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-BWKDsGUDEH3-val" name="entryfield" title="020-IN02b. IV Fluids (Antenatal)" value="[ 020-IN02b. IV Fluids (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-oxXg2PTeAok-val" name="entryfield" title="020-IN02c. IV Fluids (Intrapartum)" value="[ 020-IN02c. IV Fluids (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-Nk5boO6Q7Yu-val" name="entryfield" title="020-IN02d. IV Fluids (Postpartum)" value="[ 020-IN02d. IV Fluids (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>Transfusion</td>
+						<td><input id="YXed7PnLRco-kFUUPTSrZCS-val" name="entryfield" title="020-IN03a. Transfusion (Early Pregnancy)" value="[ 020-IN03a. Transfusion (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-VBEFSU4Ezo2-val" name="entryfield" title="020-IN03b. Transfusion (Antenatal)" value="[ 020-IN03b. Transfusion (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-fvecJ8TFPRc-val" name="entryfield" title="020-IN03c. Transfusion (Intrapartum)" value="[ 020-IN03c. Transfusion (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-S5eg3TWIQIp-val" name="entryfield" title="020-IN03d. Transfusion (Postpartum)" value="[ 020-IN03d. Transfusion (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>Anticonvulsants</td>
+						<td><input id="YXed7PnLRco-qgkXe3wF21D-val" name="entryfield" title="020-IN04a. Anticonvulsants (Early Pregnancy)" value="[ 020-IN04a. Anticonvulsants (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-rJfruTDzbma-val" name="entryfield" title="020-IN04b. Anticonvulsants (Antenatal)" value="[ 020-IN04b. Anticonvulsants (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-lXdAZeKZn4m-val" name="entryfield" title="020-IN04c. Anticonvulsants (Intrapartum)" value="[ 020-IN04c. Anticonvulsants (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-emdE43QBqPp-val" name="entryfield" title="020-IN04d. Anticonvulsants (Postpartum)" value="[ 020-IN04d. Anticonvulsants (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>Anesthesia</td>
+						<td><input id="YXed7PnLRco-arW1EL6XQpE-val" name="entryfield" title="020-IN05a. Anaesthesia (Early Pregnancy)" value="[ 020-IN05a. Anaesthesia (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-F4qzhohON5N-val" name="entryfield" title="020-IN05b. Anaesthesia (Antenatal)" value="[ 020-IN05b. Anaesthesia (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-kEhmeGfdTGB-val" name="entryfield" title="020-IN05c. Anaesthesia (Intrapartum)" value="[ 020-IN05c. Anaesthesia (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-zKodyA6Vp1b-val" name="entryfield" title="020-IN05d. Anaesthesia (Postpartum)" value="[ 020-IN05d. Anaesthesia (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>Uterotonics</td>
+						<td><input id="YXed7PnLRco-PBi1HNrSiFj-val" name="entryfield" title="020-IN06a. Uterotonics (Early Pregnancy)" value="[ 020-IN06a. Uterotonics (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-CLQ9osUSTea-val" name="entryfield" title="020-IN06b. Uterotonics (Antenatal)" value="[ 020-IN06b. Uterotonics (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-LfkUUKPomSf-val" name="entryfield" title="020-IN06c. Uterotonics (Intrapartum)" value="[ 020-IN06c. Uterotonics (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-h5vsX113hKC-val" name="entryfield" title="020-IN06d. Uterotonics (Postpartum)" value="[ 020-IN06d. Uterotonics (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>9</td>
+						<td>Manual removal of placenta</td>
+						<td><input id="YXed7PnLRco-oStdvpxWD7g-val" name="entryfield" title="020-IN07a. Manual removal of placenta (Early Pregnancy)" value="[ 020-IN07a. Manual removal of placenta (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-NY7O9X3XNRv-val" name="entryfield" title="020-IN07b. Manual removal of placenta (Antenatal)" value="[ 020-IN07b. Manual removal of placenta (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-hyQ9IWF9uEo-val" name="entryfield" title="020-IN07c. Manual removal of placenta (Intrapartum)" value="[ 020-IN07c. Manual removal of placenta (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-ObzLdxNcGZY-val" name="entryfield" title="020-IN07d. Manual removal of placenta (Postpartum)" value="[ 020-IN07d. Manual removal of placenta (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>10</td>
+						<td>Cesarean section</td>
+						<td><input id="YXed7PnLRco-lRT0g2bRtwZ-val" name="entryfield" title="020-IN08a. Caesarean Section (Early Preganancy)" value="[ 020-IN08a. Caesarean Section (Early Preganancy) ]" /></td>
+						<td><input id="YXed7PnLRco-MfICS1uUUdJ-val" name="entryfield" title="020-IN08b. Caesarean Section (Antenatal)" value="[ 020-IN08b. Caesarean Section (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-NuHtNZpdXaD-val" name="entryfield" title="020-IN08c. Caesarean Section (Intrapartum)" value="[ 020-IN08c. Caesarean Section (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-qNNcwXQDFVE-val" name="entryfield" title="020-IN08d. Caesarean Section (Postpartum)" value="[ 020-IN08d. Caesarean Section (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>11</td>
+						<td>Laparotomy</td>
+						<td><input id="YXed7PnLRco-PpzqCyOQzuS-val" name="entryfield" title="020-IN09a. Laparotomy (Early Pregnancy)" value="[ 020-IN09a. Laparotomy (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-xGFSkHjvgKn-val" name="entryfield" title="020-IN09b. Laparotomy (Antenatal)" value="[ 020-IN09b. Laparotomy (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-EBjGwPPITzl-val" name="entryfield" title="020-IN09c. Laparotomy (Intrapartum)" value="[ 020-IN09c. Laparotomy (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-EDk9wmKnego-val" name="entryfield" title="020-IN09d. Laparotomy (Postpartum)" value="[ 020-IN09d. Laparotomy (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>12</td>
+						<td>Hysterectomy</td>
+						<td><input id="YXed7PnLRco-I9wJoLNkSUp-val" name="entryfield" title="020-IN10a. Hysterectomy (Early Pregnancy)" value="[ 020-IN10a. Hysterectomy (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-UO6JbM183Yj-val" name="entryfield" title="020-IN10b. Hysterectomy (Antenatal)" value="[ 020-IN10b. Hysterectomy (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-oZzfT8loS4B-val" name="entryfield" title="020-IN10c. Hysterectomy (Intrapartum)" value="[ 020-IN10c. Hysterectomy (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-G9pNk0X5wJE-val" name="entryfield" title="020-IN10d. Hysterectomy (Postpartum)" value="[ 020-IN10d. Hysterectomy (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>13</td>
+						<td>Instrumental delivery</td>
+						<td><input id="YXed7PnLRco-OeuIhu9K7XC-val" name="entryfield" title="020-IN11a. Instrumental Delivery (Early Pregnancy)" value="[ 020-IN11a. Instrumental Delivery (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-bypev1wrHaJ-val" name="entryfield" title="020-IN11b. Instrumental Delivery (Antenatal)" value="[ 020-IN11b. Instrumental Delivery (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-N7eTWuQRdy7-val" name="entryfield" title="020-IN11c. Instrumental Delivery (Intrapartum)" value="[ 020-IN11c. Instrumental Delivery (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-vi73Sj73I1P-val" name="entryfield" title="020-IN11d. Instrumental Delivery (Postpartum)" value="[ 020-IN11d. Instrumental Delivery (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>14</td>
+						<td>Repair of uterus</td>
+						<td><input id="YXed7PnLRco-AqsuNrGpPha-val" name="entryfield" title="020-IN12a. Repair of uterus (Early Pregnancy)" value="[ 020-IN12a. Repair of uterus (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-BfyxdIRVPCG-val" name="entryfield" title="020-IN12b. Repair of uterus (Antenatal)" value="[ 020-IN12b. Repair of uterus (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-QspOEbJwvrn-val" name="entryfield" title="020-IN12c. Repair of uterus (Intrapartum)" value="[ 020-IN12c. Repair of uterus (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-V8TuWcrMFE2-val" name="entryfield" title="020-IN12d. Repair of uterus (Postpartum)" value="[ 020-IN12d. Repair of uterus (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>15</td>
+						<td>Perineal repair</td>
+						<td><input id="YXed7PnLRco-HXSJvazF11O-val" name="entryfield" title="020-IN13a. Perineal repair (Early Pregnancy)" value="[ 020-IN13a. Perineal repair (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-lz77rqS6fIo-val" name="entryfield" title="020-IN13b. Perineal repair (Antenatal)" value="[ 020-IN13b. Perineal repair (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-Dhq6iXq1c1Z-val" name="entryfield" title="020-IN13c. Perineal repair (Intrapartum)" value="[ 020-IN13c. Perineal repair (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-wde8p5nd32l-val" name="entryfield" title="020-IN13d. Perineal repair (Postpartum)" value="[ 020-IN13d. Perineal repair (Postpartum) ]" /></td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>Others specify</td>
+						<td><input id="YXed7PnLRco-CbT0u1Fx6ZN-val" name="entryfield" title="020-IN14a. Other specify (Early Pregnancy)" value="[ 020-IN14a. Other specify (Early Pregnancy) ]" /></td>
+						<td><input id="YXed7PnLRco-dgnTlu8JuQ4-val" name="entryfield" title="020-IN14b. Other specify (Antenatal)" value="[ 020-IN14b. Other specify (Antenatal) ]" /></td>
+						<td><input id="YXed7PnLRco-IRv21OKIBgM-val" name="entryfield" title="020-IN14c. Other specify (Intrapartum)" value="[ 020-IN14c. Other specify (Intrapartum) ]" /></td>
+						<td><input id="YXed7PnLRco-qDBN7ZbRhgp-val" name="entryfield" title="020-IN14d. Other specify (Postpartum)" value="[ 020-IN14d. Other specify (Postpartum) ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="2">SECTION 7: AUTOPSY/ POST MORTEM</td>
+					</tr>
+					<tr>
+						<td>Requested</td>
+						<td><input id="YXed7PnLRco-js6jQi1rx1j-val" name="entryfield" title="020-PM01. Autospy/Postmortem requested" value="[ 020-PM01. Autospy/Postmortem requested ]" /></td>
+					</tr>
+					<tr>
+						<td>Performed</td>
+						<td><input id="YXed7PnLRco-smzNleAK8sl-val" name="entryfield" title="020-PM02. Autospy/Postmortem performed" value="[ 020-PM02. Autospy/Postmortem performed ]" /></td>
+					</tr>
+					<tr>
+						<td>If performed, please report gross findings</td>
+						<td><input id="YXed7PnLRco-UEmwYMZK0Uh-val" name="entryfield" title="020-PM03. Autospy/Postmortem findings" value="[ 020-PM03. Autospy/Postmortem findings ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="8">SECTION 8: CAUSE OF DEATH</td>
+					</tr>
+					<tr>
+						<td colspan="2">Ectopic Pregnancy</td>
+						<td colspan="6" rowspan="1"><input id="YXed7PnLRco-xiAXjQxZDSW-val" name="entryfield" title="020-CD01. Ectopic pregnancy" value="[ 020-CD01. Ectopic pregnancy ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="8">Abortion</td>
+					</tr>
+					<tr>
+						<td colspan="2">Spontaneous abortion</td>
+						<td colspan="2">Induced abortion</td>
+						<td colspan="2" rowspan="4">Trophoblastic disease</td>
+						<td colspan="2" rowspan="4"><input id="YXed7PnLRco-wdLRU8IixLi-val" name="entryfield" title="020-CD04. Trophoblastic disease" value="[ 020-CD04. Trophoblastic disease ]" /></td>
+					</tr>
+					<tr>
+						<td>Spontaneous abortion - Sepsis</td>
+						<td><input id="YXed7PnLRco-W3mgyMha0N0-val" name="entryfield" title="020-CD02a. Spontaneous Abortion" value="[ 020-CD02a. Spontaneous Abortion ]" /></td>
+						<td>Induced abortion - Sepsis</td>
+						<td><input id="YXed7PnLRco-Ws8mQOp3DZr-val" name="entryfield" title="020-CD03a. Induced abortion - sepsis" value="[ 020-CD03a. Induced abortion - sepsis ]" /></td>
+					</tr>
+					<tr>
+						<td>Spontaneous abortion - hemorrhage</td>
+						<td><input id="YXed7PnLRco-D5E0lOCtKdM-val" name="entryfield" title="020-CD02b. Spontaneous Abortion - haemorrhage" value="[ 020-CD02b. Spontaneous Abortion - haemorrhage ]" /></td>
+						<td>Induced abortion - Trauma</td>
+						<td><input id="YXed7PnLRco-a7HrnNVPtZN-val" name="entryfield" title="020-CD03b. Induced abortion - trauma" value="[ 020-CD03b. Induced abortion - trauma ]" /></td>
+					</tr>
+					<tr>
+						<td>Other - specify</td>
+						<td><input id="YXed7PnLRco-jfnkDslwrrL-val" name="entryfield" title="020-CD02c. Spontaneous Abortion - other" value="[ 020-CD02c. Spontaneous Abortion - other ]" /></td>
+						<td>Other - specify</td>
+						<td><input id="YXed7PnLRco-k8lDphTkRn9-val" name="entryfield" title="020-CD03c. Induced abortion - other" value="[ 020-CD03c. Induced abortion - other ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="8">Hemorrhage</td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="2">Antepartum hemorrhage</td>
+						<td colspan="6" rowspan="1">Postpartum hemorrhage</td>
+					</tr>
+					<tr>
+						<td>Placenta previa</td>
+						<td><input id="YXed7PnLRco-c2Sn7Z6RuK4-val" name="entryfield" title="020-CD05a. Placenta Praevia" value="[ 020-CD05a. Placenta Praevia ]" /></td>
+						<td>Uterine atony</td>
+						<td><input id="YXed7PnLRco-SLRPjzRPpEJ-val" name="entryfield" title="020-CD06a. Uterine atony" value="[ 020-CD06a. Uterine atony ]" /></td>
+						<td colspan="2">PPH after C-section</td>
+						<td colspan="2"><input id="YXed7PnLRco-iteIkVf68jY-val" name="entryfield" title="020-CD06e. PPH after C-section" value="[ 020-CD06e. PPH after C-section ]" /></td>
+					</tr>
+					<tr>
+						<td>Abruptio placenta</td>
+						<td><input id="YXed7PnLRco-czaXNYJ31Rv-val" name="entryfield" title="020-CD05b. Abruptio placenta" value="[ 020-CD05b. Abruptio placenta ]" /></td>
+						<td>Ruptured uterus - obstructed labor</td>
+						<td><input id="YXed7PnLRco-o3yTjUABKux-val" name="entryfield" title="020-CD06b. Ruptured uterus - obstructed labor" value="[ 020-CD06b. Ruptured uterus - obstructed labor ]" /></td>
+						<td colspan="2">PPH from tears</td>
+						<td colspan="2"><input id="YXed7PnLRco-H7Pf8ugBfpf-val" name="entryfield" title="020-CD06f. PPH from tears" value="[ 020-CD06f. PPH from tears ]" /></td>
+					</tr>
+					<tr>
+						<td>Abruptio placenta with hypertension</td>
+						<td><input id="YXed7PnLRco-gQjgm8foJPK-val" name="entryfield" title="020-CD05c. Abruptio placenta with hypertension" value="[ 020-CD05c. Abruptio placenta with hypertension ]" /></td>
+						<td>Ruptured uterus with the previous scar</td>
+						<td><input id="YXed7PnLRco-fUmxaY8tsVf-val" name="entryfield" title="020-CD06c. Ruptured uterus with previous scar" value="[ 020-CD06c. Ruptured uterus with previous scar ]" /></td>
+						<td colspan="2">Other - specify</td>
+						<td colspan="2"><input id="YXed7PnLRco-ZbC9oYLjvsH-val" name="entryfield" title="020-CD06g. Post partum haemorrhage - other" value="[ 020-CD06g. Post partum haemorrhage - other ]" /></td>
+					</tr>
+					<tr>
+						<td>Other - specify</td>
+						<td><input id="YXed7PnLRco-EyTMoRYumLY-val" name="entryfield" title="020-CD05d. Antepartum haemorrhage - other" value="[ 020-CD05d. Antepartum haemorrhage - other ]" /></td>
+						<td>Retained placenta</td>
+						<td><input id="YXed7PnLRco-p2TjG5L7gfw-val" name="entryfield" title="020-CD06d. Retained placenta" value="[ 020-CD06d. Retained placenta ]" /></td>
+						<td colspan="4">&nbsp;</td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="8">Pregnancy-related sepsis</td>
+					</tr>
+					<tr>
+						<td colspan="4" rowspan="1">Puerperal sepsis following vaginal delivery after obstructed labor</td>
+						<td colspan="4"><input id="YXed7PnLRco-lSD9vEkw81r-val" name="entryfield" title="020-CD07a.Puerperal sepsis folowing vaginal delivery after obstructed labor" value="[ 020-CD07a.Puerperal sepsis folowing vaginal delivery after obstructed labor ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="4" rowspan="1">Puerperal sepsis following normal delivery</td>
+						<td colspan="4"><input id="YXed7PnLRco-mXZw0MFlC5e-val" name="entryfield" title="020-CD07b. Puerperal sepsis following normal delivery" value="[ 020-CD07b. Puerperal sepsis following normal delivery ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="4" rowspan="1">Puerperal sepsis following c-section</td>
+						<td colspan="4"><input id="YXed7PnLRco-Np2XQF1gkaU-val" name="entryfield" title="020-CD07c. Puerperal sepsis following c-section" value="[ 020-CD07c. Puerperal sepsis following c-section ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="4" rowspan="1">Puerperal sepsis following c section after obstructed labor</td>
+						<td colspan="4"><input id="YXed7PnLRco-hSmmYHV1eXV-val" name="entryfield" title="020-CD07d.Puerperal sepsis folowing c-section after obstructed labor" value="[ 020-CD07d.Puerperal sepsis folowing c-section after obstructed labor ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="4" rowspan="1">Other - specify</td>
+						<td colspan="4"><input id="YXed7PnLRco-jZfwKkD8w1V-val" name="entryfield" title="020-CD07e. Pregnancy related sepsis - other" value="[ 020-CD07e. Pregnancy related sepsis - other ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="2">Hypertensive disorders of pregnancy</td>
+						<td colspan="2">Infections/conditions not related to pregnancy</td>
+						<td colspan="4">Anaesthetic complications</td>
+					</tr>
+					<tr>
+						<td>Pre-eclampsis -Eclampsia</td>
+						<td><input id="YXed7PnLRco-ysxdiOCjH6k-val" name="entryfield" title="020-CD08a. Pre-eclampsis- Eclampsia" value="[ 020-CD08a. Pre-eclampsis- Eclampsia ]" /></td>
+						<td>Malaria</td>
+						<td><input id="YXed7PnLRco-Wmr2Tfb78Sr-val" name="entryfield" title="020-CD09a. Malaria" value="[ 020-CD09a. Malaria ]" /></td>
+						<td colspan="2">General Anaesthesia</td>
+						<td colspan="2"><input id="YXed7PnLRco-bXLyj6Ji4S6-val" name="entryfield" title="020-CD10a.General Anaethesia complications" value="[ 020-CD10a.General Anaethesia complications ]" /></td>
+					</tr>
+					<tr>
+						<td>HELLP Syndrome</td>
+						<td><input id="YXed7PnLRco-SjWjZutC1E3-val" name="entryfield" title="020-CD08b. HELLP syndrome" value="[ 020-CD08b. HELLP syndrome ]" /></td>
+						<td>HIV/AIDS</td>
+						<td><input id="YXed7PnLRco-jaKQ29Wtkgf-val" name="entryfield" title="020-CD09b. HIV/AIDS" value="[ 020-CD09b. HIV/AIDS ]" /></td>
+						<td colspan="2">Spinal anesthesia</td>
+						<td colspan="2"><input id="YXed7PnLRco-NmJeFoUzFkZ-val" name="entryfield" title="020-CD10b.Spinal Anaethesia complications" value="[ 020-CD10b.Spinal Anaethesia complications ]" /></td>
+					</tr>
+					<tr>
+						<td>Chronic hypertension</td>
+						<td><input id="YXed7PnLRco-cvuMwVvOqSf-val" name="entryfield" title="020-CD08c. Chronic Hypertension" value="[ 020-CD08c. Chronic Hypertension ]" /></td>
+						<td>Severe Anaemia</td>
+						<td><input id="YXed7PnLRco-RCJft99OvwF-val" name="entryfield" title="020-CD09c. Severe anaemia" value="[ 020-CD09c. Severe anaemia ]" /></td>
+						<td colspan="2" rowspan="2">Epidural block</td>
+						<td colspan="2" rowspan="2"><input id="YXed7PnLRco-wnWYNBh9RgG-val" name="entryfield" title="020-CD10c. Anaethesia complications-Epidural block" value="[ 020-CD10c. Anaethesia complications-Epidural block ]" /></td>
+					</tr>
+					<tr>
+						<td>Other - specify</td>
+						<td><input id="YXed7PnLRco-PHzV5Q8uLnu-val" name="entryfield" title="020-CD08d.Hypertensive disorder of pregnancy-other" value="[ 020-CD08d.Hypertensive disorder of pregnancy-other ]" /></td>
+						<td>Other - specify</td>
+						<td><input id="YXed7PnLRco-rpaV42Se4pl-val" name="entryfield" title="020-CD09d. Infections/Conditions not related to pregnancy - Other" value="[ 020-CD09d. Infections/Conditions not related to pregnancy - Other ]" /></td>
+					</tr>
+					<tr class="section-subhead">
+						<td colspan="4" rowspan="1">Pre-existing disease</td>
+						<td colspan="2">Non-obstetric causes</td>
+						<td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+						<td>Cardiac disease</td>
+						<td><input id="YXed7PnLRco-nsKFNg9Gtre-val" name="entryfield" title="020-CD11a. Cardiac disease" value="[ 020-CD11a. Cardiac disease ]" /></td>
+						<td>Haematological</td>
+						<td><input id="YXed7PnLRco-QBBXVaURSuW-val" name="entryfield" title="020-CD11f. Haematological" value="[ 020-CD11f. Haematological ]" /></td>
+						<td>Motor vehicle/cycle accident</td>
+						<td><input id="YXed7PnLRco-uFoaTRJ16Ch-val" name="entryfield" title="020-CD12a. Motor vehicle / cycle accident" value="[ 020-CD12a. Motor vehicle / cycle accident ]" /></td>
+						<td colspan="1" rowspan="2">Other - specify</td>
+						<td colspan="1" rowspan="2"><input id="YXed7PnLRco-pWLCZKrkBJb-val" name="entryfield" title="020-CD13. Other cause of death" value="[ 020-CD13. Other cause of death ]" /></td>
+					</tr>
+					<tr>
+						<td>Endocrine</td>
+						<td><input id="YXed7PnLRco-EuCwEEMz8aI-val" name="entryfield" title="020-CD11b. Endocrine" value="[ 020-CD11b. Endocrine ]" /></td>
+						<td>Genitourinary</td>
+						<td><input id="YXed7PnLRco-Cj8qlrArHUx-val" name="entryfield" title="020-CD11g. Genito urinary" value="[ 020-CD11g. Genito urinary ]" /></td>
+						<td>Assault</td>
+						<td><input id="YXed7PnLRco-K4FUK590rIU-val" name="entryfield" title="020-CD12b. Assault" value="[ 020-CD12b. Assault ]" /></td>
+					</tr>
+					<tr>
+						<td>GIT</td>
+						<td><input id="YXed7PnLRco-PgzM8wZ40JY-val" name="entryfield" title="020-CD11c. GIT" value="[ 020-CD11c. GIT ]" /></td>
+						<td>Malignancy</td>
+						<td><input id="YXed7PnLRco-b5zLzM2rm0o-val" name="entryfield" title="020-CD11h. Malignancy" value="[ 020-CD11h. Malignancy ]" /></td>
+						<td>Sex and gender-based violence</td>
+						<td><input id="YXed7PnLRco-dS59fSBJBQA-val" name="entryfield" title="020-CD12c. Sex and gender based violence" value="[ 020-CD12c. Sex and gender based violence ]" /></td>
+						<td rowspan="2">Unknown</td>
+						<td rowspan="2"><input id="YXed7PnLRco-C3RST8YWsXt-val" name="entryfield" title="020-CD14. Unknown" value="[ 020-CD14. Unknown ]" /></td>
+					</tr>
+					<tr>
+						<td>Central nervous</td>
+						<td><input id="YXed7PnLRco-z9dBvqJpKwj-val" name="entryfield" title="020-CD11d. Central nervous" value="[ 020-CD11d. Central nervous ]" /></td>
+						<td>Other - specify</td>
+						<td><input id="YXed7PnLRco-jBcJaKqJa5w-val" name="entryfield" title="020-CD11i. Other pre-existing disease" value="[ 020-CD11i. Other pre-existing disease ]" /></td>
+						<td>Suicide</td>
+						<td><input id="YXed7PnLRco-Qu7CiFZwIvD-val" name="entryfield" title="020-CD12d. Suicide" value="[ 020-CD12d. Suicide ]" /></td>
+					</tr>
+					<tr>
+						<td>Respiratory</td>
+						<td><input id="YXed7PnLRco-YT7LqMINLqE-val" name="entryfield" title="020-CD11e. Respiratory" value="[ 020-CD11e. Respiratory ]" /></td>
+						<td colspan="2">&nbsp;</td>
+						<td>Other - specify</td>
+						<td><input id="YXed7PnLRco-HlpouDjIM1N-val" name="entryfield" title="020-CD12e. Other non obstetric causes" value="[ 020-CD12e. Other non obstetric causes ]" /></td>
+						<td colspan="2">&nbsp;</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform disabled-table" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="4">SECTION 8b: CERTIFIED CAUSE OF DEATH</td>
+					</tr>
+					<tr class="section-subhead">
+						<td>&nbsp;</td>
+						<td>Cause of Death</td>
+						<td>Time interval type from onset to death</td>
+						<td>Time interval from onset to death</td>
+					</tr>
+					<tr class="disable-table-row">
+						<td>Report disease or condition directly leading to death</td>
+						<td><input id="YXed7PnLRco-sfpqAeqKeyQ-val" name="entryfield" title="HMIS_100_  Report disease or condition directly leading to death-Cause of death_a" value="[ HMIS_100_  Report disease or condition directly leading to death-Cause of death_a ]" /></td>
+						<td><input id="YXed7PnLRco-Ylht9kCLSRW-val" name="entryfield" title="020-100-MD01ba. Type_of_interval_for_a" value="[ 020-100-MD01ba. Type_of_interval_for_a ]" /></td>
+						<td><input id="YXed7PnLRco-WkXxkKEJLsg-val" name="entryfield" title="HMIS_100_  Time interval_a" value="[ HMIS_100_  Time interval_a ]" /></td>
+					</tr>
+					<tr class="disable-table-row">
+						<td colspan="1" rowspan="3">Repeat chain of events due to in order
+						<p>State the underlying cause on the lowest used line</p>
+						</td>
+						<td><input id="YXed7PnLRco-zb7uTuBCPrN-val" name="entryfield" title="HMIS_100_  Report chain of events -due to in order-Cause of death_b" value="[ HMIS_100_  Report chain of events -due to in order-Cause of death_b ]" /></td>
+						<td><input id="YXed7PnLRco-myydnkmLfhp-val" name="entryfield" title="020-100-MD02b1a. Type_of_interval_for_b" value="[ 020-100-MD02b1a. Type_of_interval_for_b ]" /></td>
+						<td><input id="YXed7PnLRco-fleGy9CvHYh-val" name="entryfield" title="HMIS_100_Time interval_b" value="[ HMIS_100_Time interval_b ]" /></td>
+					</tr>
+					<tr class="disable-table-row">
+						<td><input id="YXed7PnLRco-QGFYJK00ES7-val" name="entryfield" title="HMIS_100_Report chain of events -due to in order-Cause of death_c" value="[ HMIS_100_Report chain of events -due to in order-Cause of death_c ]" /></td>
+						<td><input id="YXed7PnLRco-aC64sB86ThG-val" name="entryfield" title="HMIS_100_Type_of_interval_for_c" value="[ HMIS_100_Type_of_interval_for_c ]" /></td>
+						<td><input id="YXed7PnLRco-hO8No9fHVd2-val" name="entryfield" title="020-100-MD02b2b. HMIS_100_Time interval_c" value="[ 020-100-MD02b2b. HMIS_100_Time interval_c ]" /></td>
+					</tr>
+					<tr class="disable-table-row">
+						<td><input id="YXed7PnLRco-CnPGhOcERFF-val" name="entryfield" title="020-100-MD02a3. Report chain of events due to in order-Cause of death_d" value="[ 020-100-MD02a3. Report chain of events due to in order-Cause of death_d ]" /></td>
+						<td><input id="YXed7PnLRco-cmZrrHfTxW3-val" name="entryfield" title="020-100-MD02b3a. Type_of_interval_for_d" value="[ 020-100-MD02b3a. Type_of_interval_for_d ]" /></td>
+						<td><input id="YXed7PnLRco-eCVDO6lt4go-val" name="entryfield" title="HMIS_100_  Time interval_d" value="[ HMIS_100_  Time interval_d ]" /></td>
+					</tr>
+					<tr class="disable-table-row">
+						<td>Is the form linked</td>
+						<td colspan="3" rowspan="1"><input id="YXed7PnLRco-ZkNDFfFSTYg-val" name="entryfield" title="HMIS_100_Linked" value="[ HMIS_100_Linked ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<p style="padding: 0"><button class="btn btn-primary primary button mccod-button" id="mcodbutton" onclick="gotomcod()" type="button">Edit From MCCOD</button></p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="4">SECTION 9: AVOIDABLE FACTORS: Using information derived from the interviews and review of the case notes, were any of these factors present? <i>Tick all applicable</i></td>
+					</tr>
+					<tr class="section-subhead">
+						<td>&nbsp;</td>
+						<td>Avoidable factors</td>
+						<td>Yes</td>
+						<td>Specify</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="6">Personal/ Family/ Community Factors</td>
+						<td>1. Delay of the woman seeking help</td>
+						<td><input id="YXed7PnLRco-pPh6aWTVYy6-val" name="entryfield" title="020-AF01a. Delay of the woman seeking appropriate healthcare" value="[ 020-AF01a. Delay of the woman seeking appropriate healthcare ]" /></td>
+						<td><input id="YXed7PnLRco-eaSaXuaziyY-val" name="entryfield" title="020-AF01b. Delay of the woman seeking appropriate healthcare(specify)" value="[ 020-AF01b. Delay of the woman seeking appropriate healthcare(specify) ]" /></td>
+					</tr>
+					<tr>
+						<td>2. Delay to reach HF</td>
+						<td><input id="YXed7PnLRco-VrK0mAtC71u-val" name="entryfield" title="020-AF02a. Delay to reach HFs" value="[ 020-AF02a. Delay to reach HFs ]" /></td>
+						<td><input id="YXed7PnLRco-dBUqpDhgq7Y-val" name="entryfield" title="020-AF02b. Delay to reach HFs specify" value="[ 020-AF02b. Delay to reach HFs specify ]" /></td>
+					</tr>
+					<tr>
+						<td>3. Refusal of treatment or admission</td>
+						<td><input id="YXed7PnLRco-mbMXko6mJ76-val" name="entryfield" title="020-AF03a. Refusal of treatment or admission" value="[ 020-AF03a. Refusal of treatment or admission ]" /></td>
+						<td><input id="YXed7PnLRco-EjcxTE1LWPk-val" name="entryfield" title="020-AF03b. Refusal of treatment or admission specify" value="[ 020-AF03b. Refusal of treatment or admission specify ]" /></td>
+					</tr>
+					<tr>
+						<td>4. Woman ingested herbal medication</td>
+						<td><input id="YXed7PnLRco-z4DOgPw6u1r-val" name="entryfield" title="020-AF04a. Woman use of herbal medication" value="[ 020-AF04a. Woman use of herbal medication ]" /></td>
+						<td><input id="YXed7PnLRco-e9nJGdo3xGt-val" name="entryfield" title="020-AF04b. Woman use of herbal medication specify" value="[ 020-AF04b. Woman use of herbal medication specify ]" /></td>
+					</tr>
+					<tr>
+						<td>5. Refused transfer to a higher facility</td>
+						<td><input id="YXed7PnLRco-v0RVtdOooWj-val" name="entryfield" title="020-AF05a. Refused transfer to higher facility" value="[ 020-AF05a. Refused transfer to higher facility ]" /></td>
+						<td><input id="YXed7PnLRco-yCeVgYNCOOI-val" name="entryfield" title="020-AF05b. Refused transfer to higher facility specify" value="[ 020-AF05b. Refused transfer to higher facility specify ]" /></td>
+					</tr>
+					<tr>
+						<td>6. Lack of partner support</td>
+						<td><input id="YXed7PnLRco-wl2u80BWUW3-val" name="entryfield" title="020-AF06a. Lack of partner support" value="[ 020-AF06a. Lack of partner support ]" /></td>
+						<td><input id="YXed7PnLRco-QHF2GCbZQca-val" name="entryfield" title="020-AF06b. Lack of partner support specify" value="[ 020-AF06b. Lack of partner support specify ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="2">Logistical Systems</td>
+						<td>7.Lack of transport from home/community to HF</td>
+						<td><input id="YXed7PnLRco-afDz7SrXJkc-val" name="entryfield" title="020-AF07a. Lack of transport from home/community to HF" value="[ 020-AF07a. Lack of transport from home/community to HF ]" /></td>
+						<td><input id="YXed7PnLRco-i00ejpzpAGf-val" name="entryfield" title="020-AF07b. Lack of transport from home/community  to health facilities specify" value="[ 020-AF07b. Lack of transport from home/community  to health facilities specify ]" /></td>
+					</tr>
+					<tr>
+						<td>8. Lack of transport between health facilities</td>
+						<td><input id="YXed7PnLRco-zhJUTM68Wdg-val" name="entryfield" title="020-AF08a. Lack of transport between health facilities" value="[ 020-AF08a. Lack of transport between health facilities ]" /></td>
+						<td><input id="YXed7PnLRco-tmEtk151MlM-val" name="entryfield" title="020-AF08b. Lack of transport between health facilities specify" value="[ 020-AF08b. Lack of transport between health facilities specify ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="9">Health System factors</td>
+						<td>9. Lack of blood products, supplies &amp; consumables</td>
+						<td><input id="YXed7PnLRco-LKJ2GkQQENR-val" name="entryfield" title="020-AF09a. Lack of blood products, supplies &amp; consumables" value="[ 020-AF09a. Lack of blood products, supplies &amp; consumables ]" /></td>
+						<td><input id="YXed7PnLRco-q7p4jF8DuH3-val" name="entryfield" title="020-AF09b. Lack of blood products, supplies &amp; consumables specify" value="[ 020-AF09b. Lack of blood products, supplies &amp; consumables specify ]" /></td>
+					</tr>
+					<tr>
+						<td>10.Lack of appropriate medicines for client management including Lab supplies</td>
+						<td><input id="YXed7PnLRco-qSJrMFj4w3P-val" name="entryfield" title="020-AF10a. Lack of appropriate medicines for client management including Lab Supplies" value="[ 020-AF10a. Lack of appropriate medicines for client management including Lab Supplies ]" /></td>
+						<td><input id="YXed7PnLRco-WX72M8zDcaK-val" name="entryfield" title="020-AF10b. Lack of appropriate medicines for client management including Lab Supplies(specify)" value="[ 020-AF10b. Lack of appropriate medicines for client management including Lab Supplies(specify) ]" /></td>
+					</tr>
+					<tr>
+						<td>11. Lack of other medical supplies, equipment &amp; consumables for use in Patient Care</td>
+						<td><input id="YXed7PnLRco-CGrsGzHMtXA-val" name="entryfield" title="020-AF11a. Lack of other medical supplies, equipment &amp; consumables for use in patient care" value="[ 020-AF11a. Lack of other medical supplies, equipment &amp; consumables for use in patient care ]" /></td>
+						<td><input id="YXed7PnLRco-QTfI21p35r0-val" name="entryfield" title="020-AF11b. Lack of other medical supplies, equipment &amp; consumables for use in patient care(specify)" value="[ 020-AF11b. Lack of other medical supplies, equipment &amp; consumables for use in patient care(specify) ]" /></td>
+					</tr>
+					<tr>
+						<td>12.Misdiagnosis</td>
+						<td><input id="YXed7PnLRco-YbImSbfvC5l-val" name="entryfield" title="020-AF12a. Misdiagnosis" value="[ 020-AF12a. Misdiagnosis ]" /></td>
+						<td><input id="YXed7PnLRco-nW5kOhfjRCS-val" name="entryfield" title="020-AF12b. Misdiagnosis specify" value="[ 020-AF12b. Misdiagnosis specify ]" /></td>
+					</tr>
+					<tr>
+						<td>13.Inappropriate intervention /treatment/does given</td>
+						<td><input id="YXed7PnLRco-fWX9YfpLgCJ-val" name="entryfield" title="020-AF13a. Inappropriate intervention/ treatment / doses given" value="[ 020-AF13a. Inappropriate intervention/ treatment / doses given ]" /></td>
+						<td><input id="YXed7PnLRco-C4mRFfWCBiq-val" name="entryfield" title="020-AF13b. Inappropriate intervention/ treatment / doses given specify" value="[ 020-AF13b. Inappropriate intervention/ treatment / doses given specify ]" /></td>
+					</tr>
+					<tr>
+						<td>14.Inadequate number of staff</td>
+						<td><input id="YXed7PnLRco-ZqJkxkB43X7-val" name="entryfield" title="020-AF14a. Inadequate numbers of staff" value="[ 020-AF14a. Inadequate numbers of staff ]" /></td>
+						<td><input id="YXed7PnLRco-wO4iYPzOFO3-val" name="entryfield" title="020-AF14b. Inadequate numbers of staff specify" value="[ 020-AF14b. Inadequate numbers of staff specify ]" /></td>
+					</tr>
+					<tr>
+						<td>15.Absence of critical human resource</td>
+						<td><input id="YXed7PnLRco-k2jCcL71nT7-val" name="entryfield" title="020-AF15a. Absence of critical human resource" value="[ 020-AF15a. Absence of critical human resource ]" /></td>
+						<td><input id="YXed7PnLRco-nGYJf8Tll15-val" name="entryfield" title="020-AF15b. Absence of critical human resource specify" value="[ 020-AF15b. Absence of critical human resource specify ]" /></td>
+					</tr>
+					<tr>
+						<td>16.Staff lack of skills/expertise</td>
+						<td><input id="YXed7PnLRco-AeVA9HtmnmF-val" name="entryfield" title="020-AF16a. Staff lack of skill/expertise" value="[ 020-AF16a. Staff lack of skill/expertise ]" /></td>
+						<td><input id="YXed7PnLRco-SIiocs0VTQk-val" name="entryfield" title="020-AF16b. Staff lack of skill/expertise specify" value="[ 020-AF16b. Staff lack of skill/expertise specify ]" /></td>
+					</tr>
+					<tr>
+						<td>17.Staff professional misconduct</td>
+						<td><input id="YXed7PnLRco-GFX51oJqAJG-val" name="entryfield" title="020-AF17a. Staff professional misconduct" value="[ 020-AF17a. Staff professional misconduct ]" /></td>
+						<td><input id="YXed7PnLRco-wQ3GAkso5gv-val" name="entryfield" title="020-AF17b. Staff professional misconduct specify" value="[ 020-AF17b. Staff professional misconduct specify ]" /></td>
+					</tr>
+					<tr>
+						<td>Others: specify</td>
+						<td>Others: specify</td>
+						<td colspan="2" rowspan="1"><input id="YXed7PnLRco-NKotrIlEihv-val" name="entryfield" title="020-AF21. Other avoidable factors" value="[ 020-AF21. Other avoidable factors ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr>
+						<td>Comments on potentially avoidable factors, missed opportunities and sub standard care</td>
+						<td><input id="YXed7PnLRco-LHUCVsYD4Cb-val" name="entryfield" title="020-AF20. Comments on potential avoidable factors, missed opportunities and sub-standard care" value="[ 020-AF20. Comments on potential avoidable factors, missed opportunities and sub-standard care ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">Quality of medical records</td>
+					</tr>
+					<tr>
+						<td>Comment on the key data elements missing from the patient&#39;s file</td>
+						<td><input id="YXed7PnLRco-u1rYtM6BXV5-val" name="entryfield" title="020-AF18. Comment on key data elements missing from the patient's file" value="[ 020-AF18. Comment on key data elements missing from the patient's file ]" /></td>
+					</tr>
+					<tr>
+						<td>Legibility</td>
+						<td><input id="YXed7PnLRco-r5yWFdUMvnH-val" name="entryfield" title="020-AF19. Legibility" value="[ 020-AF19. Legibility ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="1" class="dataentryform" width="100%">
+				<tbody>
+					<tr class="section-head">
+						<td colspan="2">SECTION 10: CASE SUMMARY</td>
+					</tr>
+					<tr>
+						<td>Please supply a short summary of the events surrounding the death</td>
+						<td><input id="YXed7PnLRco-hWzBd1Xsx6W-val" name="entryfield" title="020-CS1. Please supply a short summary of the events surrounding the death" value="[ 020-CS1. Please supply a short summary of the events surrounding the death ]" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">&nbsp;</td>
+					</tr>
+					<tr class="section-head">
+						<td colspan="2">SECTION 11: RECOMMENDATIONS</td>
+					</tr>
+					<tr>
+						<td>Please supply a short summary of the recommendations and follow-up actions to address review findings</td>
+						<td><input id="YXed7PnLRco-KijgmSoHqpQ-val" name="entryfield" title="020-RE1. Please supply a short summary of the recommendations and follow-up actions to address review findings" value="[ 020-RE1. Please supply a short summary of the recommendations and follow-up actions to address review findings ]" /></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<script>
+
+if (!scriptLoaded) {
+	var scriptLoaded = true;
+	var des = [
+		"ByIsCiqkq4v",
+		"jdxl2rdeDEk",
+		"WzauwhVOwM0", // date of death
+		"eJwpqR9t7YM",
+		"IT4y0iWZqRu",
+		"uFoaTRJ16Ch",
+		"K4FUK590rIU",
+		"hcu4LCAMSkz",
+		"ioXkKfrgCJa",
+		"FHmHV9mElbD",
+		"iJqBq0kQtWO",
+		"AqXDMjrPUEE",
+		"XW2CKaAiMKc",
+		"js6jQi1rx1j",
+		"ZKBE8Xm9DJG",
+		"sfpqAeqKeyQ",
+		"zb7uTuBCPrN",
+		"QGFYJK00ES7",
+		"CnPGhOcERFF",
+		"xeE5TQLvucB",
+		"Ylht9kCLSRW",
+		"myydnkmLfhp",
+		"aC64sB86ThG",
+		"cmZrrHfTxW3",
+		"eCVDO6lt4go",
+		"hO8No9fHVd2",
+		"fleGy9CvHYh",
+		"WkXxkKEJLsg",
+		"CupbOInqvJI",
+		"FIfoObQJvNp",
+		"BRtcz4HV7Ak",
+		// "ZkNDFfFSTYg",  //linked value
+	];
+
+	var disabledFields = [
+		"YXed7PnLRco-sfpqAeqKeyQ-val",
+		"YXed7PnLRco-Ylht9kCLSRW-val",
+		"YXed7PnLRco-WkXxkKEJLsg-val",
+		"YXed7PnLRco-zb7uTuBCPrN-val",
+		"YXed7PnLRco-myydnkmLfhp-val",
+		"YXed7PnLRco-fleGy9CvHYh-val",
+		"YXed7PnLRco-aC64sB86ThG-val",
+		"YXed7PnLRco-QGFYJK00ES7-val",
+		"YXed7PnLRco-hO8No9fHVd2-val",
+		"YXed7PnLRco-CnPGhOcERFF-val",
+		"YXed7PnLRco-cmZrrHfTxW3-val",
+		"YXed7PnLRco-eCVDO6lt4go-val",
+		"YXed7PnLRco-xeE5TQLvucB-val",
+		"YXed7PnLRco-ZkNDFfFSTYg-val",
+	];
+	console.log("JS is working");
+	document.querySelectorAll(".disable-table-row").forEach((el) => {
+		// disable inputs and pointer events
+		el.style.pointerEvents = "none";
+		el.querySelectorAll("input, select, textarea").forEach((el) => {
+			el.readonly = true;
+		});
+	});
+
+	var urlparts = window.location.pathname.split("/");
+	var indexidx = urlparts.findIndex((p) => p === "index.html");
+	var baseurl =
+		window.location.origin + urlparts.slice(0, indexidx - 1).join("/");
+
+	var params = new URLSearchParams(
+		document.location.hash.substr(1).replace(/^\/\w+\?/, "")
+	);
+	var orgUnit = params.get("orgUnitId");
+	var eventId = params.get("viewEventId");
+	var natinalityEls = document.querySelectorAll(
+		'div[data-test="scope-selector"] h4, div[data-test="locked-selector"] h4'
+	);
+	var natinalityEl;
+
+	for (var i = 0; i < natinalityEls.length; i++) {
+		if (natinalityEls[i].textContent.trim() === "Nationality") {
+			natinalityEl = natinalityEls[i];
+			break;
+		}
+	}
+	var nationality =
+		natinalityEl?.nextElementSibling?.firstElementChild?.textContent;
+
+	if (nationality == undefined) {
+		nationality = document.querySelector(
+			'button[data-test="category-selector-container"] .value'
+		)?.textContent;
+	}
+
+	var toggleSaveBtn = (save = false) => {
+		console.log("togsa", save);
+		const saveBtn = document.querySelector(
+			'div[data-test="main-button"] button[data-test="dhis2-uicore-splitbutton-button"]'
+		);
+		if (!!saveBtn) saveBtn.disabled = !save;
+
+		const saveToggleBtn = document.querySelector(
+			'div[data-test="main-button"] button[data-test="dhis2-uicore-splitbutton-toggle"]'
+		);
+		if (!!saveToggleBtn) saveToggleBtn.disabled = !save;
+
+		const editSaveBtn = document.querySelector(
+			'button[data-test="dhis2-uicore-button"].primary'
+		);
+		if (editSaveBtn?.textContent == "Save") editSaveBtn.disabled = !save;
+	};
+
+	var updateSaveState = () => {
+		const linked = document.querySelector(
+			`#YXed7PnLRco-ZkNDFfFSTYg-val input`
+		);
+		console.log("cval", linked?.value);
+		if (linked && linked.value != "Linked") {
+			toggleSaveBtn(false);
+		} else {
+			toggleSaveBtn(true);
+		}
+	};
+
+	updateSaveState();
+
+	var triggerInputChange = (node, inputValue) => {
+		const descriptor = Object.getOwnPropertyDescriptor(node, "value");
+
+		node.value = `${inputValue}#`;
+		if (descriptor && descriptor.configurable) {
+			delete node.value;
+		}
+		node.value = inputValue;
+
+		const e = document.createEvent("HTMLEvents");
+		e.initEvent("change", true, false);
+		node.dispatchEvent(e);
+
+		if (descriptor) {
+			Object.defineProperty(node, "value", descriptor);
+		}
+	};
+
+	var ifrm;
+
+	function buildQueryString(params) {
+		return Object.entries(params)
+			.filter(([key, value]) => value !== null && value !== undefined)
+			.map(
+				([key, value]) =>
+					`${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+			)
+			.join("&");
+	}
+
+	function gotomcod() {
+		console.log("go to mccod");
+
+		const inputElement = document.querySelector(
+			`#YXed7PnLRco-ZKBE8Xm9DJG-val input`
+		);
+
+		// Check if the input element is found
+		if (!!inputElement) {
+			// Get the current value
+			var currentValue = inputElement.value;
+
+			// Check if the current value already contains " MATERNAL -"
+			if (!currentValue.includes("MATERNAL -")) {
+				// Add the string to the current value
+				var modifiedValue = " MATERNAL - " + currentValue;
+
+				// Set the new value to the input element
+				inputElement.value = modifiedValue;
+
+				// Log the modified value to the console
+				console.log("form20 case nmbr", modifiedValue);
+			} else {
+				// Log a message indicating that " MATERNAL -" is already present
+				console.log(
+					"case nmbr already contains ' MATERNAL -':",
+					currentValue
+				);
+			}
+		} else {
+			console.error("Input element not found.");
+		}
+
+		var olsdata = {
+			orgUnit,
+			nationality,
+			event: eventId,
+			// ZkNDFfFSTYg: defaultValueZkNDFfFSTYg // Add ZkNDFfFSTYg with default value to olsdata
+		};
+		des.forEach((deId) => {
+			const el = document.querySelector(
+				`input#YXed7PnLRco-${deId}-val, #YXed7PnLRco-${deId}-val input,#YXed7PnLRco-${deId}-val select`
+			);
+			console.log({el,deId})
+			if (!!el && el.tagName.toLowerCase() === 'input' && el.type === 'radio') {
+				const checkedRadio = document.querySelector(`input[name='${el.name}']:checked`);
+				olsdata[deId] = checkedRadio ? checkedRadio.value : ""; // If no radio button is checked, value will be empty string
+			} else {
+				olsdata[deId] = el?.value;
+			}
+			
+		});
+
+		console.log("olsdata", olsdata);
+		//localStorage.setItem("mcodtemp", JSON.stringify(olsdata));
+
+		ifrm = document.createElement("iframe");
+		ifrm.setAttribute(
+			"src",
+			// "http://localhost:3000?iframe_edit=true&" + buildQueryString(olsdata)
+			baseurl +
+				"/api/apps/Medical-Certificate-of-Cause-of-Death/index.html?iframe_edit=true&" +
+				buildQueryString(olsdata)
+		);
+		ifrm.style.width = "calc(100% - 40px)";
+		ifrm.style.minHeight = "640px";
+		ifrm.style.position = "absolute";
+		ifrm.style.top = "10px";
+		ifrm.style.left = "20px";
+		ifrm.style.border = "1px solid black";
+		ifrm.style.boxShadow = "2px 4px 12px 9px rgba(0,0,0,0.4)";
+
+		console.log("iff", ifrm);
+		document.body.appendChild(ifrm);
+
+		ifrm.onload = function () {
+			var iframeDocument =
+				ifrm.contentDocument || ifrm.contentWindow.document;
+			var headerElement = iframeDocument
+				.getElementById("root")
+				.querySelector("header");
+			headerElement.style.display = "none";
+		};
+	}
+
+	window.returntoreview = function (values) {
+		if (!!values) {
+			Object.keys(values).forEach((key) => {
+				var el = document.querySelector(
+					`#YXed7PnLRco-${key}-val input,#YXed7PnLRco-${key}-val select`
+				);
+				if (!!el) el.value = values[key];
+			});
+		}
+
+		// Get the input element for ZkNDFfFSTYg (linked value)
+		var inputElementZkNDFfFSTYg = document.querySelector(
+			`#YXed7PnLRco-ZkNDFfFSTYg-val input`
+		);
+
+		// Check if the input element is found
+		if (inputElementZkNDFfFSTYg) {
+			// Get the current value of ZkNDFfFSTYg
+			var valueZkNDFfFSTYg = inputElementZkNDFfFSTYg.value;
+
+			// Set the default value for ZkNDFfFSTYg
+			var defaultValueZkNDFfFSTYg =
+				valueZkNDFfFSTYg.trim() === "" ? "Linked" : valueZkNDFfFSTYg;
+			triggerInputChange(inputElementZkNDFfFSTYg, defaultValueZkNDFfFSTYg);
+			inputElementZkNDFfFSTYg.focus();
+			inputElementZkNDFfFSTYg.blur();
+
+			toggleSaveBtn(defaultValueZkNDFfFSTYg == "Linked");
+
+			// Log the value of ZkNDFfFSTYg to the console
+			console.log("ZkNDFfFSTYg value:", defaultValueZkNDFfFSTYg);
+		} else {
+			console.error("Input element for ZkNDFfFSTYg not found.");
+		}
+	};
+	window.closeIframe = function () {
+		document.body.removeChild(ifrm);
+	};
+
+    var toggleSaveBtn = (save = false) => {
+		const saveBtn = document.querySelector(
+			'div[data-test="main-button"] button[data-test="dhis2-uicore-splitbutton-button"]'
+		);
+		if (!!saveBtn) {
+           saveBtn.disabled = !save;
+           saveBtn.textContent = save ? "Save and exit" : "Link to MCCOD";
+         }
+
+		const saveToggleBtn = document.querySelector(
+			'div[data-test="main-button"] button[data-test="dhis2-uicore-splitbutton-toggle"]'
+		);
+		if (!!saveToggleBtn) saveToggleBtn.disabled = !save;
+
+		const editSaveBtn = document.querySelector(
+			'button[data-test="dhis2-uicore-button"].primary'
+		);
+		//if (editSaveBtn?.textContent == "Save") editSaveBtn.disabled = !save;
+        if (editSaveBtn) {
+        editSaveBtn.disabled = !save;
+        // Change the text content of the button
+        editSaveBtn.textContent = save ? "Save" : "Link to MCCOD";
+    }
+
+};
+
+var updateSaveState = () => {
+		const linked = document.querySelector(
+			`#YXed7PnLRco-ZkNDFfFSTYg-val input`
+		);
+		console.log("cval", linked?.value);
+		if (linked && linked.value != "Linked") {
+			toggleSaveBtn(false);
+		} else {
+			toggleSaveBtn(true);
+		}
+	};
+
+	updateSaveState();
+}
+
+if (!!disabledFields) {
+	console.log("disabling fields", disabledFields);
+	disabledFields.forEach((f) => {
+		var el = document.querySelector(
+			`#${f} input, #${f} select, #${f} textarea`
+		);
+		if (!!el) {
+			el.readonly = true;
+		}
+		var dropdown = document.querySelector(`#${f} .Select-arrow-zone`);
+		if (!!dropdown) {
+			dropdown.style.display = "none";
+		}
+	});
+}
+
+function updateCaseNumber() {
+	const casel = document.querySelector(`#YXed7PnLRco-ZKBE8Xm9DJG-val input`);
+
+	//console.log("Case number", window.casel)
+	if (!!casel && !casel.value) {
+		fetch(baseurl + "/api/33/system/id.json")
+			.then((response) => response.json())
+			.then(({ codes }) => {
+				casel.value = codes[0];
+				triggerInputChange(casel, codes[0]);
+				casel.focus();
+				casel.blur();
+
+				// var ev2 = new Event('input', { bubbles: true});
+				// casel.dispatchEvent(ev2);
+			});
+	}
+
+	const caseNo = casel.value;
+	// Define the URL
+	const url = `/api/38/tracker/events?page=1&pageSize=15&program=vf8dN49jprI&programStage=aKclf7Yl1PE&orgUnit=FvewOonC8lS&fields=dataValues,occurredAt,event,status,orgUnit,program,programType,updatedAt,createdAt,assignedUser&ouMode=SELECTED&order=occurredAt:desc&filter=ZKBE8Xm9DJG:like:${caseNo}&attributeCc=UjXPudXlraY&attributeCos=l4UMmqvSBe5`;
+
+	// Function to check if case number exists
+	async function checkCaseNumber(caseNumber) {
+		//var linked = document.querySelector(`#YXed7PnLRco-ZkNDFfFSTYg-val input`);
+		try {
+			// Fetch data from the URL
+			const response = await fetch(baseurl + url);
+
+			// Check if the response is successful
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+
+			// Parse the response as JSON
+			const responseData = await response.json();
+
+			// Check if instances array exists in the response data
+			if (responseData.instances && responseData.instances.length > 0) {
+				console.log(`Case number ${caseNumber} exists.`);
+
+				updateInputField();
+			} else {
+				console.log(`Case number ${caseNumber} does not exist.`);
+			}
+		} catch (error) {
+			console.error("There was a problem with the fetch operation:", error);
+		}
+
+          //new test function
+ 
+		try {
+			// check case number
+			const response = await fetch(baseurl + url);
+
+			// Check if the response is successful
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+
+			// Parse the response as JSON
+			const responseData = await response.json();
+             //console.log("response", responseData );     
+
+			// Check if instances array exists in the response data
+			if (responseData.instances && responseData.instances.length > 0) {
+				console.log(`the searched Case number ${caseNumber} exists.`);
+                toggleSaveBtn(true);
+
+			
+			} else {
+				console.log(`Case number ${caseNumber} does not exist.`);
+                toggleSaveBtn(false);
+			}
+		} catch (error) {
+			console.error("There was a problem with the fetch operation:", error);
+            toggleSaveBtn(false);
+		}
+
+
+	}
+
+	checkCaseNumber(caseNo);
+	updateSaveState();
+}
+
+updateCaseNumber();
+
+// Define a function to update the input field
+function updateInputField() {
+	const linked = document.querySelector(`#YXed7PnLRco-ZkNDFfFSTYg-val input`);
+
+	if (linked && !linked.value) {
+		linked.value = "Linked";
+		toggleSaveBtn(true);
+		triggerInputChange(linked, linked.value);
+		linked.focus();
+		linked.blur();
+		console.log("Input field updated to 'Linked'");
+	} else {
+		toggleSaveBtn(linked?.value == "Linked");
+		console.log("Input field already has a value:", linked.value);
+	}
+}
+   
+</script>
+<script>
+(function () {
+	function isSectionRow(node) {
+		return !!(node && node.querySelector && node.querySelector(".section-head"));
+	}
+
+	function collectTargets(head) {
+		var targets = [];
+
+		var headTable = head.closest("table");
+		if (headTable) {
+			var rows = Array.prototype.slice.call(
+				headTable.querySelectorAll("tr")
+			);
+			var idx = rows.indexOf(head);
+			for (var i = idx + 1; i < rows.length; i++) {
+				targets.push(rows[i]);
+			}
+
+			var outerCell = headTable.closest("td");
+			var outerRow = outerCell ? outerCell.closest("tr") : null;
+			if (outerRow) {
+				var sib = outerRow.nextElementSibling;
+				while (sib) {
+					if (isSectionRow(sib)) break;
+					targets.push(sib);
+					sib = sib.nextElementSibling;
+				}
+			}
+		}
+		return targets;
+	}
+
+	function setSection(head, collapsed) {
+		head.classList.toggle("collapsed", collapsed);
+		collectTargets(head).forEach(function (el) {
+			el.style.display = collapsed ? "none" : "";
+		});
+	}
+
+	function setAll(collapsed) {
+		document.querySelectorAll("tr.section-head").forEach(function (head) {
+			setSection(head, collapsed);
+		});
+	}
+
+	function addToolbar() {
+		if (document.getElementById("form20-toolbar")) return;
+
+		var anchor = document.querySelector(".dataentryform");
+		if (!anchor) return;
+
+		var mainTable = anchor.closest("table");
+		var climber = mainTable;
+		while (climber) {
+			mainTable = climber;
+			var parent = climber.parentElement;
+			climber = parent ? parent.closest("table") : null;
+		}
+		if (!mainTable || !mainTable.parentNode) return;
+
+		var bar = document.createElement("div");
+		bar.id = "form20-toolbar";
+		bar.className = "form-toolbar";
+
+		var title = document.createElement("span");
+		title.className = "toolbar-title";
+		title.textContent = "Maternal Death Review \u2013 Form 020";
+		bar.appendChild(title);
+
+		var expandBtn = document.createElement("button");
+		expandBtn.type = "button";
+		expandBtn.className = "toolbar-btn";
+		expandBtn.textContent = "Expand all";
+		expandBtn.addEventListener("click", function () {
+			setAll(false);
+		});
+
+		var collapseBtn = document.createElement("button");
+		collapseBtn.type = "button";
+		collapseBtn.className = "toolbar-btn";
+		collapseBtn.textContent = "Collapse all";
+		collapseBtn.addEventListener("click", function () {
+			setAll(true);
+		});
+
+		bar.appendChild(expandBtn);
+		bar.appendChild(collapseBtn);
+		mainTable.parentNode.insertBefore(bar, mainTable);
+	}
+
+	function initAccordion() {
+		document.querySelectorAll("tr.section-head").forEach(function (head) {
+			if (head.dataset.accordionInit === "1") return;
+			head.dataset.accordionInit = "1";
+
+			var firstCell = head.querySelector("td");
+			if (firstCell && !firstCell.querySelector(".acc-caret")) {
+				var caret = document.createElement("span");
+				caret.className = "acc-caret";
+				caret.textContent = "\u25BE";
+				firstCell.insertBefore(caret, firstCell.firstChild);
+			}
+
+			head.addEventListener("click", function () {
+				setSection(head, !head.classList.contains("collapsed"));
+			});
+		});
+	}
+
+	function wrapTables() {
+		document.querySelectorAll(".dataentryform").forEach(function (tbl) {
+			var parent = tbl.parentNode;
+			if (
+				parent &&
+				parent.classList &&
+				parent.classList.contains("table-scroll")
+			) {
+				return;
+			}
+			var wrap = document.createElement("div");
+			wrap.className = "table-scroll";
+			parent.insertBefore(wrap, tbl);
+			wrap.appendChild(tbl);
+		});
+	}
+
+	function init() {
+		wrapTables();
+		initAccordion();
+		addToolbar();
+	}
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", init);
+	} else {
+		init();
+	}
+})();
+</script>

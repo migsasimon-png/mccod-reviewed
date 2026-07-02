@@ -11,11 +11,8 @@ import { StoreContext } from "./Context";
 import { EventList } from "./components/EventList";
 import LanguageConfigPage from "./components/LanguageConfigPage";
 import ApiConfigPage from "./components/ApiConfigPage";
-
-const extraHeaders =
-  process.env.NODE_ENV === "development"
-    ? { Authorization: `${process.env.REACT_APP_DHIS2_AUTHORIZATION}` }
-    : {};
+import { Home } from "./components/Home";
+import { DynamicForm } from "./components/DynamicForm";
 
 export const App = observer(() => {
   const engine = useDataEngine();
@@ -24,12 +21,16 @@ export const App = observer(() => {
   const [fetching, setFetching] = useState(false);
 
 
-  //set on app reload
+  // Legacy MCCOD bootstrap — only when embedded from another app, not on a
+  // normal browser visit (stale mcodtemp in localStorage must not hijack home).
   useEffect(() => {
-    if (window === window.parent) {
-      store.showEvents();
+    const search = `${window.location.search}${window.location.hash}`;
+    const embedded =
+      window !== window.parent || /iframe_edit=true/.test(search);
+    if (embedded) {
+      store.openModule("records");
     }
-  }, [])
+  }, []);
 
   const fetchOrgs = async () => {
     setFetching(true);
@@ -132,7 +133,14 @@ export const App = observer(() => {
           zIndex: 1000,
         }}
       /> */}
-      {store.currentPage === "4" ? (
+      {store.activeModule === "home" ? (
+        <Home />
+      ) : store.activeModule === "mdr" ||
+        store.activeModule === "pdr" ||
+        store.activeModule === "cdr" ||
+        store.activeModule === "mccod" ? (
+        <DynamicForm />
+      ) : store.currentPage === "4" ? (
         <div className="p-2">
           <ApiConfigPage />
         </div>
@@ -142,6 +150,13 @@ export const App = observer(() => {
         </div>
       ) : (
         <div className="p-2">
+          {window === window.parent && (
+            <div className="mccod-topbar">
+              <button className="mccod-home-link" onClick={store.goHome}>
+                ← All forms
+              </button>
+            </div>
+          )}
           {store.currentPage === "1" ? (
             <OrgUnitTree loading={loading || fetching} fetching={fetching} />
           ) : (

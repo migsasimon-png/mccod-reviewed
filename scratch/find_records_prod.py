@@ -12,7 +12,7 @@ prod_credentials = [
     {
         "name": "Production Server (hisp.colupot)",
         "url": "https://hmis.health.go.ug",
-        "auth_header": "Basic aGlzcC5jb2x1cG90OkJhYnk3N0BCYWJ5Nzcx"
+        "auth_header": "Basic d2p_klok96KmVsASkyZsn7BdXKeWX15Jo9DTwn9uH5FqziS90DBaeH"
     }
 ]
 

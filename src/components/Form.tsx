@@ -328,7 +328,7 @@ export const DataEntryForm = observer(() => {
     //     try {
     //         const response = await fetch(
     //             `/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
-    //             // `https://hmis-dev.health.go.ug/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
+    //             // `https://hmis-tests.health.go.ug/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
     //             // `https://hmis.health.go.ug/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
     //         );
     //         const data = await response.json();
@@ -360,8 +360,8 @@ export const DataEntryForm = observer(() => {
     //     try {
     //         const response = await fetch(
     //             // "api/organisationUnits.json?level=5&paging=false&fields=id,displayName,level,parent[id,displayName,level,parent[id,displayName,level]]"
-    //             // "https://hmis-dev.health.go.ug/api/organisationUnits.json?level=5&paging=false&fields=id,displayName,level,parent[id,displayName,level,parent[id,displayName,level]]"
-    //             `https://hmis-dev.health.go.ug/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
+    //             // "https://hmis-tests.health.go.ug/api/organisationUnits.json?level=5&paging=false&fields=id,displayName,level,parent[id,displayName,level,parent[id,displayName,level]]"
+    //             `https://hmis-tests.health.go.ug/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
     //         );
     //         const data = await response.json();
     //         console.log("sub data", chosenDistrictId);
@@ -1705,7 +1705,7 @@ export const DataEntryForm = observer(() => {
         };
         // "https://icd.who.int/doris/api/ucod/underlyingcauseofdeath/ICD11"
         const burl = "https://ug.sk-engine.online";
-        // const burl = "https://hmis-dev.health.go.ug";
+        // const burl = "https://hmis-tests.health.go.ug";
         const url = burl + "/icd/release/11/2024-01/doris?" + new URLSearchParams(payload);
         
         try {

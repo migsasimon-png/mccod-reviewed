@@ -4,7 +4,14 @@ import { App } from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "@dhis2/app-runtime";
 
-const dynamicBaseUrl = window.location.origin.includes("local")
+// Local npm start: same-origin requests hit src/setupProxy.js (auth injected server-side).
+const isLocalDev =
+  process.env.NODE_ENV === "development" &&
+  /localhost|127\.0\.0\.1/.test(window.location.hostname);
+
+const dynamicBaseUrl = isLocalDev
+  ? `${window.location.origin}/`
+  : window.location.origin.includes("local")
   ? process.env.REACT_APP_DHIS2_BASE_URL
   : `${window.location.origin}/`;
 

@@ -1,0 +1,758 @@
+[
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "ZKBE8Xm9DJG",
+  "title": "HMIS_100_  Ministry of Health National Case Number"
+ },
+ {
+  "type": "note",
+  "title": "SECTION ONE: Identification"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "eb82Wa1qOS8",
+  "title": "017-ID01. IPNo (Mother)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "H34bcwaOliX",
+  "title": "017-ID02. IPNo (Newborn)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "T0f4UTwxd6Q",
+  "title": "017-ID03. Village"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "dKQIx7sVFbD",
+  "title": "017-ID04. Parish"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "t5nTEmlScSt",
+  "title": "HMIS_100_  Subcounty"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "u44XP9fZweA",
+  "title": "HMIS_100_  District"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "xpJgWYFpvht",
+  "title": "017-ID05. Mother’s initials"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "hTYVRRvhYEt",
+  "title": "017-ID06. Age"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "rjoVXlCWLYM",
+  "title": "017-ID07. Age of the baby (Minutes)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "rDI0uhcVLAk",
+  "title": "017-ID08. Age of the baby (Hours)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "quKRjZzkSRA",
+  "title": "017-ID09. Age of the baby (Days)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "bS24JUbPyQv",
+  "title": "017-ID10. Was baby referred?"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "o03g3QSYR0b",
+  "title": "017-ID11. If Yes; where referred from?"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "HJd1MWPsvUC",
+  "title": "017-ID13. If referred from health facility,  name of the facility"
+ },
+ {
+  "type": "note",
+  "title": "SECTION TWO: Pregnancy progress and Care"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "gnNPEZQc8io",
+  "title": "017-PP01. Mothers Parity"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "OburkrE8yhu",
+  "title": "017-PP02. No. of mother’s living children"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "CY6W9fagQ0e",
+  "title": "017-PP03. Type of pregnancy"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "GOC04o3duHu",
+  "title": "017-PP04. Attendance of Antenatal care:"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "laCeT3RhMUh",
+  "title": "017-PP05. If yes, how many times?"
+ },
+ {
+  "type": "subhead",
+  "title": "2.5 Core ANC Interventions (tick appropriately)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "MEk5ws6HFaz",
+  "title": "017-PP06. Core ANC Interventions - Malaria prophylaxis (IPT1)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "kKZnZPrggaX",
+  "title": "017-PP07. Core ANC Interventions - Malaria prophylaxis (IPT2)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "J8cM570ZGHa",
+  "title": "017-PP08. Core ANC Interventions - Malaria prophylaxis ( IPT3)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "biBZmUjxguG",
+  "title": "017-PP09. Core ANC Interventions - Malaria prophylaxis (IPT3+)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "EC4nyhCs66y",
+  "title": "017-PP10. Core ANC Interventions - Tetanus Diptheria (TD1)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "wizIGlVHHLE",
+  "title": "017-PP11. Core ANC Interventions - Tetanus Diptheria (TD2)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "WYGPAumPdxH",
+  "title": "017-PP12. Core ANC Interventions - Tetanus Diptheria (TD3)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "ywMAGkuvTjq",
+  "title": "017-PP13. HIV test done"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "VnDcrZ4gCdR",
+  "title": "017-PP14. HIV test results"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "VtF7Nx2yjat",
+  "title": "017-PP15. If HIV positive"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "DPG74K71T7a",
+  "title": "017-PP16. Syphilis test done"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "qnhVulYBuyO",
+  "title": "017-PP17. Syphilis test results"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "noTA8bNu7Er",
+  "title": "017-PP18. Hb done"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "g7cj6HmiFHJ",
+  "title": "017-PP19. If yes, Hb Level"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "riyahnxUdTf",
+  "title": "017-PP20. Hepatitis B status"
+ },
+ {
+  "type": "subhead",
+  "title": "2.6 Known Conditions in present pregnancy (tick all applicable)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "Wb2SCeKzukC",
+  "title": "017-PP21. Known Conditions in present pregnancy(Antepartum Hemorrhage)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "c78xosOwe3g",
+  "title": "017-PP22. Known Conditions in present pregnancy(Hypertension)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "wXDjq0ttSDX",
+  "title": "017-PP23. Known Conditions in present pregnancy(Pre-labour rupture of membranes)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "S6o6VBlyOWf",
+  "title": "017-PP24. Known Conditions in present pregnancy(Diabetes)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "ccwzYUHvWIT",
+  "title": "017-PP25. Known Conditions in present pregnancy(Anaemia)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "mRZoapzYOlM",
+  "title": "017-PP26. Known Conditions in present pregnancy(UTI)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "fdBg2KI2irO",
+  "title": "017-PP27. Known Conditions in present pregnancy(Malaria)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "W3PCd6BTecX",
+  "title": "017-PP28. Known Conditions in present pregnancy(Trauma-accidental)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "M9lvHItvuaq",
+  "title": "017-PP29. Known Conditions in present pregnancy(Gender based violence)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "w4GmUG25zuQ",
+  "title": "017-PP30. Known Conditions in present pregnancy(Multiple pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "qa379ul9HX5",
+  "title": "017-PP31. Known Conditions in present pregnancy(Drugs/Medicines-Specify)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "ZrNVjAt6LW2",
+  "title": "017-PP32. Known Conditions in present pregnancy(Others)"
+ },
+ {
+  "type": "note",
+  "title": "SECTION THREE: Labour and Birth"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "m8jUvzBgYga",
+  "title": "017-LB01. Weeks of amenorrhea at delivery"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "RpkIvgOOZJt",
+  "title": "017-LB02. Date and time of delivery"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "Dq9aH0aZ2wb",
+  "title": "017-LB04. Date and time of Death"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "LjrdbcFRI1d",
+  "title": "017-LB05. Place of delivery"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "Boui663joOP",
+  "title": "017-LB06. If health facility specify name"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "t1udXNXQ5hc",
+  "title": "017-LB07. On admission, were there fetal heart sounds present?"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "aLvTannWmvI",
+  "title": "017-LB08. Was partograph used?"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "o69aE6o8LfO",
+  "title": "017-LB09. If ‘Yes’ was partograph used correctly?"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "b9JlESs135J",
+  "title": "017-LB10. If No indicate the gap"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "CQUQiCpk4um",
+  "title": "017-LB11. Mode of Delivery"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "NDzItgcGQhW",
+  "title": "017-LB12. Mode of Delivery (Others)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "LxlVFKhBOT8",
+  "title": "017-LB13. Indication for Instrumental /or Caesarean section:"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "eL4O6FOxzcr",
+  "title": "017-LB14. Time between decisions for Cesarean section /instrumental and actual delivery of the baby:"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "MRJAZcGBg14",
+  "title": "017-LB15. Did vaginal delivery occur in spite of decision to do caesarean section?"
+ },
+ {
+  "type": "subhead",
+  "title": "3.7 Condition of the Baby"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "RmrshOepF86",
+  "title": "017-LB16. Apgar score (1 min)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "kOCe0LCjbVv",
+  "title": "017-LB17. Apgar score (5 min)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "pimd0GLDogv",
+  "title": "017-LB18. Apgar score (10 min)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "Yis06rsFWQz",
+  "title": "017-LB19. Apgar score (Don't know)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "x7k2caL4psq",
+  "title": "017-LB20. Resuscitation done"
+ },
+ {
+  "type": "subhead",
+  "title": "3.7.3 If 'Yes' what was done?"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "mkQMb4ANZ1C",
+  "title": "017-LB22. Stimulation"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "x7fsCQzTP4G",
+  "title": "017-LB23. Suction"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "HeOmzW0Bj8f",
+  "title": "017-LB24. Bag and Mask"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "IELb95GgJhj",
+  "title": "017-LB25. Oxygen given"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "YPDveEOR7Cz",
+  "title": "017-LB26. Endotracheal and Positive pressure ventilation"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "yCUx2f9ed7R",
+  "title": "017-LB27. CPR"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "CprvAYJIWNv",
+  "title": "017-LB28. Medication"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "QP3u2BU4E9p",
+  "title": "017-LB29. All"
+ },
+ {
+  "type": "subhead",
+  "title": "3.7.4 Resuscitation done by"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "q4YXJgj2sIZ",
+  "title": "017-LB31. Midwife"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "LF6ukmshijY",
+  "title": "017-LB32. Nurse"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "PlzGmmIbpK5",
+  "title": "017-LB33. Doctor"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "bRddgcYH9Qn",
+  "title": "017-LB34. Anesthetist"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "fv703VfWJli",
+  "title": "017-LB35. Trainee"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "J3VHBvaXyyb",
+  "title": "017-LB36. Others (specify):"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "bDWkcVeQLUc",
+  "title": "017-LB37. Weight of the baby"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "ZBvxrMFv9aW",
+  "title": "017-LB38. Sex"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "TiPl1iLI30H",
+  "title": "017-LB39. Type of Perinatal Death"
+ },
+ {
+  "type": "subhead",
+  "title": "If neonatal death, reason for admission/diagnosis at admission (Tick all applicable)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "qaJDxXfEWPv",
+  "title": "017-LB40. Reason for admission/ diagnosis at admission-Difficult feeding (baby)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "Rqn5P8xXXqp",
+  "title": "017-LB41. Reason for admission/ diagnosis at admission-Difficult breast feeding (mother)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "WlknV4Af2se",
+  "title": "017-LB42. Reason for admission/ diagnosis at admission-Jaundice"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "cbCv995TsyQ",
+  "title": "017-LB43. Reason for admission/ diagnosis at admission-Anaemia"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "OeL1eJ2tGsN",
+  "title": "017-LB44. Reason for admission/ diagnosis at admission-Difficult breathing"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "prGljHyx851",
+  "title": "017-LB45. Reason for admission/ diagnosis at admission-Hypoglycaemia"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "XoWWbJlnMsi",
+  "title": "017-LB46. Reason for admission/ diagnosis at admission-Septicaemia"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "T609w4wbcim",
+  "title": "017-LB47. Reason for admission/ diagnosis at admission-Hypothermia"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "YV5WasxuoTN",
+  "title": "017-LB48. Reason for admission/ diagnosis at admission-Bulging fontanelle"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "M5zzpq6O4xU",
+  "title": "017-LB49. Reason for admission/ diagnosis at admission-Fever"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "Hq66gDflc5k",
+  "title": "017-LB50. Reason for admission/ diagnosis at admission-Convulsions"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "vnKvRqyjngA",
+  "title": "017-LB51. Reason for admission/ diagnosis at admission-Bleeding"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "XZRrIoCTb3P",
+  "title": "017-LB52. Reason for admission/ diagnosis at admission-Other conditions"
+ },
+ {
+  "type": "note",
+  "title": "3.9. Probable cause of death: Tick all applicable"
+ },
+ {
+  "type": "subhead",
+  "title": "Code Cause of death Code Cause of death"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "Q6HnSrUTl39",
+  "title": "017-LB56. A33 Probable cause of death(Tetanus)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "UaGg4B3DUac",
+  "title": "017-LB53. Q80 Probable cause of death(Congenital Anomalies)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "jSaonaOE68O",
+  "title": "017-LB57. P36 Probable cause of death(Septicaemia)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "xYenYvBElrk",
+  "title": "017-LB54. Q80 Probable cause of death(Others)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "xjeIBJ2XyPd",
+  "title": "017-LB58. P15 Probable cause of death(Birth trauma)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "H4iDsba7jkw",
+  "title": "017-LB60. P07 Probable cause of death(Prematurity complications)-Specify"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "apgGGC11v8Y",
+  "title": "017-LB59. P22 Probable cause of death(Birth Asphyxia)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "Y5T6DMJiZPJ",
+  "title": "017-LB55. Q80 Probable cause of death(Unknown)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "ZkNDFfFSTYg",
+  "title": "HMIS_100_Linked"
+ },
+ {
+  "type": "note",
+  "title": "* Premature: Born after 28 weeks but before 37 weeks of gestation Edit From MCCOD"
+ },
+ {
+  "type": "subhead",
+  "title": "3.10 Avoidable factors/missed opportunities/substandard care. Which of the following factors were present (tick all appropriate)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "hRprz4XEDrz",
+  "title": "017-LB61. Delay to seek health care  (Avoidable factors)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "EV93HrESugB",
+  "title": "017-LB62. Delay to reach the health facility (Avoidable factors)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "MFBT0aG5S6p",
+  "title": "017-LB63. Delay to provide care (Avoidable factors)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "SVPoIi25jCw",
+  "title": "017-LB64. Absence of critical human resources(Avoidable factors)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "rLyf2TuYbn3",
+  "title": "017-LB65. Lack of resuscitation equipment(Avoidable factors)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "LfjWOPewHml",
+  "title": "017-LB66. Lack of supplies and drugs including blood(Avoidable factors)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "We0QqTPk1Oj",
+  "title": "017-LB67. Misdiagnosis(Avoidable factors)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "sFrh6MH8xJ2",
+  "title": "017-LB68. Inappropriate intervention(Avoidable factors)"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "pRYm5u9S8Ag",
+  "title": "017-LB69. Others specify(Avoidable factors)"
+ },
+ {
+  "type": "subhead",
+  "title": "Comments on avoidable factors and missed opportunities:"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "BOUN3iTMTzU",
+  "title": "017-LB70. Comments on avoidable factors and missed opportunities"
+ },
+ {
+  "type": "subhead",
+  "title": "Agreed upon Actions to address the avoidable factors"
+ },
+ {
+  "type": "field",
+  "stage": "CGz50G2MY16",
+  "de": "nAc07V7ZYUL",
+  "title": "017-LB71. Agreed upon Actions to address the avoidable factors"
+ }
+]

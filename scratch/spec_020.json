@@ -1,0 +1,1754 @@
+[
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ZKBE8Xm9DJG",
+  "title": "HMIS_100_  Ministry of Health National Case Number"
+ },
+ {
+  "type": "note",
+  "title": "SECTION 2: DETAILS OF THE DECEASED:"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "FIfoObQJvNp",
+  "title": "020-DD01.Intials"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "CupbOInqvJI",
+  "title": "020-DD10.NIN"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "BRtcz4HV7Ak",
+  "title": "020-DD03.Inpatient number"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "hcu4LCAMSkz",
+  "title": "020-DD04.Usual Residence address (Village)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ioXkKfrgCJa",
+  "title": "020-DD05. Usual Residence address (Subcounty)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "FHmHV9mElbD",
+  "title": "020-DD06. Usual Residence address (District)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "iJqBq0kQtWO",
+  "title": "020-DD07. Age in completed years"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "eTVI19PiJmM",
+  "title": "020-DD08. Marital Status"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "sd185WRKepb",
+  "title": "020-DD09. Religon"
+ },
+ {
+  "type": "note",
+  "title": "SECTION 3: ADMISSION AT HEALTH FACILITY WHERE DEATH OCCURRED / WAS REPORTED"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "wmNrbtFpcdy",
+  "title": "020-AD01. At time of admission (Gravita)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ByIsCiqkq4v",
+  "title": "020-AD02a.  Para (Viable Gestational Age)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "vORgqb7tQBu",
+  "title": "020-AD02b.  Para (Abortus)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "jdxl2rdeDEk",
+  "title": "020-AD03. At time of admission(Gestation in weeks)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "c5kDr80smH8",
+  "title": "020-AD05. Date and time of admission"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "WzauwhVOwM0",
+  "title": "020-AD06. Date and time of death"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "IH7NTNcSZYk",
+  "title": "020-AD07a. Duration of stay in facility before death (days)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ww21ycTPDb6",
+  "title": "020-AD07b. Duration of stay in facility before death (hours)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "BJXbwUs4tGF",
+  "title": "020-AD07c. Duration of stay in facility before death (minutes)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "iAgu1y93XAB",
+  "title": "020-AD08. Referred"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "eJwpqR9t7YM",
+  "title": "020-AD09. Referred from"
+ },
+ {
+  "type": "note",
+  "title": "Condition on admission"
+ },
+ {
+  "type": "subhead",
+  "title": "Category Abnormal vital signs Unconscious Dead on arrival"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "GropdEXdkL0",
+  "title": "020-AD10b. Condition on admission-Abortion(Abnormal vital signs)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "QkwqwhwVBSx",
+  "title": "020-AD10c. Condition on admission-Abortion(Unconcious)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "PkkDS8oCueZ",
+  "title": "020-AD10d. Condition on admission-Abortion(Dead on arrival)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "f0L5gbFIYgN",
+  "title": "020-AD11b. Condition on admission-Ectopic Pregenancy(Abnormal vital signs)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "m9XP3U3zhGs",
+  "title": "020-AD11c. Condition on admission-Ectopic Pregenancy(Unconcious)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "JrphiR5eL7e",
+  "title": "020-AD11d. Condition on admission-Ectopic Pregenancy(Dead on arrival)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ezA6qoeiMaY",
+  "title": "020-AD12b. Condition on admission-Antental(Abnormal vital signs)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "dzhuimTFxAp",
+  "title": "020-AD12c. Condition on admission-Antental(Unconcious)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "UktXJadJhId",
+  "title": "020-AD12d. Condition on admission-Antental(Dead on arrival)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "LI8e6zZG0A4",
+  "title": "020-AD13b. Condition on admission-Intrapartum(Abnormal vital signs)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "lOEl43oH1YS",
+  "title": "020-AD13c. Condition on admission-Intrapartum(Unconcious)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Wkx3fzsB2dd",
+  "title": "020-AD13d. Condition on admission-Intrapartum(Dead on arrival)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "HN4IkP51eko",
+  "title": "020-AD14b. Condition on admission-Postpartum(Abnormal vital signs)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "iUSa5C2APFN",
+  "title": "020-AD14c. Condition on admission-Postpartum(Unconcious)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Agzf9GaJ6G2",
+  "title": "020-AD14d. Condition on admission-Postpartum(Dead on arrival)"
+ },
+ {
+  "type": "note",
+  "title": "Vital signs recorded on admission"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Rrs7OQx1yMS",
+  "title": "020-AD16. Vital signs recorded on admission (Blood pressure)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ejbJJ1gTnQb",
+  "title": "020-AD17a. Vital signs recorded on admission (Blood pressure reading systolic)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Hn09AcoW4Mk",
+  "title": "020-AD17b. Vital signs recorded on admission (Blood pressure reading diastolic)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "rn8cGimwQ3a",
+  "title": "020-AD18. Vital signs recorded on admission (Temperature)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "c8hsSJy63ay",
+  "title": "020-AD19. Vital signs recorded on admission (Temperature reading)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "OWhIguUYA66",
+  "title": "020-AD20. Vital signs recorded on admission (Respiration)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "MDXum0oNBQb",
+  "title": "020-AD21. Vital signs recorded on admission (Respiration reading)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "W7EN3QVTdMD",
+  "title": "020-AD22 Vital signs recorded on admission (Level of consciousness)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "lSthTlIFbEh",
+  "title": "020-AD23. Reasons for admission/complaints on admission"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ocMXxDCF6DF",
+  "title": "020-AD24. Diagnosis on admission"
+ },
+ {
+  "type": "note",
+  "title": "SECTION 4: ANTENATAL CARE"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "QidQVyBFspW",
+  "title": "020-AC01. Did the mother book for antenatal care/receive antenatal care?"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "hZlRNVrmS1y",
+  "title": "020-AC02. If “Yes”,How many times did she attend?"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "a5fh4wtDzmi",
+  "title": "020-AC03. Type of health facility where she attended ANC"
+ },
+ {
+  "type": "note",
+  "title": "Antenatal risk factors"
+ },
+ {
+  "type": "note",
+  "title": "Risk History"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "y0B7fm7rguE",
+  "title": "020.AC04. Antenatal risk factors(Hypertension)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "kRQ3g914TCz",
+  "title": "020.AC05. Antenatal risk factors(Bleeding)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "TxyHEYfHKrF",
+  "title": "020.AC06. Antenatal risk factors(Proteinuria)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Hg1Jyk0pakg",
+  "title": "020.AC07. Antenatal risk factors(Glycosuria)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "kUecSo0kdJ3",
+  "title": "020.AC08. Antenatal risk factors(Anaemia)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "wwmxSrEknn8",
+  "title": "020.AC09. Antenatal risk factors(Abnormal lie)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "byW52kaC6pR",
+  "title": "020.AC10. Antenatal risk factors(Previous Caesarean section)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "W2Dxjt6PxN5",
+  "title": "020.AC011. Antenatal risk factors(Fever)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "nw15Ko1SKnq",
+  "title": "020-AC12. Others specify)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "fA4uVOOV7Gl",
+  "title": "020-AC13. Medication received during ANC(IPT)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "yajntikIgCk",
+  "title": "020-AC14.Medication received during ANC(Tetanus diphtheria(Td)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "HwJeCYbUnDL",
+  "title": "020-AC15.Medication received during ANC(Ferrous)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Us9t4jzNMSd",
+  "title": "020-AC16.Medication received during ANC(De- wormers)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "BxBqvKhoJvj",
+  "title": "020-AC17.Medication received during ANC.Other specify"
+ },
+ {
+  "type": "subhead",
+  "title": "Investigations done during ANC"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "vVP5ClqKkHQ",
+  "title": "020-AC19.HIV test during present pregnancy"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "oz0vASbQvq5",
+  "title": "020-AC20.HIV test results"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "IACcLw1GbkR",
+  "title": "020-AC21.If HIV positive; Is she enrolled on care ?"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "OJVwBSHC4b0",
+  "title": "020-AC22.If HIV Positive, CD4 count"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "x4luCocBY5h",
+  "title": "020-AC23.Syphilis test during pregnancy"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "z8bU25JRAGG",
+  "title": "020-AC24.Syphilis test results"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "T3QwXHphTIu",
+  "title": "020-AC25.Hb Level 1"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "QPw7nHXJqe9",
+  "title": "020-AC26.Hepatitis B-Status1"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "c6gVPQ5rTOo",
+  "title": "020-AC27.Urinalysis–Protein/Sugar/casts"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "fuRsZ7wn5Q5",
+  "title": "020-AC28.Others"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "cqVj2lrYx2W",
+  "title": "020-AC29.Comment on investigations done"
+ },
+ {
+  "type": "note",
+  "title": "SECTION 5: DELIVERY AND PUERPERIUM INFORMATION"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "J11gxMDNvv7",
+  "title": "020-DP01. Did labour occur"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "E0OEw6yVcJm",
+  "title": "020-DP02. Was a partogram filled"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "v9BgVEytqsi",
+  "title": "020-DP03. Partogram correctly used"
+ },
+ {
+  "type": "note",
+  "title": "Duration of labour (enter appropriate code below)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "NKKunKgeJiD",
+  "title": "020-DP04. Duration of labour (latent)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "pVGyUKsZywW",
+  "title": "020-DP05. Duration of labour (Active labour)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "tkiEm0lt9cV",
+  "title": "020-DP06. Duration of labour (Second)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "HJhEdW3YNL3",
+  "title": "020-DP07. Duration of labour (Third)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "PbayNOhXnyx",
+  "title": "020-DP08. Did delivery take place"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "LFYN9XzE4cB",
+  "title": "020-DP09. No of days after delivery/abortion"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "AqXDMjrPUEE",
+  "title": "020-DP10. Place of delivery"
+ },
+ {
+  "type": "note",
+  "title": "Mode of delivery"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "TKWaMxLDj7J",
+  "title": "020-DP11. Mode of delivery (viginal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "kHdz10PWtjp",
+  "title": "020-DP12. Mode of delivery (Vaginal breech)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "brmlMKiNrZt",
+  "title": "020-DP13. Mode of delivery (Instrumental vaginal vaccum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "On3EvqCavl1",
+  "title": "020-DP14. Mode of delivery (Instrumental vaginal forcepts)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "NAnhGvDjMRF",
+  "title": "020-DP15. Mode of delivery (Caesarean section emergency)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "sju2IsSkUZG",
+  "title": "020-DP16. Mode of delivery (Caesarean section elective)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Wy8zkenyVr4",
+  "title": "020-DP17. Mode of delivery (Destructive operations)"
+ },
+ {
+  "type": "note",
+  "title": "Main Assistant at delivery"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "OP5Jr95bkkW",
+  "title": "020-DP18. Main assistant at delivery (Doctor)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "BLbGQB5NTX1",
+  "title": "020-DP19. Main assistant at delivery (Midwife)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ZMq8DHxtwCP",
+  "title": "020-DP20. Main assistant at delivery (Nursing assistant)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "OdQkbYCACsT",
+  "title": "020-DP21. Main assistant at delivery (TBA)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ZOZFaanQLAD",
+  "title": "020-DP22. Main assistant at delivery (Member of the family)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "YHBzpuYWQg1",
+  "title": "020-DP23. Main assistant at delivery (Self)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "STVD72fHWYK",
+  "title": "020-DP24. Main assistant at delivery (Other)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "aCzqBYUkfDe",
+  "title": "020-DP27.Outcome of pregnancy"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "XW2CKaAiMKc",
+  "title": "020-DP25. Baby weight in grams"
+ },
+ {
+  "type": "note",
+  "title": "Obstetrical complications"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "LA1WtCaWi2M",
+  "title": "020-DP26a. Obstetrical complications (APH)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "owuXac0M85O",
+  "title": "020-DP26b. Obstetrical complications (PPH)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "A1eKHTfGYfT",
+  "title": "020-DP26c. Obstetrical complications (Sepsis)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Yj5FTl1DukQ",
+  "title": "020-DP26d. Obstetrical complications (Eclampsia)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "brdup6zLcEo",
+  "title": "020-DP26e.Obstetrical complication-Ruptured uterus"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Xo0I6fvmmha",
+  "title": "020-DP26f.Obs complications-Shock/sudden colapse"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ezUwUwLOWDO",
+  "title": "020-DP26g. Obstetrical complications - Other"
+ },
+ {
+  "type": "note",
+  "title": "SECTION 6: INTERVENTIONS"
+ },
+ {
+  "type": "subhead",
+  "title": "Intervention Stage of pregnancy"
+ },
+ {
+  "type": "subhead",
+  "title": "Early pregnancy Antenatal Intrapartum Postpartum"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "hUT25oOxMmX",
+  "title": "020-IN01a. Evacuation (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "zRnpKj8GISp",
+  "title": "020-IN01b. Evacuation (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "qm3ga81qmEC",
+  "title": "020-IN01c. Evacuation (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "LojuydZv8Me",
+  "title": "020-IN01d. Evacuation (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "aOIkElUMfoW",
+  "title": "020-IN02a. IV Fluids (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "BWKDsGUDEH3",
+  "title": "020-IN02b. IV Fluids (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "oxXg2PTeAok",
+  "title": "020-IN02c. IV Fluids (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Nk5boO6Q7Yu",
+  "title": "020-IN02d. IV Fluids (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "kFUUPTSrZCS",
+  "title": "020-IN03a. Transfusion (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "VBEFSU4Ezo2",
+  "title": "020-IN03b. Transfusion (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "fvecJ8TFPRc",
+  "title": "020-IN03c. Transfusion (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "S5eg3TWIQIp",
+  "title": "020-IN03d. Transfusion (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "qgkXe3wF21D",
+  "title": "020-IN04a. Anticonvulsants (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "rJfruTDzbma",
+  "title": "020-IN04b. Anticonvulsants (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "lXdAZeKZn4m",
+  "title": "020-IN04c. Anticonvulsants (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "emdE43QBqPp",
+  "title": "020-IN04d. Anticonvulsants (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "arW1EL6XQpE",
+  "title": "020-IN05a. Anaesthesia (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "F4qzhohON5N",
+  "title": "020-IN05b. Anaesthesia (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "kEhmeGfdTGB",
+  "title": "020-IN05c. Anaesthesia (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "zKodyA6Vp1b",
+  "title": "020-IN05d. Anaesthesia (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "PBi1HNrSiFj",
+  "title": "020-IN06a. Uterotonics (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "CLQ9osUSTea",
+  "title": "020-IN06b. Uterotonics (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "LfkUUKPomSf",
+  "title": "020-IN06c. Uterotonics (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "h5vsX113hKC",
+  "title": "020-IN06d. Uterotonics (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "oStdvpxWD7g",
+  "title": "020-IN07a. Manual removal of placenta (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "NY7O9X3XNRv",
+  "title": "020-IN07b. Manual removal of placenta (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "hyQ9IWF9uEo",
+  "title": "020-IN07c. Manual removal of placenta (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ObzLdxNcGZY",
+  "title": "020-IN07d. Manual removal of placenta (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "lRT0g2bRtwZ",
+  "title": "020-IN08a. Caesarean Section (Early Preganancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "MfICS1uUUdJ",
+  "title": "020-IN08b. Caesarean Section (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "NuHtNZpdXaD",
+  "title": "020-IN08c. Caesarean Section (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "qNNcwXQDFVE",
+  "title": "020-IN08d. Caesarean Section (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "PpzqCyOQzuS",
+  "title": "020-IN09a. Laparotomy (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "xGFSkHjvgKn",
+  "title": "020-IN09b. Laparotomy (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "EBjGwPPITzl",
+  "title": "020-IN09c. Laparotomy (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "EDk9wmKnego",
+  "title": "020-IN09d. Laparotomy (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "I9wJoLNkSUp",
+  "title": "020-IN10a. Hysterectomy (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "UO6JbM183Yj",
+  "title": "020-IN10b. Hysterectomy (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "oZzfT8loS4B",
+  "title": "020-IN10c. Hysterectomy (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "G9pNk0X5wJE",
+  "title": "020-IN10d. Hysterectomy (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "OeuIhu9K7XC",
+  "title": "020-IN11a. Instrumental Delivery (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "bypev1wrHaJ",
+  "title": "020-IN11b. Instrumental Delivery (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "N7eTWuQRdy7",
+  "title": "020-IN11c. Instrumental Delivery (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "vi73Sj73I1P",
+  "title": "020-IN11d. Instrumental Delivery (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "AqsuNrGpPha",
+  "title": "020-IN12a. Repair of uterus (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "BfyxdIRVPCG",
+  "title": "020-IN12b. Repair of uterus (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "QspOEbJwvrn",
+  "title": "020-IN12c. Repair of uterus (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "V8TuWcrMFE2",
+  "title": "020-IN12d. Repair of uterus (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "HXSJvazF11O",
+  "title": "020-IN13a. Perineal repair (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "lz77rqS6fIo",
+  "title": "020-IN13b. Perineal repair (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Dhq6iXq1c1Z",
+  "title": "020-IN13c. Perineal repair (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "wde8p5nd32l",
+  "title": "020-IN13d. Perineal repair (Postpartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "CbT0u1Fx6ZN",
+  "title": "020-IN14a. Other specify (Early Pregnancy)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "dgnTlu8JuQ4",
+  "title": "020-IN14b. Other specify (Antenatal)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "IRv21OKIBgM",
+  "title": "020-IN14c. Other specify (Intrapartum)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "qDBN7ZbRhgp",
+  "title": "020-IN14d. Other specify (Postpartum)"
+ },
+ {
+  "type": "note",
+  "title": "SECTION 7: AUTOPSY/ POST MORTEM"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "js6jQi1rx1j",
+  "title": "020-PM01. Autospy/Postmortem requested"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "smzNleAK8sl",
+  "title": "020-PM02. Autospy/Postmortem performed"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "UEmwYMZK0Uh",
+  "title": "020-PM03. Autospy/Postmortem findings"
+ },
+ {
+  "type": "note",
+  "title": "SECTION 8: CAUSE OF DEATH"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "xiAXjQxZDSW",
+  "title": "020-CD01. Ectopic pregnancy"
+ },
+ {
+  "type": "subhead",
+  "title": "Abortion"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "wdLRU8IixLi",
+  "title": "020-CD04. Trophoblastic disease"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "W3mgyMha0N0",
+  "title": "020-CD02a. Spontaneous Abortion"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Ws8mQOp3DZr",
+  "title": "020-CD03a. Induced abortion - sepsis"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "D5E0lOCtKdM",
+  "title": "020-CD02b. Spontaneous Abortion - haemorrhage"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "a7HrnNVPtZN",
+  "title": "020-CD03b. Induced abortion - trauma"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "jfnkDslwrrL",
+  "title": "020-CD02c. Spontaneous Abortion - other"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "k8lDphTkRn9",
+  "title": "020-CD03c. Induced abortion - other"
+ },
+ {
+  "type": "subhead",
+  "title": "Hemorrhage"
+ },
+ {
+  "type": "subhead",
+  "title": "Antepartum hemorrhage Postpartum hemorrhage"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "c2Sn7Z6RuK4",
+  "title": "020-CD05a. Placenta Praevia"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "SLRPjzRPpEJ",
+  "title": "020-CD06a. Uterine atony"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "iteIkVf68jY",
+  "title": "020-CD06e. PPH after C-section"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "czaXNYJ31Rv",
+  "title": "020-CD05b. Abruptio placenta"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "o3yTjUABKux",
+  "title": "020-CD06b. Ruptured uterus - obstructed labor"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "H7Pf8ugBfpf",
+  "title": "020-CD06f. PPH from tears"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "gQjgm8foJPK",
+  "title": "020-CD05c. Abruptio placenta with hypertension"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "fUmxaY8tsVf",
+  "title": "020-CD06c. Ruptured uterus with previous scar"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ZbC9oYLjvsH",
+  "title": "020-CD06g. Post partum haemorrhage - other"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "EyTMoRYumLY",
+  "title": "020-CD05d. Antepartum haemorrhage - other"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "p2TjG5L7gfw",
+  "title": "020-CD06d. Retained placenta"
+ },
+ {
+  "type": "subhead",
+  "title": "Pregnancy-related sepsis"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "lSD9vEkw81r",
+  "title": "020-CD07a.Puerperal sepsis folowing vaginal delivery after obstructed labor"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "mXZw0MFlC5e",
+  "title": "020-CD07b. Puerperal sepsis following normal delivery"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Np2XQF1gkaU",
+  "title": "020-CD07c. Puerperal sepsis following c-section"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "hSmmYHV1eXV",
+  "title": "020-CD07d.Puerperal sepsis folowing c-section after obstructed labor"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "jZfwKkD8w1V",
+  "title": "020-CD07e. Pregnancy related sepsis - other"
+ },
+ {
+  "type": "subhead",
+  "title": "Hypertensive disorders of pregnancy Infections/conditions not related to pregnancy Anaesthetic complications"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ysxdiOCjH6k",
+  "title": "020-CD08a. Pre-eclampsis- Eclampsia"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Wmr2Tfb78Sr",
+  "title": "020-CD09a. Malaria"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "bXLyj6Ji4S6",
+  "title": "020-CD10a.General Anaethesia complications"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "SjWjZutC1E3",
+  "title": "020-CD08b. HELLP syndrome"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "jaKQ29Wtkgf",
+  "title": "020-CD09b. HIV/AIDS"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "NmJeFoUzFkZ",
+  "title": "020-CD10b.Spinal Anaethesia complications"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "cvuMwVvOqSf",
+  "title": "020-CD08c. Chronic Hypertension"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "RCJft99OvwF",
+  "title": "020-CD09c. Severe anaemia"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "wnWYNBh9RgG",
+  "title": "020-CD10c. Anaethesia complications-Epidural block"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "PHzV5Q8uLnu",
+  "title": "020-CD08d.Hypertensive disorder of pregnancy-other"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "rpaV42Se4pl",
+  "title": "020-CD09d. Infections/Conditions not related to pregnancy - Other"
+ },
+ {
+  "type": "subhead",
+  "title": "Pre-existing disease Non-obstetric causes"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "nsKFNg9Gtre",
+  "title": "020-CD11a. Cardiac disease"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "QBBXVaURSuW",
+  "title": "020-CD11f. Haematological"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "uFoaTRJ16Ch",
+  "title": "020-CD12a. Motor vehicle / cycle accident"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "pWLCZKrkBJb",
+  "title": "020-CD13. Other cause of death"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "EuCwEEMz8aI",
+  "title": "020-CD11b. Endocrine"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Cj8qlrArHUx",
+  "title": "020-CD11g. Genito urinary"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "K4FUK590rIU",
+  "title": "020-CD12b. Assault"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "PgzM8wZ40JY",
+  "title": "020-CD11c. GIT"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "b5zLzM2rm0o",
+  "title": "020-CD11h. Malignancy"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "dS59fSBJBQA",
+  "title": "020-CD12c. Sex and gender based violence"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "C3RST8YWsXt",
+  "title": "020-CD14. Unknown"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "z9dBvqJpKwj",
+  "title": "020-CD11d. Central nervous"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "jBcJaKqJa5w",
+  "title": "020-CD11i. Other pre-existing disease"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Qu7CiFZwIvD",
+  "title": "020-CD12d. Suicide"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "YT7LqMINLqE",
+  "title": "020-CD11e. Respiratory"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "HlpouDjIM1N",
+  "title": "020-CD12e. Other non obstetric causes"
+ },
+ {
+  "type": "note",
+  "title": "SECTION 8b: CERTIFIED CAUSE OF DEATH"
+ },
+ {
+  "type": "subhead",
+  "title": "Cause of Death Time interval type from onset to death Time interval from onset to death"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "sfpqAeqKeyQ",
+  "title": "HMIS_100_  Report disease or condition directly leading to death-Cause of death_a"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "Ylht9kCLSRW",
+  "title": "020-100-MD01ba. Type_of_interval_for_a"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "WkXxkKEJLsg",
+  "title": "HMIS_100_  Time interval_a"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "zb7uTuBCPrN",
+  "title": "HMIS_100_  Report chain of events -due to in order-Cause of death_b"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "myydnkmLfhp",
+  "title": "020-100-MD02b1a. Type_of_interval_for_b"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "fleGy9CvHYh",
+  "title": "HMIS_100_Time interval_b"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "QGFYJK00ES7",
+  "title": "HMIS_100_Report chain of events -due to in order-Cause of death_c"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "aC64sB86ThG",
+  "title": "HMIS_100_Type_of_interval_for_c"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "hO8No9fHVd2",
+  "title": "020-100-MD02b2b. HMIS_100_Time interval_c"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "CnPGhOcERFF",
+  "title": "020-100-MD02a3. Report chain of events due to in order-Cause of death_d"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "cmZrrHfTxW3",
+  "title": "020-100-MD02b3a. Type_of_interval_for_d"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "eCVDO6lt4go",
+  "title": "HMIS_100_  Time interval_d"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ZkNDFfFSTYg",
+  "title": "HMIS_100_Linked"
+ },
+ {
+  "type": "note",
+  "title": "Edit From MCCOD"
+ },
+ {
+  "type": "note",
+  "title": "SECTION 9: AVOIDABLE FACTORS: Using information derived from the interviews and review of the case notes, were any of these factors present? Tick all applicable"
+ },
+ {
+  "type": "subhead",
+  "title": "Avoidable factors Yes Specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "pPh6aWTVYy6",
+  "title": "020-AF01a. Delay of the woman seeking appropriate healthcare"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "eaSaXuaziyY",
+  "title": "020-AF01b. Delay of the woman seeking appropriate healthcare(specify)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "VrK0mAtC71u",
+  "title": "020-AF02a. Delay to reach HFs"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "dBUqpDhgq7Y",
+  "title": "020-AF02b. Delay to reach HFs specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "mbMXko6mJ76",
+  "title": "020-AF03a. Refusal of treatment or admission"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "EjcxTE1LWPk",
+  "title": "020-AF03b. Refusal of treatment or admission specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "z4DOgPw6u1r",
+  "title": "020-AF04a. Woman use of herbal medication"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "e9nJGdo3xGt",
+  "title": "020-AF04b. Woman use of herbal medication specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "v0RVtdOooWj",
+  "title": "020-AF05a. Refused transfer to higher facility"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "yCeVgYNCOOI",
+  "title": "020-AF05b. Refused transfer to higher facility specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "wl2u80BWUW3",
+  "title": "020-AF06a. Lack of partner support"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "QHF2GCbZQca",
+  "title": "020-AF06b. Lack of partner support specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "afDz7SrXJkc",
+  "title": "020-AF07a. Lack of transport from home/community to HF"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "i00ejpzpAGf",
+  "title": "020-AF07b. Lack of transport from home/community  to health facilities specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "zhJUTM68Wdg",
+  "title": "020-AF08a. Lack of transport between health facilities"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "tmEtk151MlM",
+  "title": "020-AF08b. Lack of transport between health facilities specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "LKJ2GkQQENR",
+  "title": "020-AF09a. Lack of blood products, supplies & consumables"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "q7p4jF8DuH3",
+  "title": "020-AF09b. Lack of blood products, supplies & consumables specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "qSJrMFj4w3P",
+  "title": "020-AF10a. Lack of appropriate medicines for client management including Lab Supplies"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "WX72M8zDcaK",
+  "title": "020-AF10b. Lack of appropriate medicines for client management including Lab Supplies(specify)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "CGrsGzHMtXA",
+  "title": "020-AF11a. Lack of other medical supplies, equipment & consumables for use in patient care"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "QTfI21p35r0",
+  "title": "020-AF11b. Lack of other medical supplies, equipment & consumables for use in patient care(specify)"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "YbImSbfvC5l",
+  "title": "020-AF12a. Misdiagnosis"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "nW5kOhfjRCS",
+  "title": "020-AF12b. Misdiagnosis specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "fWX9YfpLgCJ",
+  "title": "020-AF13a. Inappropriate intervention/ treatment / doses given"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "C4mRFfWCBiq",
+  "title": "020-AF13b. Inappropriate intervention/ treatment / doses given specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "ZqJkxkB43X7",
+  "title": "020-AF14a. Inadequate numbers of staff"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "wO4iYPzOFO3",
+  "title": "020-AF14b. Inadequate numbers of staff specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "k2jCcL71nT7",
+  "title": "020-AF15a. Absence of critical human resource"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "nGYJf8Tll15",
+  "title": "020-AF15b. Absence of critical human resource specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "AeVA9HtmnmF",
+  "title": "020-AF16a. Staff lack of skill/expertise"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "SIiocs0VTQk",
+  "title": "020-AF16b. Staff lack of skill/expertise specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "GFX51oJqAJG",
+  "title": "020-AF17a. Staff professional misconduct"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "wQ3GAkso5gv",
+  "title": "020-AF17b. Staff professional misconduct specify"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "NKotrIlEihv",
+  "title": "020-AF21. Other avoidable factors"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "LHUCVsYD4Cb",
+  "title": "020-AF20. Comments on potential avoidable factors, missed opportunities and sub-standard care"
+ },
+ {
+  "type": "note",
+  "title": "Quality of medical records"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "u1rYtM6BXV5",
+  "title": "020-AF18. Comment on key data elements missing from the patient's file"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "r5yWFdUMvnH",
+  "title": "020-AF19. Legibility"
+ },
+ {
+  "type": "note",
+  "title": "SECTION 10: CASE SUMMARY"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "hWzBd1Xsx6W",
+  "title": "020-CS1. Please supply a short summary of the events surrounding the death"
+ },
+ {
+  "type": "section",
+  "title": "SECTION 11: RECOMMENDATIONS"
+ },
+ {
+  "type": "field",
+  "stage": "YXed7PnLRco",
+  "de": "KijgmSoHqpQ",
+  "title": "020-RE1. Please supply a short summary of the recommendations and follow-up actions to address review findings"
+ }
+]

@@ -1,0 +1,2216 @@
+{
+ "pdr": [
+  {
+   "title": "Case",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "ZKBE8Xm9DJG",
+       "label": "Ministry of Health National Case Number",
+       "raw": "HMIS_100_  Ministry of Health National Case Number"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION ONE: Identification",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "eb82Wa1qOS8",
+       "label": "IPNo (Mother)",
+       "raw": "017-ID01. IPNo (Mother)"
+      },
+      {
+       "de": "H34bcwaOliX",
+       "label": "IPNo (Newborn)",
+       "raw": "017-ID02. IPNo (Newborn)"
+      },
+      {
+       "de": "T0f4UTwxd6Q",
+       "label": "Village",
+       "raw": "017-ID03. Village"
+      },
+      {
+       "de": "dKQIx7sVFbD",
+       "label": "Parish",
+       "raw": "017-ID04. Parish"
+      },
+      {
+       "de": "t5nTEmlScSt",
+       "label": "Subcounty",
+       "raw": "HMIS_100_  Subcounty"
+      },
+      {
+       "de": "u44XP9fZweA",
+       "label": "District",
+       "raw": "HMIS_100_  District"
+      },
+      {
+       "de": "xpJgWYFpvht",
+       "label": "Mother’s initials",
+       "raw": "017-ID05. Mother’s initials"
+      },
+      {
+       "de": "hTYVRRvhYEt",
+       "label": "Age",
+       "raw": "017-ID06. Age"
+      },
+      {
+       "de": "rjoVXlCWLYM",
+       "label": "Age of the baby (Minutes)",
+       "raw": "017-ID07. Age of the baby (Minutes)"
+      },
+      {
+       "de": "rDI0uhcVLAk",
+       "label": "Age of the baby (Hours)",
+       "raw": "017-ID08. Age of the baby (Hours)"
+      },
+      {
+       "de": "quKRjZzkSRA",
+       "label": "Age of the baby (Days)",
+       "raw": "017-ID09. Age of the baby (Days)"
+      },
+      {
+       "de": "bS24JUbPyQv",
+       "label": "Was baby referred?",
+       "raw": "017-ID10. Was baby referred?"
+      },
+      {
+       "de": "o03g3QSYR0b",
+       "label": "If Yes; where referred from?",
+       "raw": "017-ID11. If Yes; where referred from?"
+      },
+      {
+       "de": "HJd1MWPsvUC",
+       "label": "If referred from health facility,  name of the facility",
+       "raw": "017-ID13. If referred from health facility,  name of the facility"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION TWO: Pregnancy progress and Care",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "gnNPEZQc8io",
+       "label": "Mothers Parity",
+       "raw": "017-PP01. Mothers Parity"
+      },
+      {
+       "de": "OburkrE8yhu",
+       "label": "No. of mother’s living children",
+       "raw": "017-PP02. No. of mother’s living children"
+      },
+      {
+       "de": "CY6W9fagQ0e",
+       "label": "Type of pregnancy",
+       "raw": "017-PP03. Type of pregnancy"
+      },
+      {
+       "de": "GOC04o3duHu",
+       "label": "Attendance of Antenatal care:",
+       "raw": "017-PP04. Attendance of Antenatal care:"
+      },
+      {
+       "de": "laCeT3RhMUh",
+       "label": "If yes, how many times?",
+       "raw": "017-PP05. If yes, how many times?"
+      }
+     ]
+    },
+    {
+     "label": "2.5 Core ANC Interventions (tick appropriately)",
+     "fields": [
+      {
+       "de": "MEk5ws6HFaz",
+       "label": "Core ANC Interventions - Malaria prophylaxis (IPT1)",
+       "raw": "017-PP06. Core ANC Interventions - Malaria prophylaxis (IPT1)"
+      },
+      {
+       "de": "kKZnZPrggaX",
+       "label": "Core ANC Interventions - Malaria prophylaxis (IPT2)",
+       "raw": "017-PP07. Core ANC Interventions - Malaria prophylaxis (IPT2)"
+      },
+      {
+       "de": "J8cM570ZGHa",
+       "label": "Core ANC Interventions - Malaria prophylaxis ( IPT3)",
+       "raw": "017-PP08. Core ANC Interventions - Malaria prophylaxis ( IPT3)"
+      },
+      {
+       "de": "biBZmUjxguG",
+       "label": "Core ANC Interventions - Malaria prophylaxis (IPT3+)",
+       "raw": "017-PP09. Core ANC Interventions - Malaria prophylaxis (IPT3+)"
+      },
+      {
+       "de": "EC4nyhCs66y",
+       "label": "Core ANC Interventions - Tetanus Diptheria (TD1)",
+       "raw": "017-PP10. Core ANC Interventions - Tetanus Diptheria (TD1)"
+      },
+      {
+       "de": "wizIGlVHHLE",
+       "label": "Core ANC Interventions - Tetanus Diptheria (TD2)",
+       "raw": "017-PP11. Core ANC Interventions - Tetanus Diptheria (TD2)"
+      },
+      {
+       "de": "WYGPAumPdxH",
+       "label": "Core ANC Interventions - Tetanus Diptheria (TD3)",
+       "raw": "017-PP12. Core ANC Interventions - Tetanus Diptheria (TD3)"
+      },
+      {
+       "de": "ywMAGkuvTjq",
+       "label": "HIV test done",
+       "raw": "017-PP13. HIV test done"
+      },
+      {
+       "de": "VnDcrZ4gCdR",
+       "label": "HIV test results",
+       "raw": "017-PP14. HIV test results"
+      },
+      {
+       "de": "VtF7Nx2yjat",
+       "label": "If HIV positive",
+       "raw": "017-PP15. If HIV positive"
+      },
+      {
+       "de": "DPG74K71T7a",
+       "label": "Syphilis test done",
+       "raw": "017-PP16. Syphilis test done"
+      },
+      {
+       "de": "qnhVulYBuyO",
+       "label": "Syphilis test results",
+       "raw": "017-PP17. Syphilis test results"
+      },
+      {
+       "de": "noTA8bNu7Er",
+       "label": "Hb done",
+       "raw": "017-PP18. Hb done"
+      },
+      {
+       "de": "g7cj6HmiFHJ",
+       "label": "If yes, Hb Level",
+       "raw": "017-PP19. If yes, Hb Level"
+      },
+      {
+       "de": "riyahnxUdTf",
+       "label": "Hepatitis B status",
+       "raw": "017-PP20. Hepatitis B status"
+      }
+     ]
+    },
+    {
+     "label": "2.6 Known Conditions in present pregnancy (tick all applicable)",
+     "fields": [
+      {
+       "de": "Wb2SCeKzukC",
+       "label": "Known Conditions in present pregnancy(Antepartum Hemorrhage)",
+       "raw": "017-PP21. Known Conditions in present pregnancy(Antepartum Hemorrhage)"
+      },
+      {
+       "de": "c78xosOwe3g",
+       "label": "Known Conditions in present pregnancy(Hypertension)",
+       "raw": "017-PP22. Known Conditions in present pregnancy(Hypertension)"
+      },
+      {
+       "de": "wXDjq0ttSDX",
+       "label": "Known Conditions in present pregnancy(Pre-labour rupture of membranes)",
+       "raw": "017-PP23. Known Conditions in present pregnancy(Pre-labour rupture of membranes)"
+      },
+      {
+       "de": "S6o6VBlyOWf",
+       "label": "Known Conditions in present pregnancy(Diabetes)",
+       "raw": "017-PP24. Known Conditions in present pregnancy(Diabetes)"
+      },
+      {
+       "de": "ccwzYUHvWIT",
+       "label": "Known Conditions in present pregnancy(Anaemia)",
+       "raw": "017-PP25. Known Conditions in present pregnancy(Anaemia)"
+      },
+      {
+       "de": "mRZoapzYOlM",
+       "label": "Known Conditions in present pregnancy(UTI)",
+       "raw": "017-PP26. Known Conditions in present pregnancy(UTI)"
+      },
+      {
+       "de": "fdBg2KI2irO",
+       "label": "Known Conditions in present pregnancy(Malaria)",
+       "raw": "017-PP27. Known Conditions in present pregnancy(Malaria)"
+      },
+      {
+       "de": "W3PCd6BTecX",
+       "label": "Known Conditions in present pregnancy(Trauma-accidental)",
+       "raw": "017-PP28. Known Conditions in present pregnancy(Trauma-accidental)"
+      },
+      {
+       "de": "M9lvHItvuaq",
+       "label": "Known Conditions in present pregnancy(Gender based violence)",
+       "raw": "017-PP29. Known Conditions in present pregnancy(Gender based violence)"
+      },
+      {
+       "de": "w4GmUG25zuQ",
+       "label": "Known Conditions in present pregnancy(Multiple pregnancy)",
+       "raw": "017-PP30. Known Conditions in present pregnancy(Multiple pregnancy)"
+      },
+      {
+       "de": "qa379ul9HX5",
+       "label": "Known Conditions in present pregnancy(Drugs/Medicines-Specify)",
+       "raw": "017-PP31. Known Conditions in present pregnancy(Drugs/Medicines-Specify)"
+      },
+      {
+       "de": "ZrNVjAt6LW2",
+       "label": "Known Conditions in present pregnancy(Others)",
+       "raw": "017-PP32. Known Conditions in present pregnancy(Others)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION THREE: Labour and Birth",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "m8jUvzBgYga",
+       "label": "Weeks of amenorrhea at delivery",
+       "raw": "017-LB01. Weeks of amenorrhea at delivery"
+      },
+      {
+       "de": "RpkIvgOOZJt",
+       "label": "Date and time of delivery",
+       "raw": "017-LB02. Date and time of delivery"
+      },
+      {
+       "de": "Dq9aH0aZ2wb",
+       "label": "Date and time of Death",
+       "raw": "017-LB04. Date and time of Death"
+      },
+      {
+       "de": "LjrdbcFRI1d",
+       "label": "Place of delivery",
+       "raw": "017-LB05. Place of delivery"
+      },
+      {
+       "de": "Boui663joOP",
+       "label": "If health facility specify name",
+       "raw": "017-LB06. If health facility specify name"
+      },
+      {
+       "de": "t1udXNXQ5hc",
+       "label": "On admission, were there fetal heart sounds present?",
+       "raw": "017-LB07. On admission, were there fetal heart sounds present?"
+      },
+      {
+       "de": "aLvTannWmvI",
+       "label": "Was partograph used?",
+       "raw": "017-LB08. Was partograph used?"
+      },
+      {
+       "de": "o69aE6o8LfO",
+       "label": "If ‘Yes’ was partograph used correctly?",
+       "raw": "017-LB09. If ‘Yes’ was partograph used correctly?"
+      },
+      {
+       "de": "b9JlESs135J",
+       "label": "If No indicate the gap",
+       "raw": "017-LB10. If No indicate the gap"
+      },
+      {
+       "de": "CQUQiCpk4um",
+       "label": "Mode of Delivery",
+       "raw": "017-LB11. Mode of Delivery"
+      },
+      {
+       "de": "NDzItgcGQhW",
+       "label": "Mode of Delivery (Others)",
+       "raw": "017-LB12. Mode of Delivery (Others)"
+      },
+      {
+       "de": "LxlVFKhBOT8",
+       "label": "Indication for Instrumental /or Caesarean section:",
+       "raw": "017-LB13. Indication for Instrumental /or Caesarean section:"
+      },
+      {
+       "de": "eL4O6FOxzcr",
+       "label": "Time between decisions for Cesarean section /instrumental and actual delivery of the baby:",
+       "raw": "017-LB14. Time between decisions for Cesarean section /instrumental and actual delivery of the baby:"
+      },
+      {
+       "de": "MRJAZcGBg14",
+       "label": "Did vaginal delivery occur in spite of decision to do caesarean section?",
+       "raw": "017-LB15. Did vaginal delivery occur in spite of decision to do caesarean section?"
+      }
+     ]
+    },
+    {
+     "label": "3.7 Condition of the Baby",
+     "fields": [
+      {
+       "de": "RmrshOepF86",
+       "label": "Apgar score (1 min)",
+       "raw": "017-LB16. Apgar score (1 min)"
+      },
+      {
+       "de": "kOCe0LCjbVv",
+       "label": "Apgar score (5 min)",
+       "raw": "017-LB17. Apgar score (5 min)"
+      },
+      {
+       "de": "pimd0GLDogv",
+       "label": "Apgar score (10 min)",
+       "raw": "017-LB18. Apgar score (10 min)"
+      },
+      {
+       "de": "Yis06rsFWQz",
+       "label": "Apgar score (Don't know)",
+       "raw": "017-LB19. Apgar score (Don't know)"
+      },
+      {
+       "de": "x7k2caL4psq",
+       "label": "Resuscitation done",
+       "raw": "017-LB20. Resuscitation done"
+      }
+     ]
+    },
+    {
+     "label": "3.7.3 If 'Yes' what was done?",
+     "fields": [
+      {
+       "de": "mkQMb4ANZ1C",
+       "label": "Stimulation",
+       "raw": "017-LB22. Stimulation"
+      },
+      {
+       "de": "x7fsCQzTP4G",
+       "label": "Suction",
+       "raw": "017-LB23. Suction"
+      },
+      {
+       "de": "HeOmzW0Bj8f",
+       "label": "Bag and Mask",
+       "raw": "017-LB24. Bag and Mask"
+      },
+      {
+       "de": "IELb95GgJhj",
+       "label": "Oxygen given",
+       "raw": "017-LB25. Oxygen given"
+      },
+      {
+       "de": "YPDveEOR7Cz",
+       "label": "Endotracheal and Positive pressure ventilation",
+       "raw": "017-LB26. Endotracheal and Positive pressure ventilation"
+      },
+      {
+       "de": "yCUx2f9ed7R",
+       "label": "CPR",
+       "raw": "017-LB27. CPR"
+      },
+      {
+       "de": "CprvAYJIWNv",
+       "label": "Medication",
+       "raw": "017-LB28. Medication"
+      },
+      {
+       "de": "QP3u2BU4E9p",
+       "label": "All",
+       "raw": "017-LB29. All"
+      }
+     ]
+    },
+    {
+     "label": "3.7.4 Resuscitation done by",
+     "fields": [
+      {
+       "de": "q4YXJgj2sIZ",
+       "label": "Midwife",
+       "raw": "017-LB31. Midwife"
+      },
+      {
+       "de": "LF6ukmshijY",
+       "label": "Nurse",
+       "raw": "017-LB32. Nurse"
+      },
+      {
+       "de": "PlzGmmIbpK5",
+       "label": "Doctor",
+       "raw": "017-LB33. Doctor"
+      },
+      {
+       "de": "bRddgcYH9Qn",
+       "label": "Anesthetist",
+       "raw": "017-LB34. Anesthetist"
+      },
+      {
+       "de": "fv703VfWJli",
+       "label": "Trainee",
+       "raw": "017-LB35. Trainee"
+      },
+      {
+       "de": "J3VHBvaXyyb",
+       "label": "Others (specify):",
+       "raw": "017-LB36. Others (specify):"
+      },
+      {
+       "de": "bDWkcVeQLUc",
+       "label": "Weight of the baby",
+       "raw": "017-LB37. Weight of the baby"
+      },
+      {
+       "de": "ZBvxrMFv9aW",
+       "label": "Sex",
+       "raw": "017-LB38. Sex"
+      },
+      {
+       "de": "TiPl1iLI30H",
+       "label": "Type of Perinatal Death",
+       "raw": "017-LB39. Type of Perinatal Death"
+      }
+     ]
+    },
+    {
+     "label": "If neonatal death, reason for admission/diagnosis at admission (Tick all applicable)",
+     "fields": [
+      {
+       "de": "qaJDxXfEWPv",
+       "label": "Reason for admission/ diagnosis at admission-Difficult feeding (baby)",
+       "raw": "017-LB40. Reason for admission/ diagnosis at admission-Difficult feeding (baby)"
+      },
+      {
+       "de": "Rqn5P8xXXqp",
+       "label": "Reason for admission/ diagnosis at admission-Difficult breast feeding (mother)",
+       "raw": "017-LB41. Reason for admission/ diagnosis at admission-Difficult breast feeding (mother)"
+      },
+      {
+       "de": "WlknV4Af2se",
+       "label": "Reason for admission/ diagnosis at admission-Jaundice",
+       "raw": "017-LB42. Reason for admission/ diagnosis at admission-Jaundice"
+      },
+      {
+       "de": "cbCv995TsyQ",
+       "label": "Reason for admission/ diagnosis at admission-Anaemia",
+       "raw": "017-LB43. Reason for admission/ diagnosis at admission-Anaemia"
+      },
+      {
+       "de": "OeL1eJ2tGsN",
+       "label": "Reason for admission/ diagnosis at admission-Difficult breathing",
+       "raw": "017-LB44. Reason for admission/ diagnosis at admission-Difficult breathing"
+      },
+      {
+       "de": "prGljHyx851",
+       "label": "Reason for admission/ diagnosis at admission-Hypoglycaemia",
+       "raw": "017-LB45. Reason for admission/ diagnosis at admission-Hypoglycaemia"
+      },
+      {
+       "de": "XoWWbJlnMsi",
+       "label": "Reason for admission/ diagnosis at admission-Septicaemia",
+       "raw": "017-LB46. Reason for admission/ diagnosis at admission-Septicaemia"
+      },
+      {
+       "de": "T609w4wbcim",
+       "label": "Reason for admission/ diagnosis at admission-Hypothermia",
+       "raw": "017-LB47. Reason for admission/ diagnosis at admission-Hypothermia"
+      },
+      {
+       "de": "YV5WasxuoTN",
+       "label": "Reason for admission/ diagnosis at admission-Bulging fontanelle",
+       "raw": "017-LB48. Reason for admission/ diagnosis at admission-Bulging fontanelle"
+      },
+      {
+       "de": "M5zzpq6O4xU",
+       "label": "Reason for admission/ diagnosis at admission-Fever",
+       "raw": "017-LB49. Reason for admission/ diagnosis at admission-Fever"
+      },
+      {
+       "de": "Hq66gDflc5k",
+       "label": "Reason for admission/ diagnosis at admission-Convulsions",
+       "raw": "017-LB50. Reason for admission/ diagnosis at admission-Convulsions"
+      },
+      {
+       "de": "vnKvRqyjngA",
+       "label": "Reason for admission/ diagnosis at admission-Bleeding",
+       "raw": "017-LB51. Reason for admission/ diagnosis at admission-Bleeding"
+      },
+      {
+       "de": "XZRrIoCTb3P",
+       "label": "Reason for admission/ diagnosis at admission-Other conditions",
+       "raw": "017-LB52. Reason for admission/ diagnosis at admission-Other conditions"
+      }
+     ]
+    },
+    {
+     "label": "Code Cause of death Code Cause of death",
+     "fields": [
+      {
+       "de": "Q6HnSrUTl39",
+       "label": "A33 Probable cause of death(Tetanus)",
+       "raw": "017-LB56. A33 Probable cause of death(Tetanus)"
+      },
+      {
+       "de": "UaGg4B3DUac",
+       "label": "Q80 Probable cause of death(Congenital Anomalies)",
+       "raw": "017-LB53. Q80 Probable cause of death(Congenital Anomalies)"
+      },
+      {
+       "de": "jSaonaOE68O",
+       "label": "P36 Probable cause of death(Septicaemia)",
+       "raw": "017-LB57. P36 Probable cause of death(Septicaemia)"
+      },
+      {
+       "de": "xYenYvBElrk",
+       "label": "Q80 Probable cause of death(Others)",
+       "raw": "017-LB54. Q80 Probable cause of death(Others)"
+      },
+      {
+       "de": "xjeIBJ2XyPd",
+       "label": "P15 Probable cause of death(Birth trauma)",
+       "raw": "017-LB58. P15 Probable cause of death(Birth trauma)"
+      },
+      {
+       "de": "H4iDsba7jkw",
+       "label": "P07 Probable cause of death(Prematurity complications)-Specify",
+       "raw": "017-LB60. P07 Probable cause of death(Prematurity complications)-Specify"
+      },
+      {
+       "de": "apgGGC11v8Y",
+       "label": "P22 Probable cause of death(Birth Asphyxia)",
+       "raw": "017-LB59. P22 Probable cause of death(Birth Asphyxia)"
+      },
+      {
+       "de": "Y5T6DMJiZPJ",
+       "label": "Q80 Probable cause of death(Unknown)",
+       "raw": "017-LB55. Q80 Probable cause of death(Unknown)"
+      },
+      {
+       "de": "ZkNDFfFSTYg",
+       "label": "Linked",
+       "raw": "HMIS_100_Linked"
+      }
+     ]
+    },
+    {
+     "label": "3.10 Avoidable factors/missed opportunities/substandard care. Which of the following factors were present (tick all appropriate)",
+     "fields": [
+      {
+       "de": "hRprz4XEDrz",
+       "label": "Delay to seek health care  (Avoidable factors)",
+       "raw": "017-LB61. Delay to seek health care  (Avoidable factors)"
+      },
+      {
+       "de": "EV93HrESugB",
+       "label": "Delay to reach the health facility (Avoidable factors)",
+       "raw": "017-LB62. Delay to reach the health facility (Avoidable factors)"
+      },
+      {
+       "de": "MFBT0aG5S6p",
+       "label": "Delay to provide care (Avoidable factors)",
+       "raw": "017-LB63. Delay to provide care (Avoidable factors)"
+      },
+      {
+       "de": "SVPoIi25jCw",
+       "label": "Absence of critical human resources(Avoidable factors)",
+       "raw": "017-LB64. Absence of critical human resources(Avoidable factors)"
+      },
+      {
+       "de": "rLyf2TuYbn3",
+       "label": "Lack of resuscitation equipment(Avoidable factors)",
+       "raw": "017-LB65. Lack of resuscitation equipment(Avoidable factors)"
+      },
+      {
+       "de": "LfjWOPewHml",
+       "label": "Lack of supplies and drugs including blood(Avoidable factors)",
+       "raw": "017-LB66. Lack of supplies and drugs including blood(Avoidable factors)"
+      },
+      {
+       "de": "We0QqTPk1Oj",
+       "label": "Misdiagnosis(Avoidable factors)",
+       "raw": "017-LB67. Misdiagnosis(Avoidable factors)"
+      },
+      {
+       "de": "sFrh6MH8xJ2",
+       "label": "Inappropriate intervention(Avoidable factors)",
+       "raw": "017-LB68. Inappropriate intervention(Avoidable factors)"
+      },
+      {
+       "de": "pRYm5u9S8Ag",
+       "label": "Others specify(Avoidable factors)",
+       "raw": "017-LB69. Others specify(Avoidable factors)"
+      }
+     ]
+    },
+    {
+     "label": "Comments on avoidable factors and missed opportunities:",
+     "fields": [
+      {
+       "de": "BOUN3iTMTzU",
+       "label": "Comments on avoidable factors and missed opportunities",
+       "raw": "017-LB70. Comments on avoidable factors and missed opportunities"
+      }
+     ]
+    },
+    {
+     "label": "Agreed upon Actions to address the avoidable factors",
+     "fields": [
+      {
+       "de": "nAc07V7ZYUL",
+       "label": "Agreed upon Actions to address the avoidable factors",
+       "raw": "017-LB71. Agreed upon Actions to address the avoidable factors"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "mdr": [
+  {
+   "title": "Case",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "ZKBE8Xm9DJG",
+       "label": "Ministry of Health National Case Number",
+       "raw": "HMIS_100_  Ministry of Health National Case Number"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 2: DETAILS OF THE DECEASED:",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "FIfoObQJvNp",
+       "label": "Intials",
+       "raw": "020-DD01.Intials"
+      },
+      {
+       "de": "CupbOInqvJI",
+       "label": "NIN",
+       "raw": "020-DD10.NIN"
+      },
+      {
+       "de": "BRtcz4HV7Ak",
+       "label": "Inpatient number",
+       "raw": "020-DD03.Inpatient number"
+      },
+      {
+       "de": "hcu4LCAMSkz",
+       "label": "Usual Residence address (Village)",
+       "raw": "020-DD04.Usual Residence address (Village)"
+      },
+      {
+       "de": "ioXkKfrgCJa",
+       "label": "Usual Residence address (Subcounty)",
+       "raw": "020-DD05. Usual Residence address (Subcounty)"
+      },
+      {
+       "de": "FHmHV9mElbD",
+       "label": "Usual Residence address (District)",
+       "raw": "020-DD06. Usual Residence address (District)"
+      },
+      {
+       "de": "iJqBq0kQtWO",
+       "label": "Age in completed years",
+       "raw": "020-DD07. Age in completed years"
+      },
+      {
+       "de": "eTVI19PiJmM",
+       "label": "Marital Status",
+       "raw": "020-DD08. Marital Status"
+      },
+      {
+       "de": "sd185WRKepb",
+       "label": "Religon",
+       "raw": "020-DD09. Religon"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 3: ADMISSION AT HEALTH FACILITY WHERE DEATH OCCURRED / WAS REPORTED",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "wmNrbtFpcdy",
+       "label": "At time of admission (Gravita)",
+       "raw": "020-AD01. At time of admission (Gravita)"
+      },
+      {
+       "de": "ByIsCiqkq4v",
+       "label": "Para (Viable Gestational Age)",
+       "raw": "020-AD02a.  Para (Viable Gestational Age)"
+      },
+      {
+       "de": "vORgqb7tQBu",
+       "label": "Para (Abortus)",
+       "raw": "020-AD02b.  Para (Abortus)"
+      },
+      {
+       "de": "jdxl2rdeDEk",
+       "label": "At time of admission(Gestation in weeks)",
+       "raw": "020-AD03. At time of admission(Gestation in weeks)"
+      },
+      {
+       "de": "c5kDr80smH8",
+       "label": "Date and time of admission",
+       "raw": "020-AD05. Date and time of admission"
+      },
+      {
+       "de": "WzauwhVOwM0",
+       "label": "Date and time of death",
+       "raw": "020-AD06. Date and time of death"
+      },
+      {
+       "de": "IH7NTNcSZYk",
+       "label": "Duration of stay in facility before death (days)",
+       "raw": "020-AD07a. Duration of stay in facility before death (days)"
+      },
+      {
+       "de": "ww21ycTPDb6",
+       "label": "Duration of stay in facility before death (hours)",
+       "raw": "020-AD07b. Duration of stay in facility before death (hours)"
+      },
+      {
+       "de": "BJXbwUs4tGF",
+       "label": "Duration of stay in facility before death (minutes)",
+       "raw": "020-AD07c. Duration of stay in facility before death (minutes)"
+      },
+      {
+       "de": "iAgu1y93XAB",
+       "label": "Referred",
+       "raw": "020-AD08. Referred"
+      },
+      {
+       "de": "eJwpqR9t7YM",
+       "label": "Referred from",
+       "raw": "020-AD09. Referred from"
+      }
+     ]
+    },
+    {
+     "label": "Category Abnormal vital signs Unconscious Dead on arrival",
+     "fields": [
+      {
+       "de": "GropdEXdkL0",
+       "label": "Condition on admission-Abortion(Abnormal vital signs)",
+       "raw": "020-AD10b. Condition on admission-Abortion(Abnormal vital signs)"
+      },
+      {
+       "de": "QkwqwhwVBSx",
+       "label": "Condition on admission-Abortion(Unconcious)",
+       "raw": "020-AD10c. Condition on admission-Abortion(Unconcious)"
+      },
+      {
+       "de": "PkkDS8oCueZ",
+       "label": "Condition on admission-Abortion(Dead on arrival)",
+       "raw": "020-AD10d. Condition on admission-Abortion(Dead on arrival)"
+      },
+      {
+       "de": "f0L5gbFIYgN",
+       "label": "Condition on admission-Ectopic Pregenancy(Abnormal vital signs)",
+       "raw": "020-AD11b. Condition on admission-Ectopic Pregenancy(Abnormal vital signs)"
+      },
+      {
+       "de": "m9XP3U3zhGs",
+       "label": "Condition on admission-Ectopic Pregenancy(Unconcious)",
+       "raw": "020-AD11c. Condition on admission-Ectopic Pregenancy(Unconcious)"
+      },
+      {
+       "de": "JrphiR5eL7e",
+       "label": "Condition on admission-Ectopic Pregenancy(Dead on arrival)",
+       "raw": "020-AD11d. Condition on admission-Ectopic Pregenancy(Dead on arrival)"
+      },
+      {
+       "de": "ezA6qoeiMaY",
+       "label": "Condition on admission-Antental(Abnormal vital signs)",
+       "raw": "020-AD12b. Condition on admission-Antental(Abnormal vital signs)"
+      },
+      {
+       "de": "dzhuimTFxAp",
+       "label": "Condition on admission-Antental(Unconcious)",
+       "raw": "020-AD12c. Condition on admission-Antental(Unconcious)"
+      },
+      {
+       "de": "UktXJadJhId",
+       "label": "Condition on admission-Antental(Dead on arrival)",
+       "raw": "020-AD12d. Condition on admission-Antental(Dead on arrival)"
+      },
+      {
+       "de": "LI8e6zZG0A4",
+       "label": "Condition on admission-Intrapartum(Abnormal vital signs)",
+       "raw": "020-AD13b. Condition on admission-Intrapartum(Abnormal vital signs)"
+      },
+      {
+       "de": "lOEl43oH1YS",
+       "label": "Condition on admission-Intrapartum(Unconcious)",
+       "raw": "020-AD13c. Condition on admission-Intrapartum(Unconcious)"
+      },
+      {
+       "de": "Wkx3fzsB2dd",
+       "label": "Condition on admission-Intrapartum(Dead on arrival)",
+       "raw": "020-AD13d. Condition on admission-Intrapartum(Dead on arrival)"
+      },
+      {
+       "de": "HN4IkP51eko",
+       "label": "Condition on admission-Postpartum(Abnormal vital signs)",
+       "raw": "020-AD14b. Condition on admission-Postpartum(Abnormal vital signs)"
+      },
+      {
+       "de": "iUSa5C2APFN",
+       "label": "Condition on admission-Postpartum(Unconcious)",
+       "raw": "020-AD14c. Condition on admission-Postpartum(Unconcious)"
+      },
+      {
+       "de": "Agzf9GaJ6G2",
+       "label": "Condition on admission-Postpartum(Dead on arrival)",
+       "raw": "020-AD14d. Condition on admission-Postpartum(Dead on arrival)"
+      }
+     ]
+    },
+    {
+     "label": "Vital signs recorded on admission",
+     "fields": [
+      {
+       "de": "Rrs7OQx1yMS",
+       "label": "Vital signs recorded on admission (Blood pressure)",
+       "raw": "020-AD16. Vital signs recorded on admission (Blood pressure)"
+      },
+      {
+       "de": "ejbJJ1gTnQb",
+       "label": "Vital signs recorded on admission (Blood pressure reading systolic)",
+       "raw": "020-AD17a. Vital signs recorded on admission (Blood pressure reading systolic)"
+      },
+      {
+       "de": "Hn09AcoW4Mk",
+       "label": "Vital signs recorded on admission (Blood pressure reading diastolic)",
+       "raw": "020-AD17b. Vital signs recorded on admission (Blood pressure reading diastolic)"
+      },
+      {
+       "de": "rn8cGimwQ3a",
+       "label": "Vital signs recorded on admission (Temperature)",
+       "raw": "020-AD18. Vital signs recorded on admission (Temperature)"
+      },
+      {
+       "de": "c8hsSJy63ay",
+       "label": "Vital signs recorded on admission (Temperature reading)",
+       "raw": "020-AD19. Vital signs recorded on admission (Temperature reading)"
+      },
+      {
+       "de": "OWhIguUYA66",
+       "label": "Vital signs recorded on admission (Respiration)",
+       "raw": "020-AD20. Vital signs recorded on admission (Respiration)"
+      },
+      {
+       "de": "MDXum0oNBQb",
+       "label": "Vital signs recorded on admission (Respiration reading)",
+       "raw": "020-AD21. Vital signs recorded on admission (Respiration reading)"
+      },
+      {
+       "de": "W7EN3QVTdMD",
+       "label": "Vital signs recorded on admission (Level of consciousness)",
+       "raw": "020-AD22 Vital signs recorded on admission (Level of consciousness)"
+      },
+      {
+       "de": "lSthTlIFbEh",
+       "label": "Reasons for admission/complaints on admission",
+       "raw": "020-AD23. Reasons for admission/complaints on admission"
+      },
+      {
+       "de": "ocMXxDCF6DF",
+       "label": "Diagnosis on admission",
+       "raw": "020-AD24. Diagnosis on admission"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 4: ANTENATAL CARE",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "QidQVyBFspW",
+       "label": "Did the mother book for antenatal care/receive antenatal care?",
+       "raw": "020-AC01. Did the mother book for antenatal care/receive antenatal care?"
+      },
+      {
+       "de": "hZlRNVrmS1y",
+       "label": "If “Yes”,How many times did she attend?",
+       "raw": "020-AC02. If “Yes”,How many times did she attend?"
+      },
+      {
+       "de": "a5fh4wtDzmi",
+       "label": "Type of health facility where she attended ANC",
+       "raw": "020-AC03. Type of health facility where she attended ANC"
+      }
+     ]
+    },
+    {
+     "label": "Risk History",
+     "fields": [
+      {
+       "de": "y0B7fm7rguE",
+       "label": "Antenatal risk factors(Hypertension)",
+       "raw": "020.AC04. Antenatal risk factors(Hypertension)"
+      },
+      {
+       "de": "kRQ3g914TCz",
+       "label": "Antenatal risk factors(Bleeding)",
+       "raw": "020.AC05. Antenatal risk factors(Bleeding)"
+      },
+      {
+       "de": "TxyHEYfHKrF",
+       "label": "Antenatal risk factors(Proteinuria)",
+       "raw": "020.AC06. Antenatal risk factors(Proteinuria)"
+      },
+      {
+       "de": "Hg1Jyk0pakg",
+       "label": "Antenatal risk factors(Glycosuria)",
+       "raw": "020.AC07. Antenatal risk factors(Glycosuria)"
+      },
+      {
+       "de": "kUecSo0kdJ3",
+       "label": "Antenatal risk factors(Anaemia)",
+       "raw": "020.AC08. Antenatal risk factors(Anaemia)"
+      },
+      {
+       "de": "wwmxSrEknn8",
+       "label": "Antenatal risk factors(Abnormal lie)",
+       "raw": "020.AC09. Antenatal risk factors(Abnormal lie)"
+      },
+      {
+       "de": "byW52kaC6pR",
+       "label": "Antenatal risk factors(Previous Caesarean section)",
+       "raw": "020.AC10. Antenatal risk factors(Previous Caesarean section)"
+      },
+      {
+       "de": "W2Dxjt6PxN5",
+       "label": "Antenatal risk factors(Fever)",
+       "raw": "020.AC011. Antenatal risk factors(Fever)"
+      },
+      {
+       "de": "nw15Ko1SKnq",
+       "label": "Others specify)",
+       "raw": "020-AC12. Others specify)"
+      },
+      {
+       "de": "fA4uVOOV7Gl",
+       "label": "Medication received during ANC(IPT)",
+       "raw": "020-AC13. Medication received during ANC(IPT)"
+      },
+      {
+       "de": "yajntikIgCk",
+       "label": "Medication received during ANC(Tetanus diphtheria(Td)",
+       "raw": "020-AC14.Medication received during ANC(Tetanus diphtheria(Td)"
+      },
+      {
+       "de": "HwJeCYbUnDL",
+       "label": "Medication received during ANC(Ferrous)",
+       "raw": "020-AC15.Medication received during ANC(Ferrous)"
+      },
+      {
+       "de": "Us9t4jzNMSd",
+       "label": "Medication received during ANC(De- wormers)",
+       "raw": "020-AC16.Medication received during ANC(De- wormers)"
+      },
+      {
+       "de": "BxBqvKhoJvj",
+       "label": "Medication received during ANC.Other specify",
+       "raw": "020-AC17.Medication received during ANC.Other specify"
+      }
+     ]
+    },
+    {
+     "label": "Investigations done during ANC",
+     "fields": [
+      {
+       "de": "vVP5ClqKkHQ",
+       "label": "HIV test during present pregnancy",
+       "raw": "020-AC19.HIV test during present pregnancy"
+      },
+      {
+       "de": "oz0vASbQvq5",
+       "label": "HIV test results",
+       "raw": "020-AC20.HIV test results"
+      },
+      {
+       "de": "IACcLw1GbkR",
+       "label": "If HIV positive; Is she enrolled on care ?",
+       "raw": "020-AC21.If HIV positive; Is she enrolled on care ?"
+      },
+      {
+       "de": "OJVwBSHC4b0",
+       "label": "If HIV Positive, CD4 count",
+       "raw": "020-AC22.If HIV Positive, CD4 count"
+      },
+      {
+       "de": "x4luCocBY5h",
+       "label": "Syphilis test during pregnancy",
+       "raw": "020-AC23.Syphilis test during pregnancy"
+      },
+      {
+       "de": "z8bU25JRAGG",
+       "label": "Syphilis test results",
+       "raw": "020-AC24.Syphilis test results"
+      },
+      {
+       "de": "T3QwXHphTIu",
+       "label": "Hb Level 1",
+       "raw": "020-AC25.Hb Level 1"
+      },
+      {
+       "de": "QPw7nHXJqe9",
+       "label": "Hepatitis B-Status1",
+       "raw": "020-AC26.Hepatitis B-Status1"
+      },
+      {
+       "de": "c6gVPQ5rTOo",
+       "label": "Urinalysis–Protein/Sugar/casts",
+       "raw": "020-AC27.Urinalysis–Protein/Sugar/casts"
+      },
+      {
+       "de": "fuRsZ7wn5Q5",
+       "label": "Others",
+       "raw": "020-AC28.Others"
+      },
+      {
+       "de": "cqVj2lrYx2W",
+       "label": "Comment on investigations done",
+       "raw": "020-AC29.Comment on investigations done"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 5: DELIVERY AND PUERPERIUM INFORMATION",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "J11gxMDNvv7",
+       "label": "Did labour occur",
+       "raw": "020-DP01. Did labour occur"
+      },
+      {
+       "de": "E0OEw6yVcJm",
+       "label": "Was a partogram filled",
+       "raw": "020-DP02. Was a partogram filled"
+      },
+      {
+       "de": "v9BgVEytqsi",
+       "label": "Partogram correctly used",
+       "raw": "020-DP03. Partogram correctly used"
+      }
+     ]
+    },
+    {
+     "label": "Duration of labour (enter appropriate code below)",
+     "fields": [
+      {
+       "de": "NKKunKgeJiD",
+       "label": "Duration of labour (latent)",
+       "raw": "020-DP04. Duration of labour (latent)"
+      },
+      {
+       "de": "pVGyUKsZywW",
+       "label": "Duration of labour (Active labour)",
+       "raw": "020-DP05. Duration of labour (Active labour)"
+      },
+      {
+       "de": "tkiEm0lt9cV",
+       "label": "Duration of labour (Second)",
+       "raw": "020-DP06. Duration of labour (Second)"
+      },
+      {
+       "de": "HJhEdW3YNL3",
+       "label": "Duration of labour (Third)",
+       "raw": "020-DP07. Duration of labour (Third)"
+      },
+      {
+       "de": "PbayNOhXnyx",
+       "label": "Did delivery take place",
+       "raw": "020-DP08. Did delivery take place"
+      },
+      {
+       "de": "LFYN9XzE4cB",
+       "label": "No of days after delivery/abortion",
+       "raw": "020-DP09. No of days after delivery/abortion"
+      },
+      {
+       "de": "AqXDMjrPUEE",
+       "label": "Place of delivery",
+       "raw": "020-DP10. Place of delivery"
+      }
+     ]
+    },
+    {
+     "label": "Mode of delivery",
+     "fields": [
+      {
+       "de": "TKWaMxLDj7J",
+       "label": "Mode of delivery (viginal)",
+       "raw": "020-DP11. Mode of delivery (viginal)"
+      },
+      {
+       "de": "kHdz10PWtjp",
+       "label": "Mode of delivery (Vaginal breech)",
+       "raw": "020-DP12. Mode of delivery (Vaginal breech)"
+      },
+      {
+       "de": "brmlMKiNrZt",
+       "label": "Mode of delivery (Instrumental vaginal vaccum)",
+       "raw": "020-DP13. Mode of delivery (Instrumental vaginal vaccum)"
+      },
+      {
+       "de": "On3EvqCavl1",
+       "label": "Mode of delivery (Instrumental vaginal forcepts)",
+       "raw": "020-DP14. Mode of delivery (Instrumental vaginal forcepts)"
+      },
+      {
+       "de": "NAnhGvDjMRF",
+       "label": "Mode of delivery (Caesarean section emergency)",
+       "raw": "020-DP15. Mode of delivery (Caesarean section emergency)"
+      },
+      {
+       "de": "sju2IsSkUZG",
+       "label": "Mode of delivery (Caesarean section elective)",
+       "raw": "020-DP16. Mode of delivery (Caesarean section elective)"
+      },
+      {
+       "de": "Wy8zkenyVr4",
+       "label": "Mode of delivery (Destructive operations)",
+       "raw": "020-DP17. Mode of delivery (Destructive operations)"
+      }
+     ]
+    },
+    {
+     "label": "Main Assistant at delivery",
+     "fields": [
+      {
+       "de": "OP5Jr95bkkW",
+       "label": "Main assistant at delivery (Doctor)",
+       "raw": "020-DP18. Main assistant at delivery (Doctor)"
+      },
+      {
+       "de": "BLbGQB5NTX1",
+       "label": "Main assistant at delivery (Midwife)",
+       "raw": "020-DP19. Main assistant at delivery (Midwife)"
+      },
+      {
+       "de": "ZMq8DHxtwCP",
+       "label": "Main assistant at delivery (Nursing assistant)",
+       "raw": "020-DP20. Main assistant at delivery (Nursing assistant)"
+      },
+      {
+       "de": "OdQkbYCACsT",
+       "label": "Main assistant at delivery (TBA)",
+       "raw": "020-DP21. Main assistant at delivery (TBA)"
+      },
+      {
+       "de": "ZOZFaanQLAD",
+       "label": "Main assistant at delivery (Member of the family)",
+       "raw": "020-DP22. Main assistant at delivery (Member of the family)"
+      },
+      {
+       "de": "YHBzpuYWQg1",
+       "label": "Main assistant at delivery (Self)",
+       "raw": "020-DP23. Main assistant at delivery (Self)"
+      },
+      {
+       "de": "STVD72fHWYK",
+       "label": "Main assistant at delivery (Other)",
+       "raw": "020-DP24. Main assistant at delivery (Other)"
+      },
+      {
+       "de": "aCzqBYUkfDe",
+       "label": "Outcome of pregnancy",
+       "raw": "020-DP27.Outcome of pregnancy"
+      },
+      {
+       "de": "XW2CKaAiMKc",
+       "label": "Baby weight in grams",
+       "raw": "020-DP25. Baby weight in grams"
+      }
+     ]
+    },
+    {
+     "label": "Obstetrical complications",
+     "fields": [
+      {
+       "de": "LA1WtCaWi2M",
+       "label": "Obstetrical complications (APH)",
+       "raw": "020-DP26a. Obstetrical complications (APH)"
+      },
+      {
+       "de": "owuXac0M85O",
+       "label": "Obstetrical complications (PPH)",
+       "raw": "020-DP26b. Obstetrical complications (PPH)"
+      },
+      {
+       "de": "A1eKHTfGYfT",
+       "label": "Obstetrical complications (Sepsis)",
+       "raw": "020-DP26c. Obstetrical complications (Sepsis)"
+      },
+      {
+       "de": "Yj5FTl1DukQ",
+       "label": "Obstetrical complications (Eclampsia)",
+       "raw": "020-DP26d. Obstetrical complications (Eclampsia)"
+      },
+      {
+       "de": "brdup6zLcEo",
+       "label": "Obstetrical complication-Ruptured uterus",
+       "raw": "020-DP26e.Obstetrical complication-Ruptured uterus"
+      },
+      {
+       "de": "Xo0I6fvmmha",
+       "label": "Obs complications-Shock/sudden colapse",
+       "raw": "020-DP26f.Obs complications-Shock/sudden colapse"
+      },
+      {
+       "de": "ezUwUwLOWDO",
+       "label": "Obstetrical complications - Other",
+       "raw": "020-DP26g. Obstetrical complications - Other"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 6: INTERVENTIONS",
+   "groups": [
+    {
+     "label": "Early pregnancy Antenatal Intrapartum Postpartum",
+     "fields": [
+      {
+       "de": "hUT25oOxMmX",
+       "label": "Evacuation (Early Pregnancy)",
+       "raw": "020-IN01a. Evacuation (Early Pregnancy)"
+      },
+      {
+       "de": "zRnpKj8GISp",
+       "label": "Evacuation (Antenatal)",
+       "raw": "020-IN01b. Evacuation (Antenatal)"
+      },
+      {
+       "de": "qm3ga81qmEC",
+       "label": "Evacuation (Intrapartum)",
+       "raw": "020-IN01c. Evacuation (Intrapartum)"
+      },
+      {
+       "de": "LojuydZv8Me",
+       "label": "Evacuation (Postpartum)",
+       "raw": "020-IN01d. Evacuation (Postpartum)"
+      },
+      {
+       "de": "aOIkElUMfoW",
+       "label": "IV Fluids (Early Pregnancy)",
+       "raw": "020-IN02a. IV Fluids (Early Pregnancy)"
+      },
+      {
+       "de": "BWKDsGUDEH3",
+       "label": "IV Fluids (Antenatal)",
+       "raw": "020-IN02b. IV Fluids (Antenatal)"
+      },
+      {
+       "de": "oxXg2PTeAok",
+       "label": "IV Fluids (Intrapartum)",
+       "raw": "020-IN02c. IV Fluids (Intrapartum)"
+      },
+      {
+       "de": "Nk5boO6Q7Yu",
+       "label": "IV Fluids (Postpartum)",
+       "raw": "020-IN02d. IV Fluids (Postpartum)"
+      },
+      {
+       "de": "kFUUPTSrZCS",
+       "label": "Transfusion (Early Pregnancy)",
+       "raw": "020-IN03a. Transfusion (Early Pregnancy)"
+      },
+      {
+       "de": "VBEFSU4Ezo2",
+       "label": "Transfusion (Antenatal)",
+       "raw": "020-IN03b. Transfusion (Antenatal)"
+      },
+      {
+       "de": "fvecJ8TFPRc",
+       "label": "Transfusion (Intrapartum)",
+       "raw": "020-IN03c. Transfusion (Intrapartum)"
+      },
+      {
+       "de": "S5eg3TWIQIp",
+       "label": "Transfusion (Postpartum)",
+       "raw": "020-IN03d. Transfusion (Postpartum)"
+      },
+      {
+       "de": "qgkXe3wF21D",
+       "label": "Anticonvulsants (Early Pregnancy)",
+       "raw": "020-IN04a. Anticonvulsants (Early Pregnancy)"
+      },
+      {
+       "de": "rJfruTDzbma",
+       "label": "Anticonvulsants (Antenatal)",
+       "raw": "020-IN04b. Anticonvulsants (Antenatal)"
+      },
+      {
+       "de": "lXdAZeKZn4m",
+       "label": "Anticonvulsants (Intrapartum)",
+       "raw": "020-IN04c. Anticonvulsants (Intrapartum)"
+      },
+      {
+       "de": "emdE43QBqPp",
+       "label": "Anticonvulsants (Postpartum)",
+       "raw": "020-IN04d. Anticonvulsants (Postpartum)"
+      },
+      {
+       "de": "arW1EL6XQpE",
+       "label": "Anaesthesia (Early Pregnancy)",
+       "raw": "020-IN05a. Anaesthesia (Early Pregnancy)"
+      },
+      {
+       "de": "F4qzhohON5N",
+       "label": "Anaesthesia (Antenatal)",
+       "raw": "020-IN05b. Anaesthesia (Antenatal)"
+      },
+      {
+       "de": "kEhmeGfdTGB",
+       "label": "Anaesthesia (Intrapartum)",
+       "raw": "020-IN05c. Anaesthesia (Intrapartum)"
+      },
+      {
+       "de": "zKodyA6Vp1b",
+       "label": "Anaesthesia (Postpartum)",
+       "raw": "020-IN05d. Anaesthesia (Postpartum)"
+      },
+      {
+       "de": "PBi1HNrSiFj",
+       "label": "Uterotonics (Early Pregnancy)",
+       "raw": "020-IN06a. Uterotonics (Early Pregnancy)"
+      },
+      {
+       "de": "CLQ9osUSTea",
+       "label": "Uterotonics (Antenatal)",
+       "raw": "020-IN06b. Uterotonics (Antenatal)"
+      },
+      {
+       "de": "LfkUUKPomSf",
+       "label": "Uterotonics (Intrapartum)",
+       "raw": "020-IN06c. Uterotonics (Intrapartum)"
+      },
+      {
+       "de": "h5vsX113hKC",
+       "label": "Uterotonics (Postpartum)",
+       "raw": "020-IN06d. Uterotonics (Postpartum)"
+      },
+      {
+       "de": "oStdvpxWD7g",
+       "label": "Manual removal of placenta (Early Pregnancy)",
+       "raw": "020-IN07a. Manual removal of placenta (Early Pregnancy)"
+      },
+      {
+       "de": "NY7O9X3XNRv",
+       "label": "Manual removal of placenta (Antenatal)",
+       "raw": "020-IN07b. Manual removal of placenta (Antenatal)"
+      },
+      {
+       "de": "hyQ9IWF9uEo",
+       "label": "Manual removal of placenta (Intrapartum)",
+       "raw": "020-IN07c. Manual removal of placenta (Intrapartum)"
+      },
+      {
+       "de": "ObzLdxNcGZY",
+       "label": "Manual removal of placenta (Postpartum)",
+       "raw": "020-IN07d. Manual removal of placenta (Postpartum)"
+      },
+      {
+       "de": "lRT0g2bRtwZ",
+       "label": "Caesarean Section (Early Preganancy)",
+       "raw": "020-IN08a. Caesarean Section (Early Preganancy)"
+      },
+      {
+       "de": "MfICS1uUUdJ",
+       "label": "Caesarean Section (Antenatal)",
+       "raw": "020-IN08b. Caesarean Section (Antenatal)"
+      },
+      {
+       "de": "NuHtNZpdXaD",
+       "label": "Caesarean Section (Intrapartum)",
+       "raw": "020-IN08c. Caesarean Section (Intrapartum)"
+      },
+      {
+       "de": "qNNcwXQDFVE",
+       "label": "Caesarean Section (Postpartum)",
+       "raw": "020-IN08d. Caesarean Section (Postpartum)"
+      },
+      {
+       "de": "PpzqCyOQzuS",
+       "label": "Laparotomy (Early Pregnancy)",
+       "raw": "020-IN09a. Laparotomy (Early Pregnancy)"
+      },
+      {
+       "de": "xGFSkHjvgKn",
+       "label": "Laparotomy (Antenatal)",
+       "raw": "020-IN09b. Laparotomy (Antenatal)"
+      },
+      {
+       "de": "EBjGwPPITzl",
+       "label": "Laparotomy (Intrapartum)",
+       "raw": "020-IN09c. Laparotomy (Intrapartum)"
+      },
+      {
+       "de": "EDk9wmKnego",
+       "label": "Laparotomy (Postpartum)",
+       "raw": "020-IN09d. Laparotomy (Postpartum)"
+      },
+      {
+       "de": "I9wJoLNkSUp",
+       "label": "Hysterectomy (Early Pregnancy)",
+       "raw": "020-IN10a. Hysterectomy (Early Pregnancy)"
+      },
+      {
+       "de": "UO6JbM183Yj",
+       "label": "Hysterectomy (Antenatal)",
+       "raw": "020-IN10b. Hysterectomy (Antenatal)"
+      },
+      {
+       "de": "oZzfT8loS4B",
+       "label": "Hysterectomy (Intrapartum)",
+       "raw": "020-IN10c. Hysterectomy (Intrapartum)"
+      },
+      {
+       "de": "G9pNk0X5wJE",
+       "label": "Hysterectomy (Postpartum)",
+       "raw": "020-IN10d. Hysterectomy (Postpartum)"
+      },
+      {
+       "de": "OeuIhu9K7XC",
+       "label": "Instrumental Delivery (Early Pregnancy)",
+       "raw": "020-IN11a. Instrumental Delivery (Early Pregnancy)"
+      },
+      {
+       "de": "bypev1wrHaJ",
+       "label": "Instrumental Delivery (Antenatal)",
+       "raw": "020-IN11b. Instrumental Delivery (Antenatal)"
+      },
+      {
+       "de": "N7eTWuQRdy7",
+       "label": "Instrumental Delivery (Intrapartum)",
+       "raw": "020-IN11c. Instrumental Delivery (Intrapartum)"
+      },
+      {
+       "de": "vi73Sj73I1P",
+       "label": "Instrumental Delivery (Postpartum)",
+       "raw": "020-IN11d. Instrumental Delivery (Postpartum)"
+      },
+      {
+       "de": "AqsuNrGpPha",
+       "label": "Repair of uterus (Early Pregnancy)",
+       "raw": "020-IN12a. Repair of uterus (Early Pregnancy)"
+      },
+      {
+       "de": "BfyxdIRVPCG",
+       "label": "Repair of uterus (Antenatal)",
+       "raw": "020-IN12b. Repair of uterus (Antenatal)"
+      },
+      {
+       "de": "QspOEbJwvrn",
+       "label": "Repair of uterus (Intrapartum)",
+       "raw": "020-IN12c. Repair of uterus (Intrapartum)"
+      },
+      {
+       "de": "V8TuWcrMFE2",
+       "label": "Repair of uterus (Postpartum)",
+       "raw": "020-IN12d. Repair of uterus (Postpartum)"
+      },
+      {
+       "de": "HXSJvazF11O",
+       "label": "Perineal repair (Early Pregnancy)",
+       "raw": "020-IN13a. Perineal repair (Early Pregnancy)"
+      },
+      {
+       "de": "lz77rqS6fIo",
+       "label": "Perineal repair (Antenatal)",
+       "raw": "020-IN13b. Perineal repair (Antenatal)"
+      },
+      {
+       "de": "Dhq6iXq1c1Z",
+       "label": "Perineal repair (Intrapartum)",
+       "raw": "020-IN13c. Perineal repair (Intrapartum)"
+      },
+      {
+       "de": "wde8p5nd32l",
+       "label": "Perineal repair (Postpartum)",
+       "raw": "020-IN13d. Perineal repair (Postpartum)"
+      },
+      {
+       "de": "CbT0u1Fx6ZN",
+       "label": "Other specify (Early Pregnancy)",
+       "raw": "020-IN14a. Other specify (Early Pregnancy)"
+      },
+      {
+       "de": "dgnTlu8JuQ4",
+       "label": "Other specify (Antenatal)",
+       "raw": "020-IN14b. Other specify (Antenatal)"
+      },
+      {
+       "de": "IRv21OKIBgM",
+       "label": "Other specify (Intrapartum)",
+       "raw": "020-IN14c. Other specify (Intrapartum)"
+      },
+      {
+       "de": "qDBN7ZbRhgp",
+       "label": "Other specify (Postpartum)",
+       "raw": "020-IN14d. Other specify (Postpartum)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 7: AUTOPSY/ POST MORTEM",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "js6jQi1rx1j",
+       "label": "Autospy/Postmortem requested",
+       "raw": "020-PM01. Autospy/Postmortem requested"
+      },
+      {
+       "de": "smzNleAK8sl",
+       "label": "Autospy/Postmortem performed",
+       "raw": "020-PM02. Autospy/Postmortem performed"
+      },
+      {
+       "de": "UEmwYMZK0Uh",
+       "label": "Autospy/Postmortem findings",
+       "raw": "020-PM03. Autospy/Postmortem findings"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 8: CAUSE OF DEATH",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "xiAXjQxZDSW",
+       "label": "Ectopic pregnancy",
+       "raw": "020-CD01. Ectopic pregnancy"
+      }
+     ]
+    },
+    {
+     "label": "Abortion",
+     "fields": [
+      {
+       "de": "wdLRU8IixLi",
+       "label": "Trophoblastic disease",
+       "raw": "020-CD04. Trophoblastic disease"
+      },
+      {
+       "de": "W3mgyMha0N0",
+       "label": "Spontaneous Abortion",
+       "raw": "020-CD02a. Spontaneous Abortion"
+      },
+      {
+       "de": "Ws8mQOp3DZr",
+       "label": "Induced abortion - sepsis",
+       "raw": "020-CD03a. Induced abortion - sepsis"
+      },
+      {
+       "de": "D5E0lOCtKdM",
+       "label": "Spontaneous Abortion - haemorrhage",
+       "raw": "020-CD02b. Spontaneous Abortion - haemorrhage"
+      },
+      {
+       "de": "a7HrnNVPtZN",
+       "label": "Induced abortion - trauma",
+       "raw": "020-CD03b. Induced abortion - trauma"
+      },
+      {
+       "de": "jfnkDslwrrL",
+       "label": "Spontaneous Abortion - other",
+       "raw": "020-CD02c. Spontaneous Abortion - other"
+      },
+      {
+       "de": "k8lDphTkRn9",
+       "label": "Induced abortion - other",
+       "raw": "020-CD03c. Induced abortion - other"
+      }
+     ]
+    },
+    {
+     "label": "Antepartum hemorrhage Postpartum hemorrhage",
+     "fields": [
+      {
+       "de": "c2Sn7Z6RuK4",
+       "label": "Placenta Praevia",
+       "raw": "020-CD05a. Placenta Praevia"
+      },
+      {
+       "de": "SLRPjzRPpEJ",
+       "label": "Uterine atony",
+       "raw": "020-CD06a. Uterine atony"
+      },
+      {
+       "de": "iteIkVf68jY",
+       "label": "PPH after C-section",
+       "raw": "020-CD06e. PPH after C-section"
+      },
+      {
+       "de": "czaXNYJ31Rv",
+       "label": "Abruptio placenta",
+       "raw": "020-CD05b. Abruptio placenta"
+      },
+      {
+       "de": "o3yTjUABKux",
+       "label": "Ruptured uterus - obstructed labor",
+       "raw": "020-CD06b. Ruptured uterus - obstructed labor"
+      },
+      {
+       "de": "H7Pf8ugBfpf",
+       "label": "PPH from tears",
+       "raw": "020-CD06f. PPH from tears"
+      },
+      {
+       "de": "gQjgm8foJPK",
+       "label": "Abruptio placenta with hypertension",
+       "raw": "020-CD05c. Abruptio placenta with hypertension"
+      },
+      {
+       "de": "fUmxaY8tsVf",
+       "label": "Ruptured uterus with previous scar",
+       "raw": "020-CD06c. Ruptured uterus with previous scar"
+      },
+      {
+       "de": "ZbC9oYLjvsH",
+       "label": "Post partum haemorrhage - other",
+       "raw": "020-CD06g. Post partum haemorrhage - other"
+      },
+      {
+       "de": "EyTMoRYumLY",
+       "label": "Antepartum haemorrhage - other",
+       "raw": "020-CD05d. Antepartum haemorrhage - other"
+      },
+      {
+       "de": "p2TjG5L7gfw",
+       "label": "Retained placenta",
+       "raw": "020-CD06d. Retained placenta"
+      }
+     ]
+    },
+    {
+     "label": "Pregnancy-related sepsis",
+     "fields": [
+      {
+       "de": "lSD9vEkw81r",
+       "label": "Puerperal sepsis folowing vaginal delivery after obstructed labor",
+       "raw": "020-CD07a.Puerperal sepsis folowing vaginal delivery after obstructed labor"
+      },
+      {
+       "de": "mXZw0MFlC5e",
+       "label": "Puerperal sepsis following normal delivery",
+       "raw": "020-CD07b. Puerperal sepsis following normal delivery"
+      },
+      {
+       "de": "Np2XQF1gkaU",
+       "label": "Puerperal sepsis following c-section",
+       "raw": "020-CD07c. Puerperal sepsis following c-section"
+      },
+      {
+       "de": "hSmmYHV1eXV",
+       "label": "Puerperal sepsis folowing c-section after obstructed labor",
+       "raw": "020-CD07d.Puerperal sepsis folowing c-section after obstructed labor"
+      },
+      {
+       "de": "jZfwKkD8w1V",
+       "label": "Pregnancy related sepsis - other",
+       "raw": "020-CD07e. Pregnancy related sepsis - other"
+      }
+     ]
+    },
+    {
+     "label": "Hypertensive disorders of pregnancy Infections/conditions not related to pregnancy Anaesthetic complications",
+     "fields": [
+      {
+       "de": "ysxdiOCjH6k",
+       "label": "Pre-eclampsis- Eclampsia",
+       "raw": "020-CD08a. Pre-eclampsis- Eclampsia"
+      },
+      {
+       "de": "Wmr2Tfb78Sr",
+       "label": "Malaria",
+       "raw": "020-CD09a. Malaria"
+      },
+      {
+       "de": "bXLyj6Ji4S6",
+       "label": "General Anaethesia complications",
+       "raw": "020-CD10a.General Anaethesia complications"
+      },
+      {
+       "de": "SjWjZutC1E3",
+       "label": "HELLP syndrome",
+       "raw": "020-CD08b. HELLP syndrome"
+      },
+      {
+       "de": "jaKQ29Wtkgf",
+       "label": "HIV/AIDS",
+       "raw": "020-CD09b. HIV/AIDS"
+      },
+      {
+       "de": "NmJeFoUzFkZ",
+       "label": "Spinal Anaethesia complications",
+       "raw": "020-CD10b.Spinal Anaethesia complications"
+      },
+      {
+       "de": "cvuMwVvOqSf",
+       "label": "Chronic Hypertension",
+       "raw": "020-CD08c. Chronic Hypertension"
+      },
+      {
+       "de": "RCJft99OvwF",
+       "label": "Severe anaemia",
+       "raw": "020-CD09c. Severe anaemia"
+      },
+      {
+       "de": "wnWYNBh9RgG",
+       "label": "Anaethesia complications-Epidural block",
+       "raw": "020-CD10c. Anaethesia complications-Epidural block"
+      },
+      {
+       "de": "PHzV5Q8uLnu",
+       "label": "Hypertensive disorder of pregnancy-other",
+       "raw": "020-CD08d.Hypertensive disorder of pregnancy-other"
+      },
+      {
+       "de": "rpaV42Se4pl",
+       "label": "Infections/Conditions not related to pregnancy - Other",
+       "raw": "020-CD09d. Infections/Conditions not related to pregnancy - Other"
+      }
+     ]
+    },
+    {
+     "label": "Pre-existing disease Non-obstetric causes",
+     "fields": [
+      {
+       "de": "nsKFNg9Gtre",
+       "label": "Cardiac disease",
+       "raw": "020-CD11a. Cardiac disease"
+      },
+      {
+       "de": "QBBXVaURSuW",
+       "label": "Haematological",
+       "raw": "020-CD11f. Haematological"
+      },
+      {
+       "de": "uFoaTRJ16Ch",
+       "label": "Motor vehicle / cycle accident",
+       "raw": "020-CD12a. Motor vehicle / cycle accident"
+      },
+      {
+       "de": "pWLCZKrkBJb",
+       "label": "Other cause of death",
+       "raw": "020-CD13. Other cause of death"
+      },
+      {
+       "de": "EuCwEEMz8aI",
+       "label": "Endocrine",
+       "raw": "020-CD11b. Endocrine"
+      },
+      {
+       "de": "Cj8qlrArHUx",
+       "label": "Genito urinary",
+       "raw": "020-CD11g. Genito urinary"
+      },
+      {
+       "de": "K4FUK590rIU",
+       "label": "Assault",
+       "raw": "020-CD12b. Assault"
+      },
+      {
+       "de": "PgzM8wZ40JY",
+       "label": "GIT",
+       "raw": "020-CD11c. GIT"
+      },
+      {
+       "de": "b5zLzM2rm0o",
+       "label": "Malignancy",
+       "raw": "020-CD11h. Malignancy"
+      },
+      {
+       "de": "dS59fSBJBQA",
+       "label": "Sex and gender based violence",
+       "raw": "020-CD12c. Sex and gender based violence"
+      },
+      {
+       "de": "C3RST8YWsXt",
+       "label": "Unknown",
+       "raw": "020-CD14. Unknown"
+      },
+      {
+       "de": "z9dBvqJpKwj",
+       "label": "Central nervous",
+       "raw": "020-CD11d. Central nervous"
+      },
+      {
+       "de": "jBcJaKqJa5w",
+       "label": "Other pre-existing disease",
+       "raw": "020-CD11i. Other pre-existing disease"
+      },
+      {
+       "de": "Qu7CiFZwIvD",
+       "label": "Suicide",
+       "raw": "020-CD12d. Suicide"
+      },
+      {
+       "de": "YT7LqMINLqE",
+       "label": "Respiratory",
+       "raw": "020-CD11e. Respiratory"
+      },
+      {
+       "de": "HlpouDjIM1N",
+       "label": "Other non obstetric causes",
+       "raw": "020-CD12e. Other non obstetric causes"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 8b: CERTIFIED CAUSE OF DEATH",
+   "groups": [
+    {
+     "label": "Cause of Death Time interval type from onset to death Time interval from onset to death",
+     "fields": [
+      {
+       "de": "sfpqAeqKeyQ",
+       "label": "Report disease or condition directly leading to death-Cause of death_a",
+       "raw": "HMIS_100_  Report disease or condition directly leading to death-Cause of death_a"
+      },
+      {
+       "de": "Ylht9kCLSRW",
+       "label": "-MD01ba. Type_of_interval_for_a",
+       "raw": "020-100-MD01ba. Type_of_interval_for_a"
+      },
+      {
+       "de": "WkXxkKEJLsg",
+       "label": "Time interval_a",
+       "raw": "HMIS_100_  Time interval_a"
+      },
+      {
+       "de": "zb7uTuBCPrN",
+       "label": "Report chain of events -due to in order-Cause of death_b",
+       "raw": "HMIS_100_  Report chain of events -due to in order-Cause of death_b"
+      },
+      {
+       "de": "myydnkmLfhp",
+       "label": "-MD02b1a. Type_of_interval_for_b",
+       "raw": "020-100-MD02b1a. Type_of_interval_for_b"
+      },
+      {
+       "de": "fleGy9CvHYh",
+       "label": "Time interval_b",
+       "raw": "HMIS_100_Time interval_b"
+      },
+      {
+       "de": "QGFYJK00ES7",
+       "label": "Report chain of events -due to in order-Cause of death_c",
+       "raw": "HMIS_100_Report chain of events -due to in order-Cause of death_c"
+      },
+      {
+       "de": "aC64sB86ThG",
+       "label": "Type_of_interval_for_c",
+       "raw": "HMIS_100_Type_of_interval_for_c"
+      },
+      {
+       "de": "hO8No9fHVd2",
+       "label": "-MD02b2b. HMIS_100_Time interval_c",
+       "raw": "020-100-MD02b2b. HMIS_100_Time interval_c"
+      },
+      {
+       "de": "CnPGhOcERFF",
+       "label": "-MD02a3. Report chain of events due to in order-Cause of death_d",
+       "raw": "020-100-MD02a3. Report chain of events due to in order-Cause of death_d"
+      },
+      {
+       "de": "cmZrrHfTxW3",
+       "label": "-MD02b3a. Type_of_interval_for_d",
+       "raw": "020-100-MD02b3a. Type_of_interval_for_d"
+      },
+      {
+       "de": "eCVDO6lt4go",
+       "label": "Time interval_d",
+       "raw": "HMIS_100_  Time interval_d"
+      },
+      {
+       "de": "ZkNDFfFSTYg",
+       "label": "Linked",
+       "raw": "HMIS_100_Linked"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 9: AVOIDABLE FACTORS: Using information derived from the interviews and review of the case notes, were any of these factors present? Tick all applicable",
+   "groups": [
+    {
+     "label": "Avoidable factors Yes Specify",
+     "fields": [
+      {
+       "de": "pPh6aWTVYy6",
+       "label": "Delay of the woman seeking appropriate healthcare",
+       "raw": "020-AF01a. Delay of the woman seeking appropriate healthcare"
+      },
+      {
+       "de": "eaSaXuaziyY",
+       "label": "Delay of the woman seeking appropriate healthcare(specify)",
+       "raw": "020-AF01b. Delay of the woman seeking appropriate healthcare(specify)"
+      },
+      {
+       "de": "VrK0mAtC71u",
+       "label": "Delay to reach HFs",
+       "raw": "020-AF02a. Delay to reach HFs"
+      },
+      {
+       "de": "dBUqpDhgq7Y",
+       "label": "Delay to reach HFs specify",
+       "raw": "020-AF02b. Delay to reach HFs specify"
+      },
+      {
+       "de": "mbMXko6mJ76",
+       "label": "Refusal of treatment or admission",
+       "raw": "020-AF03a. Refusal of treatment or admission"
+      },
+      {
+       "de": "EjcxTE1LWPk",
+       "label": "Refusal of treatment or admission specify",
+       "raw": "020-AF03b. Refusal of treatment or admission specify"
+      },
+      {
+       "de": "z4DOgPw6u1r",
+       "label": "Woman use of herbal medication",
+       "raw": "020-AF04a. Woman use of herbal medication"
+      },
+      {
+       "de": "e9nJGdo3xGt",
+       "label": "Woman use of herbal medication specify",
+       "raw": "020-AF04b. Woman use of herbal medication specify"
+      },
+      {
+       "de": "v0RVtdOooWj",
+       "label": "Refused transfer to higher facility",
+       "raw": "020-AF05a. Refused transfer to higher facility"
+      },
+      {
+       "de": "yCeVgYNCOOI",
+       "label": "Refused transfer to higher facility specify",
+       "raw": "020-AF05b. Refused transfer to higher facility specify"
+      },
+      {
+       "de": "wl2u80BWUW3",
+       "label": "Lack of partner support",
+       "raw": "020-AF06a. Lack of partner support"
+      },
+      {
+       "de": "QHF2GCbZQca",
+       "label": "Lack of partner support specify",
+       "raw": "020-AF06b. Lack of partner support specify"
+      },
+      {
+       "de": "afDz7SrXJkc",
+       "label": "Lack of transport from home/community to HF",
+       "raw": "020-AF07a. Lack of transport from home/community to HF"
+      },
+      {
+       "de": "i00ejpzpAGf",
+       "label": "Lack of transport from home/community  to health facilities specify",
+       "raw": "020-AF07b. Lack of transport from home/community  to health facilities specify"
+      },
+      {
+       "de": "zhJUTM68Wdg",
+       "label": "Lack of transport between health facilities",
+       "raw": "020-AF08a. Lack of transport between health facilities"
+      },
+      {
+       "de": "tmEtk151MlM",
+       "label": "Lack of transport between health facilities specify",
+       "raw": "020-AF08b. Lack of transport between health facilities specify"
+      },
+      {
+       "de": "LKJ2GkQQENR",
+       "label": "Lack of blood products, supplies & consumables",
+       "raw": "020-AF09a. Lack of blood products, supplies & consumables"
+      },
+      {
+       "de": "q7p4jF8DuH3",
+       "label": "Lack of blood products, supplies & consumables specify",
+       "raw": "020-AF09b. Lack of blood products, supplies & consumables specify"
+      },
+      {
+       "de": "qSJrMFj4w3P",
+       "label": "Lack of appropriate medicines for client management including Lab Supplies",
+       "raw": "020-AF10a. Lack of appropriate medicines for client management including Lab Supplies"
+      },
+      {
+       "de": "WX72M8zDcaK",
+       "label": "Lack of appropriate medicines for client management including Lab Supplies(specify)",
+       "raw": "020-AF10b. Lack of appropriate medicines for client management including Lab Supplies(specify)"
+      },
+      {
+       "de": "CGrsGzHMtXA",
+       "label": "Lack of other medical supplies, equipment & consumables for use in patient care",
+       "raw": "020-AF11a. Lack of other medical supplies, equipment & consumables for use in patient care"
+      },
+      {
+       "de": "QTfI21p35r0",
+       "label": "Lack of other medical supplies, equipment & consumables for use in patient care(specify)",
+       "raw": "020-AF11b. Lack of other medical supplies, equipment & consumables for use in patient care(specify)"
+      },
+      {
+       "de": "YbImSbfvC5l",
+       "label": "Misdiagnosis",
+       "raw": "020-AF12a. Misdiagnosis"
+      },
+      {
+       "de": "nW5kOhfjRCS",
+       "label": "Misdiagnosis specify",
+       "raw": "020-AF12b. Misdiagnosis specify"
+      },
+      {
+       "de": "fWX9YfpLgCJ",
+       "label": "Inappropriate intervention/ treatment / doses given",
+       "raw": "020-AF13a. Inappropriate intervention/ treatment / doses given"
+      },
+      {
+       "de": "C4mRFfWCBiq",
+       "label": "Inappropriate intervention/ treatment / doses given specify",
+       "raw": "020-AF13b. Inappropriate intervention/ treatment / doses given specify"
+      },
+      {
+       "de": "ZqJkxkB43X7",
+       "label": "Inadequate numbers of staff",
+       "raw": "020-AF14a. Inadequate numbers of staff"
+      },
+      {
+       "de": "wO4iYPzOFO3",
+       "label": "Inadequate numbers of staff specify",
+       "raw": "020-AF14b. Inadequate numbers of staff specify"
+      },
+      {
+       "de": "k2jCcL71nT7",
+       "label": "Absence of critical human resource",
+       "raw": "020-AF15a. Absence of critical human resource"
+      },
+      {
+       "de": "nGYJf8Tll15",
+       "label": "Absence of critical human resource specify",
+       "raw": "020-AF15b. Absence of critical human resource specify"
+      },
+      {
+       "de": "AeVA9HtmnmF",
+       "label": "Staff lack of skill/expertise",
+       "raw": "020-AF16a. Staff lack of skill/expertise"
+      },
+      {
+       "de": "SIiocs0VTQk",
+       "label": "Staff lack of skill/expertise specify",
+       "raw": "020-AF16b. Staff lack of skill/expertise specify"
+      },
+      {
+       "de": "GFX51oJqAJG",
+       "label": "Staff professional misconduct",
+       "raw": "020-AF17a. Staff professional misconduct"
+      },
+      {
+       "de": "wQ3GAkso5gv",
+       "label": "Staff professional misconduct specify",
+       "raw": "020-AF17b. Staff professional misconduct specify"
+      },
+      {
+       "de": "NKotrIlEihv",
+       "label": "Other avoidable factors",
+       "raw": "020-AF21. Other avoidable factors"
+      },
+      {
+       "de": "LHUCVsYD4Cb",
+       "label": "Comments on potential avoidable factors, missed opportunities and sub-standard care",
+       "raw": "020-AF20. Comments on potential avoidable factors, missed opportunities and sub-standard care"
+      }
+     ]
+    },
+    {
+     "label": "Quality of medical records",
+     "fields": [
+      {
+       "de": "u1rYtM6BXV5",
+       "label": "Comment on key data elements missing from the patient's file",
+       "raw": "020-AF18. Comment on key data elements missing from the patient's file"
+      },
+      {
+       "de": "r5yWFdUMvnH",
+       "label": "Legibility",
+       "raw": "020-AF19. Legibility"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 10: CASE SUMMARY",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "hWzBd1Xsx6W",
+       "label": "Please supply a short summary of the events surrounding the death",
+       "raw": "020-CS1. Please supply a short summary of the events surrounding the death"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 11: RECOMMENDATIONS",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "KijgmSoHqpQ",
+       "label": "Please supply a short summary of the recommendations and follow-up actions to address review findings",
+       "raw": "020-RE1. Please supply a short summary of the recommendations and follow-up actions to address review findings"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

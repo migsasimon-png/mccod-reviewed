@@ -2,10 +2,10 @@ const http = require('http');
 const httpProxy = require('http-proxy');
 
 // Target Configuration
-const TARGET_URL = 'https://hmis-dev.health.go.ug';
+const TARGET_URL = 'https://hmis-tests.health.go.ug';
 const LOCAL_PORT = 5002;
-const USERNAME = 'admin';
-const PASSWORD = 'Nomisr123$$$$';
+const USERNAME = 'moh-dhi.pwaiswa';
+const PASSWORD = 'P1h9i9oip!';
 
 // Create Auth Header
 const authHeader = 'Basic ' + Buffer.from(`${USERNAME}:${PASSWORD}`).toString('base64');

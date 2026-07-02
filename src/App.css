@@ -8,6 +8,18 @@
 #demo-link-docs {
   float: right;
 }
+.mccod-topbar {
+  padding: 6px 2px 12px;
+}
+.mccod-home-link {
+  border: none;
+  background: none;
+  color: #1c5fb0;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+}
 #demo-title {
   margin-top: 50px;
   margin-bottom: 50px;

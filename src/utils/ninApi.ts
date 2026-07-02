@@ -3,9 +3,9 @@ import fetchBuilder from "fetch-retry-ts";
 import { useStore } from "../Context";
 import { parseJsonRes } from "./parseJsonRes";
 
-export const baseURL = "https://hmis-dev.health.go.ug/db-api/api/v2";
+export const baseURL = "https://hmis-tests.health.go.ug/db-api/api/v2";
 export const defaultToken =
-	"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhIjoiJDJiJDEyJEZzVFJ3dmlwWmIxdzc4VjdLUXFXTHVpMVhUUy4xRDVtVUd1Y0VsS1RvM01ldlU5NkhDM2ZXIiwidXNlciI6ImFkbWluIn0.MAr0WS4LOINOPgb5l2zdw_rWLfn8-dRlf56otvuWVMs";
+	"d2p_klok96KmVsASkyZsn7BdXKeWX15Jo9DTwn9uH5FqziS90DBaeH";
 
 
 const options = {

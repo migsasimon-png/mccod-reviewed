@@ -87,20 +87,24 @@ export const OfflineIndicator: React.FC<OfflineIndicatorProps> = ({ onSync }) =>
       {isOnline && syncQueueCount > 0 && (
         <Alert
           message="Pending Sync"
-          description={`You have ${syncQueueCount} item(s) waiting to be synced.`}
+          description={
+            <div>
+              <div style={{ marginBottom: 8 }}>
+                {`You have ${syncQueueCount} item(s) waiting to be synced.`}
+              </div>
+              <Button
+                size="small"
+                type="primary"
+                loading={isSyncing}
+                onClick={handleSync}
+              >
+                Sync Now
+              </Button>
+            </div>
+          }
           type="info"
           icon={<CloudUploadOutlined />}
           showIcon
-          action={
-            <Button
-              size="small"
-              type="primary"
-              loading={isSyncing}
-              onClick={handleSync}
-            >
-              Sync Now
-            </Button>
-          }
           closable
         />
       )}

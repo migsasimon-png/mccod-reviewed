@@ -4,13 +4,13 @@ import json
 servers = [
     {
         "name": "Dev Server",
-        "url": "https://hmis-dev.health.go.ug",
-        "auth_header": "Basic aGlzcC5jb2x1cG90OkJhYnk3N0BCYWJ5Nzcx"
+        "url": "https://hmis-tests.health.go.ug",
+        "auth_header": "Basic d2p_klok96KmVsASkyZsn7BdXKeWX15Jo9DTwn9uH5FqziS90DBaeH"
     },
     {
         "name": "Test Server",
         "url": "https://hmis-tests.health.go.ug",
-        "auth_header": "Basic bWNjb2QudGVzdDpEaGlzMkAyMDI1"
+        "auth_header": "Basic d2p_klok96KmVsASkyZsn7BdXKeWX15Jo9DTwn9uH5FqziS90DBaeH"
     },
     {
         "name": "Prod Server",
@@ -20,7 +20,7 @@ servers = [
     {
         "name": "Prod Server (Alternative)",
         "url": "https://hmis.health.go.ug",
-        "auth_header": "Basic aGlzcC5jb2x1cG90OkJhYnk3N0BCYWJ5Nzcx"
+        "auth_header": "Basic d2p_klok96KmVsASkyZsn7BdXKeWX15Jo9DTwn9uH5FqziS90DBaeH"
     }
 ]
 

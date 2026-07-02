@@ -84,19 +84,24 @@ export const PWAUpdateNotification: React.FC<PWAUpdateNotificationProps> = ({ on
       {/* Alert notification */}
       <Alert
         message="Update Available"
-        description="A new version of the app is available. Click 'Update Now' to get the latest features and improvements."
+        description={
+          <div>
+            <div style={{ marginBottom: 8 }}>
+              A new version of the app is available. Click 'Update Now' to get
+              the latest features and improvements.
+            </div>
+            <Button
+              size="small"
+              type="primary"
+              onClick={() => setShowModal(true)}
+            >
+              Update Now
+            </Button>
+          </div>
+        }
         type="success"
         icon={<CloudDownloadOutlined />}
         showIcon
-        action={
-          <Button
-            size="small"
-            type="primary"
-            onClick={() => setShowModal(true)}
-          >
-            Update Now
-          </Button>
-        }
         style={{ marginBottom: '16px' }}
       />
 

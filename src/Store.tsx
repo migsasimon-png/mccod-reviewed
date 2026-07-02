@@ -13,9 +13,24 @@ const analyticsjson = require("./assets/analytics.json");
 const _ = require("lodash");
 const anacodpopulation = require("./assets/anacodpopulation.json");
 
-const extraHeaders = window.location.origin.includes("local")
-	? { Authorization: `${process.env.REACT_APP_DHIS2_AUTHORIZATION}` }
-	: {};
+const normalizeAuthHeader = (raw?: string) => {
+	if (!raw) return undefined;
+	const value = String(raw).replace(/^["']|["']$/g, "").trim();
+	if (!value) return undefined;
+	if (/^(Basic|ApiToken)\s/i.test(value)) return value;
+	if (value.startsWith("d2p_")) return `ApiToken ${value}`;
+	return value;
+};
+
+const extraHeaders =
+	process.env.NODE_ENV === "development" &&
+	/localhost|127\.0\.0\.1/.test(window.location.hostname)
+		? {
+				Authorization: normalizeAuthHeader(
+					process.env.REACT_APP_DHIS2_AUTHORIZATION
+				),
+		  }
+		: {};
 
 export const dateFields = [
 	"eventDate",
@@ -292,6 +307,8 @@ class Store {
 	@observable sorter = "created:desc";
 	@observable search = "";
 	@observable currentPage = "1";
+	@observable activeModule: "home" | "records" | "mdr" | "pdr" | "cdr" | "mccod" = "home";
+	@observable activeFormId: "mdr" | "pdr" | "cdr" | "mccod" | null = null;
 	@observable programOrganisationUnits = []; /** !!!!!!!!!! */
 	@observable allOrgUnits: any = null;
 	@observable currentEvent: any;
@@ -429,6 +446,30 @@ class Store {
 		this.selectedOrgUnit = this.actualSelOrgUnit ?? this.selectedOrgUnit;
 		this.currentPage = "1";
 	};
+	@action openModule = (m: "home" | "records" | "mdr" | "pdr" | "cdr" | "mccod") => {
+		this.activeModule = m;
+		if (m === "mdr" || m === "pdr" || m === "cdr" || m === "mccod") {
+			this.activeFormId = m;
+		} else {
+			this.activeFormId = null;
+		}
+		if (m === "records") {
+			// Legacy MCCOD flow: land on the org-unit picker / case list.
+			this.currentPage = "1";
+		}
+	};
+
+	@action goHome = () => {
+		this.activeModule = "home";
+		this.activeFormId = null;
+		this.data = null;
+		try {
+			localStorage.removeItem("mcodtemp");
+		} catch (_) {
+			/* ignore */
+		}
+	};
+
 	@action showForm = () => (this.currentPage = "3");
 	@action showLang = () => (this.currentPage = "2");
 	@action showApi = () => (this.currentPage = "4");

@@ -1,0 +1,2995 @@
+{
+ "pdr": [
+  {
+   "title": "Case",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "ZKBE8Xm9DJG",
+       "label": "Ministry of Health National Case Number"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION ONE: Identification",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "eb82Wa1qOS8",
+       "label": "IPNo (Mother)"
+      },
+      {
+       "de": "H34bcwaOliX",
+       "label": "IPNo (Newborn)"
+      },
+      {
+       "de": "T0f4UTwxd6Q",
+       "label": "Village"
+      },
+      {
+       "de": "dKQIx7sVFbD",
+       "label": "Parish"
+      },
+      {
+       "de": "t5nTEmlScSt",
+       "label": "Subcounty"
+      },
+      {
+       "de": "u44XP9fZweA",
+       "label": "District"
+      },
+      {
+       "de": "xpJgWYFpvht",
+       "label": "Mother’s initials"
+      },
+      {
+       "de": "hTYVRRvhYEt",
+       "label": "Age"
+      },
+      {
+       "de": "rjoVXlCWLYM",
+       "label": "Age of the baby (Minutes)"
+      },
+      {
+       "de": "rDI0uhcVLAk",
+       "label": "Age of the baby (Hours)"
+      },
+      {
+       "de": "quKRjZzkSRA",
+       "label": "Age of the baby (Days)"
+      },
+      {
+       "de": "bS24JUbPyQv",
+       "label": "Was baby referred?"
+      },
+      {
+       "de": "o03g3QSYR0b",
+       "label": "If Yes; where referred from?"
+      },
+      {
+       "de": "HJd1MWPsvUC",
+       "label": "If referred from health facility,  name of the facility"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION TWO: Pregnancy progress and Care",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "gnNPEZQc8io",
+       "label": "Mothers Parity"
+      },
+      {
+       "de": "OburkrE8yhu",
+       "label": "No. of mother’s living children"
+      },
+      {
+       "de": "CY6W9fagQ0e",
+       "label": "Type of pregnancy"
+      },
+      {
+       "de": "GOC04o3duHu",
+       "label": "Attendance of Antenatal care:"
+      },
+      {
+       "de": "laCeT3RhMUh",
+       "label": "If yes, how many times?"
+      }
+     ]
+    },
+    {
+     "label": "2.5 Core ANC Interventions (tick appropriately)",
+     "fields": [
+      {
+       "de": "MEk5ws6HFaz",
+       "label": "Core ANC Interventions - Malaria prophylaxis (IPT1)"
+      },
+      {
+       "de": "kKZnZPrggaX",
+       "label": "Core ANC Interventions - Malaria prophylaxis (IPT2)"
+      },
+      {
+       "de": "J8cM570ZGHa",
+       "label": "Core ANC Interventions - Malaria prophylaxis ( IPT3)"
+      },
+      {
+       "de": "biBZmUjxguG",
+       "label": "Core ANC Interventions - Malaria prophylaxis (IPT3+)"
+      },
+      {
+       "de": "EC4nyhCs66y",
+       "label": "Core ANC Interventions - Tetanus Diptheria (TD1)"
+      },
+      {
+       "de": "wizIGlVHHLE",
+       "label": "Core ANC Interventions - Tetanus Diptheria (TD2)"
+      },
+      {
+       "de": "WYGPAumPdxH",
+       "label": "Core ANC Interventions - Tetanus Diptheria (TD3)"
+      },
+      {
+       "de": "ywMAGkuvTjq",
+       "label": "HIV test done"
+      },
+      {
+       "de": "VnDcrZ4gCdR",
+       "label": "HIV test results"
+      },
+      {
+       "de": "VtF7Nx2yjat",
+       "label": "If HIV positive"
+      },
+      {
+       "de": "DPG74K71T7a",
+       "label": "Syphilis test done"
+      },
+      {
+       "de": "qnhVulYBuyO",
+       "label": "Syphilis test results"
+      },
+      {
+       "de": "noTA8bNu7Er",
+       "label": "Hb done"
+      },
+      {
+       "de": "g7cj6HmiFHJ",
+       "label": "If yes, Hb Level"
+      },
+      {
+       "de": "riyahnxUdTf",
+       "label": "Hepatitis B status"
+      }
+     ]
+    },
+    {
+     "label": "2.6 Known Conditions in present pregnancy (tick all applicable)",
+     "fields": [
+      {
+       "de": "Wb2SCeKzukC",
+       "label": "Known Conditions in present pregnancy(Antepartum Hemorrhage)"
+      },
+      {
+       "de": "c78xosOwe3g",
+       "label": "Known Conditions in present pregnancy(Hypertension)"
+      },
+      {
+       "de": "wXDjq0ttSDX",
+       "label": "Known Conditions in present pregnancy(Pre-labour rupture of membranes)"
+      },
+      {
+       "de": "S6o6VBlyOWf",
+       "label": "Known Conditions in present pregnancy(Diabetes)"
+      },
+      {
+       "de": "ccwzYUHvWIT",
+       "label": "Known Conditions in present pregnancy(Anaemia)"
+      },
+      {
+       "de": "mRZoapzYOlM",
+       "label": "Known Conditions in present pregnancy(UTI)"
+      },
+      {
+       "de": "fdBg2KI2irO",
+       "label": "Known Conditions in present pregnancy(Malaria)"
+      },
+      {
+       "de": "W3PCd6BTecX",
+       "label": "Known Conditions in present pregnancy(Trauma-accidental)"
+      },
+      {
+       "de": "M9lvHItvuaq",
+       "label": "Known Conditions in present pregnancy(Gender based violence)"
+      },
+      {
+       "de": "w4GmUG25zuQ",
+       "label": "Known Conditions in present pregnancy(Multiple pregnancy)"
+      },
+      {
+       "de": "qa379ul9HX5",
+       "label": "Known Conditions in present pregnancy(Drugs/Medicines-Specify)"
+      },
+      {
+       "de": "ZrNVjAt6LW2",
+       "label": "Known Conditions in present pregnancy(Others)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION THREE: Labour and Birth",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "m8jUvzBgYga",
+       "label": "Weeks of amenorrhea at delivery"
+      },
+      {
+       "de": "RpkIvgOOZJt",
+       "label": "Date and time of delivery"
+      },
+      {
+       "de": "Dq9aH0aZ2wb",
+       "label": "Date and time of Death"
+      },
+      {
+       "de": "LjrdbcFRI1d",
+       "label": "Place of delivery"
+      },
+      {
+       "de": "Boui663joOP",
+       "label": "If health facility specify name"
+      },
+      {
+       "de": "t1udXNXQ5hc",
+       "label": "On admission, were there fetal heart sounds present?"
+      },
+      {
+       "de": "aLvTannWmvI",
+       "label": "Was partograph used?"
+      },
+      {
+       "de": "o69aE6o8LfO",
+       "label": "If ‘Yes’ was partograph used correctly?"
+      },
+      {
+       "de": "b9JlESs135J",
+       "label": "If No indicate the gap"
+      },
+      {
+       "de": "CQUQiCpk4um",
+       "label": "Mode of Delivery"
+      },
+      {
+       "de": "NDzItgcGQhW",
+       "label": "Mode of Delivery (Others)"
+      },
+      {
+       "de": "LxlVFKhBOT8",
+       "label": "Indication for Instrumental /or Caesarean section:"
+      },
+      {
+       "de": "eL4O6FOxzcr",
+       "label": "Time between decisions for Cesarean section /instrumental and actual delivery of the baby:"
+      },
+      {
+       "de": "MRJAZcGBg14",
+       "label": "Did vaginal delivery occur in spite of decision to do caesarean section?"
+      }
+     ]
+    },
+    {
+     "label": "3.7 Condition of the Baby",
+     "fields": [
+      {
+       "de": "RmrshOepF86",
+       "label": "Apgar score (1 min)"
+      },
+      {
+       "de": "kOCe0LCjbVv",
+       "label": "Apgar score (5 min)"
+      },
+      {
+       "de": "pimd0GLDogv",
+       "label": "Apgar score (10 min)"
+      },
+      {
+       "de": "Yis06rsFWQz",
+       "label": "Apgar score (Don't know)"
+      },
+      {
+       "de": "x7k2caL4psq",
+       "label": "Resuscitation done"
+      }
+     ]
+    },
+    {
+     "label": "3.7.3 If 'Yes' what was done?",
+     "fields": [
+      {
+       "de": "mkQMb4ANZ1C",
+       "label": "Stimulation"
+      },
+      {
+       "de": "x7fsCQzTP4G",
+       "label": "Suction"
+      },
+      {
+       "de": "HeOmzW0Bj8f",
+       "label": "Bag and Mask"
+      },
+      {
+       "de": "IELb95GgJhj",
+       "label": "Oxygen given"
+      },
+      {
+       "de": "YPDveEOR7Cz",
+       "label": "Endotracheal and Positive pressure ventilation"
+      },
+      {
+       "de": "yCUx2f9ed7R",
+       "label": "CPR"
+      },
+      {
+       "de": "CprvAYJIWNv",
+       "label": "Medication"
+      },
+      {
+       "de": "QP3u2BU4E9p",
+       "label": "All"
+      }
+     ]
+    },
+    {
+     "label": "3.7.4 Resuscitation done by",
+     "fields": [
+      {
+       "de": "q4YXJgj2sIZ",
+       "label": "Midwife"
+      },
+      {
+       "de": "LF6ukmshijY",
+       "label": "Nurse"
+      },
+      {
+       "de": "PlzGmmIbpK5",
+       "label": "Doctor"
+      },
+      {
+       "de": "bRddgcYH9Qn",
+       "label": "Anesthetist"
+      },
+      {
+       "de": "fv703VfWJli",
+       "label": "Trainee"
+      },
+      {
+       "de": "J3VHBvaXyyb",
+       "label": "Others (specify):"
+      },
+      {
+       "de": "bDWkcVeQLUc",
+       "label": "Weight of the baby"
+      },
+      {
+       "de": "ZBvxrMFv9aW",
+       "label": "Sex"
+      },
+      {
+       "de": "TiPl1iLI30H",
+       "label": "Type of Perinatal Death"
+      }
+     ]
+    },
+    {
+     "label": "If neonatal death, reason for admission/diagnosis at admission (Tick all applicable)",
+     "fields": [
+      {
+       "de": "qaJDxXfEWPv",
+       "label": "Reason for admission/ diagnosis at admission-Difficult feeding (baby)"
+      },
+      {
+       "de": "Rqn5P8xXXqp",
+       "label": "Reason for admission/ diagnosis at admission-Difficult breast feeding (mother)"
+      },
+      {
+       "de": "WlknV4Af2se",
+       "label": "Reason for admission/ diagnosis at admission-Jaundice"
+      },
+      {
+       "de": "cbCv995TsyQ",
+       "label": "Reason for admission/ diagnosis at admission-Anaemia"
+      },
+      {
+       "de": "OeL1eJ2tGsN",
+       "label": "Reason for admission/ diagnosis at admission-Difficult breathing"
+      },
+      {
+       "de": "prGljHyx851",
+       "label": "Reason for admission/ diagnosis at admission-Hypoglycaemia"
+      },
+      {
+       "de": "XoWWbJlnMsi",
+       "label": "Reason for admission/ diagnosis at admission-Septicaemia"
+      },
+      {
+       "de": "T609w4wbcim",
+       "label": "Reason for admission/ diagnosis at admission-Hypothermia"
+      },
+      {
+       "de": "YV5WasxuoTN",
+       "label": "Reason for admission/ diagnosis at admission-Bulging fontanelle"
+      },
+      {
+       "de": "M5zzpq6O4xU",
+       "label": "Reason for admission/ diagnosis at admission-Fever"
+      },
+      {
+       "de": "Hq66gDflc5k",
+       "label": "Reason for admission/ diagnosis at admission-Convulsions"
+      },
+      {
+       "de": "vnKvRqyjngA",
+       "label": "Reason for admission/ diagnosis at admission-Bleeding"
+      },
+      {
+       "de": "XZRrIoCTb3P",
+       "label": "Reason for admission/ diagnosis at admission-Other conditions"
+      }
+     ]
+    },
+    {
+     "label": "Code Cause of death Code Cause of death",
+     "fields": [
+      {
+       "de": "Q6HnSrUTl39",
+       "label": "A33 Probable cause of death(Tetanus)"
+      },
+      {
+       "de": "UaGg4B3DUac",
+       "label": "Q80 Probable cause of death(Congenital Anomalies)"
+      },
+      {
+       "de": "jSaonaOE68O",
+       "label": "P36 Probable cause of death(Septicaemia)"
+      },
+      {
+       "de": "xYenYvBElrk",
+       "label": "Q80 Probable cause of death(Others)"
+      },
+      {
+       "de": "xjeIBJ2XyPd",
+       "label": "P15 Probable cause of death(Birth trauma)"
+      },
+      {
+       "de": "H4iDsba7jkw",
+       "label": "P07 Probable cause of death(Prematurity complications)-Specify"
+      },
+      {
+       "de": "apgGGC11v8Y",
+       "label": "P22 Probable cause of death(Birth Asphyxia)"
+      },
+      {
+       "de": "Y5T6DMJiZPJ",
+       "label": "Q80 Probable cause of death(Unknown)"
+      },
+      {
+       "de": "ZkNDFfFSTYg",
+       "label": "Linked"
+      }
+     ]
+    },
+    {
+     "label": "3.10 Avoidable factors/missed opportunities/substandard care. Which of the following factors were present (tick all appropriate)",
+     "fields": [
+      {
+       "de": "hRprz4XEDrz",
+       "label": "Delay to seek health care  (Avoidable factors)"
+      },
+      {
+       "de": "EV93HrESugB",
+       "label": "Delay to reach the health facility (Avoidable factors)"
+      },
+      {
+       "de": "MFBT0aG5S6p",
+       "label": "Delay to provide care (Avoidable factors)"
+      },
+      {
+       "de": "SVPoIi25jCw",
+       "label": "Absence of critical human resources(Avoidable factors)"
+      },
+      {
+       "de": "rLyf2TuYbn3",
+       "label": "Lack of resuscitation equipment(Avoidable factors)"
+      },
+      {
+       "de": "LfjWOPewHml",
+       "label": "Lack of supplies and drugs including blood(Avoidable factors)"
+      },
+      {
+       "de": "We0QqTPk1Oj",
+       "label": "Misdiagnosis(Avoidable factors)"
+      },
+      {
+       "de": "sFrh6MH8xJ2",
+       "label": "Inappropriate intervention(Avoidable factors)"
+      },
+      {
+       "de": "pRYm5u9S8Ag",
+       "label": "Others specify(Avoidable factors)"
+      }
+     ]
+    },
+    {
+     "label": "Comments on avoidable factors and missed opportunities:",
+     "fields": [
+      {
+       "de": "BOUN3iTMTzU",
+       "label": "Comments on avoidable factors and missed opportunities"
+      }
+     ]
+    },
+    {
+     "label": "Agreed upon Actions to address the avoidable factors",
+     "fields": [
+      {
+       "de": "nAc07V7ZYUL",
+       "label": "Agreed upon Actions to address the avoidable factors"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "mdr": [
+  {
+   "title": "Case",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "ZKBE8Xm9DJG",
+       "label": "Ministry of Health National Case Number"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 2: DETAILS OF THE DECEASED:",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "FIfoObQJvNp",
+       "label": "Intials"
+      },
+      {
+       "de": "CupbOInqvJI",
+       "label": "NIN"
+      },
+      {
+       "de": "BRtcz4HV7Ak",
+       "label": "Inpatient number"
+      },
+      {
+       "de": "hcu4LCAMSkz",
+       "label": "Usual Residence address (Village)"
+      },
+      {
+       "de": "ioXkKfrgCJa",
+       "label": "Usual Residence address (Subcounty)"
+      },
+      {
+       "de": "FHmHV9mElbD",
+       "label": "Usual Residence address (District)"
+      },
+      {
+       "de": "iJqBq0kQtWO",
+       "label": "Age in completed years"
+      },
+      {
+       "de": "eTVI19PiJmM",
+       "label": "Marital Status"
+      },
+      {
+       "de": "sd185WRKepb",
+       "label": "Religon"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 3: ADMISSION AT HEALTH FACILITY WHERE DEATH OCCURRED / WAS REPORTED",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "wmNrbtFpcdy",
+       "label": "At time of admission (Gravita)"
+      },
+      {
+       "de": "ByIsCiqkq4v",
+       "label": "Para (Viable Gestational Age)"
+      },
+      {
+       "de": "vORgqb7tQBu",
+       "label": "Para (Abortus)"
+      },
+      {
+       "de": "jdxl2rdeDEk",
+       "label": "At time of admission(Gestation in weeks)"
+      },
+      {
+       "de": "c5kDr80smH8",
+       "label": "Date and time of admission"
+      },
+      {
+       "de": "WzauwhVOwM0",
+       "label": "Date and time of death"
+      },
+      {
+       "de": "IH7NTNcSZYk",
+       "label": "Duration of stay in facility before death (days)"
+      },
+      {
+       "de": "ww21ycTPDb6",
+       "label": "Duration of stay in facility before death (hours)"
+      },
+      {
+       "de": "BJXbwUs4tGF",
+       "label": "Duration of stay in facility before death (minutes)"
+      },
+      {
+       "de": "iAgu1y93XAB",
+       "label": "Referred"
+      },
+      {
+       "de": "eJwpqR9t7YM",
+       "label": "Referred from"
+      }
+     ]
+    },
+    {
+     "label": "Category Abnormal vital signs Unconscious Dead on arrival",
+     "fields": [
+      {
+       "de": "GropdEXdkL0",
+       "label": "Condition on admission-Abortion(Abnormal vital signs)"
+      },
+      {
+       "de": "QkwqwhwVBSx",
+       "label": "Condition on admission-Abortion(Unconcious)"
+      },
+      {
+       "de": "PkkDS8oCueZ",
+       "label": "Condition on admission-Abortion(Dead on arrival)"
+      },
+      {
+       "de": "f0L5gbFIYgN",
+       "label": "Condition on admission-Ectopic Pregenancy(Abnormal vital signs)"
+      },
+      {
+       "de": "m9XP3U3zhGs",
+       "label": "Condition on admission-Ectopic Pregenancy(Unconcious)"
+      },
+      {
+       "de": "JrphiR5eL7e",
+       "label": "Condition on admission-Ectopic Pregenancy(Dead on arrival)"
+      },
+      {
+       "de": "ezA6qoeiMaY",
+       "label": "Condition on admission-Antental(Abnormal vital signs)"
+      },
+      {
+       "de": "dzhuimTFxAp",
+       "label": "Condition on admission-Antental(Unconcious)"
+      },
+      {
+       "de": "UktXJadJhId",
+       "label": "Condition on admission-Antental(Dead on arrival)"
+      },
+      {
+       "de": "LI8e6zZG0A4",
+       "label": "Condition on admission-Intrapartum(Abnormal vital signs)"
+      },
+      {
+       "de": "lOEl43oH1YS",
+       "label": "Condition on admission-Intrapartum(Unconcious)"
+      },
+      {
+       "de": "Wkx3fzsB2dd",
+       "label": "Condition on admission-Intrapartum(Dead on arrival)"
+      },
+      {
+       "de": "HN4IkP51eko",
+       "label": "Condition on admission-Postpartum(Abnormal vital signs)"
+      },
+      {
+       "de": "iUSa5C2APFN",
+       "label": "Condition on admission-Postpartum(Unconcious)"
+      },
+      {
+       "de": "Agzf9GaJ6G2",
+       "label": "Condition on admission-Postpartum(Dead on arrival)"
+      }
+     ]
+    },
+    {
+     "label": "Vital signs recorded on admission",
+     "fields": [
+      {
+       "de": "Rrs7OQx1yMS",
+       "label": "Vital signs recorded on admission (Blood pressure)"
+      },
+      {
+       "de": "ejbJJ1gTnQb",
+       "label": "Vital signs recorded on admission (Blood pressure reading systolic)"
+      },
+      {
+       "de": "Hn09AcoW4Mk",
+       "label": "Vital signs recorded on admission (Blood pressure reading diastolic)"
+      },
+      {
+       "de": "rn8cGimwQ3a",
+       "label": "Vital signs recorded on admission (Temperature)"
+      },
+      {
+       "de": "c8hsSJy63ay",
+       "label": "Vital signs recorded on admission (Temperature reading)"
+      },
+      {
+       "de": "OWhIguUYA66",
+       "label": "Vital signs recorded on admission (Respiration)"
+      },
+      {
+       "de": "MDXum0oNBQb",
+       "label": "Vital signs recorded on admission (Respiration reading)"
+      },
+      {
+       "de": "W7EN3QVTdMD",
+       "label": "Vital signs recorded on admission (Level of consciousness)"
+      },
+      {
+       "de": "lSthTlIFbEh",
+       "label": "Reasons for admission/complaints on admission"
+      },
+      {
+       "de": "ocMXxDCF6DF",
+       "label": "Diagnosis on admission"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 4: ANTENATAL CARE",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "QidQVyBFspW",
+       "label": "Did the mother book for antenatal care/receive antenatal care?"
+      },
+      {
+       "de": "hZlRNVrmS1y",
+       "label": "If “Yes”,How many times did she attend?"
+      },
+      {
+       "de": "a5fh4wtDzmi",
+       "label": "Type of health facility where she attended ANC"
+      }
+     ]
+    },
+    {
+     "label": "Risk History",
+     "fields": [
+      {
+       "de": "y0B7fm7rguE",
+       "label": "Antenatal risk factors(Hypertension)"
+      },
+      {
+       "de": "kRQ3g914TCz",
+       "label": "Antenatal risk factors(Bleeding)"
+      },
+      {
+       "de": "TxyHEYfHKrF",
+       "label": "Antenatal risk factors(Proteinuria)"
+      },
+      {
+       "de": "Hg1Jyk0pakg",
+       "label": "Antenatal risk factors(Glycosuria)"
+      },
+      {
+       "de": "kUecSo0kdJ3",
+       "label": "Antenatal risk factors(Anaemia)"
+      },
+      {
+       "de": "wwmxSrEknn8",
+       "label": "Antenatal risk factors(Abnormal lie)"
+      },
+      {
+       "de": "byW52kaC6pR",
+       "label": "Antenatal risk factors(Previous Caesarean section)"
+      },
+      {
+       "de": "W2Dxjt6PxN5",
+       "label": "Antenatal risk factors(Fever)"
+      },
+      {
+       "de": "nw15Ko1SKnq",
+       "label": "Others specify)"
+      },
+      {
+       "de": "fA4uVOOV7Gl",
+       "label": "Medication received during ANC(IPT)"
+      },
+      {
+       "de": "yajntikIgCk",
+       "label": "Medication received during ANC(Tetanus diphtheria(Td)"
+      },
+      {
+       "de": "HwJeCYbUnDL",
+       "label": "Medication received during ANC(Ferrous)"
+      },
+      {
+       "de": "Us9t4jzNMSd",
+       "label": "Medication received during ANC(De- wormers)"
+      },
+      {
+       "de": "BxBqvKhoJvj",
+       "label": "Medication received during ANC.Other specify"
+      }
+     ]
+    },
+    {
+     "label": "Investigations done during ANC",
+     "fields": [
+      {
+       "de": "vVP5ClqKkHQ",
+       "label": "HIV test during present pregnancy"
+      },
+      {
+       "de": "oz0vASbQvq5",
+       "label": "HIV test results"
+      },
+      {
+       "de": "IACcLw1GbkR",
+       "label": "If HIV positive; Is she enrolled on care ?"
+      },
+      {
+       "de": "OJVwBSHC4b0",
+       "label": "If HIV Positive, CD4 count"
+      },
+      {
+       "de": "x4luCocBY5h",
+       "label": "Syphilis test during pregnancy"
+      },
+      {
+       "de": "z8bU25JRAGG",
+       "label": "Syphilis test results"
+      },
+      {
+       "de": "T3QwXHphTIu",
+       "label": "Hb Level 1"
+      },
+      {
+       "de": "QPw7nHXJqe9",
+       "label": "Hepatitis B-Status1"
+      },
+      {
+       "de": "c6gVPQ5rTOo",
+       "label": "Urinalysis–Protein/Sugar/casts"
+      },
+      {
+       "de": "fuRsZ7wn5Q5",
+       "label": "Others"
+      },
+      {
+       "de": "cqVj2lrYx2W",
+       "label": "Comment on investigations done"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 5: DELIVERY AND PUERPERIUM INFORMATION",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "J11gxMDNvv7",
+       "label": "Did labour occur"
+      },
+      {
+       "de": "E0OEw6yVcJm",
+       "label": "Was a partogram filled"
+      },
+      {
+       "de": "v9BgVEytqsi",
+       "label": "Partogram correctly used"
+      }
+     ]
+    },
+    {
+     "label": "Duration of labour (enter appropriate code below)",
+     "fields": [
+      {
+       "de": "NKKunKgeJiD",
+       "label": "Duration of labour (latent)"
+      },
+      {
+       "de": "pVGyUKsZywW",
+       "label": "Duration of labour (Active labour)"
+      },
+      {
+       "de": "tkiEm0lt9cV",
+       "label": "Duration of labour (Second)"
+      },
+      {
+       "de": "HJhEdW3YNL3",
+       "label": "Duration of labour (Third)"
+      },
+      {
+       "de": "PbayNOhXnyx",
+       "label": "Did delivery take place"
+      },
+      {
+       "de": "LFYN9XzE4cB",
+       "label": "No of days after delivery/abortion"
+      },
+      {
+       "de": "AqXDMjrPUEE",
+       "label": "Place of delivery"
+      }
+     ]
+    },
+    {
+     "label": "Mode of delivery",
+     "fields": [
+      {
+       "de": "TKWaMxLDj7J",
+       "label": "Mode of delivery (viginal)"
+      },
+      {
+       "de": "kHdz10PWtjp",
+       "label": "Mode of delivery (Vaginal breech)"
+      },
+      {
+       "de": "brmlMKiNrZt",
+       "label": "Mode of delivery (Instrumental vaginal vaccum)"
+      },
+      {
+       "de": "On3EvqCavl1",
+       "label": "Mode of delivery (Instrumental vaginal forcepts)"
+      },
+      {
+       "de": "NAnhGvDjMRF",
+       "label": "Mode of delivery (Caesarean section emergency)"
+      },
+      {
+       "de": "sju2IsSkUZG",
+       "label": "Mode of delivery (Caesarean section elective)"
+      },
+      {
+       "de": "Wy8zkenyVr4",
+       "label": "Mode of delivery (Destructive operations)"
+      }
+     ]
+    },
+    {
+     "label": "Main Assistant at delivery",
+     "fields": [
+      {
+       "de": "OP5Jr95bkkW",
+       "label": "Main assistant at delivery (Doctor)"
+      },
+      {
+       "de": "BLbGQB5NTX1",
+       "label": "Main assistant at delivery (Midwife)"
+      },
+      {
+       "de": "ZMq8DHxtwCP",
+       "label": "Main assistant at delivery (Nursing assistant)"
+      },
+      {
+       "de": "OdQkbYCACsT",
+       "label": "Main assistant at delivery (TBA)"
+      },
+      {
+       "de": "ZOZFaanQLAD",
+       "label": "Main assistant at delivery (Member of the family)"
+      },
+      {
+       "de": "YHBzpuYWQg1",
+       "label": "Main assistant at delivery (Self)"
+      },
+      {
+       "de": "STVD72fHWYK",
+       "label": "Main assistant at delivery (Other)"
+      },
+      {
+       "de": "aCzqBYUkfDe",
+       "label": "Outcome of pregnancy"
+      },
+      {
+       "de": "XW2CKaAiMKc",
+       "label": "Baby weight in grams"
+      }
+     ]
+    },
+    {
+     "label": "Obstetrical complications",
+     "fields": [
+      {
+       "de": "LA1WtCaWi2M",
+       "label": "Obstetrical complications (APH)"
+      },
+      {
+       "de": "owuXac0M85O",
+       "label": "Obstetrical complications (PPH)"
+      },
+      {
+       "de": "A1eKHTfGYfT",
+       "label": "Obstetrical complications (Sepsis)"
+      },
+      {
+       "de": "Yj5FTl1DukQ",
+       "label": "Obstetrical complications (Eclampsia)"
+      },
+      {
+       "de": "brdup6zLcEo",
+       "label": "Obstetrical complication-Ruptured uterus"
+      },
+      {
+       "de": "Xo0I6fvmmha",
+       "label": "Obs complications-Shock/sudden colapse"
+      },
+      {
+       "de": "ezUwUwLOWDO",
+       "label": "Obstetrical complications - Other"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 6: INTERVENTIONS",
+   "groups": [
+    {
+     "label": "Early pregnancy Antenatal Intrapartum Postpartum",
+     "fields": [
+      {
+       "de": "hUT25oOxMmX",
+       "label": "Evacuation (Early Pregnancy)"
+      },
+      {
+       "de": "zRnpKj8GISp",
+       "label": "Evacuation (Antenatal)"
+      },
+      {
+       "de": "qm3ga81qmEC",
+       "label": "Evacuation (Intrapartum)"
+      },
+      {
+       "de": "LojuydZv8Me",
+       "label": "Evacuation (Postpartum)"
+      },
+      {
+       "de": "aOIkElUMfoW",
+       "label": "IV Fluids (Early Pregnancy)"
+      },
+      {
+       "de": "BWKDsGUDEH3",
+       "label": "IV Fluids (Antenatal)"
+      },
+      {
+       "de": "oxXg2PTeAok",
+       "label": "IV Fluids (Intrapartum)"
+      },
+      {
+       "de": "Nk5boO6Q7Yu",
+       "label": "IV Fluids (Postpartum)"
+      },
+      {
+       "de": "kFUUPTSrZCS",
+       "label": "Transfusion (Early Pregnancy)"
+      },
+      {
+       "de": "VBEFSU4Ezo2",
+       "label": "Transfusion (Antenatal)"
+      },
+      {
+       "de": "fvecJ8TFPRc",
+       "label": "Transfusion (Intrapartum)"
+      },
+      {
+       "de": "S5eg3TWIQIp",
+       "label": "Transfusion (Postpartum)"
+      },
+      {
+       "de": "qgkXe3wF21D",
+       "label": "Anticonvulsants (Early Pregnancy)"
+      },
+      {
+       "de": "rJfruTDzbma",
+       "label": "Anticonvulsants (Antenatal)"
+      },
+      {
+       "de": "lXdAZeKZn4m",
+       "label": "Anticonvulsants (Intrapartum)"
+      },
+      {
+       "de": "emdE43QBqPp",
+       "label": "Anticonvulsants (Postpartum)"
+      },
+      {
+       "de": "arW1EL6XQpE",
+       "label": "Anaesthesia (Early Pregnancy)"
+      },
+      {
+       "de": "F4qzhohON5N",
+       "label": "Anaesthesia (Antenatal)"
+      },
+      {
+       "de": "kEhmeGfdTGB",
+       "label": "Anaesthesia (Intrapartum)"
+      },
+      {
+       "de": "zKodyA6Vp1b",
+       "label": "Anaesthesia (Postpartum)"
+      },
+      {
+       "de": "PBi1HNrSiFj",
+       "label": "Uterotonics (Early Pregnancy)"
+      },
+      {
+       "de": "CLQ9osUSTea",
+       "label": "Uterotonics (Antenatal)"
+      },
+      {
+       "de": "LfkUUKPomSf",
+       "label": "Uterotonics (Intrapartum)"
+      },
+      {
+       "de": "h5vsX113hKC",
+       "label": "Uterotonics (Postpartum)"
+      },
+      {
+       "de": "oStdvpxWD7g",
+       "label": "Manual removal of placenta (Early Pregnancy)"
+      },
+      {
+       "de": "NY7O9X3XNRv",
+       "label": "Manual removal of placenta (Antenatal)"
+      },
+      {
+       "de": "hyQ9IWF9uEo",
+       "label": "Manual removal of placenta (Intrapartum)"
+      },
+      {
+       "de": "ObzLdxNcGZY",
+       "label": "Manual removal of placenta (Postpartum)"
+      },
+      {
+       "de": "lRT0g2bRtwZ",
+       "label": "Caesarean Section (Early Preganancy)"
+      },
+      {
+       "de": "MfICS1uUUdJ",
+       "label": "Caesarean Section (Antenatal)"
+      },
+      {
+       "de": "NuHtNZpdXaD",
+       "label": "Caesarean Section (Intrapartum)"
+      },
+      {
+       "de": "qNNcwXQDFVE",
+       "label": "Caesarean Section (Postpartum)"
+      },
+      {
+       "de": "PpzqCyOQzuS",
+       "label": "Laparotomy (Early Pregnancy)"
+      },
+      {
+       "de": "xGFSkHjvgKn",
+       "label": "Laparotomy (Antenatal)"
+      },
+      {
+       "de": "EBjGwPPITzl",
+       "label": "Laparotomy (Intrapartum)"
+      },
+      {
+       "de": "EDk9wmKnego",
+       "label": "Laparotomy (Postpartum)"
+      },
+      {
+       "de": "I9wJoLNkSUp",
+       "label": "Hysterectomy (Early Pregnancy)"
+      },
+      {
+       "de": "UO6JbM183Yj",
+       "label": "Hysterectomy (Antenatal)"
+      },
+      {
+       "de": "oZzfT8loS4B",
+       "label": "Hysterectomy (Intrapartum)"
+      },
+      {
+       "de": "G9pNk0X5wJE",
+       "label": "Hysterectomy (Postpartum)"
+      },
+      {
+       "de": "OeuIhu9K7XC",
+       "label": "Instrumental Delivery (Early Pregnancy)"
+      },
+      {
+       "de": "bypev1wrHaJ",
+       "label": "Instrumental Delivery (Antenatal)"
+      },
+      {
+       "de": "N7eTWuQRdy7",
+       "label": "Instrumental Delivery (Intrapartum)"
+      },
+      {
+       "de": "vi73Sj73I1P",
+       "label": "Instrumental Delivery (Postpartum)"
+      },
+      {
+       "de": "AqsuNrGpPha",
+       "label": "Repair of uterus (Early Pregnancy)"
+      },
+      {
+       "de": "BfyxdIRVPCG",
+       "label": "Repair of uterus (Antenatal)"
+      },
+      {
+       "de": "QspOEbJwvrn",
+       "label": "Repair of uterus (Intrapartum)"
+      },
+      {
+       "de": "V8TuWcrMFE2",
+       "label": "Repair of uterus (Postpartum)"
+      },
+      {
+       "de": "HXSJvazF11O",
+       "label": "Perineal repair (Early Pregnancy)"
+      },
+      {
+       "de": "lz77rqS6fIo",
+       "label": "Perineal repair (Antenatal)"
+      },
+      {
+       "de": "Dhq6iXq1c1Z",
+       "label": "Perineal repair (Intrapartum)"
+      },
+      {
+       "de": "wde8p5nd32l",
+       "label": "Perineal repair (Postpartum)"
+      },
+      {
+       "de": "CbT0u1Fx6ZN",
+       "label": "Other specify (Early Pregnancy)"
+      },
+      {
+       "de": "dgnTlu8JuQ4",
+       "label": "Other specify (Antenatal)"
+      },
+      {
+       "de": "IRv21OKIBgM",
+       "label": "Other specify (Intrapartum)"
+      },
+      {
+       "de": "qDBN7ZbRhgp",
+       "label": "Other specify (Postpartum)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 7: AUTOPSY/ POST MORTEM",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "js6jQi1rx1j",
+       "label": "Autospy/Postmortem requested"
+      },
+      {
+       "de": "smzNleAK8sl",
+       "label": "Autospy/Postmortem performed"
+      },
+      {
+       "de": "UEmwYMZK0Uh",
+       "label": "Autospy/Postmortem findings"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 8: CAUSE OF DEATH",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "xiAXjQxZDSW",
+       "label": "Ectopic pregnancy"
+      }
+     ]
+    },
+    {
+     "label": "Abortion",
+     "fields": [
+      {
+       "de": "wdLRU8IixLi",
+       "label": "Trophoblastic disease"
+      },
+      {
+       "de": "W3mgyMha0N0",
+       "label": "Spontaneous Abortion"
+      },
+      {
+       "de": "Ws8mQOp3DZr",
+       "label": "Induced abortion - sepsis"
+      },
+      {
+       "de": "D5E0lOCtKdM",
+       "label": "Spontaneous Abortion - haemorrhage"
+      },
+      {
+       "de": "a7HrnNVPtZN",
+       "label": "Induced abortion - trauma"
+      },
+      {
+       "de": "jfnkDslwrrL",
+       "label": "Spontaneous Abortion - other"
+      },
+      {
+       "de": "k8lDphTkRn9",
+       "label": "Induced abortion - other"
+      }
+     ]
+    },
+    {
+     "label": "Antepartum hemorrhage Postpartum hemorrhage",
+     "fields": [
+      {
+       "de": "c2Sn7Z6RuK4",
+       "label": "Placenta Praevia"
+      },
+      {
+       "de": "SLRPjzRPpEJ",
+       "label": "Uterine atony"
+      },
+      {
+       "de": "iteIkVf68jY",
+       "label": "PPH after C-section"
+      },
+      {
+       "de": "czaXNYJ31Rv",
+       "label": "Abruptio placenta"
+      },
+      {
+       "de": "o3yTjUABKux",
+       "label": "Ruptured uterus - obstructed labor"
+      },
+      {
+       "de": "H7Pf8ugBfpf",
+       "label": "PPH from tears"
+      },
+      {
+       "de": "gQjgm8foJPK",
+       "label": "Abruptio placenta with hypertension"
+      },
+      {
+       "de": "fUmxaY8tsVf",
+       "label": "Ruptured uterus with previous scar"
+      },
+      {
+       "de": "ZbC9oYLjvsH",
+       "label": "Post partum haemorrhage - other"
+      },
+      {
+       "de": "EyTMoRYumLY",
+       "label": "Antepartum haemorrhage - other"
+      },
+      {
+       "de": "p2TjG5L7gfw",
+       "label": "Retained placenta"
+      }
+     ]
+    },
+    {
+     "label": "Pregnancy-related sepsis",
+     "fields": [
+      {
+       "de": "lSD9vEkw81r",
+       "label": "Puerperal sepsis folowing vaginal delivery after obstructed labor"
+      },
+      {
+       "de": "mXZw0MFlC5e",
+       "label": "Puerperal sepsis following normal delivery"
+      },
+      {
+       "de": "Np2XQF1gkaU",
+       "label": "Puerperal sepsis following c-section"
+      },
+      {
+       "de": "hSmmYHV1eXV",
+       "label": "Puerperal sepsis folowing c-section after obstructed labor"
+      },
+      {
+       "de": "jZfwKkD8w1V",
+       "label": "Pregnancy related sepsis - other"
+      }
+     ]
+    },
+    {
+     "label": "Hypertensive disorders of pregnancy Infections/conditions not related to pregnancy Anaesthetic complications",
+     "fields": [
+      {
+       "de": "ysxdiOCjH6k",
+       "label": "Pre-eclampsis- Eclampsia"
+      },
+      {
+       "de": "Wmr2Tfb78Sr",
+       "label": "Malaria"
+      },
+      {
+       "de": "bXLyj6Ji4S6",
+       "label": "General Anaethesia complications"
+      },
+      {
+       "de": "SjWjZutC1E3",
+       "label": "HELLP syndrome"
+      },
+      {
+       "de": "jaKQ29Wtkgf",
+       "label": "HIV/AIDS"
+      },
+      {
+       "de": "NmJeFoUzFkZ",
+       "label": "Spinal Anaethesia complications"
+      },
+      {
+       "de": "cvuMwVvOqSf",
+       "label": "Chronic Hypertension"
+      },
+      {
+       "de": "RCJft99OvwF",
+       "label": "Severe anaemia"
+      },
+      {
+       "de": "wnWYNBh9RgG",
+       "label": "Anaethesia complications-Epidural block"
+      },
+      {
+       "de": "PHzV5Q8uLnu",
+       "label": "Hypertensive disorder of pregnancy-other"
+      },
+      {
+       "de": "rpaV42Se4pl",
+       "label": "Infections/Conditions not related to pregnancy - Other"
+      }
+     ]
+    },
+    {
+     "label": "Pre-existing disease Non-obstetric causes",
+     "fields": [
+      {
+       "de": "nsKFNg9Gtre",
+       "label": "Cardiac disease"
+      },
+      {
+       "de": "QBBXVaURSuW",
+       "label": "Haematological"
+      },
+      {
+       "de": "uFoaTRJ16Ch",
+       "label": "Motor vehicle / cycle accident"
+      },
+      {
+       "de": "pWLCZKrkBJb",
+       "label": "Other cause of death"
+      },
+      {
+       "de": "EuCwEEMz8aI",
+       "label": "Endocrine"
+      },
+      {
+       "de": "Cj8qlrArHUx",
+       "label": "Genito urinary"
+      },
+      {
+       "de": "K4FUK590rIU",
+       "label": "Assault"
+      },
+      {
+       "de": "PgzM8wZ40JY",
+       "label": "GIT"
+      },
+      {
+       "de": "b5zLzM2rm0o",
+       "label": "Malignancy"
+      },
+      {
+       "de": "dS59fSBJBQA",
+       "label": "Sex and gender based violence"
+      },
+      {
+       "de": "C3RST8YWsXt",
+       "label": "Unknown"
+      },
+      {
+       "de": "z9dBvqJpKwj",
+       "label": "Central nervous"
+      },
+      {
+       "de": "jBcJaKqJa5w",
+       "label": "Other pre-existing disease"
+      },
+      {
+       "de": "Qu7CiFZwIvD",
+       "label": "Suicide"
+      },
+      {
+       "de": "YT7LqMINLqE",
+       "label": "Respiratory"
+      },
+      {
+       "de": "HlpouDjIM1N",
+       "label": "Other non obstetric causes"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 8b: CERTIFIED CAUSE OF DEATH",
+   "groups": [
+    {
+     "label": "Cause of Death Time interval type from onset to death Time interval from onset to death",
+     "fields": [
+      {
+       "de": "sfpqAeqKeyQ",
+       "label": "Report disease or condition directly leading to death-Cause of death_a"
+      },
+      {
+       "de": "Ylht9kCLSRW",
+       "label": "-MD01ba. Type_of_interval_for_a"
+      },
+      {
+       "de": "WkXxkKEJLsg",
+       "label": "Time interval_a"
+      },
+      {
+       "de": "zb7uTuBCPrN",
+       "label": "Report chain of events -due to in order-Cause of death_b"
+      },
+      {
+       "de": "myydnkmLfhp",
+       "label": "-MD02b1a. Type_of_interval_for_b"
+      },
+      {
+       "de": "fleGy9CvHYh",
+       "label": "Time interval_b"
+      },
+      {
+       "de": "QGFYJK00ES7",
+       "label": "Report chain of events -due to in order-Cause of death_c"
+      },
+      {
+       "de": "aC64sB86ThG",
+       "label": "Type_of_interval_for_c"
+      },
+      {
+       "de": "hO8No9fHVd2",
+       "label": "-MD02b2b. HMIS_100_Time interval_c"
+      },
+      {
+       "de": "CnPGhOcERFF",
+       "label": "-MD02a3. Report chain of events due to in order-Cause of death_d"
+      },
+      {
+       "de": "cmZrrHfTxW3",
+       "label": "-MD02b3a. Type_of_interval_for_d"
+      },
+      {
+       "de": "eCVDO6lt4go",
+       "label": "Time interval_d"
+      },
+      {
+       "de": "ZkNDFfFSTYg",
+       "label": "Linked"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 9: AVOIDABLE FACTORS: Using information derived from the interviews and review of the case notes, were any of these factors present? Tick all applicable",
+   "groups": [
+    {
+     "label": "Avoidable factors Yes Specify",
+     "fields": [
+      {
+       "de": "pPh6aWTVYy6",
+       "label": "Delay of the woman seeking appropriate healthcare"
+      },
+      {
+       "de": "eaSaXuaziyY",
+       "label": "Delay of the woman seeking appropriate healthcare(specify)"
+      },
+      {
+       "de": "VrK0mAtC71u",
+       "label": "Delay to reach HFs"
+      },
+      {
+       "de": "dBUqpDhgq7Y",
+       "label": "Delay to reach HFs specify"
+      },
+      {
+       "de": "mbMXko6mJ76",
+       "label": "Refusal of treatment or admission"
+      },
+      {
+       "de": "EjcxTE1LWPk",
+       "label": "Refusal of treatment or admission specify"
+      },
+      {
+       "de": "z4DOgPw6u1r",
+       "label": "Woman use of herbal medication"
+      },
+      {
+       "de": "e9nJGdo3xGt",
+       "label": "Woman use of herbal medication specify"
+      },
+      {
+       "de": "v0RVtdOooWj",
+       "label": "Refused transfer to higher facility"
+      },
+      {
+       "de": "yCeVgYNCOOI",
+       "label": "Refused transfer to higher facility specify"
+      },
+      {
+       "de": "wl2u80BWUW3",
+       "label": "Lack of partner support"
+      },
+      {
+       "de": "QHF2GCbZQca",
+       "label": "Lack of partner support specify"
+      },
+      {
+       "de": "afDz7SrXJkc",
+       "label": "Lack of transport from home/community to HF"
+      },
+      {
+       "de": "i00ejpzpAGf",
+       "label": "Lack of transport from home/community  to health facilities specify"
+      },
+      {
+       "de": "zhJUTM68Wdg",
+       "label": "Lack of transport between health facilities"
+      },
+      {
+       "de": "tmEtk151MlM",
+       "label": "Lack of transport between health facilities specify"
+      },
+      {
+       "de": "LKJ2GkQQENR",
+       "label": "Lack of blood products, supplies & consumables"
+      },
+      {
+       "de": "q7p4jF8DuH3",
+       "label": "Lack of blood products, supplies & consumables specify"
+      },
+      {
+       "de": "qSJrMFj4w3P",
+       "label": "Lack of appropriate medicines for client management including Lab Supplies"
+      },
+      {
+       "de": "WX72M8zDcaK",
+       "label": "Lack of appropriate medicines for client management including Lab Supplies(specify)"
+      },
+      {
+       "de": "CGrsGzHMtXA",
+       "label": "Lack of other medical supplies, equipment & consumables for use in patient care"
+      },
+      {
+       "de": "QTfI21p35r0",
+       "label": "Lack of other medical supplies, equipment & consumables for use in patient care(specify)"
+      },
+      {
+       "de": "YbImSbfvC5l",
+       "label": "Misdiagnosis"
+      },
+      {
+       "de": "nW5kOhfjRCS",
+       "label": "Misdiagnosis specify"
+      },
+      {
+       "de": "fWX9YfpLgCJ",
+       "label": "Inappropriate intervention/ treatment / doses given"
+      },
+      {
+       "de": "C4mRFfWCBiq",
+       "label": "Inappropriate intervention/ treatment / doses given specify"
+      },
+      {
+       "de": "ZqJkxkB43X7",
+       "label": "Inadequate numbers of staff"
+      },
+      {
+       "de": "wO4iYPzOFO3",
+       "label": "Inadequate numbers of staff specify"
+      },
+      {
+       "de": "k2jCcL71nT7",
+       "label": "Absence of critical human resource"
+      },
+      {
+       "de": "nGYJf8Tll15",
+       "label": "Absence of critical human resource specify"
+      },
+      {
+       "de": "AeVA9HtmnmF",
+       "label": "Staff lack of skill/expertise"
+      },
+      {
+       "de": "SIiocs0VTQk",
+       "label": "Staff lack of skill/expertise specify"
+      },
+      {
+       "de": "GFX51oJqAJG",
+       "label": "Staff professional misconduct"
+      },
+      {
+       "de": "wQ3GAkso5gv",
+       "label": "Staff professional misconduct specify"
+      },
+      {
+       "de": "NKotrIlEihv",
+       "label": "Other avoidable factors"
+      },
+      {
+       "de": "LHUCVsYD4Cb",
+       "label": "Comments on potential avoidable factors, missed opportunities and sub-standard care"
+      }
+     ]
+    },
+    {
+     "label": "Quality of medical records",
+     "fields": [
+      {
+       "de": "u1rYtM6BXV5",
+       "label": "Comment on key data elements missing from the patient's file"
+      },
+      {
+       "de": "r5yWFdUMvnH",
+       "label": "Legibility"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 10: CASE SUMMARY",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "hWzBd1Xsx6W",
+       "label": "Please supply a short summary of the events surrounding the death"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 11: RECOMMENDATIONS",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "KijgmSoHqpQ",
+       "label": "Please supply a short summary of the recommendations and follow-up actions to address review findings"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "cdr": [
+  {
+   "title": "Case",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "ZKBE8Xm9DJG",
+       "label": "Ministry of Health National Case Number"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION ONE: Identification",
+   "groups": [
+    {
+     "label": "Facility",
+     "fields": [
+      {
+       "de": "CDR_ownership",
+       "label": "Ownership",
+       "hint": "Public / PNFP / PFP"
+      },
+      {
+       "de": "CDR_hf_level",
+       "label": "Level of Health Facility",
+       "hint": "NRH / RRH / GH / HCIV / HCIII / HCII"
+      }
+     ]
+    },
+    {
+     "label": "Identification of the Child",
+     "fields": [
+      {
+       "de": "CDR_child_initials",
+       "label": "Initials of Child Who Died"
+      },
+      {
+       "de": "CDR_ipno",
+       "label": "IP No."
+      },
+      {
+       "de": "CDR_age_years",
+       "label": "Age (Years)"
+      },
+      {
+       "de": "CDR_age_months",
+       "label": "Age (Months)"
+      },
+      {
+       "de": "CDR_age_days",
+       "label": "Age (Days, if < 1 month)"
+      },
+      {
+       "de": "CDR_sex",
+       "label": "Sex"
+      },
+      {
+       "de": "CDR_nationality",
+       "label": "Nationality",
+       "hint": "Ugandan / Refugee / Foreigner"
+      },
+      {
+       "de": "CDR_res_village",
+       "label": "Residence - Village"
+      },
+      {
+       "de": "CDR_res_parish",
+       "label": "Residence - Parish"
+      },
+      {
+       "de": "CDR_res_subcounty",
+       "label": "Residence - Sub county"
+      },
+      {
+       "de": "CDR_res_district",
+       "label": "Residence - District/City"
+      },
+      {
+       "de": "CDR_nok_relationship",
+       "label": "Next of Kin - Relationship"
+      },
+      {
+       "de": "CDR_nok_age",
+       "label": "Next of Kin - Age (years)"
+      },
+      {
+       "de": "CDR_nok_education",
+       "label": "Next of Kin - Level of Education"
+      },
+      {
+       "de": "CDR_nok_occupation",
+       "label": "Next of Kin - Occupation"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION TWO: Circumstances Surrounding the Death",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "CDR_date_death",
+       "label": "Date of Death"
+      },
+      {
+       "de": "CDR_time_death",
+       "label": "Time of Death (24hrs)"
+      },
+      {
+       "de": "CDR_place_death",
+       "label": "Place of Death",
+       "hint": "Health Facility / Home / In transit / During Referral"
+      },
+      {
+       "de": "CDR_hf_days",
+       "label": "Time in H/F before death (days)"
+      },
+      {
+       "de": "CDR_hf_hrs",
+       "label": "Time in H/F before death (hours)"
+      },
+      {
+       "de": "CDR_hf_min",
+       "label": "Time in H/F before death (minutes)"
+      },
+      {
+       "de": "CDR_referred",
+       "label": "Was Child Referred?"
+      },
+      {
+       "de": "CDR_referred_from",
+       "label": "If yes; from?",
+       "hint": "Health Facility / VHT / TBA / Others"
+      },
+      {
+       "de": "CDR_referred_from_other",
+       "label": "If Others (specify)"
+      },
+      {
+       "de": "CDR_referral_facility",
+       "label": "If referred from health facility, name of the facility"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION THREE: Condition at Admission",
+   "groups": [
+    {
+     "label": "Major signs and symptoms at admission (select all that apply)",
+     "fields": [
+      {
+       "de": "CDR_sym_fever",
+       "label": "Fever"
+      },
+      {
+       "de": "CDR_sym_cough",
+       "label": "Cough"
+      },
+      {
+       "de": "CDR_sym_dib",
+       "label": "Difficulty in breathing"
+      },
+      {
+       "de": "CDR_sym_diarrhea",
+       "label": "Diarrhea"
+      },
+      {
+       "de": "CDR_sym_refusal_feed",
+       "label": "Refusal to feed"
+      },
+      {
+       "de": "CDR_sym_vomiting",
+       "label": "Vomiting"
+      },
+      {
+       "de": "CDR_sym_reduced_consciousness",
+       "label": "Reduced level of consciousness"
+      },
+      {
+       "de": "CDR_sym_oedema",
+       "label": "Oedema/body swelling"
+      },
+      {
+       "de": "CDR_sym_convulsions",
+       "label": "Convulsions"
+      },
+      {
+       "de": "CDR_sym_injury",
+       "label": "Injury/trauma"
+      },
+      {
+       "de": "CDR_sym_pain",
+       "label": "Pain"
+      },
+      {
+       "de": "CDR_sym_abdominal_distention",
+       "label": "Abdominal distention"
+      },
+      {
+       "de": "CDR_sym_other",
+       "label": "Others (specify)"
+      }
+     ]
+    },
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "CDR_physical_findings",
+       "label": "Major findings on Physical Examination at admission"
+      },
+      {
+       "de": "CDR_malnutrition_screened",
+       "label": "On admission was the child screened for malnutrition?"
+      },
+      {
+       "de": "CDR_nutrition_status",
+       "label": "If yes, nutrition status",
+       "hint": "No Malnutrition / MAM / SAM"
+      },
+      {
+       "de": "CDR_immunization_uptodate",
+       "label": "Was the child's immunization status up to date?"
+      },
+      {
+       "de": "CDR_missed_doses",
+       "label": "If no, list the doses the child had missed"
+      },
+      {
+       "de": "CDR_hiv_status",
+       "label": "Child's HIV status at time of death"
+      },
+      {
+       "de": "CDR_admission_diagnosis",
+       "label": "Diagnosis at admission"
+      },
+      {
+       "de": "CDR_inpatient_3months",
+       "label": "Had the Child been an inpatient in the past three months?"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION FOUR: Maternal Risk Factors (skip if child age < 28 days)",
+   "groups": [
+    {
+     "label": "ANC",
+     "fields": [
+      {
+       "de": "CDR_mother_anc",
+       "label": "Did the mother attend Antenatal care?"
+      },
+      {
+       "de": "CDR_mother_anc_times",
+       "label": "If yes, how many times?"
+      },
+      {
+       "de": "CDR_ga_first_visit",
+       "label": "Gestational age at first visit"
+      }
+     ]
+    },
+    {
+     "label": "Known Conditions during pregnancy (tick all applicable)",
+     "fields": [
+      {
+       "de": "CDR_preg_aph",
+       "label": "Antepartum Hemorrhage"
+      },
+      {
+       "de": "CDR_preg_htn",
+       "label": "Hypertension"
+      },
+      {
+       "de": "CDR_preg_prom",
+       "label": "Pre-labour rupture of membranes"
+      },
+      {
+       "de": "CDR_preg_diabetes",
+       "label": "Diabetes"
+      },
+      {
+       "de": "CDR_preg_anemia",
+       "label": "Anemia"
+      },
+      {
+       "de": "CDR_preg_uti",
+       "label": "UTI"
+      },
+      {
+       "de": "CDR_preg_malaria",
+       "label": "Malaria"
+      },
+      {
+       "de": "CDR_preg_trauma",
+       "label": "Trauma-accidental"
+      },
+      {
+       "de": "CDR_preg_gbv",
+       "label": "Gender based violence"
+      },
+      {
+       "de": "CDR_preg_other",
+       "label": "Others (specify)"
+      }
+     ]
+    },
+    {
+     "label": "Labour and Birth",
+     "fields": [
+      {
+       "de": "CDR_weeks_amenorrhea",
+       "label": "Weeks of amenorrhea at delivery"
+      },
+      {
+       "de": "CDR_birth_weight",
+       "label": "Birth Weight of the baby"
+      },
+      {
+       "de": "CDR_place_delivery",
+       "label": "Place of delivery",
+       "hint": "Health facility / Home / TBA / Others"
+      },
+      {
+       "de": "CDR_place_delivery_other",
+       "label": "Place of delivery (Others specify)"
+      },
+      {
+       "de": "CDR_mode_delivery",
+       "label": "Mode of Delivery",
+       "hint": "Normal / Caesarean / Vacuum or Forceps"
+      },
+      {
+       "de": "CDR_antenatal_corticosteroids",
+       "label": "For GA <37 WOA: Did the mother receive Antenatal Corticosteroids?"
+      },
+      {
+       "de": "CDR_pprom",
+       "label": "Was there Preterm Rupture of Membranes?"
+      },
+      {
+       "de": "CDR_prophylactic_antibiotics",
+       "label": "If Yes, Did the Mother receive Prophylactic Antibiotics?"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION FIVE: Case Management",
+   "groups": [
+    {
+     "label": "Key Investigations done and findings (Done Y/N + Results)",
+     "fields": [
+      {
+       "de": "CDR_inv_bs_done",
+       "label": "B/S or mRDT - Done"
+      },
+      {
+       "de": "CDR_inv_bs_result",
+       "label": "B/S or mRDT - Results"
+      },
+      {
+       "de": "CDR_inv_cbc_done",
+       "label": "CBC/Hb - Done"
+      },
+      {
+       "de": "CDR_inv_cbc_result",
+       "label": "CBC/Hb - Results"
+      },
+      {
+       "de": "CDR_inv_urinalysis_done",
+       "label": "Urinalysis - Done"
+      },
+      {
+       "de": "CDR_inv_urinalysis_result",
+       "label": "Urinalysis - Results"
+      },
+      {
+       "de": "CDR_inv_bloodculture_done",
+       "label": "Blood culture - Done"
+      },
+      {
+       "de": "CDR_inv_bloodculture_result",
+       "label": "Blood culture - Results"
+      },
+      {
+       "de": "CDR_inv_csf_done",
+       "label": "CSF analysis - Done"
+      },
+      {
+       "de": "CDR_inv_csf_result",
+       "label": "CSF analysis - Results"
+      },
+      {
+       "de": "CDR_inv_xray_done",
+       "label": "X-Ray - Done"
+      },
+      {
+       "de": "CDR_inv_xray_result",
+       "label": "X-Ray - Results"
+      },
+      {
+       "de": "CDR_inv_us_done",
+       "label": "U/S Scan - Done"
+      },
+      {
+       "de": "CDR_inv_us_result",
+       "label": "U/S Scan - Results"
+      },
+      {
+       "de": "CDR_inv_bloodsugar_done",
+       "label": "Blood Sugar - Done"
+      },
+      {
+       "de": "CDR_inv_bloodsugar_result",
+       "label": "Blood Sugar - Results"
+      },
+      {
+       "de": "CDR_inv_bloodchem_done",
+       "label": "Blood Chemistry (LFTs, RFTs) - Done"
+      },
+      {
+       "de": "CDR_inv_bloodchem_result",
+       "label": "Blood Chemistry - Results"
+      },
+      {
+       "de": "CDR_inv_other_done",
+       "label": "Others - Done"
+      },
+      {
+       "de": "CDR_inv_other_result",
+       "label": "Others - Results"
+      }
+     ]
+    },
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "CDR_inv_unavailable",
+       "label": "Was any necessary investigation not available?"
+      },
+      {
+       "de": "CDR_inv_unavailable_specify",
+       "label": "If yes, specify"
+      },
+      {
+       "de": "CDR_final_diagnosis",
+       "label": "Final Diagnosis for the patient"
+      },
+      {
+       "de": "CDR_treatment_summary",
+       "label": "Summary of treatment/procedures/interventions prescribed"
+      },
+      {
+       "de": "CDR_treatment_received_fully",
+       "label": "Was the prescribed treatment/procedure received fully?"
+      },
+      {
+       "de": "CDR_treatment_gaps",
+       "label": "If No, comment on the gaps"
+      },
+      {
+       "de": "CDR_treatment_guidelines",
+       "label": "Was the treatment provided as per national guidelines?"
+      },
+      {
+       "de": "CDR_guidelines_gaps",
+       "label": "If No, comment on the gaps"
+      },
+      {
+       "de": "CDR_complications",
+       "label": "Were there any complications from the treatment/procedure?"
+      },
+      {
+       "de": "CDR_complications_specify",
+       "label": "If yes, specify"
+      },
+      {
+       "de": "CDR_drugs_unavailable",
+       "label": "Were any necessary drugs/supplies not available during care?"
+      },
+      {
+       "de": "CDR_drugs_unavailable_specify",
+       "label": "If yes, specify the drug and reason"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION SIX: Final Case Review",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "CDR_case_summary",
+       "label": "Case Summary"
+      }
+     ]
+    },
+    {
+     "label": "Cause of Death (Frame A) - complete HMIS FOM100",
+     "fields": [
+      {
+       "de": "CDR_cod_a",
+       "label": "(a) Disease/condition directly leading to death",
+       "icd": true,
+       "codeField": "CDR_cod_a_code",
+       "uriField": "CDR_cod_a_uri"
+      },
+      {
+       "de": "CDR_cod_a_interval",
+       "label": "(a) Time interval from onset to death"
+      },
+      {
+       "de": "CDR_cod_b",
+       "label": "(b) Due to (or as a consequence of)",
+       "icd": true,
+       "codeField": "CDR_cod_b_code",
+       "uriField": "CDR_cod_b_uri"
+      },
+      {
+       "de": "CDR_cod_b_interval",
+       "label": "(b) Time interval from onset to death"
+      },
+      {
+       "de": "CDR_cod_c",
+       "label": "(c) Due to (or as a consequence of)",
+       "icd": true,
+       "codeField": "CDR_cod_c_code",
+       "uriField": "CDR_cod_c_uri"
+      },
+      {
+       "de": "CDR_cod_c_interval",
+       "label": "(c) Time interval from onset to death"
+      },
+      {
+       "de": "CDR_cod_d",
+       "label": "(d) Due to (or as a consequence of)",
+       "icd": true,
+       "codeField": "CDR_cod_d_code",
+       "uriField": "CDR_cod_d_uri"
+      },
+      {
+       "de": "CDR_cod_d_interval",
+       "label": "(d) Time interval from onset to death"
+      },
+      {
+       "de": "CDR_cod_other",
+       "label": "Other significant conditions contributing to death"
+      }
+     ]
+    },
+    {
+     "label": "Modifiable Factors (Avoidable Factors - Yes + Specify)",
+     "fields": [
+      {
+       "de": "CDR_mf_delay_seek",
+       "label": "Delay to seeking Health Care"
+      },
+      {
+       "de": "CDR_mf_delay_reach",
+       "label": "Delay to reach the health facility"
+      },
+      {
+       "de": "CDR_mf_refusal",
+       "label": "Refusal of treatment or admission"
+      },
+      {
+       "de": "CDR_mf_alt_medication",
+       "label": "Use of alternative medication (e.g. herbal)"
+      },
+      {
+       "de": "CDR_mf_refuse_transfer",
+       "label": "Refusal of transfer to higher facility"
+      },
+      {
+       "de": "CDR_mf_family_support",
+       "label": "Lack of family support / Child Neglect / violence"
+      },
+      {
+       "de": "CDR_mf_transport_home",
+       "label": "Lack of transport from home to health facility"
+      },
+      {
+       "de": "CDR_mf_transport_between",
+       "label": "Lack of transport between facilities"
+      },
+      {
+       "de": "CDR_mf_resus_equipment",
+       "label": "Lack of resuscitation equipment"
+      },
+      {
+       "de": "CDR_mf_blood",
+       "label": "Lack of blood, blood products and supplies"
+      },
+      {
+       "de": "CDR_mf_medicines",
+       "label": "Lack of appropriate medicines/supplies"
+      },
+      {
+       "de": "CDR_mf_misdiagnosis",
+       "label": "Misdiagnosis"
+      },
+      {
+       "de": "CDR_mf_inappropriate",
+       "label": "Inappropriate intervention / treatment / doses given"
+      },
+      {
+       "de": "CDR_mf_inadequate_staff",
+       "label": "Inadequate numbers of staff"
+      },
+      {
+       "de": "CDR_mf_absent_hr",
+       "label": "Absence of critical human resource"
+      },
+      {
+       "de": "CDR_mf_skill",
+       "label": "Staff lack of skill/expertise"
+      },
+      {
+       "de": "CDR_mf_misconduct",
+       "label": "Staff professional misconduct"
+      },
+      {
+       "de": "CDR_mf_other",
+       "label": "Others (specify)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION SEVEN: Action Plan",
+   "groups": [
+    {
+     "label": "Follow-up actions",
+     "fields": [
+      {
+       "de": "CDR_ap_gaps",
+       "label": "Gap(s) identified"
+      },
+      {
+       "de": "CDR_ap_action",
+       "label": "Recommended action"
+      },
+      {
+       "de": "CDR_ap_responsible",
+       "label": "Responsible person"
+      },
+      {
+       "de": "CDR_ap_timeline",
+       "label": "Timeline"
+      }
+     ]
+    },
+    {
+     "label": "Completed by",
+     "fields": [
+      {
+       "de": "CDR_completed_name",
+       "label": "Name"
+      },
+      {
+       "de": "CDR_completed_tel",
+       "label": "Tel"
+      },
+      {
+       "de": "CDR_completed_email",
+       "label": "Email"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "mccod": [
+  {
+   "title": "Case",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "ZKBE8Xm9DJG",
+       "label": "Ministry of Health National Case Number"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Details of the Deceased",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "ZYKmQ9GPOaF",
+       "label": "Full Name"
+      },
+      {
+       "de": "MOstDqSY0gO",
+       "label": "NIN"
+      },
+      {
+       "de": "e96GB4CXyd3",
+       "label": "Sex"
+      },
+      {
+       "de": "roxn33dtLLx",
+       "label": "Date of Birth Known"
+      },
+      {
+       "de": "RbrUuKFSqkZ",
+       "label": "Date of Birth"
+      },
+      {
+       "de": "q7e7FOXKnOf",
+       "label": "Age (years)"
+      },
+      {
+       "de": "n9s5bKgCCVq",
+       "label": "Age in months"
+      },
+      {
+       "de": "dsiwvNQLe5n",
+       "label": "Occupation"
+      },
+      {
+       "de": "rcpgGFLMfOw",
+       "label": "Religion"
+      }
+     ]
+    },
+    {
+     "label": "Usual Residence",
+     "fields": [
+      {
+       "de": "zwKo51BEayZ",
+       "label": "Village"
+      },
+      {
+       "de": "bNpMzyShDCX",
+       "label": "Parish"
+      },
+      {
+       "de": "u44XP9fZweA",
+       "label": "Sub-County"
+      },
+      {
+       "de": "b70okb06FWa",
+       "label": "County"
+      },
+      {
+       "de": "se3wRj1bYPo",
+       "label": "County (MD)"
+      },
+      {
+       "de": "t5nTEmlScSt",
+       "label": "District"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Death",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "xNCSFrgdUgi",
+       "label": "Place of Death"
+      },
+      {
+       "de": "i8rrl8YWxLF",
+       "label": "Date and time of Death"
+      },
+      {
+       "de": "QDHeWslaEoH",
+       "label": "Referred"
+      },
+      {
+       "de": "WqYvFt79TQB",
+       "label": "Referred From?"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "For women (Maternal)",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "zcn7acUB6x1",
+       "label": "For women, was the deceased pregnant?"
+      },
+      {
+       "de": "KpfvNQSsWIw",
+       "label": "If yes, at what point in time was deceased pregnant?"
+      },
+      {
+       "de": "AJAraEcfH63",
+       "label": "Did the pregnancy contribute to the death?"
+      },
+      {
+       "de": "RJhbkjYrODG",
+       "label": "Referred from (level of care)"
+      },
+      {
+       "de": "ymyLrfEcYkD",
+       "label": "Parity"
+      },
+      {
+       "de": "K5BDPJQk1BP",
+       "label": "Mode of delivery"
+      },
+      {
+       "de": "Z41di0TRjIu",
+       "label": "Place of delivery"
+      },
+      {
+       "de": "uaxjt0inPNF",
+       "label": "Delivered by skilled attendant"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Fetal / Infant Death",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "V4rE1tsj5Rb",
+       "label": "Multiple pregnancy"
+      },
+      {
+       "de": "ivnHp4M4hFF",
+       "label": "Stillborn?"
+      },
+      {
+       "de": "jf9TogeSZpk",
+       "label": "If death within 24h, number of hours survived"
+      },
+      {
+       "de": "lQ1Byr04JTx",
+       "label": "Number of completed weeks of pregnancy"
+      },
+      {
+       "de": "GFVhltTCG8b",
+       "label": "If perinatal, conditions of mother that affected the fetus/newborn"
+      },
+      {
+       "de": "xAWYJtQsg8M",
+       "label": "Birth weight (in grams)"
+      },
+      {
+       "de": "DdfDMFW4EJ9",
+       "label": "Age of mother (years)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Cause of Death (Frame A)",
+   "groups": [
+    {
+     "label": "(a) Disease or condition directly leading to death",
+     "fields": [
+      {
+       "de": "sfpqAeqKeyQ",
+       "label": "Cause of death (a)",
+       "icd": true,
+       "codeField": "zD0E77W4rFs",
+       "uriField": "k9xdBQzYMXo",
+       "next": "Ylht9kCLSRW"
+      },
+      {
+       "de": "Ylht9kCLSRW",
+       "label": "Time interval — type (a)"
+      },
+      {
+       "de": "WkXxkKEJLsg",
+       "label": "Time interval (a)"
+      }
+     ]
+    },
+    {
+     "label": "(b) Due to (or as a consequence of)",
+     "fields": [
+      {
+       "de": "zb7uTuBCPrN",
+       "label": "Cause of death (b)",
+       "icd": true,
+       "codeField": "tuMMQsGtE69",
+       "uriField": "yftBZ5bSEOb",
+       "next": "myydnkmLfhp"
+      },
+      {
+       "de": "myydnkmLfhp",
+       "label": "Time interval — type (b)"
+      },
+      {
+       "de": "fleGy9CvHYh",
+       "label": "Time interval (b)"
+      }
+     ]
+    },
+    {
+     "label": "(c) Due to (or as a consequence of)",
+     "fields": [
+      {
+       "de": "QGFYJK00ES7",
+       "label": "Cause of death (c)",
+       "icd": true,
+       "codeField": "C8n6hBilwsX",
+       "uriField": "fJUy96o8akn",
+       "next": "aC64sB86ThG"
+      },
+      {
+       "de": "aC64sB86ThG",
+       "label": "Time interval — type (c)"
+      },
+      {
+       "de": "hO8No9fHVd2",
+       "label": "Time interval (c)"
+      }
+     ]
+    },
+    {
+     "label": "(d) Due to (or as a consequence of)",
+     "fields": [
+      {
+       "de": "CnPGhOcERFF",
+       "label": "Cause of death (d)",
+       "icd": true,
+       "codeField": "IeS8V8Yf40N",
+       "uriField": "S53kx50gjQn",
+       "next": "cmZrrHfTxW3"
+      },
+      {
+       "de": "cmZrrHfTxW3",
+       "label": "Time interval — type (d)"
+      },
+      {
+       "de": "eCVDO6lt4go",
+       "label": "Time interval (d)"
+      }
+     ]
+    },
+    {
+     "label": "Underlying cause & other conditions",
+     "fields": [
+      {
+       "de": "QTKk2Xt8KDu",
+       "label": "State the underlying cause"
+      },
+      {
+       "de": "xeE5TQLvucB",
+       "label": "Other significant conditions contributing to death"
+      },
+      {
+       "de": "mI0UjQioE7E",
+       "label": "Other significant condition 2"
+      },
+      {
+       "de": "u5ebhwtAmpU",
+       "label": "Other significant condition 3"
+      },
+      {
+       "de": "OxJgcwH15L7",
+       "label": "Other significant condition 4"
+      },
+      {
+       "de": "Zrn8LD3LoKY",
+       "label": "Other significant condition 5"
+      }
+     ]
+    },
+    {
+     "label": "WHO DORIS — computed underlying cause of death",
+     "fields": [
+      {
+       "de": "tKezaEs8Ez5",
+       "label": "Doris underlying cause (text)"
+      },
+      {
+       "de": "LAvyxs29laJ",
+       "label": "Doris underlying cause (code)"
+      },
+      {
+       "de": "mQVAyOLbga1",
+       "label": "Final underlying cause (text)"
+      },
+      {
+       "de": "n2mScmFMovq",
+       "label": "Final underlying cause (code)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Manner of Death",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "FhHPxY16vet",
+       "label": "Manner of death (disease)"
+      },
+      {
+       "de": "AZSlwlRAFig",
+       "label": "External cause or poisoning"
+      },
+      {
+       "de": "KsGOxFyzIs1",
+       "label": "Assault"
+      },
+      {
+       "de": "gNM2Yhypydx",
+       "label": "Accident"
+      },
+      {
+       "de": "tYH7drlbNya",
+       "label": "Legal intervention"
+      },
+      {
+       "de": "wX3i3gkTG4m",
+       "label": "Intentional self-harm"
+      },
+      {
+       "de": "fQWuywOaoN2",
+       "label": "Pending investigation"
+      },
+      {
+       "de": "b4yPk98om7e",
+       "label": "Could not be determined"
+      },
+      {
+       "de": "xDMX2CJ4Xw3",
+       "label": "War"
+      },
+      {
+       "de": "o1hG9vr0peF",
+       "label": "Unknown"
+      }
+     ]
+    },
+    {
+     "label": "External cause details",
+     "fields": [
+      {
+       "de": "U18Tnfz9EKd",
+       "label": "Date of Injury (if external cause or poisoning)"
+      },
+      {
+       "de": "DKlOhZJOCrX",
+       "label": "Describe how external cause occurred (specify poisoning agent)"
+      },
+      {
+       "de": "kGIDD5xIeLC",
+       "label": "Place of occurrence of the external cause"
+      },
+      {
+       "de": "mDez8j7furx",
+       "label": "If Other place (please specify)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Surgery & Autopsy",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "Kk0hmrJPR90",
+       "label": "Was surgery performed within the last 4 weeks?"
+      },
+      {
+       "de": "j5TIQx3gHyF",
+       "label": "If yes, date of surgery"
+      },
+      {
+       "de": "JhHwdQ337nn",
+       "label": "If yes, reason for surgery (disease or condition)"
+      },
+      {
+       "de": "jY3K6Bv4o9Q",
+       "label": "Was an autopsy requested?"
+      },
+      {
+       "de": "UfG52s4YcUt",
+       "label": "If yes, were the findings used in the certification?"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Certifier & Declaration",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "u9tYUv6AM51",
+       "label": "I attended the deceased before death"
+      },
+      {
+       "de": "Kz29xNOBjsJ",
+       "label": "I attended the deceased before death (note)"
+      },
+      {
+       "de": "ZXZZfzBpu8a",
+       "label": "I examined the body after death"
+      },
+      {
+       "de": "cp5xzqVU2Vw",
+       "label": "I conducted the post mortem of the body"
+      },
+      {
+       "de": "lu9BiHPxNqH",
+       "label": "Declaration — Other (specify)"
+      },
+      {
+       "de": "PaoRZbokFWJ",
+       "label": "Examined By"
+      },
+      {
+       "de": "twVlVWM3ffz",
+       "label": "Approval"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
