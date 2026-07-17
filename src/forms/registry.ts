@@ -9,20 +9,51 @@ export const LINKED_DE = "ZkNDFfFSTYg";
 
 const l = layouts as unknown as Record<FormId, FormLayout>;
 
-// The MDR "Section 8b: Certified Cause of Death" free-text cause fields are
-// upgraded to WHO ICD-11 search fields so the maternal review certifies the
-// cause the same way MCCOD does.
-const MDR_ICD_COD = new Set([
+// The "Certified Cause of Death" free-text cause fields are upgraded to WHO
+// ICD-11 search fields so each review (maternal, perinatal, child) can certify
+// the cause inline the same way MCCOD does — no separate form needed.
+const ICD_COD = new Set([
   "sfpqAeqKeyQ", // cause of death (a)
   "zb7uTuBCPrN", // cause of death (b)
   "QGFYJK00ES7", // cause of death (c)
   "CnPGhOcERFF", // cause of death (d)
 ]);
 
-for (const section of l.mdr) {
-  for (const group of section.groups) {
-    for (const f of group.fields) {
-      if (MDR_ICD_COD.has(f.de)) f.icd = true;
+// Coded fields where several answers apply at once — rendered as a
+// multi-select of checkboxes; stored as comma-joined option codes.
+const MULTI_SELECT = new Set([
+  "FX3mcSuvR3c", // CDR — Major signs and symptoms at admission
+  "DuFUOsHMvjZ", // CDR — Known conditions during pregnancy
+]);
+
+// Certified cause-of-death chain: each row is a wide ICD cause field flanked by
+// two small interval fields (type + value), like a death-certificate line —
+// Cause (14) | Type of interval (5) | Time interval (5) = 24.
+const COL_SPAN: Record<string, number> = {
+  sfpqAeqKeyQ: 14, zb7uTuBCPrN: 14, QGFYJK00ES7: 14, CnPGhOcERFF: 14, // cause a–d
+  Ylht9kCLSRW: 5, myydnkmLfhp: 5, aC64sB86ThG: 5, cmZrrHfTxW3: 5, // interval type a–d
+  WkXxkKEJLsg: 5, fleGy9CvHYh: 5, hO8No9fHVd2: 5, eCVDO6lt4go: 5, // interval value a–d
+};
+
+for (const layout of [l.mdr, l.pdr, l.cdr]) {
+  for (const section of layout) {
+    for (const group of section.groups) {
+      for (const f of group.fields) {
+        if (ICD_COD.has(f.de)) f.icd = true;
+        if (MULTI_SELECT.has(f.de)) f.multi = true;
+      }
+    }
+  }
+}
+
+for (const layout of [l.mdr, l.pdr, l.cdr, l.mccod]) {
+  for (const section of layout) {
+    for (const group of section.groups) {
+      for (const f of group.fields) {
+        // The case number is auto-generated and sequential — never hand-typed.
+        if (f.de === CASE_NUMBER_DE) f.readOnly = true;
+        if (COL_SPAN[f.de]) f.col = COL_SPAN[f.de];
+      }
     }
   }
 }
@@ -38,7 +69,16 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
     programStage: "YXed7PnLRco",
     casePrefix: " MATERNAL - ",
     caseNumberField: CASE_NUMBER_DE,
+    caseCode: "020",
     linkedField: LINKED_DE,
+    listColumns: [
+      { key: "case", title: "Case number", de: CASE_NUMBER_DE },
+      { key: "initials", title: "Initials", de: "FIfoObQJvNp" },
+      { key: "district", title: "District", de: "FHmHV9mElbD" },
+      { key: "age", title: "Age", de: "iJqBq0kQtWO", align: "right" },
+      { key: "date", title: "Event date", type: "date", width: 130 },
+      { key: "status", title: "Status", type: "status", de: LINKED_DE, width: 120 },
+    ],
     layout: l.mdr,
   },
   pdr: {
@@ -51,7 +91,15 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
     programStage: "CGz50G2MY16",
     casePrefix: "PERI - ",
     caseNumberField: CASE_NUMBER_DE,
+    caseCode: "017",
     linkedField: LINKED_DE,
+    listColumns: [
+      { key: "case", title: "Case number", de: CASE_NUMBER_DE },
+      { key: "mother", title: "Mother's initials", de: "xpJgWYFpvht" },
+      { key: "district", title: "District", de: "u44XP9fZweA" },
+      { key: "date", title: "Event date", type: "date", width: 130 },
+      { key: "status", title: "Status", type: "status", de: LINKED_DE, width: 120 },
+    ],
     layout: l.pdr,
   },
   cdr: {
@@ -61,11 +109,19 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
     color: "linear-gradient(135deg, #b5651d 0%, #8a4a12 100%)",
     accent: "#b5651d",
     icon: "child",
-    programStage: "",
+    program: "EIdLkJfyJ6s",
+    programStage: "lLO6f44xh4H",
     casePrefix: "CHILD - ",
     caseNumberField: CASE_NUMBER_DE,
+    caseCode: "CDR",
+    listColumns: [
+      { key: "case", title: "Case number", de: CASE_NUMBER_DE },
+      { key: "initials", title: "Child's initials", de: "GTI7EqoQokL" },
+      { key: "sex", title: "Sex", de: "Hq6GGFTlHHj" },
+      { key: "district", title: "District", de: "xv0FATnFVms" },
+      { key: "date", title: "Event date", type: "date", width: 130 },
+    ],
     layout: l.cdr,
-    placeholder: true,
   },
   mccod: {
     id: "mccod",
@@ -76,8 +132,15 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
     icon: "mccod",
     programStage: MCCOD_STAGE,
     caseNumberField: CASE_NUMBER_DE,
+    caseCode: "100",
     nameField: "ZYKmQ9GPOaF",
     ninField: "MOstDqSY0gO",
+    listColumns: [
+      { key: "case", title: "Case number", de: CASE_NUMBER_DE },
+      { key: "name", title: "Deceased", de: "ZYKmQ9GPOaF" },
+      { key: "nin", title: "NIN", de: "MOstDqSY0gO" },
+      { key: "date", title: "Event date", type: "date", width: 130 },
+    ],
     layout: l.mccod,
     // The MCCOD form *is* the certification, so it has no separate ICD prefix
     // and no "certify" hand-off; it computes the underlying cause via WHO DORIS.

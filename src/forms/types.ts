@@ -15,6 +15,12 @@ export interface FormField {
   uriField?: string;
   /** Data element to enable once this ICD field is filled (chained rows). */
   next?: string;
+  /** Render disabled — e.g. the auto-generated case number, not hand-edited. */
+  readOnly?: boolean;
+  /** Coded field that accepts several options — a multi-select of checkboxes. */
+  multi?: boolean;
+  /** Explicit large-screen column span (1–24) overriding the default sizing. */
+  col?: number;
 }
 
 export interface FormGroup {
@@ -29,6 +35,30 @@ export interface FormSection {
 }
 
 export type FormLayout = FormSection[];
+
+/** A configurable column in a form's record-list table. */
+export interface ListColumn {
+  /** Unique key for the column. */
+  key: string;
+  /** Header text. */
+  title: string;
+  /**
+   * Data element UID to read for this column (via recordValue). Omitted for
+   * built-in columns whose value is derived (e.g. the event date).
+   */
+  de?: string;
+  /**
+   * Built-in render behaviour:
+   *  - "date"   → formats the event date (ignores `de`)
+   *  - "status" → renders the linked/certified tag from `de`
+   *  - default  → shows the raw/coded value of `de`
+   */
+  type?: "value" | "date" | "status";
+  /** Optional fixed width in pixels. */
+  width?: number;
+  /** Text alignment. */
+  align?: "left" | "right" | "center";
+}
 
 export interface FormDefinition {
   id: FormId;
@@ -47,12 +77,19 @@ export interface FormDefinition {
   casePrefix?: string;
   /** Data element holding the MoH national case number. */
   caseNumberField: string;
+  /** Short register code stamped into generated case numbers (e.g. "020"). */
+  caseCode?: string;
   /** Data element toggled to "Linked" once an ICD-11 record is attached. */
   linkedField?: string;
   /** Deceased full-name data element (shown as a record-list column). */
   nameField?: string;
   /** NIN / national ID data element (record-list column + NIN prefill). */
   ninField?: string;
+  /**
+   * Columns shown in the record-list table. When omitted the list falls back
+   * to a sensible default derived from caseNumber/name/nin/date/status.
+   */
+  listColumns?: ListColumn[];
   layout: FormLayout;
   /** CDR ships with placeholder data elements until the user maps them. */
   placeholder?: boolean;

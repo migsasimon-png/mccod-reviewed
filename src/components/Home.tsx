@@ -3,7 +3,6 @@ import { observer } from "mobx-react";
 import { useStore } from "../Context";
 import { formDefinitions } from "../forms/registry";
 import { FormDefinition, FormModule } from "../forms/types";
-import { FormContextBar } from "./FormContextBar";
 import "./Home.css";
 
 const Icon = ({ name }: { name: FormDefinition["icon"] }) => {
@@ -76,10 +75,6 @@ export const Home = observer(() => {
           record for the same death.
         </p>
       </header>
-
-      <div className="home-context">
-        <FormContextBar compact />
-      </div>
 
       <div className="home-grid">
         <Tile

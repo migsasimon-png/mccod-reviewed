@@ -11,11 +11,6 @@
   margin-bottom: 0;
 }
 
-.fctx-alert {
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-
 .fctx-label {
   display: block;
   font-size: 12px;
@@ -24,6 +19,12 @@
   margin-bottom: 6px;
   letter-spacing: 0.3px;
   text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.fctx .ant-select,
+.fctx .ant-select-selector {
+  min-width: 120px;
 }
 
 .fctx .ant-input,
@@ -31,4 +32,42 @@
 .fctx .ant-picker {
   border-width: 2px !important;
   border-color: #94a3b8 !important;
+}
+
+/* Hero variant: sits inline on the coloured header next to the breadcrumb. */
+.fctx-hero {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  flex: 1 1 420px;
+  min-width: 280px;
+  max-width: 560px;
+}
+
+.fctx-hero .fctx-label {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.fctx-hero .fctx-fixed-org {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+/* Read-only facility shown when the user is tagged to a single org unit. */
+.fctx-fixed-org {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
+  background: #f1f5f9;
+  border: 2px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

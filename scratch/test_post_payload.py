@@ -1617,7 +1617,7 @@ url = "https://hmis-tests.health.go.ug/api/40/events"
 headers = {
     "Content-Type": "application/json"
 }
-auth = ("moh-dhi.pwaiswa", "P1h9i9oip!")
+auth = ("insert_username", "insert_password")
 
 try:
     print(f"Posting {len(fixed_events)} events to {url}...")

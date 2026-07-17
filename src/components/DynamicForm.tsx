@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { observer } from "mobx-react";
 import moment from "moment";
 import {
@@ -18,12 +24,12 @@ import {
   Spin,
   Table,
   Tag,
-  Typography,
+  TimePicker,
 } from "antd";
 import { useStore } from "../Context";
 import { dynamicFormStore } from "../forms/DynamicFormStore";
 import { getFormDefinition } from "../forms/registry";
-import { FormField } from "../forms/types";
+import { FormField, ListColumn } from "../forms/types";
 import {
   applySkipEffects,
   computeSkipState,
@@ -40,7 +46,6 @@ const UGANDAN = "l4UMmqvSBe5";
 
 const { Option } = Select;
 const { TextArea } = Input;
-const { Title } = Typography;
 
 const NUMERIC = [
   "INTEGER",
@@ -90,9 +95,11 @@ const FieldWidget = observer(
       return (
         <Select
           {...rest}
-          size="large"
+          mode={field.multi ? "multiple" : undefined}
+          size="middle"
           allowClear
           showSearch
+          showArrow
           optionFilterProp="children"
           disabled={disabled}
           style={{ width: "100%" }}
@@ -109,7 +116,7 @@ const FieldWidget = observer(
     const vt = meta?.valueType;
     if (vt === "BOOLEAN") {
       return (
-        <Select {...rest} size="large" allowClear disabled={disabled} style={{ width: "100%" }}>
+        <Select {...rest} size="middle" allowClear disabled={disabled} style={{ width: "100%" }}>
           <Option value="true">Yes</Option>
           <Option value="false">No</Option>
         </Select>
@@ -124,35 +131,74 @@ const FieldWidget = observer(
     }
     if (vt === "DATE") {
       return (
-        <DatePicker {...rest} size="large" disabled={disabled} style={{ width: "100%" }} />
+        <DatePicker {...rest} size="middle" disabled={disabled} style={{ width: "100%" }} />
       );
     }
     if (vt === "DATETIME") {
       return (
         <DatePicker
           {...rest}
-          size="large"
+          size="middle"
           showTime
           disabled={disabled}
           style={{ width: "100%" }}
         />
       );
     }
-    if (vt && NUMERIC.includes(vt)) {
+    if (vt === "TIME") {
       return (
-        <InputNumber {...rest} size="large" disabled={disabled} style={{ width: "100%" }} />
+        <TimePicker
+          {...rest}
+          size="middle"
+          format="HH:mm"
+          minuteStep={5}
+          disabled={disabled}
+          style={{ width: "100%" }}
+        />
       );
+    }
+    if (vt && NUMERIC.includes(vt)) {
+      const num: any = { size: "middle", disabled, style: { width: "100%" } };
+      if (vt.indexOf("INTEGER") === 0) num.precision = 0; // whole numbers only
+      if (vt === "INTEGER_POSITIVE") num.min = 1;
+      else if (vt === "INTEGER_NEGATIVE") num.max = -1;
+      else if (
+        vt === "INTEGER_ZERO_OR_POSITIVE" ||
+        vt === "PERCENTAGE" ||
+        vt === "UNIT_INTERVAL"
+      )
+        num.min = 0;
+      if (vt === "PERCENTAGE") num.max = 100;
+      if (vt === "UNIT_INTERVAL") {
+        num.max = 1;
+        num.step = 0.1;
+      }
+      return <InputNumber {...rest} {...num} />;
     }
     if (vt === "LONG_TEXT") {
       return <TextArea {...rest} rows={3} disabled={disabled} />;
     }
-    return <Input {...rest} size="large" disabled={disabled} placeholder={hint} />;
+    return <Input {...rest} size="middle" disabled={disabled} placeholder={hint} />;
   }
 );
 
-const isWide = (field: FormField) => {
+/**
+ * Responsive column width for a field, tiered by its DHIS2 value type:
+ *  - full  (lg 24) → long free text
+ *  - medium (lg 8) → short free text + coded dropdowns (need label room)
+ *  - compact (lg 6) → dates, numbers, yes/no, checkboxes
+ * (ICD cause fields are laid out separately and don't use this.)
+ */
+const fieldSpan = (field: FormField): { sm: number; lg: number } => {
+  // Explicit per-field override (e.g. the wide cause / small interval fields).
+  if (field.col) return { sm: field.col >= 12 ? 24 : 12, lg: field.col };
   const meta = dynamicFormStore.meta[field.de];
-  return field.icd || meta?.valueType === "LONG_TEXT";
+  const vt = meta?.valueType;
+  // ICD cause search needs room; long text and multi-selects take a full row;
+  // everything else forms a uniform three-column grid so fields line up.
+  if (field.icd) return { sm: 24, lg: 16 };
+  if (vt === "LONG_TEXT" || field.multi) return { sm: 24, lg: 24 };
+  return { sm: 12, lg: 8 };
 };
 
 const valuePropName = (field: FormField) =>
@@ -171,6 +217,14 @@ const displayValue = (field: FormField, record: any): string => {
   const raw = dynamicFormStore.recordValue(record, field.de);
   if (raw === "" || raw == null) return "";
   const meta = dynamicFormStore.meta[field.de];
+  if (field.multi) {
+    return String(raw)
+      .split(",")
+      .map((c) => c.trim())
+      .filter(Boolean)
+      .map((c) => meta?.options?.find((o) => o.code === c)?.name ?? c)
+      .join(", ");
+  }
   const opt = meta?.options?.find((o) => o.code === raw);
   if (opt) return opt.name;
   const vt = meta?.valueType;
@@ -188,6 +242,43 @@ const displayValue = (field: FormField, record: any): string => {
   return raw;
 };
 
+/** Human-readable value of a single data element on a record (for list cells). */
+const displayValueByDe = (de: string, record: any): string => {
+  const raw = dynamicFormStore.recordValue(record, de);
+  if (raw === "" || raw == null) return "";
+  const meta = dynamicFormStore.meta[de];
+  const opt = meta?.options?.find((o) => o.code === raw);
+  if (opt) return opt.name;
+  const vt = meta?.valueType;
+  if (vt === "BOOLEAN")
+    return /^true$/i.test(raw) ? "Yes" : /^false$/i.test(raw) ? "No" : raw;
+  if (vt === "TRUE_ONLY") return /^true$/i.test(raw) ? "Yes" : raw;
+  if (vt === "DATE")
+    return moment(raw).isValid() ? moment(raw).format("DD MMM YYYY") : raw;
+  return raw;
+};
+
+/** Fallback columns when a form defines no explicit `listColumns`. */
+const defaultListColumns = (
+  def: ReturnType<typeof getFormDefinition>
+): ListColumn[] => {
+  const cols: ListColumn[] = [
+    { key: "case", title: "Case number", de: def.caseNumberField },
+  ];
+  if (def.nameField) cols.push({ key: "name", title: "Deceased", de: def.nameField });
+  if (def.ninField) cols.push({ key: "nin", title: "NIN", de: def.ninField });
+  cols.push({ key: "date", title: "Event date", type: "date", width: 130 });
+  if (def.linkedField)
+    cols.push({
+      key: "status",
+      title: "Status",
+      type: "status",
+      de: def.linkedField,
+      width: 120,
+    });
+  return cols;
+};
+
 interface RecordListProps {
   def: ReturnType<typeof getFormDefinition>;
   onNew: () => void;
@@ -200,50 +291,33 @@ const RecordList = observer(({ def, onNew, onView, onEdit }: RecordListProps) =>
   const rows = dynamicFormStore.records;
   const canAdd = isFormContextReady(store);
 
-  const columns: any[] = [
-    {
-      title: "Case number",
-      key: "case",
-      render: (_: any, r: any) =>
-        dynamicFormStore.recordValue(r, def.caseNumberField) || "—",
-    },
-  ];
-  if (def.nameField) {
-    columns.push({
-      title: "Deceased",
-      key: "name",
-      render: (_: any, r: any) =>
-        dynamicFormStore.recordValue(r, def.nameField!) || "—",
-    });
-  }
-  if (def.ninField) {
-    columns.push({
-      title: "NIN",
-      key: "nin",
-      render: (_: any, r: any) =>
-        dynamicFormStore.recordValue(r, def.ninField!) || "—",
-    });
-  }
-  columns.push({
-    title: "Event date",
-    key: "date",
-    render: (_: any, r: any) =>
-      r.eventDate ? moment(r.eventDate).format("DD MMM YYYY") : "—",
-  });
-  if (def.linkedField) {
-    columns.push({
-      title: "Status",
-      key: "status",
-      render: (_: any, r: any) => {
-        const linked = dynamicFormStore.recordValue(r, def.linkedField!);
+  // Configurable columns from the form definition; fall back to a sensible
+  // default derived from case/name/nin/date/status when none are configured.
+  const configured =
+    def.listColumns && def.listColumns.length
+      ? def.listColumns
+      : defaultListColumns(def);
+
+  const columns: any[] = configured.map((col) => ({
+    title: col.title,
+    key: col.key,
+    align: col.align,
+    width: col.width,
+    render: (_: any, r: any) => {
+      if (col.type === "date")
+        return r.eventDate ? moment(r.eventDate).format("DD MMM YYYY") : "—";
+      if (col.type === "status") {
+        const linked = col.de ? dynamicFormStore.recordValue(r, col.de) : "";
         return (
           <Tag color={linked ? "green" : "orange"}>
             {linked ? "Certified" : "Pending"}
           </Tag>
         );
-      },
-    });
-  }
+      }
+      const opt = col.de ? displayValueByDe(col.de, r) : "";
+      return opt || "—";
+    },
+  }));
   columns.push({
     title: "",
     key: "actions",
@@ -434,6 +508,23 @@ export const DynamicForm = observer(() => {
   const [formKey, setFormKey] = useState(0);
   const [detailRecord, setDetailRecord] = useState<any | null>(null);
 
+  // Live-measure the sticky hero so the sticky sidebar sits exactly below it
+  // at every viewport width (the hero grows taller when its row wraps).
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const hero = heroRef.current;
+    const wrap = wrapRef.current;
+    const RO = (window as any).ResizeObserver;
+    if (!hero || !wrap || !RO) return;
+    const apply = () =>
+      wrap.style.setProperty("--dform-hero-h", `${hero.offsetHeight}px`);
+    apply();
+    const ro = new RO(apply);
+    ro.observe(hero);
+    return () => ro.disconnect();
+  }, [def, mode]);
+
   const sectionKeys = useMemo(
     () => (def ? def.layout.map((_, i) => String(i)) : []),
     [def]
@@ -530,11 +621,35 @@ export const DynamicForm = observer(() => {
   if (!def) return null;
 
   // Coerce stored string dates into moments so the pickers hydrate correctly.
+  const multiDes = useMemo(() => {
+    const s = new Set<string>();
+    def?.layout.forEach((sec) =>
+      sec.groups.forEach((g) =>
+        g.fields.forEach((f) => {
+          if (f.multi) s.add(f.de);
+        })
+      )
+    );
+    return s;
+  }, [def]);
+
   const hydrate = (values: Record<string, any>) => {
     const out: Record<string, any> = { ...values };
     Object.keys(out).forEach((de) => {
       const vt = dynamicFormStore.meta[de]?.valueType;
-      if (vt && DATE_TYPES.includes(vt) && out[de]) out[de] = moment(out[de]);
+      if (multiDes.has(de)) {
+        // Stored as comma-joined codes; the multi-select expects an array.
+        out[de] =
+          typeof out[de] === "string" && out[de]
+            ? out[de].split(",").map((s: string) => s.trim()).filter(Boolean)
+            : Array.isArray(out[de])
+            ? out[de]
+            : [];
+      } else if (vt === "TIME" && out[de]) {
+        out[de] = moment(out[de], "HH:mm");
+      } else if (vt && DATE_TYPES.includes(vt) && out[de]) {
+        out[de] = moment(out[de]);
+      }
     });
     return out;
   };
@@ -554,7 +669,7 @@ export const DynamicForm = observer(() => {
     setCurrentStep(0);
     // Seed the case number into the defaults so the hydration effect applies
     // it when the form mounts (rather than racing a direct setFieldsValue).
-    const code = await dynamicFormStore.generateCaseNumber();
+    const code = await dynamicFormStore.generateCaseNumber(def);
     dynamicFormStore.setDefaults(code ? { [def.caseNumberField]: code } : {});
     setFormKey((k) => k + 1);
     setMode("form");
@@ -576,7 +691,26 @@ export const DynamicForm = observer(() => {
 
   const handleSave = async () => {
     const values = collectValues();
-    const ok = await dynamicFormStore.save(values);
+    // Don't persist answers to fields the skip logic has hidden — recompute
+    // from the full value set (not the possibly-stale render state) and drop
+    // every hidden field / field in a hidden section.
+    const finalSkip = computeSkipState(
+      def.id,
+      def,
+      values,
+      dynamicFormStore.meta
+    );
+    const cleaned: Record<string, any> = { ...values };
+    def.layout.forEach((sec, i) => {
+      const sectionHidden = finalSkip.hiddenSections.has(i);
+      sec.groups.forEach((g) =>
+        g.fields.forEach((f) => {
+          if (sectionHidden || finalSkip.hiddenFields.has(f.de))
+            delete cleaned[f.de];
+        })
+      );
+    });
+    const ok = await dynamicFormStore.save(cleaned);
     if (ok) {
       setSavedOnce(true);
       dynamicFormStore.loadRecords(def);
@@ -692,10 +826,10 @@ export const DynamicForm = observer(() => {
           {group.label && <div className="dform-group-label">{group.label}</div>}
           <Row gutter={[14, 4]}>
             {groupFields.map((field) => {
-              const locked = isFieldDisabled(field, skip);
+              const locked = isFieldDisabled(field, skip) || !!field.readOnly;
               const fieldHint = skip.hints[field.de] || field.hint;
               return field.icd ? (
-                <Col key={field.de} xs={24}>
+                <Col key={field.de} xs={24} {...fieldSpan(field)}>
                   <div
                     className={`dform-item dform-icd${locked ? " dform-item-locked" : ""}`}
                   >
@@ -712,12 +846,7 @@ export const DynamicForm = observer(() => {
                   </div>
                 </Col>
               ) : (
-                <Col
-                  key={field.de}
-                  xs={24}
-                  sm={isWide(field) ? 24 : 12}
-                  lg={isWide(field) ? 24 : 8}
-                >
+                <Col key={field.de} xs={24} {...fieldSpan(field)}>
                   <Form.Item
                     name={field.de}
                     label={field.label}
@@ -757,24 +886,17 @@ export const DynamicForm = observer(() => {
       : "";
 
   return (
-    <div className="dform-wrap">
-      <div className="dform-topbar">
-        <div className="dform-crumb">
-          <button className="dform-link" onClick={store.goHome}>
-            ← All forms
-          </button>
-          <span className="dform-sep">/</span>
-          <span>{def.title}</span>
-        </div>
-        <span className="dform-accent" style={{ background: def.accent }} />
-      </div>
-
-      <div className="dform-hero" style={{ background: def.color }}>
-        <div>
-          <Title level={3} style={{ color: "#fff", margin: 0 }}>
-            {def.title}
-          </Title>
-          <p className="dform-hero-sub">{def.subtitle}</p>
+    <div className="dform-wrap" ref={wrapRef}>
+      <div className="dform-hero" ref={heroRef} style={{ background: def.color }}>
+        <div className="dform-hero-head">
+          <div className="dform-crumb">
+            <button className="dform-link" onClick={store.goHome}>
+              ← All forms
+            </button>
+            <span className="dform-sep">/</span>
+            <span className="dform-hero-name">{def.title}</span>
+          </div>
+          <FormContextBar hero />
         </div>
       </div>
 
@@ -785,8 +907,6 @@ export const DynamicForm = observer(() => {
           saving.
         </div>
       )}
-
-      <FormContextBar />
 
       {mode === "list" ? (
         <>
@@ -827,76 +947,86 @@ export const DynamicForm = observer(() => {
         className="dform-progress"
       />
 
-      <div className="dform-stepper">
-        {stepKeys.map((k, i) => {
-          const si = Number(k);
-          const done = i < clampedStep;
-          const active = i === clampedStep;
-          return (
-            <button
-              key={k}
-              type="button"
-              className={`dform-step${active ? " is-active" : ""}${
-                done ? " is-done" : ""
-              }`}
-              onClick={() => setCurrentStep(i)}
-              style={active ? { borderColor: def.accent } : undefined}
-            >
-              <span
-                className="dform-step-idx"
-                style={active || done ? { background: def.accent } : undefined}
-              >
-                {done ? "✓" : i + 1}
+      <div className="dform-shell">
+        <aside className="dform-side">
+          <div className="dform-stepper">
+            {stepKeys.map((k, i) => {
+              const si = Number(k);
+              const done = i < clampedStep;
+              const active = i === clampedStep;
+              return (
+                <button
+                  key={k}
+                  type="button"
+                  className={`dform-step${active ? " is-active" : ""}${
+                    done ? " is-done" : ""
+                  }`}
+                  onClick={() => setCurrentStep(i)}
+                  style={active ? { borderColor: def.accent } : undefined}
+                >
+                  <span
+                    className="dform-step-idx"
+                    style={
+                      active || done ? { background: def.accent } : undefined
+                    }
+                  >
+                    {done ? "✓" : i + 1}
+                  </span>
+                  <span className="dform-step-name">
+                    {def.layout[si].title}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </aside>
+
+        <div className="dform-main">
+          {clampedStep === 0 && (
+            <div className="dform-guide">
+              <strong>How this form works</strong>
+              <span>
+                Answer one section at a time. Later steps and questions appear
+                based on your answers (sex, age, yes/no choices, cause-of-death
+                chain), so you only ever see what applies to this death.
               </span>
-              <span className="dform-step-name">{def.layout[si].title}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {clampedStep === 0 && (
-        <div className="dform-guide">
-          <strong>How this form works</strong>
-          <span>
-            Answer one section at a time. Later steps and questions appear based
-            on your answers (sex, age, yes/no choices, cause-of-death chain), so
-            you only ever see what applies to this death.
-          </span>
-        </div>
-      )}
-
-      <Spin spinning={dynamicFormStore.loadingMeta || ninLoading}>
-        <Form
-          form={form}
-          layout="vertical"
-          onValuesChange={onValuesChange}
-          initialValues={hydrate(dynamicFormStore.defaultValues)}
-        >
-          {activeSi != null ? (
-            <div className="dform-active-section">
-              <div className="dform-active-head">
-                <span className="dform-active-title">
-                  {def.layout[activeSi].title}
-                </span>
-                <span className="dform-section-count">
-                  {activeVisibleCount} question
-                  {activeVisibleCount === 1 ? "" : "s"}
-                </span>
-              </div>
-              {renderSection(activeSi)}
             </div>
-          ) : (
-            <Empty description="No applicable questions for this record yet." />
           )}
-        </Form>
-      </Spin>
 
-      {def.isMccod && dynamicFormStore.dorisReport && (
-        <div className="dform-doris-report">
-          <strong>WHO DORIS report</strong>
-          <pre>{dynamicFormStore.dorisReport}</pre>
+          <Spin spinning={dynamicFormStore.loadingMeta || ninLoading}>
+            <Form
+              form={form}
+              layout="vertical"
+              onValuesChange={onValuesChange}
+              initialValues={hydrate(dynamicFormStore.defaultValues)}
+            >
+              {activeSi != null ? (
+                <div className="dform-active-section">
+                  <div className="dform-active-head">
+                    <span className="dform-active-title">
+                      {def.layout[activeSi].title}
+                    </span>
+                    <span className="dform-section-count">
+                      {activeVisibleCount} question
+                      {activeVisibleCount === 1 ? "" : "s"}
+                    </span>
+                  </div>
+                  {renderSection(activeSi)}
+                </div>
+              ) : (
+                <Empty description="No applicable questions for this record yet." />
+              )}
+            </Form>
+          </Spin>
+
+          {def.isMccod && dynamicFormStore.dorisReport && (
+            <div className="dform-doris-report">
+              <strong>WHO DORIS report</strong>
+              <pre>{dynamicFormStore.dorisReport}</pre>
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       <div className="dform-actions">
         <Button

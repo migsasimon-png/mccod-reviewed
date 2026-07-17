@@ -553,6 +553,64 @@
      ]
     }
    ]
+  },
+  {
+   "title": "CERTIFIED CAUSE OF DEATH (ICD-11)",
+   "groups": [
+    {
+     "label": "Cause of Death — type of interval from onset to death, and time interval from onset to death",
+     "fields": [
+      {
+       "de": "sfpqAeqKeyQ",
+       "label": "Disease or condition directly leading to death — Cause of death (a)"
+      },
+      {
+       "de": "Ylht9kCLSRW",
+       "label": "Type of interval for (a)"
+      },
+      {
+       "de": "WkXxkKEJLsg",
+       "label": "Time interval (a)"
+      },
+      {
+       "de": "zb7uTuBCPrN",
+       "label": "Chain of events — due to, in order — Cause of death (b)"
+      },
+      {
+       "de": "myydnkmLfhp",
+       "label": "Type of interval for (b)"
+      },
+      {
+       "de": "fleGy9CvHYh",
+       "label": "Time interval (b)"
+      },
+      {
+       "de": "QGFYJK00ES7",
+       "label": "Chain of events — due to, in order — Cause of death (c)"
+      },
+      {
+       "de": "aC64sB86ThG",
+       "label": "Type of interval for (c)"
+      },
+      {
+       "de": "hO8No9fHVd2",
+       "label": "Time interval (c)"
+      },
+      {
+       "de": "CnPGhOcERFF",
+       "label": "Chain of events — due to, in order — Cause of death (d)"
+      },
+      {
+       "de": "cmZrrHfTxW3",
+       "label": "Type of interval for (d)"
+      },
+      {
+       "de": "eCVDO6lt4go",
+       "label": "Time interval (d)"
+      }
+     ]
+    }
+   ]
   }
  ],
  "mdr": [
@@ -1837,6 +1895,10 @@
       {
        "de": "ZKBE8Xm9DJG",
        "label": "Ministry of Health National Case Number"
+      },
+      {
+       "de": "r53yF5bi6px",
+       "label": "Date of Review"
       }
      ]
     }
@@ -1846,83 +1908,51 @@
    "title": "SECTION ONE: Identification",
    "groups": [
     {
-     "label": "Facility",
-     "fields": [
-      {
-       "de": "CDR_ownership",
-       "label": "Ownership",
-       "hint": "Public / PNFP / PFP"
-      },
-      {
-       "de": "CDR_hf_level",
-       "label": "Level of Health Facility",
-       "hint": "NRH / RRH / GH / HCIV / HCIII / HCII"
-      }
-     ]
-    },
-    {
      "label": "Identification of the Child",
      "fields": [
       {
-       "de": "CDR_child_initials",
+       "de": "GTI7EqoQokL",
        "label": "Initials of Child Who Died"
       },
       {
-       "de": "CDR_ipno",
-       "label": "IP No."
+       "de": "CdceEuqRSwT",
+       "label": "Age — days (only if under 1 month)"
       },
       {
-       "de": "CDR_age_years",
-       "label": "Age (Years)"
-      },
-      {
-       "de": "CDR_age_months",
-       "label": "Age (Months)"
-      },
-      {
-       "de": "CDR_age_days",
-       "label": "Age (Days, if < 1 month)"
-      },
-      {
-       "de": "CDR_sex",
+       "de": "Hq6GGFTlHHj",
        "label": "Sex"
       },
       {
-       "de": "CDR_nationality",
-       "label": "Nationality",
-       "hint": "Ugandan / Refugee / Foreigner"
+       "de": "FA5JmqKlrUT",
+       "label": "Residence — Village"
       },
       {
-       "de": "CDR_res_village",
-       "label": "Residence - Village"
+       "de": "m2N3Ea9gdz6",
+       "label": "Residence — Parish"
       },
       {
-       "de": "CDR_res_parish",
-       "label": "Residence - Parish"
+       "de": "Q6LIN4M0CU2",
+       "label": "Residence — Sub county"
       },
       {
-       "de": "CDR_res_subcounty",
-       "label": "Residence - Sub county"
+       "de": "xv0FATnFVms",
+       "label": "Residence — District / City"
       },
       {
-       "de": "CDR_res_district",
-       "label": "Residence - District/City"
+       "de": "N4M7AB37cP9",
+       "label": "Next of Kin — Relationship"
       },
       {
-       "de": "CDR_nok_relationship",
-       "label": "Next of Kin - Relationship"
+       "de": "vY1rgZCGd2r",
+       "label": "Next of Kin — Age (years)"
       },
       {
-       "de": "CDR_nok_age",
-       "label": "Next of Kin - Age (years)"
+       "de": "FbYqtKaiFa6",
+       "label": "Next of Kin — Level of Education"
       },
       {
-       "de": "CDR_nok_education",
-       "label": "Next of Kin - Level of Education"
-      },
-      {
-       "de": "CDR_nok_occupation",
-       "label": "Next of Kin - Occupation"
+       "de": "Tvg3nZyTLeU",
+       "label": "Next of Kin — Occupation"
       }
      ]
     }
@@ -1935,46 +1965,32 @@
      "label": null,
      "fields": [
       {
-       "de": "CDR_date_death",
+       "de": "mfR5fhnOQTA",
        "label": "Date of Death"
       },
       {
-       "de": "CDR_time_death",
+       "de": "IGjo7hyxtxF",
        "label": "Time of Death (24hrs)"
       },
       {
-       "de": "CDR_place_death",
-       "label": "Place of Death",
-       "hint": "Health Facility / Home / In transit / During Referral"
+       "de": "VdxRWEF4UPB",
+       "label": "Place of Death"
       },
       {
-       "de": "CDR_hf_days",
-       "label": "Time in H/F before death (days)"
+       "de": "gxWri1uDNFM",
+       "label": "If death was in a health facility: time spent before death (days/hrs/min)"
       },
       {
-       "de": "CDR_hf_hrs",
-       "label": "Time in H/F before death (hours)"
-      },
-      {
-       "de": "CDR_hf_min",
-       "label": "Time in H/F before death (minutes)"
-      },
-      {
-       "de": "CDR_referred",
+       "de": "yNsiNIq5D59",
        "label": "Was Child Referred?"
       },
       {
-       "de": "CDR_referred_from",
-       "label": "If yes; from?",
-       "hint": "Health Facility / VHT / TBA / Others"
+       "de": "xOyckoyi422",
+       "label": "If yes; referred from?"
       },
       {
-       "de": "CDR_referred_from_other",
-       "label": "If Others (specify)"
-      },
-      {
-       "de": "CDR_referral_facility",
-       "label": "If referred from health facility, name of the facility"
+       "de": "g3yvhO9uFpI",
+       "label": "If referred from a health facility, name of the facility"
       }
      ]
     }
@@ -1984,97 +2000,43 @@
    "title": "SECTION THREE: Condition at Admission",
    "groups": [
     {
-     "label": "Major signs and symptoms at admission (select all that apply)",
-     "fields": [
-      {
-       "de": "CDR_sym_fever",
-       "label": "Fever"
-      },
-      {
-       "de": "CDR_sym_cough",
-       "label": "Cough"
-      },
-      {
-       "de": "CDR_sym_dib",
-       "label": "Difficulty in breathing"
-      },
-      {
-       "de": "CDR_sym_diarrhea",
-       "label": "Diarrhea"
-      },
-      {
-       "de": "CDR_sym_refusal_feed",
-       "label": "Refusal to feed"
-      },
-      {
-       "de": "CDR_sym_vomiting",
-       "label": "Vomiting"
-      },
-      {
-       "de": "CDR_sym_reduced_consciousness",
-       "label": "Reduced level of consciousness"
-      },
-      {
-       "de": "CDR_sym_oedema",
-       "label": "Oedema/body swelling"
-      },
-      {
-       "de": "CDR_sym_convulsions",
-       "label": "Convulsions"
-      },
-      {
-       "de": "CDR_sym_injury",
-       "label": "Injury/trauma"
-      },
-      {
-       "de": "CDR_sym_pain",
-       "label": "Pain"
-      },
-      {
-       "de": "CDR_sym_abdominal_distention",
-       "label": "Abdominal distention"
-      },
-      {
-       "de": "CDR_sym_other",
-       "label": "Others (specify)"
-      }
-     ]
-    },
-    {
      "label": null,
      "fields": [
       {
-       "de": "CDR_physical_findings",
-       "label": "Major findings on Physical Examination at admission"
+       "de": "FX3mcSuvR3c",
+       "label": "Major signs and symptoms at admission"
       },
       {
-       "de": "CDR_malnutrition_screened",
-       "label": "On admission was the child screened for malnutrition?"
+       "de": "Lt6AEASiVsc",
+       "label": "Major findings on physical examination at admission"
       },
       {
-       "de": "CDR_nutrition_status",
-       "label": "If yes, nutrition status",
-       "hint": "No Malnutrition / MAM / SAM"
+       "de": "qFCcNYREZjM",
+       "label": "On admission, was the child screened for malnutrition?"
       },
       {
-       "de": "CDR_immunization_uptodate",
+       "de": "hPVCXHCvwrc",
+       "label": "If yes, comment on the nutrition status"
+      },
+      {
+       "de": "xPCrY214eXn",
        "label": "Was the child's immunization status up to date?"
       },
       {
-       "de": "CDR_missed_doses",
+       "de": "IUq6H8B59IH",
        "label": "If no, list the doses the child had missed"
       },
       {
-       "de": "CDR_hiv_status",
+       "de": "g2qRXEEQrI7",
        "label": "Child's HIV status at time of death"
       },
       {
-       "de": "CDR_admission_diagnosis",
+       "de": "QUMkGwjclEf",
        "label": "Diagnosis at admission"
       },
       {
-       "de": "CDR_inpatient_3months",
-       "label": "Had the Child been an inpatient in the past three months?"
+       "de": "A5mxXfgcbvg",
+       "label": "Had the child been an inpatient in the past three months?"
       }
      ]
     }
@@ -2084,64 +2046,23 @@
    "title": "SECTION FOUR: Maternal Risk Factors (skip if child age < 28 days)",
    "groups": [
     {
-     "label": "ANC",
+     "label": "Antenatal care",
      "fields": [
       {
-       "de": "CDR_mother_anc",
-       "label": "Did the mother attend Antenatal care?"
+       "de": "tKPEnIA0OAy",
+       "label": "Did the mother attend antenatal care?"
       },
       {
-       "de": "CDR_mother_anc_times",
+       "de": "xbxWKAsmIN0",
        "label": "If yes, how many times?"
       },
       {
-       "de": "CDR_ga_first_visit",
+       "de": "JXTeTVgMDOB",
        "label": "Gestational age at first visit"
-      }
-     ]
-    },
-    {
-     "label": "Known Conditions during pregnancy (tick all applicable)",
-     "fields": [
-      {
-       "de": "CDR_preg_aph",
-       "label": "Antepartum Hemorrhage"
       },
       {
-       "de": "CDR_preg_htn",
-       "label": "Hypertension"
-      },
-      {
-       "de": "CDR_preg_prom",
-       "label": "Pre-labour rupture of membranes"
-      },
-      {
-       "de": "CDR_preg_diabetes",
-       "label": "Diabetes"
-      },
-      {
-       "de": "CDR_preg_anemia",
-       "label": "Anemia"
-      },
-      {
-       "de": "CDR_preg_uti",
-       "label": "UTI"
-      },
-      {
-       "de": "CDR_preg_malaria",
-       "label": "Malaria"
-      },
-      {
-       "de": "CDR_preg_trauma",
-       "label": "Trauma-accidental"
-      },
-      {
-       "de": "CDR_preg_gbv",
-       "label": "Gender based violence"
-      },
-      {
-       "de": "CDR_preg_other",
-       "label": "Others (specify)"
+       "de": "DuFUOsHMvjZ",
+       "label": "Known conditions during pregnancy"
       }
      ]
     },
@@ -2149,38 +2070,32 @@
      "label": "Labour and Birth",
      "fields": [
       {
-       "de": "CDR_weeks_amenorrhea",
+       "de": "YEXXGHE7a7q",
        "label": "Weeks of amenorrhea at delivery"
       },
       {
-       "de": "CDR_birth_weight",
-       "label": "Birth Weight of the baby"
+       "de": "ugiAlde4VrW",
+       "label": "Birth weight of the baby"
       },
       {
-       "de": "CDR_place_delivery",
-       "label": "Place of delivery",
-       "hint": "Health facility / Home / TBA / Others"
+       "de": "waxR2t677eo",
+       "label": "Place of delivery"
       },
       {
-       "de": "CDR_place_delivery_other",
-       "label": "Place of delivery (Others specify)"
+       "de": "TZCPZIB2vWU",
+       "label": "Mode of delivery"
       },
       {
-       "de": "CDR_mode_delivery",
-       "label": "Mode of Delivery",
-       "hint": "Normal / Caesarean / Vacuum or Forceps"
+       "de": "YK9bfWefUwX",
+       "label": "For GA < 37 WOA: did the mother receive antenatal corticosteroids?"
       },
       {
-       "de": "CDR_antenatal_corticosteroids",
-       "label": "For GA <37 WOA: Did the mother receive Antenatal Corticosteroids?"
+       "de": "kWgqvfLcgPL",
+       "label": "Was there preterm rupture of membranes?"
       },
       {
-       "de": "CDR_pprom",
-       "label": "Was there Preterm Rupture of Membranes?"
-      },
-      {
-       "de": "CDR_prophylactic_antibiotics",
-       "label": "If Yes, Did the Mother receive Prophylactic Antibiotics?"
+       "de": "g3UtTdCciWW",
+       "label": "If yes, did the mother receive prophylactic antibiotics?"
       }
      ]
     }
@@ -2190,140 +2105,136 @@
    "title": "SECTION FIVE: Case Management",
    "groups": [
     {
-     "label": "Key Investigations done and findings (Done Y/N + Results)",
+     "label": "Key investigations done and findings",
      "fields": [
       {
-       "de": "CDR_inv_bs_done",
-       "label": "B/S or mRDT - Done"
+       "de": "qRTPdydasD8",
+       "label": "B/S or mRDT — Done?"
       },
       {
-       "de": "CDR_inv_bs_result",
-       "label": "B/S or mRDT - Results"
+       "de": "rM8N5O9U2cJ",
+       "label": "B/S or mRDT — Results"
       },
       {
-       "de": "CDR_inv_cbc_done",
-       "label": "CBC/Hb - Done"
+       "de": "TiLOqqWZMFC",
+       "label": "CBC / Hb — Done?"
       },
       {
-       "de": "CDR_inv_cbc_result",
-       "label": "CBC/Hb - Results"
+       "de": "Wo5Y36If9KN",
+       "label": "CBC / Hb — Results"
       },
       {
-       "de": "CDR_inv_urinalysis_done",
-       "label": "Urinalysis - Done"
+       "de": "BsbK0Og0Et1",
+       "label": "Urinalysis — Done?"
       },
       {
-       "de": "CDR_inv_urinalysis_result",
-       "label": "Urinalysis - Results"
+       "de": "rLovNSMYQUX",
+       "label": "Urinalysis — Results"
       },
       {
-       "de": "CDR_inv_bloodculture_done",
-       "label": "Blood culture - Done"
+       "de": "nPwwg6KuS8K",
+       "label": "Blood culture — Done?"
       },
       {
-       "de": "CDR_inv_bloodculture_result",
-       "label": "Blood culture - Results"
+       "de": "h68IiMVXpY8",
+       "label": "Blood culture — Results"
       },
       {
-       "de": "CDR_inv_csf_done",
-       "label": "CSF analysis - Done"
+       "de": "QeewvymWLUI",
+       "label": "CSF analysis — Done?"
       },
       {
-       "de": "CDR_inv_csf_result",
-       "label": "CSF analysis - Results"
+       "de": "egQ7WouuJ2I",
+       "label": "CSF analysis — Results"
       },
       {
-       "de": "CDR_inv_xray_done",
-       "label": "X-Ray - Done"
+       "de": "WOUTeWO4N2B",
+       "label": "X-Ray — Done?"
       },
       {
-       "de": "CDR_inv_xray_result",
-       "label": "X-Ray - Results"
+       "de": "rU3OQWsuQNg",
+       "label": "X-Ray — Results"
       },
       {
-       "de": "CDR_inv_us_done",
-       "label": "U/S Scan - Done"
+       "de": "wvxA1sftXz6",
+       "label": "U/S Scan — Done?"
       },
       {
-       "de": "CDR_inv_us_result",
-       "label": "U/S Scan - Results"
+       "de": "hWsEil3PGdm",
+       "label": "U/S Scan — Results"
       },
       {
-       "de": "CDR_inv_bloodsugar_done",
-       "label": "Blood Sugar - Done"
+       "de": "ra1MS089BCO",
+       "label": "Blood Sugar — Done?"
       },
       {
-       "de": "CDR_inv_bloodsugar_result",
-       "label": "Blood Sugar - Results"
+       "de": "PPGUwRVze5V",
+       "label": "Blood Sugar — Results"
       },
       {
-       "de": "CDR_inv_bloodchem_done",
-       "label": "Blood Chemistry (LFTs, RFTs) - Done"
+       "de": "rm6Vi9rW7sJ",
+       "label": "Blood Chemistry (LFTs, RFTs) — Done?"
       },
       {
-       "de": "CDR_inv_bloodchem_result",
-       "label": "Blood Chemistry - Results"
+       "de": "sgREYy06ifA",
+       "label": "Blood Chemistry (LFTs, RFTs) — Results"
       },
       {
-       "de": "CDR_inv_other_done",
-       "label": "Others - Done"
+       "de": "wjY44Ck5Q5z",
+       "label": "Others — Done?"
       },
       {
-       "de": "CDR_inv_other_result",
-       "label": "Others - Results"
+       "de": "WGpDDBmMIHR",
+       "label": "Others — Results"
+      },
+      {
+       "de": "JDDXYWLRunF",
+       "label": "Was any necessary investigation not available?"
       }
      ]
     },
     {
-     "label": null,
+     "label": "Diagnosis & treatment",
      "fields": [
       {
-       "de": "CDR_inv_unavailable",
-       "label": "Was any necessary investigation not available?"
+       "de": "E1jq9jjk2Hy",
+       "label": "Final diagnosis for the patient"
       },
       {
-       "de": "CDR_inv_unavailable_specify",
-       "label": "If yes, specify"
+       "de": "uEfectwIVQ9",
+       "label": "Summary of treatment / procedures / interventions prescribed"
       },
       {
-       "de": "CDR_final_diagnosis",
-       "label": "Final Diagnosis for the patient"
+       "de": "OfoBANMXa2W",
+       "label": "Was the prescribed treatment / procedure received fully?"
       },
       {
-       "de": "CDR_treatment_summary",
-       "label": "Summary of treatment/procedures/interventions prescribed"
+       "de": "gjtE3eQbY1F",
+       "label": "If not received fully, comment on the gaps"
       },
       {
-       "de": "CDR_treatment_received_fully",
-       "label": "Was the prescribed treatment/procedure received fully?"
-      },
-      {
-       "de": "CDR_treatment_gaps",
-       "label": "If No, comment on the gaps"
-      },
-      {
-       "de": "CDR_treatment_guidelines",
+       "de": "YcGZgrQsCDg",
        "label": "Was the treatment provided as per national guidelines?"
       },
       {
-       "de": "CDR_guidelines_gaps",
-       "label": "If No, comment on the gaps"
+       "de": "uvkRiOjbT5v",
+       "label": "If not per guidelines, comment on the gaps"
       },
       {
-       "de": "CDR_complications",
-       "label": "Were there any complications from the treatment/procedure?"
+       "de": "KWBvJMz69gN",
+       "label": "Were there any complications from the treatment / procedure?"
       },
       {
-       "de": "CDR_complications_specify",
-       "label": "If yes, specify"
+       "de": "NS5BU8xUaTb",
+       "label": "Were any necessary drugs / supplies not available during care?"
       },
       {
-       "de": "CDR_drugs_unavailable",
-       "label": "Were any necessary drugs/supplies not available during care?"
+       "de": "QwtvsW7nnsq",
+       "label": "Missing drug / supplies"
       },
       {
-       "de": "CDR_drugs_unavailable_specify",
-       "label": "If yes, specify the drug and reason"
+       "de": "GNcZNHZzkQ0",
+       "label": "Reason"
       }
      ]
     }
@@ -2333,140 +2244,99 @@
    "title": "SECTION SIX: Final Case Review",
    "groups": [
     {
-     "label": null,
+     "label": "Cause of Death",
      "fields": [
       {
-       "de": "CDR_case_summary",
-       "label": "Case Summary"
-      }
-     ]
-    },
-    {
-     "label": "Cause of Death (Frame A) - complete HMIS FOM100",
-     "fields": [
-      {
-       "de": "CDR_cod_a",
-       "label": "(a) Disease/condition directly leading to death",
-       "icd": true,
-       "codeField": "CDR_cod_a_code",
-       "uriField": "CDR_cod_a_uri"
+       "de": "zmqk9EfIlJL",
+       "label": "Case summary"
       },
       {
-       "de": "CDR_cod_a_interval",
-       "label": "(a) Time interval from onset to death"
+       "de": "y2pLfOeJSHV",
+       "label": "Cause of death"
       },
       {
-       "de": "CDR_cod_b",
-       "label": "(b) Due to (or as a consequence of)",
-       "icd": true,
-       "codeField": "CDR_cod_b_code",
-       "uriField": "CDR_cod_b_uri"
+       "de": "PcaOzeIzsln",
+       "label": "Time interval from onset of condition to death"
       },
       {
-       "de": "CDR_cod_b_interval",
-       "label": "(b) Time interval from onset to death"
-      },
-      {
-       "de": "CDR_cod_c",
-       "label": "(c) Due to (or as a consequence of)",
-       "icd": true,
-       "codeField": "CDR_cod_c_code",
-       "uriField": "CDR_cod_c_uri"
-      },
-      {
-       "de": "CDR_cod_c_interval",
-       "label": "(c) Time interval from onset to death"
-      },
-      {
-       "de": "CDR_cod_d",
-       "label": "(d) Due to (or as a consequence of)",
-       "icd": true,
-       "codeField": "CDR_cod_d_code",
-       "uriField": "CDR_cod_d_uri"
-      },
-      {
-       "de": "CDR_cod_d_interval",
-       "label": "(d) Time interval from onset to death"
-      },
-      {
-       "de": "CDR_cod_other",
+       "de": "Wi4d8SN2hmd",
        "label": "Other significant conditions contributing to death"
       }
      ]
     },
     {
-     "label": "Modifiable Factors (Avoidable Factors - Yes + Specify)",
+     "label": "Modifiable (avoidable) factors",
      "fields": [
       {
-       "de": "CDR_mf_delay_seek",
+       "de": "gKNePs0u0k9",
        "label": "Delay to seeking Health Care"
       },
       {
-       "de": "CDR_mf_delay_reach",
+       "de": "UXLAuJwpbRH",
        "label": "Delay to reach the health facility"
       },
       {
-       "de": "CDR_mf_refusal",
+       "de": "iXET9Kwxh0C",
        "label": "Refusal of treatment or admission"
       },
       {
-       "de": "CDR_mf_alt_medication",
+       "de": "H2Tlbe7jP0S",
        "label": "Use of alternative medication (e.g. herbal)"
       },
       {
-       "de": "CDR_mf_refuse_transfer",
+       "de": "mdUhn7Jbc2K",
        "label": "Refusal of transfer to higher facility"
       },
       {
-       "de": "CDR_mf_family_support",
-       "label": "Lack of family support / Child Neglect / violence"
+       "de": "gOAC0Nw8Erz",
+       "label": "Lack of family support / child neglect / violence"
       },
       {
-       "de": "CDR_mf_transport_home",
+       "de": "uraBW0ek60A",
        "label": "Lack of transport from home to health facility"
       },
       {
-       "de": "CDR_mf_transport_between",
+       "de": "THcFHKwsciD",
        "label": "Lack of transport between facilities"
       },
       {
-       "de": "CDR_mf_resus_equipment",
+       "de": "S1i6bceCDu6",
        "label": "Lack of resuscitation equipment"
       },
       {
-       "de": "CDR_mf_blood",
+       "de": "ueadJuyrlRf",
        "label": "Lack of blood, blood products and supplies"
       },
       {
-       "de": "CDR_mf_medicines",
-       "label": "Lack of appropriate medicines/supplies"
+       "de": "OVils10fxy1",
+       "label": "Lack of appropriate medicines / supplies"
       },
       {
-       "de": "CDR_mf_misdiagnosis",
+       "de": "Dy8ND6HuZjL",
        "label": "Misdiagnosis"
       },
       {
-       "de": "CDR_mf_inappropriate",
+       "de": "dX7talxQzr9",
        "label": "Inappropriate intervention / treatment / doses given"
       },
       {
-       "de": "CDR_mf_inadequate_staff",
+       "de": "uCSQK5z4yt9",
        "label": "Inadequate numbers of staff"
       },
       {
-       "de": "CDR_mf_absent_hr",
+       "de": "aJ5HMCLsHYr",
        "label": "Absence of critical human resource"
       },
       {
-       "de": "CDR_mf_skill",
-       "label": "Staff lack of skill/expertise"
+       "de": "RzEDajSvfxr",
+       "label": "Staff lack of skill / expertise"
       },
       {
-       "de": "CDR_mf_misconduct",
+       "de": "E9wgWyLMSoG",
        "label": "Staff professional misconduct"
       },
       {
-       "de": "CDR_mf_other",
+       "de": "SD9xsA0pZaK",
        "label": "Others (specify)"
       }
      ]
@@ -2477,40 +2347,81 @@
    "title": "SECTION SEVEN: Action Plan",
    "groups": [
     {
-     "label": "Follow-up actions",
+     "label": null,
      "fields": [
       {
-       "de": "CDR_ap_gaps",
+       "de": "KTsOM19SKne",
        "label": "Gap(s) identified"
       },
       {
-       "de": "CDR_ap_action",
+       "de": "uIQpaEB4DRt",
        "label": "Recommended action"
       },
       {
-       "de": "CDR_ap_responsible",
+       "de": "CBo81R52N6g",
        "label": "Responsible person"
       },
       {
-       "de": "CDR_ap_timeline",
+       "de": "YXYZT4v0t0W",
        "label": "Timeline"
       }
      ]
-    },
+    }
+   ]
+  },
+  {
+   "title": "CERTIFIED CAUSE OF DEATH (ICD-11)",
+   "groups": [
     {
-     "label": "Completed by",
+     "label": "Cause of Death — type of interval from onset to death, and time interval from onset to death",
      "fields": [
       {
-       "de": "CDR_completed_name",
-       "label": "Name"
+       "de": "sfpqAeqKeyQ",
+       "label": "Disease or condition directly leading to death — Cause of death (a)"
       },
       {
-       "de": "CDR_completed_tel",
-       "label": "Tel"
+       "de": "Ylht9kCLSRW",
+       "label": "Type of interval for (a)"
       },
       {
-       "de": "CDR_completed_email",
-       "label": "Email"
+       "de": "WkXxkKEJLsg",
+       "label": "Time interval (a)"
+      },
+      {
+       "de": "zb7uTuBCPrN",
+       "label": "Chain of events — due to, in order — Cause of death (b)"
+      },
+      {
+       "de": "myydnkmLfhp",
+       "label": "Type of interval for (b)"
+      },
+      {
+       "de": "fleGy9CvHYh",
+       "label": "Time interval (b)"
+      },
+      {
+       "de": "QGFYJK00ES7",
+       "label": "Chain of events — due to, in order — Cause of death (c)"
+      },
+      {
+       "de": "aC64sB86ThG",
+       "label": "Type of interval for (c)"
+      },
+      {
+       "de": "hO8No9fHVd2",
+       "label": "Time interval (c)"
+      },
+      {
+       "de": "CnPGhOcERFF",
+       "label": "Chain of events — due to, in order — Cause of death (d)"
+      },
+      {
+       "de": "cmZrrHfTxW3",
+       "label": "Type of interval for (d)"
+      },
+      {
+       "de": "eCVDO6lt4go",
+       "label": "Time interval (d)"
       }
      ]
     }

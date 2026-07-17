@@ -212,7 +212,8 @@ const initQuery = {
 	me: {
 		resource: "me",
 		params: {
-			fields: "id,name,username,surname,firstName",
+			fields:
+				"id,name,username,surname,firstName,organisationUnits[id,name,path,level,leaf,parent[id]]",
 		},
 	},
 	program: {
@@ -287,6 +288,7 @@ class Store {
 	@observable fetchingOrgUnits: boolean = false;
 	@observable user: any = null;
 	@observable userOrgUnits: any = [];
+	@observable userAssignedOrgUnits: any[] = [];
 	@observable userOrgUnitsLoaded: boolean = false;
 	@observable nationalitySelect: any;
 	@observable actualSelOrgUnit: any;
@@ -756,6 +758,23 @@ class Store {
 			const user = { id, username, surname, firstName, name };
 			this.user = user;
 
+			// Facilities the logged-in user is tagged to (capture scope). When
+			// the user belongs to exactly one facility we default the selected
+			// org unit to it so they never have to pick it manually.
+			const assigned = (data.me.organisationUnits || []).map((o: any) => ({
+				...o,
+				pId: o.parent?.id,
+			}));
+			this.userAssignedOrgUnits = assigned;
+			assigned.forEach((o: any) => {
+				if (!this.userOrgUnits.find((u: any) => u.id === o.id)) {
+					this.userOrgUnits = [...this.userOrgUnits, o];
+				}
+			});
+			if (assigned.length === 1 && !this.selectedOrgUnit) {
+				this.selectedOrgUnit = assigned[0].id;
+			}
+
 			const options = doptions.optionSets
 				.filter((o: any) => {
 					return !!o.code;
@@ -851,7 +870,18 @@ class Store {
 
 		console.log("cates", lcategories);
 
-		this.nationalitySelect = lcategories || [];
+		this.nationalitySelect = (lcategories || []).filter(Boolean);
+
+		// Default the nationality to "National" (l4UMmqvSBe5) so the form opens
+		// ready-to-use, while leaving the selector editable for other cases.
+		if (!this.selectedNationality && this.nationalitySelect.length) {
+			const national = this.nationalitySelect.find(
+				(n: any) =>
+					n?.id === "l4UMmqvSBe5" ||
+					/national/i.test(`${n?.name || ""} ${n?.shortName || ""}`)
+			);
+			this.selectedNationality = (national || this.nationalitySelect[0])?.id;
+		}
 	};
 
 	@action setOptionSets = (optionSets, dataOptions) => {
@@ -2426,6 +2456,47 @@ class Store {
 
 	@computed get isAdmin() {
 		return this.roles?.some((r) => r.id === "yrB6vc5Ip3r");
+	}
+
+	// The single leaf facility the user is tagged to, or null. Drives the
+	// read-only org unit display. Only locks when the unit is a leaf (has no
+	// children) — a tagged parent unit stays selectable so the user can drill
+	// down to a child facility.
+	@computed
+	get singleAssignedOrgUnit() {
+		const a = this.userAssignedOrgUnits;
+		return a && a.length === 1 && a[0]?.leaf !== false ? a[0] : null;
+	}
+
+	// Tree scoped to the user's assigned org units and their descendants, so a
+	// user tagged to a parent unit can pick any child below it (but nothing
+	// outside their scope). Children load lazily via loadOrganisationUnitsChildren.
+	@computed
+	get assignedOrgUnitTree() {
+		const assigned = this.userAssignedOrgUnits || [];
+		if (!assigned.length) return [];
+		const rootIds = new Set(assigned.map((u: any) => u.id));
+		const roots = assigned.map((u: any) => ({
+			id: u.id,
+			pId: "",
+			value: u.id,
+			title: u.name,
+			isLeaf: u.leaf,
+		}));
+		const descendants = this.userOrgUnits
+			.filter(
+				(u: any) =>
+					!rootIds.has(u.id) &&
+					assigned.some((a: any) => (u.path || "").includes(a.id))
+			)
+			.map((u: any) => ({
+				id: u.id,
+				pId: u.pId || "",
+				value: u.id,
+				title: u.name,
+				isLeaf: u.leaf,
+			}));
+		return [...roots, ...descendants];
 	}
 
 	@computed

@@ -52,6 +52,8 @@ class DynamicFormStore {
   @observable defaultValues: Record<string, any> = {};
   @observable records: any[] = [];
   @observable loadingRecords = false;
+  /** Data element ids that actually belong to the active program stage. */
+  stageDataElements: Set<string> = new Set();
 
   private get engine() {
     return mainStore.engine;
@@ -73,33 +75,81 @@ class DynamicFormStore {
     await this.loadMeta(def);
   };
 
-  /** Resolve the owning program + data element metadata for a stage. */
-  @action loadMeta = async (def: FormDefinition) => {
-    if (!def.programStage) {
-      // CDR placeholder — no real stage yet.
-      this.meta = {};
-      return;
+  /** All real DHIS2 data element UIDs referenced by a form's layout. */
+  private layoutDataElementIds = (def: FormDefinition): string[] => {
+    const UID = /^[A-Za-z][A-Za-z0-9]{10}$/;
+    const set = new Set<string>();
+    for (const section of def.layout) {
+      for (const group of section.groups) {
+        for (const f of group.fields) {
+          [f.de, f.codeField, f.uriField].forEach((id) => {
+            if (id && UID.test(id)) set.add(id);
+          });
+        }
+      }
     }
+    return Array.from(set);
+  };
+
+  /** Resolve the owning program + metadata for every field the form renders. */
+  @action loadMeta = async (def: FormDefinition) => {
     this.loadingMeta = true;
     try {
-      const url =
-        `/api/programStages/${def.programStage}.json?fields=` +
-        `program[id],programStageDataElements[dataElement[id,name,valueType,` +
-        `optionSet[options[code,name]]]]`;
-      const res: any = await this.engine.link.fetch(url);
+      // Resolve the owning program + the stage's own data elements (used to
+      // keep the save payload valid — fields drawn from other programs, like
+      // the shared ICD-11 cause section, are shown but not sent to this stage).
+      this.stageDataElements = new Set();
+      if (def.programStage) {
+        try {
+          const stageRes: any = await this.engine.link.fetch(
+            `/api/programStages/${def.programStage}.json?fields=` +
+              `program[id],programStageDataElements[dataElement[id]]`
+          );
+          this.program = stageRes?.program?.id ?? def.program ?? null;
+          (stageRes?.programStageDataElements || []).forEach((psde: any) => {
+            if (psde?.dataElement?.id)
+              this.stageDataElements.add(psde.dataElement.id);
+          });
+        } catch (e) {
+          this.program = def.program ?? null;
+        }
+      } else {
+        this.program = def.program ?? null;
+      }
+
+      // Load metadata for EVERY data element in the layout — not just those on
+      // the program stage — so fields drawn from other programs (e.g. the MCCOD
+      // cause-of-death section embedded in a review) get the correct widget
+      // (date pickers, dropdowns) instead of a plain text box.
+      const ids = this.layoutDataElementIds(def);
       const meta: Record<string, DeMeta> = {};
-      (res.programStageDataElements || []).forEach((psde: any) => {
-        const de = psde.dataElement;
-        if (!de) return;
-        meta[de.id] = {
-          id: de.id,
-          name: de.name,
-          valueType: de.valueType,
-          options: de.optionSet?.options,
-        };
-      });
+      const CHUNK = 50;
+      for (let i = 0; i < ids.length; i += CHUNK) {
+        const chunk = ids.slice(i, i + CHUNK);
+        const url =
+          `/api/dataElements.json?paging=false&fields=` +
+          `id,name,valueType,optionSet[options[code,name,sortOrder]]` +
+          `&filter=id:in:[${chunk.join(",")}]`;
+        try {
+          const res: any = await this.engine.link.fetch(url);
+          (res.dataElements || []).forEach((de: any) => {
+            // Present option choices in their defined DHIS2 order.
+            const options = (de.optionSet?.options || [])
+              .slice()
+              .sort((a: any, b: any) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+              .map((o: any) => ({ code: o.code, name: o.name }));
+            meta[de.id] = {
+              id: de.id,
+              name: de.name,
+              valueType: de.valueType,
+              options: options.length ? options : undefined,
+            };
+          });
+        } catch (e) {
+          console.log("loadMeta chunk error", e);
+        }
+      }
       runInAction(() => {
-        this.program = res.program?.id ?? def.program ?? null;
         this.meta = meta;
       });
     } catch (e) {
@@ -109,14 +159,83 @@ class DynamicFormStore {
     }
   };
 
-  /** Generate a fresh MoH case number from the DHIS2 id pool. */
-  @action generateCaseNumber = async (): Promise<string> => {
+  /**
+   * Facility namespace for case numbers: the org unit's DHIS2 code when it has
+   * one, else its (globally unique) UID. Most facilities in this instance have
+   * no code, so the UID fallback is what actually guarantees national
+   * uniqueness — the sequence itself is only computed per facility.
+   */
+  private ouCodeCache: Record<string, string> = {};
+  private getOrgUnitCode = async (ou: string): Promise<string> => {
+    if (this.ouCodeCache[ou]) return this.ouCodeCache[ou];
+    let slug = ou; // full UID → unique even when the facility has no code
     try {
-      const res: any = await this.engine.link.fetch("/api/system/id.json");
-      return res?.codes?.[0] ?? "";
+      const res: any = await this.engine.link.fetch(
+        `/api/organisationUnits/${ou}.json?fields=code`
+      );
+      if (res?.code)
+        slug = String(res.code).replace(/[^A-Za-z0-9]+/g, "").toUpperCase();
+    } catch (e) {
+      console.log("getOrgUnitCode error", e);
+    }
+    this.ouCodeCache[ou] = slug;
+    return slug;
+  };
+
+  /** Numeric suffix of a case number carrying `prefix`, else 0. */
+  private caseSeq = (value: string, prefix: string): number => {
+    if (!value || value.indexOf(prefix) !== 0) return 0;
+    const n = parseInt(value.slice(prefix.length), 10);
+    return isNaN(n) ? 0 : n;
+  };
+
+  /**
+   * Running prefix that namespaces a facility's sequence for this form/year,
+   * e.g. "020/MRRH/2026/". The facility code makes numbers nationally unique
+   * even though the sequence is only computed from events at that facility.
+   */
+  private caseNumberPrefix = async (def: FormDefinition): Promise<string> => {
+    const ou = mainStore.selectedOrgUnit;
+    const facility = ou ? await this.getOrgUnitCode(ou) : "NA";
+    const code = def.caseCode || def.id.toUpperCase();
+    const year = moment().format("YYYY");
+    return `${code}/${facility}/${year}/`;
+  };
+
+  /**
+   * Next sequential MoH case number for this form at the selected facility.
+   * Scoped per facility + form + year, then re-verified as unused at save
+   * time (see `save`) so no two records ever share a number.
+   */
+  @action generateCaseNumber = async (def: FormDefinition): Promise<string> => {
+    const prefix = await this.caseNumberPrefix(def);
+    const format = (n: number) => prefix + String(n).padStart(5, "0");
+    try {
+      const program = await this.ensureProgram(def);
+      const ou = mainStore.selectedOrgUnit;
+      let max = 0;
+      if (program && def.programStage && ou) {
+        const url =
+          `/api/events.json?program=${program}` +
+          `&programStage=${def.programStage}` +
+          `&orgUnit=${ou}&ouMode=SELECTED` +
+          `&filter=${def.caseNumberField}:like:${encodeURIComponent(prefix)}` +
+          `&order=created:desc&pageSize=200&totalPages=false` +
+          `&fields=event,dataValues[dataElement,value]`;
+        const res: any = await this.engine.link.fetch(url);
+        (res?.events || []).forEach((ev: any) => {
+          const seq = this.caseSeq(
+            this.recordValue(ev, def.caseNumberField),
+            prefix
+          );
+          if (seq > max) max = seq;
+        });
+      }
+      return format(max + 1);
     } catch (e) {
       console.log("generateCaseNumber error", e);
-      return "";
+      // Never block record creation: fall back to a unique time-based suffix.
+      return format(Number(String(Date.now()).slice(-5)));
     }
   };
 
@@ -137,25 +256,61 @@ class DynamicFormStore {
     }
   };
 
+  /** Resolve (and cache) the DHIS2 program that owns this form's stage. */
+  @action private ensureProgram = async (
+    def: FormDefinition
+  ): Promise<string | null> => {
+    if (this.program) return this.program;
+    if (def.program) {
+      this.program = def.program;
+      return this.program;
+    }
+    if (!def.programStage) return null;
+    try {
+      const stageRes: any = await this.engine.link.fetch(
+        `/api/programStages/${def.programStage}.json?fields=program[id]`
+      );
+      const pid = stageRes?.program?.id ?? null;
+      runInAction(() => (this.program = pid));
+      return pid;
+    } catch (e) {
+      console.log("ensureProgram error", e);
+      return null;
+    }
+  };
+
   /** Load the most recent events for this form at the selected org unit. */
   @action loadRecords = async (def: FormDefinition) => {
     const orgUnit = mainStore.selectedOrgUnit;
-    if (!def.programStage || !this.program || !orgUnit) {
-      this.records = [];
+    const program = await this.ensureProgram(def);
+    if (!def.programStage || !program || !orgUnit) {
+      // Nothing to load yet — surface *why* so an empty list is diagnosable.
+      console.log("loadRecords skipped", {
+        form: def.id,
+        programStage: def.programStage,
+        program,
+        orgUnit,
+      });
+      runInAction(() => (this.records = []));
       return;
     }
     this.loadingRecords = true;
     try {
       const url =
-        `/api/events.json?program=${this.program}` +
+        `/api/events.json?program=${program}` +
         `&programStage=${def.programStage}` +
         `&orgUnit=${orgUnit}&ouMode=SELECTED` +
         `&order=eventDate:desc&pageSize=100&totalPages=false` +
         `&fields=event,eventDate,orgUnit,orgUnitName,` +
         `dataValues[dataElement,value]`;
       const res: any = await this.engine.link.fetch(url);
+      const events = res?.events || [];
+      console.log(
+        `loadRecords ${def.id}: ${events.length} event(s)`,
+        { program, programStage: def.programStage, orgUnit }
+      );
       runInAction(() => {
-        this.records = res?.events || [];
+        this.records = events;
       });
     } catch (e) {
       console.log("loadRecords error", e);
@@ -213,15 +368,47 @@ class DynamicFormStore {
 
     this.saving = true;
     try {
+      // For brand-new records, guarantee the sequential case number is still
+      // free right before persisting; if a concurrent save claimed it, roll to
+      // the next available number so two records can never share one.
+      if (!this.currentEvent?.event && def.caseNumberField) {
+        let caseNo = values[def.caseNumberField];
+        for (
+          let i = 0;
+          caseNo && i < 8 && (await this.findByCaseNumber(def, caseNo));
+          i++
+        ) {
+          caseNo = await this.generateCaseNumber(def);
+        }
+        if (caseNo && caseNo !== values[def.caseNumberField]) {
+          values = { ...values, [def.caseNumberField]: caseNo };
+        }
+      }
+
       const dataValues = Object.entries(values)
-        .filter(([, v]) => v !== undefined && v !== null && v !== "")
+        .filter(
+          ([, v]) =>
+            v !== undefined &&
+            v !== null &&
+            v !== "" &&
+            !(Array.isArray(v) && v.length === 0)
+        )
+        // Only send data elements that belong to this program stage.
+        .filter(
+          ([de]) =>
+            this.stageDataElements.size === 0 || this.stageDataElements.has(de)
+        )
         .map(([dataElement, value]) => {
           let out: any = value;
+          // Multi-select → comma-joined option codes.
+          if (Array.isArray(value)) out = value.join(",");
           if (moment.isMoment(value)) {
             const vt = this.meta[dataElement]?.valueType;
             out =
               vt === "DATETIME"
                 ? moment(value).format("YYYY-MM-DDTHH:mm:ss.SSS")
+                : vt === "TIME"
+                ? moment(value).format("HH:mm")
                 : moment(value).format("YYYY-MM-DD");
           }
           if (typeof out === "boolean") out = out ? "true" : "false";
@@ -389,7 +576,7 @@ class DynamicFormStore {
           const nameres: any = await fetch(
             res.uri.replace(
               "http://id.who.int",
-              "https://ug.sk-engine.cloud/icd-api"
+              "https://ug.sk-engine.online"
             ),
             {
               method: "GET",

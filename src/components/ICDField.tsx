@@ -67,9 +67,12 @@ export const ICDField: SFC<ICD> = observer(
     // }
 
     const mySettings = {
-      //apiServerUrl: "https://ug.sk-engine.cloud/icd-api",
-       apiServerUrl: "https://hmis-tests.health.go.ug",
-      // apiServerUrl: " https://icdapi.azurewebsites.net",
+      // Origin only — the ECT tool appends /icd/release/11/<release>/<mms>/...
+      // itself, so the release + linearization are passed as their own settings
+      // (from http://localhost:8382/browse/2026-01/mms/en).
+      apiServerUrl: "http://localhost:8382",
+      icdMinorVersion: "2026-01",
+      icdLinearization: "mms",
       language: store.ICDLang ?? "en",
       autoBind: false,
       wordsAvailable: false,

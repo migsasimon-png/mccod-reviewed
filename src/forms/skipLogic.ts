@@ -118,23 +118,29 @@ const CONDITIONAL: {
   { child: "hZlRNVrmS1y", parent: "QidQVyBFspW", when: "yes", forms: ["mdr"] },
   { child: "IACcLw1GbkR", parent: "oz0vASbQvq5", when: "positive", forms: ["mdr"] },
   { child: "OJVwBSHC4b0", parent: "oz0vASbQvq5", when: "positive", forms: ["mdr"] },
-  // CDR (placeholder IDs)
-  { child: "CDR_referred_from", parent: "CDR_referred", when: "yes", forms: ["cdr"] },
-  { child: "CDR_referred_from_other", parent: "CDR_referred_from", when: "yes", forms: ["cdr"] },
-  { child: "CDR_nutrition_status", parent: "CDR_malnutrition_screened", when: "yes", forms: ["cdr"] },
-  { child: "CDR_missed_doses", parent: "CDR_immunization_uptodate", when: "no", forms: ["cdr"] },
-  { child: "CDR_mother_anc_times", parent: "CDR_mother_anc", when: "yes", forms: ["cdr"] },
-  {
-    child: "CDR_prophylactic_antibiotics",
-    parent: "CDR_antibiotics_given",
-    when: "yes",
-    forms: ["cdr"],
-  },
-  { child: "CDR_inv_unavailable_specify", parent: "CDR_inv_unavailable", when: "yes", forms: ["cdr"] },
-  { child: "CDR_treatment_gaps", parent: "CDR_treatment_adequate", when: "no", forms: ["cdr"] },
-  { child: "CDR_guidelines_gaps", parent: "CDR_guidelines_followed", when: "no", forms: ["cdr"] },
-  { child: "CDR_complications_specify", parent: "CDR_complications", when: "yes", forms: ["cdr"] },
-  { child: "CDR_drugs_unavailable_specify", parent: "CDR_drugs_unavailable", when: "yes", forms: ["cdr"] },
+  // CDR (real DHIS2 UIDs)
+  { child: "xOyckoyi422", parent: "yNsiNIq5D59", when: "yes", forms: ["cdr"] }, // referred from?
+  { child: "g3yvhO9uFpI", parent: "yNsiNIq5D59", when: "yes", forms: ["cdr"] }, // referral facility name
+  { child: "hPVCXHCvwrc", parent: "qFCcNYREZjM", when: "yes", forms: ["cdr"] }, // nutrition status
+  { child: "IUq6H8B59IH", parent: "xPCrY214eXn", when: "no", forms: ["cdr"] }, // missed doses
+  { child: "xbxWKAsmIN0", parent: "tKPEnIA0OAy", when: "yes", forms: ["cdr"] }, // ANC how many times
+  { child: "JXTeTVgMDOB", parent: "tKPEnIA0OAy", when: "yes", forms: ["cdr"] }, // GA at first visit
+  { child: "g3UtTdCciWW", parent: "kWgqvfLcgPL", when: "yes", forms: ["cdr"] }, // prophylactic antibiotics
+  { child: "gjtE3eQbY1F", parent: "OfoBANMXa2W", when: "no", forms: ["cdr"] }, // treatment gaps
+  { child: "uvkRiOjbT5v", parent: "YcGZgrQsCDg", when: "no", forms: ["cdr"] }, // guideline gaps
+  { child: "QwtvsW7nnsq", parent: "NS5BU8xUaTb", when: "yes", forms: ["cdr"] }, // missing drug
+  { child: "GNcZNHZzkQ0", parent: "NS5BU8xUaTb", when: "yes", forms: ["cdr"] }, // reason
+  // Investigation "Results" appear only once the test is marked Done.
+  { child: "rM8N5O9U2cJ", parent: "qRTPdydasD8", when: "yes", forms: ["cdr"] },
+  { child: "Wo5Y36If9KN", parent: "TiLOqqWZMFC", when: "yes", forms: ["cdr"] },
+  { child: "rLovNSMYQUX", parent: "BsbK0Og0Et1", when: "yes", forms: ["cdr"] },
+  { child: "h68IiMVXpY8", parent: "nPwwg6KuS8K", when: "yes", forms: ["cdr"] },
+  { child: "egQ7WouuJ2I", parent: "QeewvymWLUI", when: "yes", forms: ["cdr"] },
+  { child: "rU3OQWsuQNg", parent: "WOUTeWO4N2B", when: "yes", forms: ["cdr"] },
+  { child: "hWsEil3PGdm", parent: "wvxA1sftXz6", when: "yes", forms: ["cdr"] },
+  { child: "PPGUwRVze5V", parent: "ra1MS089BCO", when: "yes", forms: ["cdr"] },
+  { child: "sgREYy06ifA", parent: "rm6Vi9rW7sJ", when: "yes", forms: ["cdr"] },
+  { child: "WGpDDBmMIHR", parent: "wjY44Ck5Q5z", when: "yes", forms: ["cdr"] },
 ];
 
 export const emptySkipState = (): SkipState => ({
@@ -145,7 +151,11 @@ export const emptySkipState = (): SkipState => ({
   hints: {},
 });
 
-const hasValue = (v: any) => v !== undefined && v !== null && v !== "";
+const hasValue = (v: any) =>
+  v !== undefined &&
+  v !== null &&
+  v !== "" &&
+  !(Array.isArray(v) && v.length === 0);
 
 const optionLabel = (de: string, value: any, meta: Record<string, DeMeta>) => {
   const opt = meta[de]?.options?.find((o) => o.code === value);
@@ -205,6 +215,132 @@ const applyConditionalChildren = (
         ? isNo(values, rule.parent, meta)
         : isPositive(values, rule.parent, meta);
     if (!show) state.hiddenFields.add(rule.child);
+  }
+};
+
+// Label patterns that mark a field as depending on the answer above it.
+const YES_IF = /^\s*if\s+yes\b/i;
+const NO_IF = /^\s*if\s+no\b/i;
+const HAS_SPECIFY = /\bspecif(y|ies)\b/i;
+const HAS_OTHER = /\bothers?\b/i;
+const OTHER_END = /[-(]\s*others?\s*\)?\s*$/i;
+
+/** True when the parent field's answer is an "Other" option / a ticked box. */
+const otherSelected = (
+  parent: string,
+  values: Values,
+  meta: Record<string, DeMeta>
+) => {
+  const v = values[parent];
+  if (!hasValue(v)) return false;
+  if (meta[parent]?.valueType === "TRUE_ONLY" || typeof v === "boolean") {
+    return isTruthyCheckbox(v);
+  }
+  const label = optionLabel(parent, v, meta);
+  // If the value mapped to an option name, require it to be an "Other" option.
+  if (label && label !== String(v)) return /other/i.test(label);
+  // Free text / unmapped value present — can't infer, so don't hide.
+  return true;
+};
+
+/** True when the parent has been answered affirmatively (ticked / not "No"). */
+const affirmative = (
+  parent: string,
+  values: Values,
+  meta: Record<string, DeMeta>
+) => {
+  const v = values[parent];
+  if (!hasValue(v)) return false;
+  if (meta[parent]?.valueType === "TRUE_ONLY" || typeof v === "boolean") {
+    return isTruthyCheckbox(v);
+  }
+  return !isNo(values, parent, meta);
+};
+
+/**
+ * Generic, label-driven conditional visibility. For every field whose label
+ * signals a dependency ("If Yes…", "If No…", "…(Other/specify)"), tie it to the
+ * question immediately above it and hide it until that answer matches. Fields
+ * with an explicit rule (see CONDITIONAL) or a bespoke semantic rule are left
+ * to those, so this never fights a known mapping. Errs toward showing.
+ */
+const norm = (s: string) => s.trim().toLowerCase().replace(/\s+/g, " ");
+
+/** Nearest preceding field whose label is a prefix of the child's label. */
+const findPrefixParent = (
+  childLabel: string,
+  preceding: FormField[]
+): string | null => {
+  const c = norm(childLabel);
+  for (let i = preceding.length - 1; i >= 0; i--) {
+    const pl = norm(preceding[i].label || "");
+    if (pl.length >= 5 && pl !== c && c.startsWith(pl)) return preceding[i].de;
+  }
+  return null;
+};
+
+const applyLabelConditionals = (
+  def: FormDefinition,
+  values: Values,
+  meta: Record<string, DeMeta>,
+  state: SkipState,
+  overridden: Set<string>
+) => {
+  for (const sec of def.layout) {
+    const preceding: FormField[] = [];
+    for (const group of sec.groups) {
+      for (const f of group.fields) {
+        const lbl = f.label || "";
+        const prev = preceding.length
+          ? preceding[preceding.length - 1].de
+          : null;
+        if (!overridden.has(f.de)) {
+          if (YES_IF.test(lbl)) {
+            // "If Yes…" answers the question directly above it.
+            if (prev && !isYes(values, prev, meta)) state.hiddenFields.add(f.de);
+          } else if (NO_IF.test(lbl)) {
+            if (prev && !isNo(values, prev, meta)) state.hiddenFields.add(f.de);
+          } else if (HAS_SPECIFY.test(lbl) || OTHER_END.test(lbl)) {
+            // "…Other (specify)" / "X specify" → tie to the field it extends,
+            // matched by label prefix (its parent question), and show only when
+            // that is Other / ticked. Skip "If <thing> specify" (non-Other
+            // trigger) and anything with no confident parent — leave visible.
+            const semanticIf = /^\s*if\b/i.test(lbl) && !HAS_OTHER.test(lbl);
+            const parent = semanticIf ? null : findPrefixParent(lbl, preceding);
+            if (parent) {
+              // "…(Other)" triggers on the parent's Other option; a bare
+              // "…specify" triggers when the parent is ticked / answered Yes.
+              const triggered = HAS_OTHER.test(lbl)
+                ? otherSelected(parent, values, meta)
+                : affirmative(parent, values, meta);
+              if (!triggered) state.hiddenFields.add(f.de);
+            }
+          }
+        }
+        preceding.push(f);
+      }
+    }
+  }
+};
+
+/** Child Death Review: maternal risk factors only for children < 28 days. */
+const CDR_AGE_DAYS = "CdceEuqRSwT";
+const applyCdrRules = (
+  values: Values,
+  def: FormDefinition,
+  state: SkipState
+) => {
+  // The age element only holds days for infants under one month; when it is
+  // filled and under 28 days, the maternal risk-factor section is skipped.
+  const days = values[CDR_AGE_DAYS];
+  if (hasValue(days) && Number(days) < 28) {
+    def.layout.forEach((sec, idx) => {
+      if (/maternal risk factor/i.test(sec.title)) {
+        state.hiddenSections.add(idx);
+        state.sectionNotes[idx] =
+          "Skipped — child under 28 days (per form instruction)";
+      }
+    });
   }
 };
 
@@ -385,15 +521,24 @@ export const computeSkipState = (
   meta: Record<string, DeMeta>
 ): SkipState => {
   const state = emptySkipState();
+
+  // Fields with an explicit or bespoke rule are excluded from the generic
+  // label-driven pass so the two never disagree.
+  const overridden = new Set<string>(
+    CONDITIONAL.filter((r) => !r.forms || r.forms.includes(formId)).map(
+      (r) => r.child
+    )
+  );
+
   applyConditionalChildren(formId, values, meta, state);
+  applyLabelConditionals(def, values, meta, state, overridden);
 
   if (formId === "mccod" || def.isMccod) {
     applyMccodRules(values, meta, def, state);
   }
 
-  // MDR is always maternal — hide nothing by sex, but still honour conditional children
-  if (formId === "pdr") {
-    // Perinatal: antenatal follow-ups only when booking = yes (handled by CONDITIONAL)
+  if (formId === "cdr") {
+    applyCdrRules(values, def, state);
   }
 
   return state;
