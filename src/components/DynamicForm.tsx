@@ -1427,8 +1427,8 @@ export const DynamicForm = observer(() => {
                                   pagination={false}
                                   columns={[
                                     { title: "Field name on form", dataIndex: "fieldName", key: "fieldName" },
-                                    { title: "DE_ID in Maternal", dataIndex: "matId", key: "matId" },
-                                    { title: "Value in MAternal", dataIndex: "matVal", key: "matVal" },
+                                    { title: `DE_ID in ${def.title}`, dataIndex: "matId", key: "matId" },
+                                    { title: `Value in ${def.title}`, dataIndex: "matVal", key: "matVal" },
                                     { title: "DE_Name in MCCOD", dataIndex: "mccodName", key: "mccodName" },
                                     { title: "DE_ID in MCCOD", dataIndex: "mccodId", key: "mccodId" },
                                     { title: "Value in MCCOD", dataIndex: "mccodVal", key: "mccodVal" },
@@ -1439,12 +1439,38 @@ export const DynamicForm = observer(() => {
                                       const srcMeta = dynamicFormStore.meta[src];
                                       const destMeta = dynamicFormStore.meta[dest];
                                       const displayVal = val !== undefined && val !== null && val !== "" ? String(val) : <em style={{color: "#aaa"}}>(empty)</em>;
+
+                                      let fieldName = srcMeta ? srcMeta.name : src;
+                                      for (const sec of def.layout) {
+                                        for (const group of sec.groups) {
+                                          const found = group.fields.find((f: any) => f.de === src);
+                                          if (found && found.label) {
+                                            fieldName = found.label;
+                                            break;
+                                          }
+                                        }
+                                      }
+
+                                      let mccodName = destMeta ? destMeta.name : dest;
+                                      const mccodDef = getFormDefinition("mccod");
+                                      if (mccodDef) {
+                                        for (const sec of mccodDef.layout) {
+                                          for (const group of sec.groups) {
+                                            const found = group.fields.find((f: any) => f.de === dest);
+                                            if (found && found.label) {
+                                              mccodName = found.label;
+                                              break;
+                                            }
+                                          }
+                                        }
+                                      }
+
                                       return {
                                         key: src,
-                                        fieldName: srcMeta ? srcMeta.name : src,
+                                        fieldName,
                                         matId: src,
                                         matVal: displayVal,
-                                        mccodName: destMeta ? destMeta.name : dest,
+                                        mccodName,
                                         mccodId: dest,
                                         mccodVal: displayVal,
                                       };
