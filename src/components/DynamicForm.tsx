@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import { observer } from "mobx-react";
+import { runInAction } from "mobx";
 import moment from "moment";
 import {
   Button,
@@ -18,6 +19,7 @@ import {
   Input,
   InputNumber,
   notification,
+  Popover,
   Progress,
   Row,
   Select,
@@ -27,8 +29,8 @@ import {
   TimePicker,
 } from "antd";
 import { useStore } from "../Context";
-import { dynamicFormStore } from "../forms/DynamicFormStore";
-import { getFormDefinition } from "../forms/registry";
+import { dynamicFormStore, MATERNAL_TO_MCCOD_MAP } from "../forms/DynamicFormStore";
+import { getFormDefinition, CASE_NUMBER_DE } from "../forms/registry";
 import { FormField, ListColumn } from "../forms/types";
 import {
   applySkipEffects,
@@ -37,9 +39,14 @@ import {
   isFieldDisabled,
   isFieldVisible,
 } from "../forms/skipLogic";
+import { LoadingOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { MccodTableSection } from "./MccodTableSection";
+import { MccodLinkageBanner } from "./MccodLinkageBanner";
+import { MccodToMaternalLinkageBanner } from "./MccodToMaternalLinkageBanner";
 import { useNinApi } from "../utils/ninApi";
 import { ICDField } from "./ICDField";
 import { FormContextBar, isFormContextReady } from "./FormContextBar";
+import { DorisReportModal } from "./DorisReportModal";
 import "./DynamicForm.css";
 
 const UGANDAN = "l4UMmqvSBe5";
@@ -58,7 +65,7 @@ const NUMERIC = [
 ];
 
 /** Renders a single field's widget based on runtime DHIS2 metadata. */
-const FieldWidget = observer(
+export const FieldWidget = observer(
   ({
     field,
     form,
@@ -90,7 +97,21 @@ const FieldWidget = observer(
       );
     }
 
-    const options = meta?.options;
+    let options = meta?.options;
+    if (
+      (!options || !options.length) &&
+      ["Ylht9kCLSRW", "myydnkmLfhp", "aC64sB86ThG", "cmZrrHfTxW3"].includes(field.de)
+    ) {
+      options = [
+        { code: "Minutes", name: "Minutes" },
+        { code: "Hours", name: "Hours" },
+        { code: "Days", name: "Days" },
+        { code: "Weeks", name: "Weeks" },
+        { code: "Months", name: "Months" },
+        { code: "Years", name: "Years" },
+      ];
+    }
+
     if (options && options.length) {
       return (
         <Select
@@ -290,6 +311,15 @@ const RecordList = observer(({ def, onNew, onView, onEdit }: RecordListProps) =>
   const store = useStore();
   const rows = dynamicFormStore.records;
   const canAdd = isFormContextReady(store);
+  const [searchText, setSearchText] = useState("");
+
+  const filteredRows = useMemo(() => {
+    if (!searchText.trim()) return rows;
+    return rows.filter((r: any) => {
+      const caseNum = dynamicFormStore.recordValue(r, CASE_NUMBER_DE) || "";
+      return caseNum.toLowerCase().includes(searchText.toLowerCase().trim());
+    });
+  }, [rows, searchText]);
 
   // Configurable columns from the form definition; fall back to a sensible
   // default derived from case/name/nin/date/status when none are configured.
@@ -306,11 +336,31 @@ const RecordList = observer(({ def, onNew, onView, onEdit }: RecordListProps) =>
     render: (_: any, r: any) => {
       if (col.type === "date")
         return r.eventDate ? moment(r.eventDate).format("DD MMM YYYY") : "—";
-      if (col.type === "status") {
-        const linked = col.de ? dynamicFormStore.recordValue(r, col.de) : "";
+      if (col.type === "datetime") {
+        const raw = col.key === "lastUpdated" ? r.lastUpdated : (col.de ? dynamicFormStore.recordValue(r, col.de) : "");
+        return raw ? moment(raw).format("DD MMM YYYY HH:mm") : "—";
+      }
+      if (col.type === "maternalLink") {
+        const caseNum = col.de ? dynamicFormStore.recordValue(r, col.de) : "";
+        const isLinked = caseNum ? dynamicFormStore.maternalCaseNumbers.has(caseNum.trim()) : false;
         return (
-          <Tag color={linked ? "green" : "orange"}>
-            {linked ? "Certified" : "Pending"}
+          <Tag color={isLinked ? "purple" : "default"}>
+            {isLinked ? "Maternal Linked" : "Direct MCCOD"}
+          </Tag>
+        );
+      }
+      if (col.type === "status") {
+        const linkedVal = col.de ? dynamicFormStore.recordValue(r, col.de) : "";
+        const causeA = dynamicFormStore.recordValue(r, "sfpqAeqKeyQ") || dynamicFormStore.recordValue(r, "zD0E77W4rFs");
+        const finalCause = dynamicFormStore.recordValue(r, "n2mScmFMovq") || dynamicFormStore.recordValue(r, "mQVAyOLbga1");
+        
+        // A record is ONLY "Certified" if it has an actual ICD-11 cause filled in OR linkedVal is a real 11-char DHIS2 Event UID
+        const isRealUid = typeof linkedVal === "string" && linkedVal.length === 11 && !/^(true|false|1|0|yes|no)$/i.test(linkedVal);
+        const isCertified = Boolean(isRealUid || finalCause || causeA);
+
+        return (
+          <Tag color={isCertified ? "green" : "orange"}>
+            {isCertified ? "Certified" : "Not Linked"}
           </Tag>
         );
       }
@@ -352,20 +402,31 @@ const RecordList = observer(({ def, onNew, onView, onEdit }: RecordListProps) =>
       <div className="dform-records-head">
         <span className="dform-toolbar-title">
           {store.selectedOrgUnit
-            ? `${rows.length} record${rows.length === 1 ? "" : "s"} at this facility`
+            ? `${filteredRows.length} record${filteredRows.length === 1 ? "" : "s"} at this facility`
             : "Select an organisation unit to list records"}
         </span>
-        <Button type="primary" onClick={onNew} disabled={!canAdd}>
-          + New {def.title}
-        </Button>
+        <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+          {store.selectedOrgUnit && rows.length > 0 && (
+            <Input.Search
+              placeholder="Search case number..."
+              allowClear
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              style={{ width: 280 }}
+            />
+          )}
+          <Button type="primary" onClick={onNew} disabled={!canAdd}>
+            + New {def.title}
+          </Button>
+        </div>
       </div>
       <Spin spinning={dynamicFormStore.loadingRecords}>
-        {rows.length ? (
+        {filteredRows.length ? (
           <Table
             size="middle"
             rowKey="event"
             columns={columns}
-            dataSource={rows}
+            dataSource={filteredRows}
             className="dform-records-table"
             onRow={(r: any) => ({ onClick: () => onView(r) })}
             pagination={{ pageSize: 10, hideOnSinglePage: true }}
@@ -374,7 +435,9 @@ const RecordList = observer(({ def, onNew, onView, onEdit }: RecordListProps) =>
           <Empty
             description={
               store.selectedOrgUnit
-                ? "No records yet — create the first one."
+                ? rows.length > 0
+                  ? "No matching case numbers found."
+                  : "No records yet — create the first one."
                 : "No facility selected."
             }
           />
@@ -464,7 +527,7 @@ const RecordDetail = observer(
                 >
                   {linked
                     ? "Linked to ICD-11 certificate"
-                    : "Not yet certified"}
+                    : "Not Linked"}
                 </Tag>
               )}
             </div>
@@ -501,12 +564,54 @@ export const DynamicForm = observer(() => {
   const ninapi = useNinApi();
   const def = store.activeFormId ? getFormDefinition(store.activeFormId) : null;
   const [ninLoading, setNinLoading] = useState(false);
+  const [formValues, setFormValues] = useState<Record<string, any>>({});
+
+
 
   const [currentStep, setCurrentStep] = useState(0);
   const [savedOnce, setSavedOnce] = useState(false);
   const [mode, setMode] = useState<"list" | "form">("list");
   const [formKey, setFormKey] = useState(0);
+  const [saveTrigger, setSaveTrigger] = useState(0);
   const [detailRecord, setDetailRecord] = useState<any | null>(null);
+
+  const [dorisValue, setDorisValue] = useState<any>({});
+  const [dorisReport, setDorisReport] = useState("");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [computingDoris, setComputingDoris] = useState(false);
+  const dorisTimeoutRef = useRef<any>(null);
+  const [lastFetchedActiveSi, setLastFetchedActiveSi] = useState<number | null>(null);
+  const [lastFetchedCase, setLastFetchedCase] = useState<string | null>(null);
+
+  const finalCauseOptions = useMemo(() => {
+    const opts: Record<string, string> = {};
+
+    const manualText = formValues["mQVAyOLbga1"];
+    const manualCode = formValues["n2mScmFMovq"];
+    if (manualCode) opts[manualCode] = manualText || manualCode;
+
+    const causeA_code = formValues["zD0E77W4rFs"];
+    const causeA_text = formValues["sfpqAeqKeyQ"];
+    if (causeA_code) opts[causeA_code] = causeA_text || causeA_code;
+
+    const causeB_code = formValues["tuMMQsGtE69"];
+    const causeB_text = formValues["zb7uTuBCPrN"];
+    if (causeB_code) opts[causeB_code] = causeB_text || causeB_code;
+
+    const causeC_code = formValues["C8n6hBilwsX"];
+    const causeC_text = formValues["QGFYJK00ES7"];
+    if (causeC_code) opts[causeC_code] = causeC_text || causeC_code;
+
+    const causeD_code = formValues["IeS8V8Yf40N"];
+    const causeD_text = formValues["CnPGhOcERFF"];
+    if (causeD_code) opts[causeD_code] = causeD_text || causeD_code;
+
+    if (dorisValue?.code) {
+      opts[dorisValue.code] = dorisValue.text;
+    }
+
+    return opts;
+  }, [formValues, dorisValue]);
 
   // Live-measure the sticky hero so the sticky sidebar sits exactly below it
   // at every viewport width (the hero grows taller when its row wraps).
@@ -553,7 +658,6 @@ export const DynamicForm = observer(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [def]);
 
-  const [formValues, setFormValues] = useState<Record<string, any>>({});
 
   // Hydrate the form from the record's stored values whenever we enter form
   // mode (new or edit). Pushing values into the form store — not just relying
@@ -582,6 +686,8 @@ export const DynamicForm = observer(() => {
     form.setFieldsValue(formValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep, mode]);
+
+
 
   const skip = useMemo(() => {
     if (!def) return emptySkipState();
@@ -617,6 +723,50 @@ export const DynamicForm = observer(() => {
       setCurrentStep(Math.max(0, stepKeys.length - 1));
     }
   }, [stepKeys.length, currentStep]);
+
+  // Load MCCOD data when the Certified Cause of Death section becomes active
+  const stepKeysStr = stepKeys.join(",");
+  useEffect(() => {
+    if (!def || mode !== "form" || dynamicFormStore.loadingMeta) return;
+    const clampedStep = Math.min(currentStep, Math.max(0, stepKeys.length - 1));
+    const activeStepKey = stepKeys[clampedStep];
+    const computedActiveSi = activeStepKey != null ? Number(activeStepKey) : null;
+    if (computedActiveSi == null) return;
+
+    const sectionTitle = def.layout[computedActiveSi]?.title || "";
+    if (
+      sectionTitle.toUpperCase().includes("CERTIFIED CAUSE OF DEATH") ||
+      sectionTitle.toUpperCase().includes("CASES OF DEATH") ||
+      sectionTitle.toUpperCase().includes("CAUSE OF DEATH")
+    ) {
+      const caseNumber = form.getFieldValue(def.caseNumberField);
+      if (caseNumber) {
+        if (computedActiveSi === lastFetchedActiveSi && caseNumber === lastFetchedCase) {
+          return;
+        }
+        setLastFetchedActiveSi(computedActiveSi);
+        setLastFetchedCase(caseNumber);
+
+        dynamicFormStore.fetchMccodEventForCase(def.caseNumberField, caseNumber).then((mccodValues) => {
+          if (mccodValues && Object.keys(mccodValues).length > 0) {
+            // Only overwrite fields that are currently empty to avoid wiping user input
+            const currentValues = form.getFieldsValue();
+            const updates: Record<string, any> = {};
+            for (const key of Object.keys(mccodValues)) {
+              if (!currentValues[key]) {
+                updates[key] = mccodValues[key];
+              }
+            }
+            if (Object.keys(updates).length > 0) {
+              form.setFieldsValue(updates);
+              setFormValues((prev: any) => ({ ...prev, ...updates }));
+            }
+          }
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentStep, stepKeysStr, def?.id, mode, dynamicFormStore.loadingMeta, form, lastFetchedActiveSi, lastFetchedCase]);
 
   if (!def) return null;
 
@@ -685,6 +835,21 @@ export const DynamicForm = observer(() => {
     setMode("form");
   };
 
+  useEffect(() => {
+    if (dynamicFormStore.pendingEditEvent && def) {
+      const evt = dynamicFormStore.pendingEditEvent;
+      runInAction(() => {
+        dynamicFormStore.pendingEditEvent = null;
+      });
+      openEdit(evt);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store.activeFormId, def]);
+
+  useEffect(() => {
+    setDorisReport(dynamicFormStore.dorisReport || "");
+  }, [dynamicFormStore.dorisReport, mode, formKey]);
+
   // Complete value set across all wizard steps: accumulated `formValues`
   // (survives step unmounts) overlaid with the live form store.
   const collectValues = () => ({ ...formValues, ...form.getFieldsValue(true) });
@@ -713,6 +878,7 @@ export const DynamicForm = observer(() => {
     const ok = await dynamicFormStore.save(cleaned);
     if (ok) {
       setSavedOnce(true);
+      setSaveTrigger((t) => t + 1);
       dynamicFormStore.loadRecords(def);
     }
   };
@@ -732,6 +898,149 @@ export const DynamicForm = observer(() => {
     const values = collectValues();
     const updates = await dynamicFormStore.computeDoris(values);
     if (updates) form.setFieldsValue(updates);
+  };
+
+  const debouncedDorisFields = () => {
+    if (dorisTimeoutRef.current) clearTimeout(dorisTimeoutRef.current);
+    dorisTimeoutRef.current = setTimeout(() => {
+      setDorisFields();
+    }, 1500);
+  };
+
+  const setDorisFields = async () => {
+    setComputingDoris(true);
+    setDorisReport("");
+
+    const intervalAType = form.getFieldValue("Ylht9kCLSRW");
+    const intervalAVal = form.getFieldValue("WkXxkKEJLsg");
+    const intervalA = (!!intervalAType && !!intervalAVal) ? moment.duration({ [intervalAType]: intervalAVal }).toISOString() : "";
+
+    const intervalBType = form.getFieldValue("myydnkmLfhp");
+    const intervalBVal = form.getFieldValue("fleGy9CvHYh");
+    const intervalB = (!!intervalBType && !!intervalBVal) ? moment.duration({ [intervalBType]: intervalBVal }).toISOString() : "";
+
+    const intervalCType = form.getFieldValue("aC64sB86ThG");
+    const intervalCVal = form.getFieldValue("hO8No9fHVd2");
+    const intervalC = (!!intervalCType && !!intervalCVal) ? moment.duration({ [intervalCType]: intervalCVal }).toISOString() : "";
+
+    const intervalDType = form.getFieldValue("cmZrrHfTxW3");
+    const intervalDVal = form.getFieldValue("eCVDO6lt4go");
+    const intervalD = (!!intervalDType && !!intervalDVal) ? moment.duration({ [intervalDType]: intervalDVal }).toISOString() : "";
+
+    const actualTimeOfDeath = form.getFieldValue("WzauwhVOwM0");
+    const dateOfDeath = actualTimeOfDeath ? moment(actualTimeOfDeath) : null;
+    const personsAge = form.getFieldValue("iJqBq0kQtWO");
+
+    // Collect Other Significant Conditions (Part II) - codes joined by " / "
+    const otherCodes = [
+      form.getFieldValue("ctbKSNV2cg7") || "",  // Other 1 code
+      form.getFieldValue("krhrEBwjENc") || "",  // Other 2 code
+      form.getFieldValue("ZKtS7L49Poo") || "",  // Other 3 code
+      form.getFieldValue("fJDDc9mlubU") || "",  // Other 4 code
+      form.getFieldValue("z89Wr84V2G6") || "",  // Other 5 code
+    ].filter(Boolean);
+
+    const otherUris = [
+      form.getFieldValue("T4uxg60LaIw") || "",  // Other 1 uri
+    ].filter(Boolean);
+
+    const payload: Record<string, string> = {
+        sex: "2",
+        estimatedAge: personsAge ? moment.duration({ years: personsAge }).toISOString() : "",
+        causeOfDeathCodeA: form.getFieldValue("zD0E77W4rFs") || "",
+        causeOfDeathCodeB: form.getFieldValue("tuMMQsGtE69") || "",
+        causeOfDeathCodeC: form.getFieldValue("C8n6hBilwsX") || "",
+        causeOfDeathCodeD: form.getFieldValue("IeS8V8Yf40N") || "",
+        causeOfDeathCodePart2: otherCodes.join(" / "),
+        causeOfDeathUriPart2: otherUris.join(" / "),
+        intervalA,
+        intervalB,
+        intervalC,
+        intervalD,
+        dateBirth: "",
+        dateDeath: dateOfDeath?.toISOString() ?? "",
+        maternalDeathWasPregnant: "1",
+        maternalDeathPregnancyContribute: "9", 
+        timeFromPregnancy: "9",
+    };
+
+    if (!payload.causeOfDeathCodeA && !payload.causeOfDeathCodeB && !payload.causeOfDeathCodeC && !payload.causeOfDeathCodeD) {
+      notification.warning({ message: "Enter at least one ICD-11 coded cause of death first." });
+      setComputingDoris(false);
+      return;
+    }
+
+    const burl = "https://ug.sk-engine.online";
+    const url = burl + "/icd/release/11/2024-01/doris?" + new URLSearchParams(payload).toString();
+    
+    try {
+        const res: any = await fetch(url, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "API-Version": "v2",
+                "Accept-Language": "en",
+            }
+        }).then((response) => {
+            if (!response.ok) throw new Error("Doris API failed with status " + response.status);
+            return response.json();
+        });
+
+        let title = "";
+        if (res?.uri) {
+          try {
+            const uris = res.uri.split(" / ");
+            const titlePromises = uris.map(async (u: string) => {
+              const nameres: any = await fetch(
+                u.replace("http://id.who.int", "https://ug.sk-engine.online"),
+                {
+                    method: 'GET',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "API-Version": "v2",
+                        "Accept-Language": "en",
+                    }
+                }).then((response) => {
+                    if (!response.ok) throw new Error("ICD API failed with status " + response.status);
+                    return response.json();
+                });
+              return nameres?.title?.["@value"] || "";
+            });
+            const titles = await Promise.all(titlePromises);
+            title = titles.filter(Boolean).join(" & ");
+          } catch (e) {
+            console.error("Failed to fetch title for URI:", res.uri);
+          }
+        }
+        
+        form.setFieldsValue({
+            mQVAyOLbga1: title,
+            n2mScmFMovq: res.code
+        });
+
+        setDorisValue({
+            code: res.code,
+            text: title
+        });
+        
+        let reportText = res.report;
+        if (!reportText && (res.error || res.warning)) {
+            reportText = [
+                res.error ? `Error: ${res.error}` : "",
+                res.warning ? `Warning: ${res.warning}` : ""
+            ].filter(Boolean).join("\n\n");
+        }
+        const finalReport = reportText || "No computation report available.";
+        setDorisReport(finalReport);
+        runInAction(() => {
+          dynamicFormStore.dorisReport = finalReport;
+        });
+    } catch (error) {
+        console.error("Failed to fetch Doris fields:", error);
+        notification.error({ message: "Failed to compute underlying cause" });
+    } finally {
+        setComputingDoris(false);
+    }
   };
 
   // Map an ISO gender letter to the sex data element's option code.
@@ -814,11 +1123,60 @@ export const DynamicForm = observer(() => {
         prefillFromNin(nin);
       }
     }
+
+    const dorisFields = [
+      "zD0E77W4rFs", "tuMMQsGtE69", "C8n6hBilwsX", "IeS8V8Yf40N", // codes A-D
+      "ctbKSNV2cg7", "krhrEBwjENc", "ZKtS7L49Poo", "fJDDc9mlubU", "z89Wr84V2G6", // codes Other 1-5
+      "Ylht9kCLSRW", "myydnkmLfhp", "aC64sB86ThG", "cmZrrHfTxW3", // interval types
+      "WkXxkKEJLsg", "fleGy9CvHYh", "hO8No9fHVd2", "eCVDO6lt4go", // interval values
+      "sfpqAeqKeyQ", "zb7uTuBCPrN", "QGFYJK00ES7", "CnPGhOcERFF", // cause text A-D
+      "xeE5TQLvucB", "mI0UjQioE7E", "u5ebhwtAmpU", "OxJgcwH15L7", "Zrn8LD3LoKY" // cause text Other 1-5
+    ];
+    if (dorisFields.some((f) => f in changed)) {
+      debouncedDorisFields();
+    }
   };
 
   // Render the groups + fields of a single section (used by the wizard step).
-  const renderSection = (si: number) =>
-    def.layout[si].groups.map((group, gi) => {
+  const renderSection = (si: number) => {
+    const sectionTitle = def.layout[si].title;
+    
+    if (
+      sectionTitle?.toUpperCase().includes("CERTIFIED CAUSE OF DEATH") ||
+      sectionTitle?.toUpperCase().includes("CASES OF DEATH (FRAME A)") ||
+      sectionTitle?.toUpperCase().includes("CAUSE OF DEATH (FRAME A)")
+    ) {
+       const allFields = def.layout[si].groups.flatMap(g => 
+         Array.isArray(g) ? g : g.fields
+       );
+       
+        return (
+          <MccodTableSection 
+            fields={allFields} 
+            form={form} 
+            locked={false}
+            skipLogic={skip} 
+            dorisReport={dorisReport}
+            onSave={handleSave}
+            saving={dynamicFormStore.saving}
+            finalCauseOptions={finalCauseOptions}
+            onComputeDoris={debouncedDorisFields}
+            computingDoris={computingDoris}
+            dorisValue={dorisValue}
+            onSelectUnderlyingCause={(text, code) => {
+              form.setFieldsValue({ mQVAyOLbga1: text, n2mScmFMovq: code });
+              setFormValues((prev) => ({ ...prev, mQVAyOLbga1: text, n2mScmFMovq: code }));
+            }}
+            onIcdSelect={(selectedEntity) => {
+              const all = { ...formValues, ...form.getFieldsValue(true) };
+              setFormValues(all);
+              debouncedDorisFields();
+            }}
+          />
+        );
+    }
+
+    return def.layout[si].groups.map((group, gi) => {
       const groupFields = group.fields.filter((f) => isFieldVisible(f, si, skip));
       if (!groupFields.length) return null;
       return (
@@ -846,7 +1204,7 @@ export const DynamicForm = observer(() => {
                   </div>
                 </Col>
               ) : (
-                <Col key={field.de} xs={24} {...fieldSpan(field)}>
+                <Col key={field.de} xs={24} {...fieldSpan(field)} style={{ display: field.de === "ZkNDFfFSTYg" ? "none" : undefined }}>
                   <Form.Item
                     name={field.de}
                     label={field.label}
@@ -854,12 +1212,36 @@ export const DynamicForm = observer(() => {
                     help={fieldHint}
                     className={`dform-item${locked ? " dform-item-locked" : ""}`}
                   >
-                    <FieldWidget
-                      field={field}
-                      form={form}
-                      disabled={locked}
-                      hint={fieldHint}
-                    />
+                      {field.de === "n2mScmFMovq" ? (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <div style={{ flex: 1 }}>
+                            <FieldWidget field={field} form={form} disabled={locked} hint={fieldHint} />
+                          </div>
+                          <DorisReportModal report={dorisReport} />
+                        </div>
+                      ) : field.de === "mQVAyOLbga1" ? (
+                      <Select 
+                        disabled={locked} 
+                        onChange={(val: any) => {
+                           // val is the text. Find the corresponding code.
+                           const code = Object.keys(finalCauseOptions).find(k => (finalCauseOptions as any)[k] === val);
+                           form.setFieldsValue({ mQVAyOLbga1: val, n2mScmFMovq: code });
+                        }}
+                      >
+                        {Object.entries(finalCauseOptions).map(([code, text]) => (
+                          <Select.Option key={code} value={text as string}>
+                            {text as string} ({code})
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    ) : (
+                      <FieldWidget
+                        field={field}
+                        form={form}
+                        disabled={locked}
+                        hint={fieldHint}
+                      />
+                    )}
                   </Form.Item>
                 </Col>
               );
@@ -868,6 +1250,7 @@ export const DynamicForm = observer(() => {
         </div>
       );
     });
+  };
 
   const clampedStep = Math.min(currentStep, Math.max(0, stepKeys.length - 1));
   const activeStepKey = stepKeys[clampedStep];
@@ -948,7 +1331,15 @@ export const DynamicForm = observer(() => {
       />
 
       <div className="dform-shell">
-        <aside className="dform-side">
+        <aside className={`dform-side${sidebarCollapsed ? " dform-side--collapsed" : ""}`}>
+          <button
+            type="button"
+            className="dform-side-toggle"
+            onClick={() => setSidebarCollapsed((c) => !c)}
+            title={sidebarCollapsed ? "Expand navigation" : "Collapse navigation"}
+          >
+            {sidebarCollapsed ? "▶" : "◀"}
+          </button>
           <div className="dform-stepper">
             {stepKeys.map((k, i) => {
               const si = Number(k);
@@ -961,8 +1352,9 @@ export const DynamicForm = observer(() => {
                   className={`dform-step${active ? " is-active" : ""}${
                     done ? " is-done" : ""
                   }`}
-                  onClick={() => setCurrentStep(i)}
+                  onClick={() => { setCurrentStep(i); setSidebarCollapsed(false); }}
                   style={active ? { borderColor: def.accent } : undefined}
+                  title={def.layout[si].title}
                 >
                   <span
                     className="dform-step-idx"
@@ -993,6 +1385,21 @@ export const DynamicForm = observer(() => {
             </div>
           )}
 
+          {!def.isMccod && def.caseNumberField && (
+            <MccodLinkageBanner
+              caseNumber={form.getFieldValue(def.caseNumberField) || dynamicFormStore.defaultValues?.[def.caseNumberField]}
+              caseNumberFieldUid={def.caseNumberField}
+              onOpenMccod={() => store.openModule("mccod")}
+              saveTrigger={saveTrigger}
+            />
+          )}
+
+          {def.isMccod && def.caseNumberField && (
+            <MccodToMaternalLinkageBanner
+              caseNumber={form.getFieldValue(def.caseNumberField) || dynamicFormStore.defaultValues?.[def.caseNumberField]}
+            />
+          )}
+
           <Spin spinning={dynamicFormStore.loadingMeta || ninLoading}>
             <Form
               form={form}
@@ -1005,6 +1412,71 @@ export const DynamicForm = observer(() => {
                   <div className="dform-active-head">
                     <span className="dform-active-title">
                       {def.layout[activeSi].title}
+                      {def.layout[activeSi].title.toUpperCase().includes("CERTIFIED CAUSE OF DEATH") && !def.isMccod && (
+                        <>
+                          <Popover
+                            title="Background Data Sync Mapping"
+                            trigger="hover"
+                            content={
+                              <div style={{ maxWidth: 900, maxHeight: 400, overflowY: "auto" }}>
+                                <p style={{ fontSize: "0.85em", color: "#666", marginBottom: 8 }}>
+                                  These fields from earlier sections will be synced to the MCCOD event upon saving:
+                                </p>
+                                <Table
+                                  size="small"
+                                  pagination={false}
+                                  columns={[
+                                    { title: "Field name on form", dataIndex: "fieldName", key: "fieldName" },
+                                    { title: "DE_ID in Maternal", dataIndex: "matId", key: "matId" },
+                                    { title: "Value in MAternal", dataIndex: "matVal", key: "matVal" },
+                                    { title: "DE_Name in MCCOD", dataIndex: "mccodName", key: "mccodName" },
+                                    { title: "DE_ID in MCCOD", dataIndex: "mccodId", key: "mccodId" },
+                                    { title: "Value in MCCOD", dataIndex: "mccodVal", key: "mccodVal" },
+                                  ]}
+                                  dataSource={[
+                                    ...Object.entries(MATERNAL_TO_MCCOD_MAP).map(([src, dest]) => {
+                                      const val = form.getFieldValue(src);
+                                      const srcMeta = dynamicFormStore.meta[src];
+                                      const destMeta = dynamicFormStore.meta[dest];
+                                      const displayVal = val !== undefined && val !== null && val !== "" ? String(val) : <em style={{color: "#aaa"}}>(empty)</em>;
+                                      return {
+                                        key: src,
+                                        fieldName: srcMeta ? srcMeta.name : src,
+                                        matId: src,
+                                        matVal: displayVal,
+                                        mccodName: destMeta ? destMeta.name : dest,
+                                        mccodId: dest,
+                                        mccodVal: displayVal,
+                                      };
+                                    }),
+                                    ...def.layout[activeSi].groups.flatMap(g => g.fields).filter(f => f.de !== "ZkNDFfFSTYg").map(f => {
+                                      const val = form.getFieldValue(f.de);
+                                      const meta = dynamicFormStore.meta[f.de];
+                                      const displayVal = val !== undefined && val !== null && val !== "" ? String(val) : <em style={{color: "#aaa"}}>(empty)</em>;
+                                      return {
+                                        key: f.de,
+                                        fieldName: f.label,
+                                        matId: f.de,
+                                        matVal: displayVal,
+                                        mccodName: meta ? meta.name : f.de,
+                                        mccodId: f.de,
+                                        mccodVal: displayVal,
+                                      };
+                                    })
+                                  ]}
+                                />
+                              </div>
+                            }
+                          >
+                            <InfoCircleOutlined style={{ marginLeft: 12, color: "#1890ff", cursor: "pointer", fontSize: "16px" }} />
+                          </Popover>
+                          {(form.getFieldValue(def.caseNumberField) || dynamicFormStore.currentEvent) && (
+                            <span style={{ marginLeft: 16, fontSize: "0.85em", opacity: 0.8, fontWeight: "normal" }}>
+                               Case Number: {form.getFieldValue(def.caseNumberField) || dynamicFormStore.currentEvent}
+                            </span>
+                          )}
+                        </>
+                      )}
                     </span>
                     <span className="dform-section-count">
                       {activeVisibleCount} question
@@ -1019,12 +1491,15 @@ export const DynamicForm = observer(() => {
             </Form>
           </Spin>
 
-          {def.isMccod && dynamicFormStore.dorisReport && (
-            <div className="dform-doris-report">
-              <strong>WHO DORIS report</strong>
-              <pre>{dynamicFormStore.dorisReport}</pre>
-            </div>
-          )}
+          {activeSi != null &&
+            (def.layout[activeSi]?.title?.toUpperCase().includes("CAUSE OF DEATH") ||
+             def.layout[activeSi]?.title?.toUpperCase().includes("CASES OF DEATH")) &&
+            dynamicFormStore.dorisReport && (
+              <div className="dform-doris-report">
+                <strong>WHO DORIS report</strong>
+                <pre>{dynamicFormStore.dorisReport}</pre>
+              </div>
+            )}
         </div>
       </div>
 
@@ -1039,20 +1514,10 @@ export const DynamicForm = observer(() => {
         <div className="dform-actions-right">
           {isLastStep ? (
             <>
-              {def.isMccod ? (
-                <Button
-                  onClick={handleDoris}
-                  loading={dynamicFormStore.computingDoris}
-                  className="dform-certify"
-                >
-                  Compute underlying cause (WHO DORIS)
+              {!def.isMccod && savedOnce && (
+                <Button onClick={handleCertify} className="dform-certify">
+                  Certify Cause of Death (ICD-11)
                 </Button>
-              ) : (
-                savedOnce && (
-                  <Button onClick={handleCertify} className="dform-certify">
-                    Certify Cause of Death (ICD-11) →
-                  </Button>
-                )
               )}
               <Button
                 type="primary"

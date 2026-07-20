@@ -1,4 +1,4 @@
-.dform-wrap {
+﻿.dform-wrap {
   width: 100%;
   max-width: 100%;
   margin: 0;
@@ -86,6 +86,85 @@
   padding: 2px 8px;
   border-radius: 4px;
   font-weight: 700;
+}
+
+.mccod-table-container {
+  margin: 20px 0;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.mccod-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mccod-table th,
+.mccod-table td {
+  border: 1px solid #d9d9d9;
+  padding: 8px;
+  vertical-align: middle;
+}
+
+.mccod-table th {
+  background: #fafafa;
+  font-weight: 600;
+  color: #0f172a;
+  text-align: left;
+  font-size: 13px;
+}
+
+.mccod-table td {
+  font-size: 13px;
+}
+
+.mccod-table .ant-form-item {
+  margin-bottom: 0;
+}
+
+.mccod-table .dform-icd {
+  margin-bottom: 0;
+}
+
+.mccod-table-container .dform-item .ant-form-item-label {
+  display: none;
+}
+
+.mccod-table-container .dform-icd-label {
+  display: none;
+}
+
+/* MCCOD Sticky Save Bar */
+.mccod-save-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 16px;
+  margin-top: 0;
+  background: #f8fafc;
+  border: 1px solid #d9d9d9;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+}
+
+.mccod-save-bar .ant-btn-primary {
+  background: #1677ff;
+  border-color: #1677ff;
+  font-weight: 600;
+  padding: 0 28px;
+  height: 40px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(22, 119, 255, 0.3);
+  transition: all 0.2s ease;
+}
+
+.mccod-save-bar .ant-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(22, 119, 255, 0.45);
 }
 
 .dform-context {
@@ -283,6 +362,7 @@
   font-weight: 700 !important;
   color: #0f172a !important;
   height: auto;
+  min-height: 40px;
   white-space: normal;
   line-height: 1.4;
 }
@@ -361,6 +441,7 @@
   font-weight: 700;
   color: #0f172a;
   margin-bottom: 6px;
+  min-height: 40px;
   line-height: 1.4;
 }
 
@@ -693,4 +774,151 @@
 
 .dfd-edit {
   font-weight: 700 !important;
+}
+
+/* ============================================================
+   MCCOD Linkage Banner � shown inside Maternal/Perinatal forms
+   ============================================================ */
+.mccod-linkage-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  margin: 0 0 16px 0;
+  border-radius: 8px;
+  font-size: 13px;
+  border: 1.5px solid transparent;
+  animation: mccod-banner-in 0.3s ease;
+}
+
+@keyframes mccod-banner-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Loading state */
+.mccod-linkage-banner--loading {
+  background: #f0f5ff;
+  border-color: #adc6ff;
+  color: #1d39c4;
+}
+
+/* Linked / certified */
+.mccod-linkage-banner--linked {
+  background: #f6ffed;
+  border-color: #b7eb8f;
+}
+
+/* Not yet linked */
+.mccod-linkage-banner--unlinked {
+  background: #fffbe6;
+  border-color: #ffe58f;
+}
+
+.mccod-linkage-icon--ok {
+  font-size: 22px;
+  color: #52c41a;
+  flex-shrink: 0;
+}
+
+.mccod-linkage-icon--warn {
+  font-size: 22px;
+  color: #faad14;
+  flex-shrink: 0;
+}
+
+.mccod-linkage-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 2px;
+}
+
+.mccod-linkage-title {
+  font-weight: 600;
+  color: #1a1a2e;
+  font-size: 13.5px;
+}
+
+.mccod-linkage-cause {
+  color: #555;
+  font-size: 12.5px;
+}
+
+.mccod-linkage-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.mccod-linkage-banner--unlinked .mccod-linkage-btn {
+  background: #faad14;
+  border-color: #faad14;
+  color: #fff;
+  font-weight: 600;
+}
+
+.mccod-linkage-banner--unlinked .mccod-linkage-btn:hover {
+  background: #d48806;
+  border-color: #d48806;
+}
+
+/* ============================================================
+   Collapsible Sidebar
+   ============================================================ */
+.dform-side {
+  position: relative;
+  transition: flex 0.25s ease, width 0.25s ease, min-width 0.25s ease, padding 0.25s ease;
+}
+
+.dform-side--collapsed {
+  flex: 0 0 52px !important;
+  width: 52px !important;
+  min-width: 52px !important;
+  max-width: 52px !important;
+  padding: 0 !important;
+}
+
+.dform-side--collapsed .dform-stepper {
+  padding: 8px 4px;
+  gap: 8px;
+}
+
+.dform-side--collapsed .dform-step {
+  justify-content: center;
+  padding: 8px 0;
+  width: 38px;
+  margin: 0 auto;
+}
+
+.dform-side--collapsed .dform-step-name {
+  display: none;
+}
+
+.dform-side-toggle {
+  position: absolute;
+  top: 12px;
+  right: -12px;
+  z-index: 10;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid #1677ff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #1677ff;
+  padding: 0;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.dform-side-toggle:hover {
+  background: #1677ff;
+  border-color: #1677ff;
+  color: #fff;
+  transform: scale(1.1);
 }

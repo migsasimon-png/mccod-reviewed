@@ -17,6 +17,11 @@ const ICD_COD = new Set([
   "zb7uTuBCPrN", // cause of death (b)
   "QGFYJK00ES7", // cause of death (c)
   "CnPGhOcERFF", // cause of death (d)
+  "xeE5TQLvucB", // Other significant condition 1
+  "mI0UjQioE7E", // Other significant condition 2
+  "u5ebhwtAmpU", // Other significant condition 3
+  "OxJgcwH15L7", // Other significant condition 4
+  "Zrn8LD3LoKY", // Other significant condition 5
 ]);
 
 // Coded fields where several answers apply at once — rendered as a
@@ -35,12 +40,31 @@ const COL_SPAN: Record<string, number> = {
   WkXxkKEJLsg: 5, fleGy9CvHYh: 5, hO8No9fHVd2: 5, eCVDO6lt4go: 5, // interval value a–d
 };
 
+// Copy codeField, uriField and next from mccod layout to other layouts (mdr, pdr, cdr)
+const mccodFieldMap = new Map<string, { codeField?: string; uriField?: string; next?: string }>();
+for (const section of l.mccod) {
+  for (const group of section.groups) {
+    for (const f of group.fields) {
+      if (ICD_COD.has(f.de)) {
+        mccodFieldMap.set(f.de, { codeField: f.codeField, uriField: f.uriField, next: f.next });
+      }
+    }
+  }
+}
+
 for (const layout of [l.mdr, l.pdr, l.cdr]) {
   for (const section of layout) {
     for (const group of section.groups) {
       for (const f of group.fields) {
         if (ICD_COD.has(f.de)) f.icd = true;
         if (MULTI_SELECT.has(f.de)) f.multi = true;
+
+        const mccodProps = mccodFieldMap.get(f.de);
+        if (mccodProps) {
+          if (mccodProps.codeField) f.codeField = mccodProps.codeField;
+          if (mccodProps.uriField) f.uriField = mccodProps.uriField;
+          if (mccodProps.next) f.next = mccodProps.next;
+        }
       }
     }
   }
@@ -77,6 +101,7 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
       { key: "district", title: "District", de: "FHmHV9mElbD" },
       { key: "age", title: "Age", de: "iJqBq0kQtWO", align: "right" },
       { key: "date", title: "Event date", type: "date", width: 130 },
+      { key: "lastUpdated", title: "Last updated", type: "datetime", width: 160 },
       { key: "status", title: "Status", type: "status", de: LINKED_DE, width: 120 },
     ],
     layout: l.mdr,
@@ -98,6 +123,7 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
       { key: "mother", title: "Mother's initials", de: "xpJgWYFpvht" },
       { key: "district", title: "District", de: "u44XP9fZweA" },
       { key: "date", title: "Event date", type: "date", width: 130 },
+      { key: "lastUpdated", title: "Last updated", type: "datetime", width: 160 },
       { key: "status", title: "Status", type: "status", de: LINKED_DE, width: 120 },
     ],
     layout: l.pdr,
@@ -120,6 +146,7 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
       { key: "sex", title: "Sex", de: "Hq6GGFTlHHj" },
       { key: "district", title: "District", de: "xv0FATnFVms" },
       { key: "date", title: "Event date", type: "date", width: 130 },
+      { key: "lastUpdated", title: "Last updated", type: "datetime", width: 160 },
     ],
     layout: l.cdr,
   },
@@ -140,6 +167,8 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
       { key: "name", title: "Deceased", de: "ZYKmQ9GPOaF" },
       { key: "nin", title: "NIN", de: "MOstDqSY0gO" },
       { key: "date", title: "Event date", type: "date", width: 130 },
+      { key: "link", title: "Maternal Link", type: "maternalLink", width: 140 },
+      { key: "lastUpdated", title: "Last updated", type: "datetime", width: 160 },
     ],
     layout: l.mccod,
     // The MCCOD form *is* the certification, so it has no separate ICD prefix

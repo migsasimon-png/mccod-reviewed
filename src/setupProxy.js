@@ -25,7 +25,7 @@ module.exports = function (app) {
     secure: true,
     logLevel: "warn",
     onProxyReq(proxyReq) {
-      if (authHeader) {
+      if (authHeader && !proxyReq.getHeader("Authorization")) {
         proxyReq.setHeader("Authorization", authHeader);
       }
     },

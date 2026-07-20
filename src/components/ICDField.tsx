@@ -1,4 +1,4 @@
-import React, { SFC, useState, useEffect } from "react";
+import React, { SFC, useState, useEffect, useLayoutEffect } from "react";
 import * as ECT from "@whoicd/icd11ect";
 import { Button, Form, Input, Popconfirm } from "antd";
 import { CloseOutlined, ConsoleSqlOutlined } from "@ant-design/icons";
@@ -27,7 +27,8 @@ interface ICD {
   addUnderlyingCause?: any;
   id?: string;
   resetUnderlyingCauseDropdown?: any;
-  dvalue?: any
+  dvalue?: any;
+  onSelect?: (selectedEntity?: any) => void;
 }
 
 export const ICDField: SFC<ICD> = observer(
@@ -44,7 +45,8 @@ export const ICDField: SFC<ICD> = observer(
     addUnderlyingCause,
     id,
     resetUnderlyingCauseDropdown,
-    dvalue
+    dvalue,
+    onSelect
   }) => {
     // Testing
     const [buttonIsDisabled, setButtonIsDisabled] = useState(true);
@@ -67,15 +69,16 @@ export const ICDField: SFC<ICD> = observer(
     // }
 
     const mySettings = {
-      // Origin only — the ECT tool appends /icd/release/11/<release>/<mms>/...
-      // itself, so the release + linearization are passed as their own settings
-      // (from http://localhost:8382/browse/2026-01/mms/en).
-      apiServerUrl: "http://localhost:8382",
-      icdMinorVersion: "2026-01",
+      apiServerUrl: "https://ug.sk-engine.online",
+      icdMinorVersion: "2024-01",
       icdLinearization: "mms",
       language: store.ICDLang ?? "en",
       autoBind: false,
       wordsAvailable: false,
+      simplifiedMode: false,
+      enablePostcoordination: true,
+      includePostcoordination: true,
+      postcoordinationAvailable: true,
     };
 
     const myCallbacks = {
@@ -189,11 +192,19 @@ export const ICDField: SFC<ICD> = observer(
         if (resetUnderlyingCauseDropdown) {
           resetUnderlyingCauseDropdown(Math.random());
         }
+
+        if (onSelect) {
+          onSelect(selectedEntity);
+        }
       },
     };
 
-    ECT.Handler.configure(mySettings, myCallbacks);
-    ECT.Handler.bind(field);
+    useLayoutEffect(() => {
+      if (visible) {
+        ECT.Handler.configure(mySettings, myCallbacks);
+        ECT.Handler.bind(field);
+      }
+    }, [field, store.ICDLang, visible]);
 
     var altSearchText;
     const clear = () => {
@@ -255,9 +266,11 @@ export const ICDField: SFC<ICD> = observer(
         zIndex: 1000,
         backgroundColor: "#fff",
         overflowY: "scroll" as "scroll",
-        left: "-19vw",
-        right: "-50vw",
-        boxShadow: "5px 5px 3px rgba(0, 0, 0, 0.1)",
+        left: "0px",
+        width: "550px",
+        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+        border: "1px solid #d9d9d9",
+        borderRadius: "4px",
         transform:
           !buttonIsDisabled && reposition
             ? "translateY(-115%)"
@@ -429,10 +442,13 @@ export const ICDField: SFC<ICD> = observer(
             />
           </Form.Item>
         )}
-        {value ? (
+        {visible ? (
           <div
             className="ctw-window"
-            style={styles.resultStyles}
+            style={{
+              ...styles.resultStyles,
+              display: value ? "block" : "none",
+            }}
             data-ctw-ino={field}
             id={popupContainerID}
           ></div>

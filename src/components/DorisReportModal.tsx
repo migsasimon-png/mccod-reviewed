@@ -17,23 +17,21 @@ export const DorisReportModal: React.FC<DorisReportModalProps> = ({ report }) =>
       setVisible(true);
    };
 
-   const handleOk = (e) => {
-      console.log(e);
+   const handleOk = (e: any) => {
       setVisible(false);
    };
 
-   const handleCancel = (e) => {
-      console.log(e);
+   const handleCancel = (e: any) => {
       setVisible(false);
    };
 
    return (
-      <div>
-         <Button type="primary" onClick={showModal}>
+      <div style={{ display: "inline-block" }}>
+         <Button onClick={showModal} style={{ marginLeft: 8 }}>
             View Report
          </Button>
          <Modal title="Doris Report" visible={visible} onOk={handleOk} onCancel={handleCancel}>
-            <p dangerouslySetInnerHTML={{ __html: nl2br(report) }}></p>
+            <p dangerouslySetInnerHTML={{ __html: nl2br(report || "No computation report available.") }}></p>
          </Modal>
       </div>
    );

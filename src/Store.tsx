@@ -1406,7 +1406,10 @@ class Store {
 			const all = flatten(found);
 			console.log("otdddx userorgs", this.userOrgUnits);
 			console.log("otdddx flatt", all);
-			this.userOrgUnits = [...this.userOrgUnits, ...all];
+			const newNodes = all.filter(
+				(child: any) => !this.userOrgUnits.some((u: any) => u.id === child.id)
+			);
+			this.userOrgUnits = [...this.userOrgUnits, ...newNodes];
 		} catch (e) {
 			console.log(e);
 		}

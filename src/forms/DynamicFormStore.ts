@@ -4,6 +4,40 @@ import { notification } from "antd";
 import { store as mainStore } from "../Store";
 import { FormDefinition } from "./types";
 
+export const MATERNAL_TO_MCCOD_MAP: Record<string, string> = {
+  "CupbOInqvJI": "MOstDqSY0gO", // National ID
+  "FIfoObQJvNp": "ZYKmQ9GPOaF", // Full Name
+  "iJqBq0kQtWO": "q7e7FOXKnOf", // Age
+  "BRtcz4HV7Ak": "FGagV1Utrdh", // Inpatient Number
+  "hcu4LCAMSkz": "dsiwvNQLe5n", // Village
+  "FHmHV9mElbD": "u44XP9fZweA", // District
+  "ioXkKfrgCJa": "t5nTEmlScSt", // Subcounty
+  "itNUbtIXfCT": "ZKBE8Xm9DJG", // MoH Case Number
+  "ByIsCiqkq4v": "ymyLrfEcYkD", // Parity
+  "jdxl2rdeDEk": "lQ1Byr04JTx", // Weeks of Pregnancy
+  "WzauwhVOwM0": "i8rrl8YWxLF", // Date and Time of Death
+  "eJwpqR9t7YM": "RJhbkjYrODG", // Referred From
+  "uFoaTRJ16Ch": "gNM2Yhypydx", // Manner of Death - Accident
+  "K4FUK590rIU": "KsGOxFyzIs1", // Manner of Death - Assault
+  "AqXDMjrPUEE": "Z41di0TRjIu", // Place of Delivery
+  "XW2CKaAiMKc": "xAWYJtQsg8M", // Birth Weight
+  "js6jQi1rx1j": "jY3K6Bv4o9Q", // Autopsy Requested
+};
+
+export function generateDhis2Uid() {
+  const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let uid = letters.charAt(Math.floor(Math.random() * letters.length));
+  for (let i = 0; i < 10; i++) {
+    uid += allowed.charAt(Math.floor(Math.random() * allowed.length));
+  }
+  return uid;
+}
+
+export function isMoment(v: any): boolean {
+  return !!(v && (moment.isMoment(v) || typeof v.format === "function" || v._isAMomentObject));
+}
+
 export interface DeMeta {
   id: string;
   name: string;
@@ -49,9 +83,12 @@ class DynamicFormStore {
   @observable computingDoris = false;
   @observable dorisReport = "";
   @observable currentEvent: any = null;
+  @observable mccodEventUid: string | null = null;
   @observable defaultValues: Record<string, any> = {};
   @observable records: any[] = [];
   @observable loadingRecords = false;
+  @observable maternalCaseNumbers: Set<string> = new Set();
+  @observable pendingEditEvent: any = null;
   /** Data element ids that actually belong to the active program stage. */
   stageDataElements: Set<string> = new Set();
 
@@ -64,6 +101,7 @@ class DynamicFormStore {
     this.program = null;
     this.meta = {};
     this.currentEvent = null;
+    this.mccodEventUid = null;
     this.defaultValues = {};
   };
 
@@ -256,6 +294,39 @@ class DynamicFormStore {
     }
   };
 
+  @action fetchMccodEventForCase = async (caseNumberFieldUid: string, caseNumber: string) => {
+    if (!caseNumber || !caseNumberFieldUid) return null;
+    try {
+      console.log(`[MCCOD Sync] Searching for case number: ${caseNumber}`);
+      const url =
+        `/api/events.json?programStage=aKclf7Yl1PE` +
+        `&filter=${caseNumberFieldUid}:eq:${encodeURIComponent(caseNumber)}` +
+        `&fields=event,dataValues[dataElement,value]&pageSize=1`;
+      const res: any = await this.engine.link.fetch(url);
+      const ev = res?.events?.[0] ?? null;
+      if (ev) {
+        let cleanEvUid = ev.event;
+        if (cleanEvUid && typeof cleanEvUid === "string" && cleanEvUid.includes(":")) {
+          cleanEvUid = cleanEvUid.split(":")[0];
+        }
+        console.log(`[MCCOD Sync] Found existing MCCOD event: ${cleanEvUid}`, ev.dataValues);
+        runInAction(() => {
+          this.mccodEventUid = cleanEvUid;
+        });
+        const mapped: Record<string, any> = {};
+        (ev.dataValues || []).forEach((dv: any) => {
+          mapped[dv.dataElement] = dv.value;
+        });
+        return mapped;
+      }
+      console.log(`[MCCOD Sync] No existing MCCOD event found for case: ${caseNumber}`);
+      return null;
+    } catch (e) {
+      console.log("fetchMccodEventForCase error", e);
+      return null;
+    }
+  };
+
   /** Resolve (and cache) the DHIS2 program that owns this form's stage. */
   @action private ensureProgram = async (
     def: FormDefinition
@@ -312,6 +383,25 @@ class DynamicFormStore {
       runInAction(() => {
         this.records = events;
       });
+
+      if (def.isMccod) {
+        // Fetch maternal case numbers at the same org unit to identify links
+        try {
+          const matRes: any = await this.engine.link.fetch(
+            `/api/events.json?programStage=YXed7PnLRco&orgUnit=${orgUnit}&ouMode=SELECTED&fields=dataValues[dataElement,value]&pageSize=500`
+          );
+          const matCases = new Set<string>();
+          (matRes?.events || []).forEach((e: any) => {
+            const dv = (e.dataValues || []).find((d: any) => d.dataElement === "ZKBE8Xm9DJG");
+            if (dv?.value) matCases.add(dv.value.trim());
+          });
+          runInAction(() => {
+            this.maternalCaseNumbers = matCases;
+          });
+        } catch (matErr) {
+          console.error("Failed to pre-fetch maternal cases for linkage checking:", matErr);
+        }
+      }
     } catch (e) {
       console.log("loadRecords error", e);
       runInAction(() => (this.records = []));
@@ -335,11 +425,24 @@ class DynamicFormStore {
       dv[d.dataElement] = d.value;
     });
     this.defaultValues = dv;
+    this.dorisReport = dv["W0r4m6NiLsy"] || "";
+
+    const activeForm = this.activeForm;
+    if (activeForm && activeForm.linkedField) {
+      let linkedVal = dv[activeForm.linkedField] || "";
+      if (linkedVal && typeof linkedVal === "string" && linkedVal.includes(":")) {
+        linkedVal = linkedVal.split(":")[0];
+      }
+      this.mccodEventUid = (linkedVal && linkedVal !== "true" && linkedVal !== "false" && linkedVal !== "1" && linkedVal !== "0") ? linkedVal : null;
+    } else {
+      this.mccodEventUid = null;
+    }
   };
 
   @action startNew = () => {
     this.currentEvent = null;
     this.defaultValues = {};
+    this.mccodEventUid = null;
   };
 
   @action setDefaults = (values: Record<string, any>) => {
@@ -402,7 +505,7 @@ class DynamicFormStore {
           let out: any = value;
           // Multi-select → comma-joined option codes.
           if (Array.isArray(value)) out = value.join(",");
-          if (moment.isMoment(value)) {
+          if (isMoment(value)) {
             const vt = this.meta[dataElement]?.valueType;
             out =
               vt === "DATETIME"
@@ -427,12 +530,242 @@ class DynamicFormStore {
       };
       if (this.currentEvent?.event) event.event = this.currentEvent.event;
 
+      console.log("[Save Payload] POSTING Maternal Event payload:", JSON.parse(JSON.stringify(event)));
+
       await this.engine.mutate({
         type: this.currentEvent?.event ? "update" : "create",
         resource: "events",
         ...(this.currentEvent?.event ? { id: this.currentEvent.event } : {}),
         data: event,
       });
+
+      const mccodSection = def.layout.find((s: any) =>
+        s.title.toUpperCase().includes("CERTIFIED CAUSE OF DEATH") ||
+        s.title.toUpperCase().includes("CASES OF DEATH (FRAME A)") ||
+        s.title.toUpperCase().includes("CAUSE OF DEATH (FRAME A)")
+      );
+      if (mccodSection && def.caseNumberField && values[def.caseNumberField]) {
+        const mccodDataValues: any[] = [];
+        
+        let mccodElements = [
+          "ZKBE8Xm9DJG", "MOstDqSY0gO", "ZYKmQ9GPOaF", "twVlVWM3ffz", "zwKo51BEayZ", 
+          "b70okb06FWa", "t5nTEmlScSt", "RbrUuKFSqkZ", "u44XP9fZweA", "q7e7FOXKnOf", 
+          "e96GB4CXyd3", "i8rrl8YWxLF", "sfpqAeqKeyQ", "zD0E77W4rFs", "cSDJ9kSJkFP", 
+          "Ylht9kCLSRW", "uckvenVFnwf", "ZFdJRT3PaUd", "Op5pSvgHo1M", "k9xdBQzYMXo", 
+          "FhHPxY16vet", "PaoRZbokFWJ", "QTKk2Xt8KDu", "u9tYUv6AM51", "WkXxkKEJLsg", 
+          "W0r4m6NiLsy",
+          
+          // Line b
+          "zb7uTuBCPrN", "tuMMQsGtE69", "yftBZ5bSEOb", "myydnkmLfhp", "fleGy9CvHYh",
+          // Line c
+          "QGFYJK00ES7", "C8n6hBilwsX", "fJUy96o8akn", "aC64sB86ThG", "hO8No9fHVd2",
+          // Line d
+          "CnPGhOcERFF", "IeS8V8Yf40N", "S53kx50gjQn", "cmZrrHfTxW3", "eCVDO6lt4go",
+          // Other Conditions
+          "xeE5TQLvucB", "ctbKSNV2cg7", "T4uxg60LaIw",
+          "mI0UjQioE7E", "krhrEBwjENc",
+          "u5ebhwtAmpU", "ZKtS7L49Poo",
+          "OxJgcwH15L7", "fJDDc9mlubU",
+          "Zrn8LD3LoKY", "z89Wr84V2G6",
+          // Final Underlying Cause
+          "mQVAyOLbga1", "n2mScmFMovq"
+        ];
+
+        if (def.isMccod) {
+          const allMccodDes = new Set<string>();
+          def.layout.forEach((section: any) => {
+            section.groups.forEach((group: any) => {
+              group.fields.forEach((field: any) => {
+                allMccodDes.add(field.de);
+                if (field.codeField) allMccodDes.add(field.codeField);
+                if (field.uriField) allMccodDes.add(field.uriField);
+              });
+            });
+          });
+          mccodElements = Array.from(allMccodDes);
+        }
+
+        // Map Maternal fields to MCCOD UIDs
+        const MCCOD_TO_MATERNAL_MAP: Record<string, string> = {
+          "twVlVWM3ffz": "Hq6GGFTlHHj", // Sex
+          "zwKo51BEayZ": "zwKo51BEayZ", // Village
+          "RbrUuKFSqkZ": "RbrUuKFSqkZ", // DOB
+          "e96GB4CXyd3": "e96GB4CXyd3", // Place of Death
+          "b70okb06FWa": "b70okb06FWa"  // Inpatient Number
+        };
+        Object.entries(MATERNAL_TO_MCCOD_MAP).forEach(([mat, mccod]) => {
+          MCCOD_TO_MATERNAL_MAP[mccod] = mat;
+        });
+
+        mccodElements.forEach((mccodDe) => {
+          let val = values[mccodDe];
+          if (val === undefined || val === null || val === "") {
+            const maternalDe = MCCOD_TO_MATERNAL_MAP[mccodDe];
+            if (maternalDe) val = values[maternalDe];
+          }
+
+          if (val !== undefined && val !== null && val !== "") {
+            let out: any = val;
+            if (Array.isArray(val)) out = val.join(",");
+
+            let vt = "TEXT";
+            if (mccodDe === "i8rrl8YWxLF") {
+              vt = "DATETIME";
+            } else if (mccodDe === "zwKo51BEayZ") {
+              vt = "DATE";
+            } else if (this.meta[mccodDe]) {
+              vt = this.meta[mccodDe].valueType;
+            }
+
+            if (isMoment(val)) {
+              out = vt === "DATETIME"
+                ? moment(val).format("YYYY-MM-DDTHH:mm:ss.SSS")
+                : vt === "TIME"
+                ? moment(val).format("HH:mm")
+                : moment(val).format("YYYY-MM-DD");
+            } else if (typeof val === "string" && val) {
+              if (vt === "DATETIME") {
+                const parsed = moment(val);
+                if (parsed.isValid()) {
+                  out = parsed.format("YYYY-MM-DDTHH:mm:ss.SSS");
+                }
+              } else if (vt === "DATE") {
+                const parsed = moment(val);
+                if (parsed.isValid()) {
+                  out = parsed.format("YYYY-MM-DD");
+                }
+              }
+            }
+            if (typeof out === "boolean") out = out ? "true" : "false";
+
+            mccodDataValues.push({ dataElement: mccodDe, value: out });
+          }
+        });
+
+        // Add the linkage field value
+        mccodDataValues.push({
+          dataElement: "ZkNDFfFSTYg",
+          value: mainStore.isIframeEdit ? "Linked" : ""
+        });
+
+        if (mccodDataValues.length > 0) {
+          let cleanMccodEventUid = this.mccodEventUid;
+          if (cleanMccodEventUid && typeof cleanMccodEventUid === "string" && cleanMccodEventUid.includes(":")) {
+            cleanMccodEventUid = cleanMccodEventUid.split(":")[0];
+          }
+
+          if (!cleanMccodEventUid) {
+            cleanMccodEventUid = generateDhis2Uid();
+            runInAction(() => {
+              this.mccodEventUid = cleanMccodEventUid;
+            });
+          }
+
+          // Format eventDate
+          let rawDate = values["i8rrl8YWxLF"];
+          if (!rawDate && values["WzauwhVOwM0"]) {
+            rawDate = values["WzauwhVOwM0"];
+          }
+          let formattedDate = "";
+          if (moment.isMoment(rawDate)) {
+            formattedDate = moment(rawDate).format("YYYY-MM-DD");
+          } else if (rawDate && typeof rawDate === "string") {
+            formattedDate = rawDate.split("T")[0];
+          } else {
+            formattedDate = this.deriveEventDate(values);
+          }
+
+          const mccodEvent: any = {
+            attributeCategoryOptions: mainStore.selectedNationality || "l4UMmqvSBe5",
+            orgUnit,
+            program: "vf8dN49jprI",
+            programStage: "aKclf7Yl1PE",
+            eventDate: formattedDate,
+            dataValues: mccodDataValues,
+            event: cleanMccodEventUid,
+          };
+
+          console.log("[Save Payload] POSTING MCCOD Event payload:", JSON.parse(JSON.stringify(mccodEvent)));
+
+          try {
+             const headers: Record<string, string> = {
+               "Content-Type": "application/json",
+               "Authorization": "Basic aGlzcC5za3VudW5rYTpOb21pc3IxMjMkJCQk"
+             };
+
+             const url = "/api/40/events";
+
+             const response = await fetch(url, {
+               method: "POST",
+               headers,
+               credentials: "include",
+               body: JSON.stringify(mccodEvent),
+             });
+
+              if (!response.ok) {
+                let errMsg = `HTTP error! status: ${response.status}`;
+                try {
+                  const errJson = await response.json();
+                  console.error("[MCCOD Sync Error] Conflict details:", errJson);
+                  if (errJson.message) errMsg += ` - ${errJson.message}`;
+                } catch (e) {
+                  try {
+                    const errText = await response.text();
+                    console.error("[MCCOD Sync Error] Response text:", errText);
+                  } catch (e2) {}
+                }
+                throw new Error(errMsg);
+              }
+
+             const mccodResult: any = await response.json();
+
+             // Write the real MCCOD event UID back to ZkNDFfFSTYg on the
+             // maternal event so the "Certified" badge reflects reality.
+             let createdUid =
+               cleanMccodEventUid ||
+               mccodResult?.response?.importSummaries?.[0]?.reference ||
+               mccodResult?.importSummaries?.[0]?.reference ||
+               mccodResult?.reference ||
+               null;
+
+             if (createdUid && typeof createdUid === "string" && createdUid.includes(":")) {
+               createdUid = createdUid.split(":")[0];
+             }
+
+             if (createdUid && !this.mccodEventUid) {
+               runInAction(() => { this.mccodEventUid = createdUid; });
+             }
+
+             let cleanCurrentEventUid = this.currentEvent?.event;
+             if (cleanCurrentEventUid && typeof cleanCurrentEventUid === "string" && cleanCurrentEventUid.includes(":")) {
+               cleanCurrentEventUid = cleanCurrentEventUid.split(":")[0];
+             }
+
+             if (createdUid && def.linkedField && cleanCurrentEventUid) {
+               try {
+                 await this.engine.mutate({
+                   type: "update",
+                   resource: "events",
+                   id: cleanCurrentEventUid,
+                   data: {
+                     ...event,
+                     dataValues: [
+                       ...(event.dataValues || []).filter(
+                         (dv: any) => dv.dataElement !== def.linkedField
+                       ),
+                       { dataElement: def.linkedField, value: createdUid },
+                     ],
+                   },
+                 });
+               } catch (linkErr) {
+                 console.log("Failed to write linkage field", linkErr);
+               }
+             }
+          } catch (mccodErr) {
+             console.log("Failed to sync MCCOD event", mccodErr);
+          }
+        }
+      }
 
       notification.success({
         message: `${def.title} saved successfully`,
@@ -573,26 +906,32 @@ class DynamicFormStore {
       let title = "";
       if (res?.uri) {
         try {
-          const nameres: any = await fetch(
-            res.uri.replace(
-              "http://id.who.int",
-              "https://ug.sk-engine.online"
-            ),
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                "API-Version": "v2",
-                "Accept-Language": "en",
-              },
-            }
-          ).then((r) => {
-            if (!r.ok) throw new Error("ICD API failed " + r.status);
-            return r.json();
+          const uris = res.uri.split(" / ");
+          const titlePromises = uris.map(async (u: string) => {
+            const nameres: any = await fetch(
+              u.replace(
+                "http://id.who.int",
+                "https://ug.sk-engine.online"
+              ),
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  "API-Version": "v2",
+                  "Accept-Language": "en",
+                },
+              }
+            ).then((response) => {
+              if (!response.ok)
+                throw new Error("ICD API failed with status " + response.status);
+              return response.json();
+            });
+            return nameres?.title?.["@value"] || "";
           });
-          title = nameres?.title?.["@value"] ?? "";
+          const titles = await Promise.all(titlePromises);
+          title = titles.filter(Boolean).join(" & ");
         } catch (e) {
-          console.log("DORIS name lookup failed", e);
+          console.error("Failed to fetch title for URI:", res.uri);
         }
       }
 

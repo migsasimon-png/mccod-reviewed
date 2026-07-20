@@ -1635,7 +1635,11 @@
      "fields": [
       {
        "de": "sfpqAeqKeyQ",
-       "label": "Report disease or condition directly leading to death-Cause of death_a"
+       "label": "Report disease or condition directly leading to death-Cause of death_a",
+       "icd": true,
+       "codeField": "zD0E77W4rFs",
+       "uriField": "k9xdBQzYMXo",
+       "next": "Ylht9kCLSRW"
       },
       {
        "de": "Ylht9kCLSRW",
@@ -1647,7 +1651,11 @@
       },
       {
        "de": "zb7uTuBCPrN",
-       "label": "Report chain of events -due to in order-Cause of death_b"
+       "label": "Report chain of events -due to in order-Cause of death_b",
+       "icd": true,
+       "codeField": "tuMMQsGtE69",
+       "uriField": "yftBZ5bSEOb",
+       "next": "myydnkmLfhp"
       },
       {
        "de": "myydnkmLfhp",
@@ -1659,7 +1667,11 @@
       },
       {
        "de": "QGFYJK00ES7",
-       "label": "Report chain of events -due to in order-Cause of death_c"
+       "label": "Report chain of events -due to in order-Cause of death_c",
+       "icd": true,
+       "codeField": "C8n6hBilwsX",
+       "uriField": "fJUy96o8akn",
+       "next": "aC64sB86ThG"
       },
       {
        "de": "aC64sB86ThG",
@@ -1671,7 +1683,11 @@
       },
       {
        "de": "CnPGhOcERFF",
-       "label": "-MD02a3. Report chain of events due to in order-Cause of death_d"
+       "label": "-MD02a3. Report chain of events due to in order-Cause of death_d",
+       "icd": true,
+       "codeField": "IeS8V8Yf40N",
+       "uriField": "S53kx50gjQn",
+       "next": "cmZrrHfTxW3"
       },
       {
        "de": "cmZrrHfTxW3",
@@ -1684,6 +1700,47 @@
       {
        "de": "ZkNDFfFSTYg",
        "label": "Linked"
+      },
+      {
+       "de": "xeE5TQLvucB",
+       "label": "Other significant condition 1",
+       "icd": true,
+       "codeField": "ctbKSNV2cg7",
+       "uriField": "T4uxg60LaIw"
+      },
+      {
+       "de": "mI0UjQioE7E",
+       "label": "Other significant condition 2",
+       "icd": true,
+       "codeField": "krhrEBwjENc"
+      },
+      {
+       "de": "u5ebhwtAmpU",
+       "label": "Other significant condition 3",
+       "icd": true,
+       "codeField": "ZKtS7L49Poo"
+      },
+      {
+       "de": "OxJgcwH15L7",
+       "label": "Other significant condition 4",
+       "icd": true,
+       "codeField": "fJDDc9mlubU"
+      },
+      {
+       "de": "Zrn8LD3LoKY",
+       "label": "Other significant condition 5",
+       "icd": true,
+       "codeField": "z89Wr84V2G6"
+      },
+      {
+       "de": "mQVAyOLbga1",
+       "label": "Final underlying cause (text)",
+       "col": 16
+      },
+      {
+       "de": "n2mScmFMovq",
+       "label": "Final underlying cause (code)",
+       "col": 8
       }
      ]
     }
@@ -2545,7 +2602,7 @@
    ]
   },
   {
-   "title": "For women (Maternal)",
+   "title": "For maternal (Maternal)",
    "groups": [
     {
      "label": null,
@@ -2625,7 +2682,7 @@
    ]
   },
   {
-   "title": "Cause of Death (Frame A)",
+   "title": "Cases of Death (Frame A)",
    "groups": [
     {
      "label": "(a) Disease or condition directly leading to death",
@@ -2752,12 +2809,45 @@
        "label": "Doris underlying cause (code)"
       },
       {
+       "de": "xeE5TQLvucB",
+       "label": "Other significant condition 1",
+       "icd": true,
+       "codeField": "ctbKSNV2cg7",
+       "uriField": "T4uxg60LaIw"
+      },
+      {
+       "de": "mI0UjQioE7E",
+       "label": "Other significant condition 2",
+       "icd": true,
+       "codeField": "krhrEBwjENc"
+      },
+      {
+       "de": "u5ebhwtAmpU",
+       "label": "Other significant condition 3",
+       "icd": true,
+       "codeField": "ZKtS7L49Poo"
+      },
+      {
+       "de": "OxJgcwH15L7",
+       "label": "Other significant condition 4",
+       "icd": true,
+       "codeField": "fJDDc9mlubU"
+      },
+      {
+       "de": "Zrn8LD3LoKY",
+       "label": "Other significant condition 5",
+       "icd": true,
+       "codeField": "z89Wr84V2G6"
+      },
+      {
        "de": "mQVAyOLbga1",
-       "label": "Final underlying cause (text)"
+       "label": "Final underlying cause (text)",
+       "col": 16
       },
       {
        "de": "n2mScmFMovq",
-       "label": "Final underlying cause (code)"
+       "label": "Final underlying cause (code)",
+       "col": 8
       }
      ]
     }
