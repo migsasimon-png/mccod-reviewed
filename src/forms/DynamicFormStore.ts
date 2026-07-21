@@ -39,6 +39,25 @@ export const CDR_TO_MCCOD_MAP: Record<string, string> = {
   "waxR2t677eo": "Z41di0TRjIu", // Place of Delivery -> Place of Delivery
 };
 
+export const PERINATAL_TO_MCCOD_MAP: Record<string, string> = {
+  "ZKBE8Xm9DJG": "ZKBE8Xm9DJG", // Case Number -> MoH Case Number
+  "H34bcwaOliX": "FGagV1Utrdh", // IP Number (Newborn) -> Inpatient Number
+  "xpJgWYFpvht": "ZYKmQ9GPOaF", // Mother's Initials -> Full Name
+  "ZBvxrMFv9aW": "e96GB4CXyd3", // Sex of Baby -> Sex
+  "RpkIvgOOZJt": "RbrUuKFSqkZ", // Date and Time of Delivery -> Date of Birth
+  "rjoVXlCWLYM": "TgFI46omIEg", // Age in Minutes -> Age in minutes
+  "rDI0uhcVLAk": "VJXpmHCaAFG", // Age in Hours -> Age in hours
+  "quKRjZzkSRA": "v8mvHHXo06E", // Age in Days -> Age in days
+  "m8jUvzBgYga": "lQ1Byr04JTx", // Weeks of pregnancy / amenorrhea -> Completed weeks of pregnancy
+  "hTYVRRvhYEt": "DdfDMFW4EJ9", // Mother's Age (years) -> Age of mother (years)
+  "dKQIx7sVFbD": "bNpMzyShDCX", // Parish -> Residence-Parish
+  "T0f4UTwxd6Q": "dsiwvNQLe5n", // Village -> Village / Occupation
+  "t5nTEmlScSt": "u44XP9fZweA", // District -> District
+  "u44XP9fZweA": "t5nTEmlScSt", // Subcounty -> Subcounty
+  "Dq9aH0aZ2wb": "i8rrl8YWxLF", // Date and Time of Death -> Date and time of Death
+  "ZkNDFfFSTYg": "ZkNDFfFSTYg", // Linked status -> Linked
+};
+
 export function generateDhis2Uid() {
   const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -165,6 +184,8 @@ class DynamicFormStore {
             if (psde?.dataElement?.id)
               this.stageDataElements.add(psde.dataElement.id);
           });
+          if (def.caseNumberField) this.stageDataElements.add(def.caseNumberField);
+          this.stageDataElements.add("ZKBE8Xm9DJG");
         } catch (e) {
           this.program = def.program ?? null;
         }
@@ -459,10 +480,22 @@ class DynamicFormStore {
     (event?.dataValues || []).forEach((d: any) => {
       dv[d.dataElement] = d.value;
     });
+
+    const activeForm = this.activeForm;
+    if (activeForm && activeForm.caseNumberField && !dv[activeForm.caseNumberField]) {
+      // If an existing record was saved without a case number, generate one immediately
+      this.generateCaseNumber(activeForm).then((code) => {
+        if (code) {
+          runInAction(() => {
+            this.defaultValues[activeForm.caseNumberField] = code;
+          });
+        }
+      });
+    }
+
     this.defaultValues = dv;
     this.dorisReport = dv["W0r4m6NiLsy"] || "";
 
-    const activeForm = this.activeForm;
     if (activeForm && activeForm.linkedField) {
       let linkedVal = dv[activeForm.linkedField] || "";
       if (linkedVal && typeof linkedVal === "string" && linkedVal.includes(":")) {
@@ -511,6 +544,9 @@ class DynamicFormStore {
       // the next available number so two records can never share one.
       if (!this.currentEvent?.event && def.caseNumberField) {
         let caseNo = values[def.caseNumberField];
+        if (!caseNo) {
+          caseNo = await this.generateCaseNumber(def);
+        }
         for (
           let i = 0;
           caseNo && i < 8 && (await this.findByCaseNumber(def, caseNo));
@@ -518,7 +554,7 @@ class DynamicFormStore {
         ) {
           caseNo = await this.generateCaseNumber(def);
         }
-        if (caseNo && caseNo !== values[def.caseNumberField]) {
+        if (caseNo) {
           values = { ...values, [def.caseNumberField]: caseNo };
         }
       }
@@ -531,10 +567,13 @@ class DynamicFormStore {
             v !== "" &&
             !(Array.isArray(v) && v.length === 0)
         )
-        // Only send data elements that belong to this program stage.
+        // Only send data elements that belong to this program stage (always keep case number).
         .filter(
           ([de]) =>
-            this.stageDataElements.size === 0 || this.stageDataElements.has(de)
+            de === def.caseNumberField ||
+            de === "ZKBE8Xm9DJG" ||
+            this.stageDataElements.size === 0 ||
+            this.stageDataElements.has(de)
         )
         .map(([dataElement, value]) => {
           let out: any = value;
@@ -651,6 +690,9 @@ class DynamicFormStore {
           MCCOD_TO_SOURCE_MAP[mccod] = src;
         });
         Object.entries(CDR_TO_MCCOD_MAP).forEach(([src, mccod]) => {
+          MCCOD_TO_SOURCE_MAP[mccod] = src;
+        });
+        Object.entries(PERINATAL_TO_MCCOD_MAP).forEach(([src, mccod]) => {
           MCCOD_TO_SOURCE_MAP[mccod] = src;
         });
 

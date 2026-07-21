@@ -29,7 +29,7 @@ import {
   TimePicker,
 } from "antd";
 import { useStore } from "../Context";
-import { dynamicFormStore, MATERNAL_TO_MCCOD_MAP, CDR_TO_MCCOD_MAP } from "../forms/DynamicFormStore";
+import { dynamicFormStore, MATERNAL_TO_MCCOD_MAP, CDR_TO_MCCOD_MAP, PERINATAL_TO_MCCOD_MAP } from "../forms/DynamicFormStore";
 import { getFormDefinition, CASE_NUMBER_DE } from "../forms/registry";
 import { FormField, ListColumn } from "../forms/types";
 import {
@@ -691,8 +691,19 @@ export const DynamicForm = observer(() => {
   // after the Form) show their saved data, and clears stale values between
   // records.
   useEffect(() => {
-    if (mode !== "form" || dynamicFormStore.loadingMeta) return;
+    if (mode !== "form" || dynamicFormStore.loadingMeta || !def) return;
     const hydrated = hydrate(dynamicFormStore.defaultValues);
+
+    // If case number is not set in hydrated values, fallback to store defaults or current event
+    if (def.caseNumberField && !hydrated[def.caseNumberField]) {
+      const fallbackCode =
+        dynamicFormStore.defaultValues?.[def.caseNumberField] ||
+        (dynamicFormStore.currentEvent ? dynamicFormStore.recordValue(dynamicFormStore.currentEvent, def.caseNumberField) : "");
+      if (fallbackCode) {
+        hydrated[def.caseNumberField] = fallbackCode;
+      }
+    }
+
     setFormValues(hydrated);
     // Defer to the next tick so the form instance is fully connected and the
     // current step's fields are registered before we push values in.
@@ -702,7 +713,7 @@ export const DynamicForm = observer(() => {
     }, 0);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formKey, mode, dynamicFormStore.loadingMeta]);
+  }, [formKey, mode, dynamicFormStore.loadingMeta, dynamicFormStore.defaultValues]);
 
   // When the wizard step changes, re-push the known values so fields that only
   // mount on the newly-shown step still display their saved/entered data. This
@@ -1449,137 +1460,149 @@ export const DynamicForm = observer(() => {
             </div>
           )}
 
-          {!def.isMccod && def.caseNumberField && (
-            <MccodLinkageBanner
-              caseNumber={form.getFieldValue(def.caseNumberField) || dynamicFormStore.defaultValues?.[def.caseNumberField]}
-              caseNumberFieldUid={def.caseNumberField}
-              onOpenMccod={() => store.openModule("mccod")}
-              saveTrigger={saveTrigger}
-            />
-          )}
+          {(() => {
+            const resolvedCaseNumber =
+              (def?.caseNumberField ? form.getFieldValue(def.caseNumberField) : "") ||
+              (def?.caseNumberField ? formValues[def.caseNumberField] : "") ||
+              (def?.caseNumberField ? dynamicFormStore.defaultValues?.[def.caseNumberField] : "") ||
+              (def?.caseNumberField && dynamicFormStore.currentEvent ? dynamicFormStore.recordValue(dynamicFormStore.currentEvent, def.caseNumberField) : "");
 
-          {def.isMccod && def.caseNumberField && (
-            <MccodToMaternalLinkageBanner
-              caseNumber={form.getFieldValue(def.caseNumberField) || dynamicFormStore.defaultValues?.[def.caseNumberField]}
-            />
-          )}
+            return (
+              <>
+                {!def.isMccod && def.caseNumberField && (
+                  <MccodLinkageBanner
+                    caseNumber={resolvedCaseNumber}
+                    caseNumberFieldUid={def.caseNumberField}
+                    onOpenMccod={() => store.openModule("mccod")}
+                    saveTrigger={saveTrigger}
+                  />
+                )}
 
-          <Spin spinning={dynamicFormStore.loadingMeta || ninLoading}>
-            <Form
-              form={form}
-              layout="vertical"
-              onValuesChange={onValuesChange}
-              initialValues={hydrate(dynamicFormStore.defaultValues)}
-            >
-              {activeSi != null ? (
-                <div className="dform-active-section">
-                  <div className="dform-active-head">
-                    <span className="dform-active-title">
-                      {def.layout[activeSi].title}
-                      {def.layout[activeSi].title.toUpperCase().includes("CERTIFIED CAUSE OF DEATH") && !def.isMccod && (
-                        <>
-                          <Popover
-                            title="Background Data Sync Mapping"
-                            trigger="hover"
-                            content={
-                              <div style={{ maxWidth: 900, maxHeight: 400, overflowY: "auto" }}>
-                                <p style={{ fontSize: "0.85em", color: "#666", marginBottom: 8 }}>
-                                  These fields from earlier sections will be synced to the MCCOD event upon saving:
-                                </p>
-                                <Table
-                                  size="small"
-                                  pagination={false}
-                                  columns={[
-                                    { title: "Field name on form", dataIndex: "fieldName", key: "fieldName" },
-                                    { title: `DE_ID in ${def.title}`, dataIndex: "matId", key: "matId" },
-                                    { title: `Value in ${def.title}`, dataIndex: "matVal", key: "matVal" },
-                                    { title: "DE_Name in MCCOD", dataIndex: "mccodName", key: "mccodName" },
-                                    { title: "DE_ID in MCCOD", dataIndex: "mccodId", key: "mccodId" },
-                                    { title: "Value in MCCOD", dataIndex: "mccodVal", key: "mccodVal" },
-                                  ]}
-                                  dataSource={[
-                                    ...Object.entries((def.key === "cdr" || def.title?.toLowerCase().includes("child")) ? CDR_TO_MCCOD_MAP : MATERNAL_TO_MCCOD_MAP).map(([src, dest]) => {
-                                      const val = form.getFieldValue(src);
-                                      const srcMeta = dynamicFormStore.meta[src];
-                                      const destMeta = dynamicFormStore.meta[dest];
-                                      const displayVal = val !== undefined && val !== null && val !== "" ? String(val) : <em style={{color: "#aaa"}}>(empty)</em>;
+                {def.isMccod && def.caseNumberField && (
+                  <MccodToMaternalLinkageBanner
+                    caseNumber={resolvedCaseNumber}
+                  />
+                )}
 
-                                      let fieldName = srcMeta ? srcMeta.name : src;
-                                      for (const sec of def.layout) {
-                                        for (const group of sec.groups) {
-                                          const found = group.fields.find((f: any) => f.de === src);
-                                          if (found && found.label) {
-                                            fieldName = found.label;
-                                            break;
-                                          }
-                                        }
-                                      }
+                <Spin spinning={dynamicFormStore.loadingMeta || ninLoading}>
+                  <Form
+                    form={form}
+                    layout="vertical"
+                    onValuesChange={onValuesChange}
+                    initialValues={hydrate(dynamicFormStore.defaultValues)}
+                  >
+                    {activeSi != null ? (
+                      <div className="dform-active-section">
+                        <div className="dform-active-head">
+                          <span className="dform-active-title">
+                            {def.layout[activeSi].title}
+                            {def.layout[activeSi].title.toUpperCase().includes("CERTIFIED CAUSE OF DEATH") && !def.isMccod && (
+                              <>
+                                <Popover
+                                  title="Background Data Sync Mapping"
+                                  trigger="hover"
+                                  content={
+                                    <div style={{ maxWidth: 900, maxHeight: 400, overflowY: "auto" }}>
+                                      <p style={{ fontSize: "0.85em", color: "#666", marginBottom: 8 }}>
+                                        These fields from earlier sections will be synced to the MCCOD event upon saving:
+                                      </p>
+                                      <Table
+                                        size="small"
+                                        pagination={false}
+                                        columns={[
+                                          { title: "Field name on form", dataIndex: "fieldName", key: "fieldName" },
+                                          { title: `DE_ID in ${def.title}`, dataIndex: "matId", key: "matId" },
+                                          { title: `Value in ${def.title}`, dataIndex: "matVal", key: "matVal" },
+                                          { title: "DE_Name in MCCOD", dataIndex: "mccodName", key: "mccodName" },
+                                          { title: "DE_ID in MCCOD", dataIndex: "mccodId", key: "mccodId" },
+                                          { title: "Value in MCCOD", dataIndex: "mccodVal", key: "mccodVal" },
+                                        ]}
+                                        dataSource={[
+                                          ...Object.entries((def.key === "pdr" || def.title?.toLowerCase().includes("perinatal")) ? PERINATAL_TO_MCCOD_MAP : (def.key === "cdr" || def.title?.toLowerCase().includes("child")) ? CDR_TO_MCCOD_MAP : MATERNAL_TO_MCCOD_MAP).map(([src, dest]) => {
+                                            const val = form.getFieldValue(src);
+                                            const srcMeta = dynamicFormStore.meta[src];
+                                            const destMeta = dynamicFormStore.meta[dest];
+                                            const displayVal = val !== undefined && val !== null && val !== "" ? String(val) : <em style={{color: "#aaa"}}>(empty)</em>;
 
-                                      let mccodName = destMeta ? destMeta.name : dest;
-                                      const mccodDef = getFormDefinition("mccod");
-                                      if (mccodDef) {
-                                        for (const sec of mccodDef.layout) {
-                                          for (const group of sec.groups) {
-                                            const found = group.fields.find((f: any) => f.de === dest);
-                                            if (found && found.label) {
-                                              mccodName = found.label;
-                                              break;
+                                            let fieldName = srcMeta ? srcMeta.name : src;
+                                            for (const sec of def.layout) {
+                                              for (const group of sec.groups) {
+                                                const found = group.fields.find((f: any) => f.de === src);
+                                                if (found && found.label) {
+                                                  fieldName = found.label;
+                                                  break;
+                                                }
+                                              }
                                             }
-                                          }
-                                        }
-                                      }
 
-                                      return {
-                                        key: src,
-                                        fieldName,
-                                        matId: src,
-                                        matVal: displayVal,
-                                        mccodName,
-                                        mccodId: dest,
-                                        mccodVal: displayVal,
-                                      };
-                                    }),
-                                    ...def.layout[activeSi].groups.flatMap(g => g.fields).filter(f => f.de !== "ZkNDFfFSTYg").map(f => {
-                                      const val = form.getFieldValue(f.de);
-                                      const meta = dynamicFormStore.meta[f.de];
-                                      const displayVal = val !== undefined && val !== null && val !== "" ? String(val) : <em style={{color: "#aaa"}}>(empty)</em>;
-                                      return {
-                                        key: f.de,
-                                        fieldName: f.label,
-                                        matId: f.de,
-                                        matVal: displayVal,
-                                        mccodName: meta ? meta.name : f.de,
-                                        mccodId: f.de,
-                                        mccodVal: displayVal,
-                                      };
-                                    })
-                                  ]}
-                                />
-                              </div>
-                            }
-                          >
-                            <InfoCircleOutlined style={{ marginLeft: 12, color: "#1890ff", cursor: "pointer", fontSize: "16px" }} />
-                          </Popover>
-                          {(form.getFieldValue(def.caseNumberField) || dynamicFormStore.currentEvent) && (
-                            <span style={{ marginLeft: 16, fontSize: "0.85em", opacity: 0.8, fontWeight: "normal" }}>
-                               Case Number: {form.getFieldValue(def.caseNumberField) || dynamicFormStore.currentEvent}
-                            </span>
-                          )}
-                        </>
-                      )}
-                    </span>
-                    <span className="dform-section-count">
-                      {activeVisibleCount} question
-                      {activeVisibleCount === 1 ? "" : "s"}
-                    </span>
-                  </div>
-                  {renderSection(activeSi)}
-                </div>
-              ) : (
-                <Empty description="No applicable questions for this record yet." />
-              )}
-            </Form>
-          </Spin>
+                                            let mccodName = destMeta ? destMeta.name : dest;
+                                            const mccodDef = getFormDefinition("mccod");
+                                            if (mccodDef) {
+                                              for (const sec of mccodDef.layout) {
+                                                for (const group of sec.groups) {
+                                                  const found = group.fields.find((f: any) => f.de === dest);
+                                                  if (found && found.label) {
+                                                    mccodName = found.label;
+                                                    break;
+                                                  }
+                                                }
+                                              }
+                                            }
+
+                                            return {
+                                              key: src,
+                                              fieldName,
+                                              matId: src,
+                                              matVal: displayVal,
+                                              mccodName,
+                                              mccodId: dest,
+                                              mccodVal: displayVal,
+                                            };
+                                          }),
+                                          ...def.layout[activeSi].groups.flatMap(g => g.fields).filter(f => f.de !== "ZkNDFfFSTYg").map(f => {
+                                            const val = form.getFieldValue(f.de);
+                                            const meta = dynamicFormStore.meta[f.de];
+                                            const displayVal = val !== undefined && val !== null && val !== "" ? String(val) : <em style={{color: "#aaa"}}>(empty)</em>;
+                                            return {
+                                              key: f.de,
+                                              fieldName: f.label,
+                                              matId: f.de,
+                                              matVal: displayVal,
+                                              mccodName: meta ? meta.name : f.de,
+                                              mccodId: f.de,
+                                              mccodVal: displayVal,
+                                            };
+                                          })
+                                        ]}
+                                      />
+                                    </div>
+                                  }
+                                >
+                                  <InfoCircleOutlined style={{ marginLeft: 12, color: "#1890ff", cursor: "pointer", fontSize: "16px" }} />
+                                </Popover>
+                              </>
+                            )}
+                            {resolvedCaseNumber && (
+                              <span style={{ marginLeft: 16, fontSize: "0.85em", opacity: 0.8, fontWeight: "normal" }}>
+                                 Case Number: {resolvedCaseNumber}
+                              </span>
+                            )}
+                          </span>
+                          <span className="dform-section-count">
+                            {activeVisibleCount} question
+                            {activeVisibleCount === 1 ? "" : "s"}
+                          </span>
+                        </div>
+                        {renderSection(activeSi)}
+                      </div>
+                    ) : (
+                      <Empty description="No applicable questions for this record yet." />
+                    )}
+                  </Form>
+                </Spin>
+              </>
+            );
+          })()}
 
           {activeSi != null &&
             (def.layout[activeSi]?.title?.toUpperCase().includes("CAUSE OF DEATH") ||
