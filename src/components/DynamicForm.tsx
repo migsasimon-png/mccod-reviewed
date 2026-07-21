@@ -29,7 +29,7 @@ import {
   TimePicker,
 } from "antd";
 import { useStore } from "../Context";
-import { dynamicFormStore, MATERNAL_TO_MCCOD_MAP } from "../forms/DynamicFormStore";
+import { dynamicFormStore, MATERNAL_TO_MCCOD_MAP, CDR_TO_MCCOD_MAP } from "../forms/DynamicFormStore";
 import { getFormDefinition, CASE_NUMBER_DE } from "../forms/registry";
 import { FormField, ListColumn } from "../forms/types";
 import {
@@ -341,11 +341,29 @@ const RecordList = observer(({ def, onNew, onView, onEdit }: RecordListProps) =>
         return raw ? moment(raw).format("DD MMM YYYY HH:mm") : "—";
       }
       if (col.type === "maternalLink") {
-        const caseNum = col.de ? dynamicFormStore.recordValue(r, col.de) : "";
-        const isLinked = caseNum ? dynamicFormStore.maternalCaseNumbers.has(caseNum.trim()) : false;
+        const caseNumRaw = dynamicFormStore.recordValue(r, CASE_NUMBER_DE) || (col.de ? dynamicFormStore.recordValue(r, col.de) : "");
+        const caseNum = (caseNumRaw || "").trim().toUpperCase();
+
+        let label = "Direct Entry";
+        let color = "default";
+
+        if (caseNum.startsWith("CDR") || caseNum.startsWith("CDS") || caseNum.includes("CHILD") || dynamicFormStore.childCaseNumbers.has(caseNumRaw.trim())) {
+          label = "Child Death Review";
+          color = "gold";
+        } else if (caseNum.startsWith("PERI") || caseNum.startsWith("017") || caseNum.startsWith("PDR") || dynamicFormStore.perinatalCaseNumbers.has(caseNumRaw.trim())) {
+          label = "Perinatal";
+          color = "green";
+        } else if (caseNum.startsWith("MD") || caseNum.startsWith("020") || caseNum.includes("MATERNAL") || dynamicFormStore.maternalCaseNumbers.has(caseNumRaw.trim())) {
+          label = "Maternal Death Review";
+          color = "purple";
+        } else if (caseNum.startsWith("EMR")) {
+          label = "IYAFYA";
+          color = "blue";
+        }
+
         return (
-          <Tag color={isLinked ? "purple" : "default"}>
-            {isLinked ? "Maternal Linked" : "Direct MCCOD"}
+          <Tag color={color} style={{ fontWeight: 600 }}>
+            {label}
           </Tag>
         );
       }
@@ -586,32 +604,40 @@ export const DynamicForm = observer(() => {
   const finalCauseOptions = useMemo(() => {
     const opts: Record<string, string> = {};
 
+    // Already-selected final underlying cause (persisted value)
     const manualText = formValues["mQVAyOLbga1"];
     const manualCode = formValues["n2mScmFMovq"];
     if (manualCode) opts[manualCode] = manualText || manualCode;
+    else if (manualText) opts[`_manual_${manualText}`] = manualText;
 
-    const causeA_code = formValues["zD0E77W4rFs"];
+    // Row a — cause text: sfpqAeqKeyQ, code: Ylht9kCLSRW
     const causeA_text = formValues["sfpqAeqKeyQ"];
-    if (causeA_code) opts[causeA_code] = causeA_text || causeA_code;
+    const causeA_code = formValues["Ylht9kCLSRW"];
+    if (causeA_text) opts[causeA_code || `_a_${causeA_text}`] = causeA_text;
 
-    const causeB_code = formValues["tuMMQsGtE69"];
+    // Row b — cause text: zb7uTuBCPrN, code: myydnkmLfhp
     const causeB_text = formValues["zb7uTuBCPrN"];
-    if (causeB_code) opts[causeB_code] = causeB_text || causeB_code;
+    const causeB_code = formValues["myydnkmLfhp"];
+    if (causeB_text) opts[causeB_code || `_b_${causeB_text}`] = causeB_text;
 
-    const causeC_code = formValues["C8n6hBilwsX"];
+    // Row c — cause text: QGFYJK00ES7, code: aC64sB86ThG
     const causeC_text = formValues["QGFYJK00ES7"];
-    if (causeC_code) opts[causeC_code] = causeC_text || causeC_code;
+    const causeC_code = formValues["aC64sB86ThG"];
+    if (causeC_text) opts[causeC_code || `_c_${causeC_text}`] = causeC_text;
 
-    const causeD_code = formValues["IeS8V8Yf40N"];
+    // Row d — cause text: CnPGhOcERFF, code: cmZrrHfTxW3
     const causeD_text = formValues["CnPGhOcERFF"];
-    if (causeD_code) opts[causeD_code] = causeD_text || causeD_code;
+    const causeD_code = formValues["cmZrrHfTxW3"];
+    if (causeD_text) opts[causeD_code || `_d_${causeD_text}`] = causeD_text;
 
-    if (dorisValue?.code) {
-      opts[dorisValue.code] = dorisValue.text;
-    }
+    // NOTE: dorisValue is intentionally NOT added here as a separate option.
+    // DORIS may return a combined postcoordinated code (e.g. "JB63.Z/1C12.Y")
+    // that doesn't correspond to any single cause the doctor entered.
+    // Instead, MccodTableSection highlights the matching existing entry.
 
     return opts;
   }, [formValues, dorisValue]);
+
 
   // Live-measure the sticky hero so the sticky sidebar sits exactly below it
   // at every viewport width (the hero grows taller when its row wraps).
@@ -1220,20 +1246,58 @@ export const DynamicForm = observer(() => {
                           <DorisReportModal report={dorisReport} />
                         </div>
                       ) : field.de === "mQVAyOLbga1" ? (
-                      <Select 
-                        disabled={locked} 
-                        onChange={(val: any) => {
-                           // val is the text. Find the corresponding code.
-                           const code = Object.keys(finalCauseOptions).find(k => (finalCauseOptions as any)[k] === val);
-                           form.setFieldsValue({ mQVAyOLbga1: val, n2mScmFMovq: code });
-                        }}
-                      >
-                        {Object.entries(finalCauseOptions).map(([code, text]) => (
-                          <Select.Option key={code} value={text as string}>
-                            {text as string} ({code})
-                          </Select.Option>
-                        ))}
-                      </Select>
+                      <div>
+                        <Select
+                          disabled={locked}
+                          style={{ width: "100%" }}
+                          optionLabelProp="label"
+                          placeholder="Select or compute underlying cause"
+                          onChange={(val: any) => {
+                            const code = Object.keys(finalCauseOptions).find(k => (finalCauseOptions as any)[k] === val);
+                            form.setFieldsValue({ mQVAyOLbga1: val, n2mScmFMovq: code });
+                          }}
+                        >
+                          {Object.entries(finalCauseOptions).map(([code, text]) => {
+                            const cleanCode = code.startsWith("_") ? "" : code;
+                            const dorisCodes = dorisValue?.code
+                              ? dorisValue.code.split("/").map((c: string) => c.trim())
+                              : [];
+                            const isRecommended = cleanCode ? dorisCodes.includes(cleanCode) : false;
+                            const labelText = cleanCode ? `${text} (${cleanCode})` : text as string;
+                            const fullDescription = `${text}${cleanCode ? ` — Code: ${cleanCode}` : ""}`;
+                            return (
+                              <Select.Option
+                                key={code}
+                                value={text as string}
+                                label={labelText}
+                                title={fullDescription}
+                              >
+                                <div
+                                  title={fullDescription}
+                                  style={{ display: "flex", alignItems: "center", gap: 6, padding: "2px 0", whiteSpace: "normal", lineHeight: "1.4" }}
+                                >
+                                  {isRecommended && (
+                                    <span style={{ background: "#1677ff", color: "#fff", borderRadius: 3, padding: "1px 5px", fontSize: 11, fontWeight: 700, flexShrink: 0 }}>
+                                      ★ DORIS
+                                    </span>
+                                  )}
+                                  <span>
+                                    {text as string}
+                                    {cleanCode && (
+                                      <span style={{ color: "#888", marginLeft: 4, fontSize: 12 }}>({cleanCode})</span>
+                                    )}
+                                  </span>
+                                </div>
+                              </Select.Option>
+                            );
+                          })}
+                        </Select>
+                        {dorisValue?.code && (
+                          <div style={{ marginTop: 6, fontSize: "12px", background: "#e6f7ff", border: "1px solid #91d5ff", padding: "5px 10px", borderRadius: "4px", color: "#0050b3" }}>
+                            💡 WHO DORIS recommends selecting the <strong>★ DORIS</strong> marked option above as the underlying cause.
+                          </div>
+                        )}
+                      </div>
                     ) : (
                       <FieldWidget
                         field={field}
@@ -1434,7 +1498,7 @@ export const DynamicForm = observer(() => {
                                     { title: "Value in MCCOD", dataIndex: "mccodVal", key: "mccodVal" },
                                   ]}
                                   dataSource={[
-                                    ...Object.entries(MATERNAL_TO_MCCOD_MAP).map(([src, dest]) => {
+                                    ...Object.entries((def.key === "cdr" || def.title?.toLowerCase().includes("child")) ? CDR_TO_MCCOD_MAP : MATERNAL_TO_MCCOD_MAP).map(([src, dest]) => {
                                       const val = form.getFieldValue(src);
                                       const srcMeta = dynamicFormStore.meta[src];
                                       const destMeta = dynamicFormStore.meta[dest];

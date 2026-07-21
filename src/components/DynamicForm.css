@@ -1,4 +1,4 @@
-﻿.dform-wrap {
+.dform-wrap {
   width: 100%;
   max-width: 100%;
   margin: 0;
@@ -93,11 +93,13 @@
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   background: #fff;
+  overflow: visible;
 }
 
 .mccod-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .mccod-table th,
@@ -117,6 +119,9 @@
 
 .mccod-table td {
   font-size: 13px;
+  word-wrap: break-word;
+  overflow: visible;
+  position: relative;
 }
 
 .mccod-table .ant-form-item {

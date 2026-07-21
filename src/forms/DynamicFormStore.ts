@@ -20,8 +20,23 @@ export const MATERNAL_TO_MCCOD_MAP: Record<string, string> = {
   "uFoaTRJ16Ch": "gNM2Yhypydx", // Manner of Death - Accident
   "K4FUK590rIU": "KsGOxFyzIs1", // Manner of Death - Assault
   "AqXDMjrPUEE": "Z41di0TRjIu", // Place of Delivery
-  "XW2CKaAiMKc": "xAWYJtQsg8M", // Birth Weight
   "js6jQi1rx1j": "jY3K6Bv4o9Q", // Autopsy Requested
+};
+
+export const CDR_TO_MCCOD_MAP: Record<string, string> = {
+  "ZKBE8Xm9DJG": "ZKBE8Xm9DJG", // MoH Case Number
+  "GTI7EqoQokL": "ZYKmQ9GPOaF", // Child's Name / Initials -> Deceased Name
+  "Hq6GGFTlHHj": "e96GB4CXyd3", // Sex
+  "CdceEuqRSwT": "q7e7FOXKnOf", // Age (days) -> Age
+  "FA5JmqKlrUT": "zwKo51BEayZ", // Residence Village -> Village
+  "Q6LIN4M0CU2": "u44XP9fZweA", // Residence Subcounty -> Subcounty
+  "xv0FATnFVms": "t5nTEmlScSt", // Residence District -> District
+  "mfR5fhnOQTA": "i8rrl8YWxLF", // Date of Death -> Date and Time of Death
+  "VdxRWEF4UPB": "xNCSFrgdUgi", // Place of Death -> Place of Death
+  "yNsiNIq5D59": "QDHeWslaEoH", // Was Child Referred -> Referred
+  "xOyckoyi422": "WqYvFt79TQB", // Referred From Facility -> Referred From
+  "ugiAlde4VrW": "xAWYJtQsg8M", // Birth Weight -> Birth Weight (grams)
+  "waxR2t677eo": "Z41di0TRjIu", // Place of Delivery -> Place of Delivery
 };
 
 export function generateDhis2Uid() {
@@ -88,6 +103,8 @@ class DynamicFormStore {
   @observable records: any[] = [];
   @observable loadingRecords = false;
   @observable maternalCaseNumbers: Set<string> = new Set();
+  @observable perinatalCaseNumbers: Set<string> = new Set();
+  @observable childCaseNumbers: Set<string> = new Set();
   @observable pendingEditEvent: any = null;
   /** Data element ids that actually belong to the active program stage. */
   stageDataElements: Set<string> = new Set();
@@ -385,21 +402,39 @@ class DynamicFormStore {
       });
 
       if (def.isMccod) {
-        // Fetch maternal case numbers at the same org unit to identify links
+        // Fetch maternal, perinatal, and child case numbers at the same org unit to identify link types
         try {
-          const matRes: any = await this.engine.link.fetch(
-            `/api/events.json?programStage=YXed7PnLRco&orgUnit=${orgUnit}&ouMode=SELECTED&fields=dataValues[dataElement,value]&pageSize=500`
-          );
+          const [matRes, periRes, childRes]: any[] = await Promise.all([
+            this.engine.link.fetch(`/api/events.json?programStage=YXed7PnLRco&orgUnit=${orgUnit}&ouMode=SELECTED&fields=dataValues[dataElement,value]&pageSize=500`).catch(() => ({})),
+            this.engine.link.fetch(`/api/events.json?programStage=CGz50G2MY16&orgUnit=${orgUnit}&ouMode=SELECTED&fields=dataValues[dataElement,value]&pageSize=500`).catch(() => ({})),
+            this.engine.link.fetch(`/api/events.json?programStage=lLO6f44xh4H&orgUnit=${orgUnit}&ouMode=SELECTED&fields=dataValues[dataElement,value]&pageSize=500`).catch(() => ({}))
+          ]);
+
           const matCases = new Set<string>();
           (matRes?.events || []).forEach((e: any) => {
             const dv = (e.dataValues || []).find((d: any) => d.dataElement === "ZKBE8Xm9DJG");
             if (dv?.value) matCases.add(dv.value.trim());
           });
+
+          const periCases = new Set<string>();
+          (periRes?.events || []).forEach((e: any) => {
+            const dv = (e.dataValues || []).find((d: any) => d.dataElement === "ZKBE8Xm9DJG");
+            if (dv?.value) periCases.add(dv.value.trim());
+          });
+
+          const childCases = new Set<string>();
+          (childRes?.events || []).forEach((e: any) => {
+            const dv = (e.dataValues || []).find((d: any) => d.dataElement === "ZKBE8Xm9DJG");
+            if (dv?.value) childCases.add(dv.value.trim());
+          });
+
           runInAction(() => {
             this.maternalCaseNumbers = matCases;
+            this.perinatalCaseNumbers = periCases;
+            this.childCaseNumbers = childCases;
           });
-        } catch (matErr) {
-          console.error("Failed to pre-fetch maternal cases for linkage checking:", matErr);
+        } catch (linkErr) {
+          console.error("Failed to pre-fetch cases for linkage checking:", linkErr);
         }
       }
     } catch (e) {
@@ -524,20 +559,39 @@ class DynamicFormStore {
         orgUnit,
         eventDate: this.deriveEventDate(values),
         status: "COMPLETED",
-        attributeCategoryOptions:
-          mainStore.selectedNationality || "l4UMmqvSBe5",
         dataValues,
       };
       if (this.currentEvent?.event) event.event = this.currentEvent.event;
 
-      console.log("[Save Payload] POSTING Maternal Event payload:", JSON.parse(JSON.stringify(event)));
+      // Only attach nationality attributeCategoryOptions if program uses it (Maternal / MCCOD)
+      if (def.isMccod || this.program === "vf8dN49jprI" || def.id === "mdr") {
+        event.attributeCategoryOptions = mainStore.selectedNationality || "l4UMmqvSBe5";
+      }
 
-      await this.engine.mutate({
-        type: this.currentEvent?.event ? "update" : "create",
-        resource: "events",
-        ...(this.currentEvent?.event ? { id: this.currentEvent.event } : {}),
-        data: event,
-      });
+      console.log("[Save Payload] POSTING Event payload:", JSON.parse(JSON.stringify(event)));
+
+      try {
+        await this.engine.mutate({
+          type: this.currentEvent?.event ? "update" : "create",
+          resource: "events",
+          ...(this.currentEvent?.event ? { id: this.currentEvent.event } : {}),
+          data: event,
+        });
+      } catch (mutateErr: any) {
+        const errString = String(mutateErr?.message || mutateErr || "");
+        if (event.attributeCategoryOptions && (errString.includes("Attribute option combo") || errString.includes("category combo") || errString.includes("409"))) {
+          console.warn("[Save Warning] Retrying event save without attributeCategoryOptions due to DHIS2 category combo mismatch:", errString);
+          delete event.attributeCategoryOptions;
+          await this.engine.mutate({
+            type: this.currentEvent?.event ? "update" : "create",
+            resource: "events",
+            ...(this.currentEvent?.event ? { id: this.currentEvent.event } : {}),
+            data: event,
+          });
+        } else {
+          throw mutateErr;
+        }
+      }
 
       const mccodSection = def.layout.find((s: any) =>
         s.title.toUpperCase().includes("CERTIFIED CAUSE OF DEATH") ||
@@ -585,23 +639,26 @@ class DynamicFormStore {
           mccodElements = Array.from(allMccodDes);
         }
 
-        // Map Maternal fields to MCCOD UIDs
-        const MCCOD_TO_MATERNAL_MAP: Record<string, string> = {
-          "twVlVWM3ffz": "Hq6GGFTlHHj", // Sex
+        // Map Maternal & CDR fields to MCCOD UIDs
+        const MCCOD_TO_SOURCE_MAP: Record<string, string> = {
+          "twVlVWM3ffz": "Hq6GGFTlHHj", // Sex (CDR)
           "zwKo51BEayZ": "zwKo51BEayZ", // Village
           "RbrUuKFSqkZ": "RbrUuKFSqkZ", // DOB
           "e96GB4CXyd3": "e96GB4CXyd3", // Place of Death
           "b70okb06FWa": "b70okb06FWa"  // Inpatient Number
         };
-        Object.entries(MATERNAL_TO_MCCOD_MAP).forEach(([mat, mccod]) => {
-          MCCOD_TO_MATERNAL_MAP[mccod] = mat;
+        Object.entries(MATERNAL_TO_MCCOD_MAP).forEach(([src, mccod]) => {
+          MCCOD_TO_SOURCE_MAP[mccod] = src;
+        });
+        Object.entries(CDR_TO_MCCOD_MAP).forEach(([src, mccod]) => {
+          MCCOD_TO_SOURCE_MAP[mccod] = src;
         });
 
         mccodElements.forEach((mccodDe) => {
           let val = values[mccodDe];
           if (val === undefined || val === null || val === "") {
-            const maternalDe = MCCOD_TO_MATERNAL_MAP[mccodDe];
-            if (maternalDe) val = values[maternalDe];
+            const sourceDe = MCCOD_TO_SOURCE_MAP[mccodDe];
+            if (sourceDe) val = values[sourceDe];
           }
 
           if (val !== undefined && val !== null && val !== "") {
@@ -695,12 +752,23 @@ class DynamicFormStore {
 
              const url = "/api/40/events";
 
-             const response = await fetch(url, {
+             let response = await fetch(url, {
                method: "POST",
                headers,
                credentials: "include",
                body: JSON.stringify(mccodEvent),
              });
+
+             if (!response.ok && mccodEvent.attributeCategoryOptions) {
+               console.warn("[MCCOD Sync Warning] 409 Conflict when saving background MCCOD event with attributeCategoryOptions. Retrying without it...");
+               delete mccodEvent.attributeCategoryOptions;
+               response = await fetch(url, {
+                 method: "POST",
+                 headers,
+                 credentials: "include",
+                 body: JSON.stringify(mccodEvent),
+               });
+             }
 
               if (!response.ok) {
                 let errMsg = `HTTP error! status: ${response.status}`;

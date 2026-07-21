@@ -157,6 +157,7 @@ export const MccodTableSection: React.FC<MccodTableSectionProps> = ({
                   disabled={locked}
                   style={{ width: "100%" }}
                   placeholder="Select or compute underlying cause"
+                  optionLabelProp="label"
                   onChange={(val: any) => {
                     const code = finalCauseOptions
                       ? Object.keys(finalCauseOptions).find(
@@ -173,10 +174,62 @@ export const MccodTableSection: React.FC<MccodTableSectionProps> = ({
                 >
                   {finalCauseOptions &&
                     Object.entries(finalCauseOptions).map(([code, text]) => {
-                      const isRecommended = dorisValue?.code === code;
+                      const cleanCode = code.startsWith("_") ? "" : code;
+
+                      // DORIS may return a combined code like "JB63.Z/1C12.Y"
+                      // We split it and check if this entry's code is one of those parts
+                      const dorisCodes = dorisValue?.code
+                        ? dorisValue.code.split("/").map((c: string) => c.trim())
+                        : [];
+                      const isRecommended = cleanCode
+                        ? dorisCodes.includes(cleanCode)
+                        : false;
+
+                      const labelText = cleanCode ? `${text} (${cleanCode})` : text;
+                      const fullDescription = `${text}${cleanCode ? ` — Code: ${cleanCode}` : ""}`;
+
                       return (
-                        <Select.Option key={code} value={text as string}>
-                          {text as string} ({code}) {isRecommended ? " ★ RECOMMENDED BY WHO DORIS" : ""}
+                        <Select.Option
+                          key={code}
+                          value={text as string}
+                          label={labelText}
+                          title={fullDescription}
+                        >
+                          <div
+                            title={fullDescription}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 6,
+                              padding: "2px 0",
+                              whiteSpace: "normal",
+                              lineHeight: "1.4",
+                            }}
+                          >
+                            {isRecommended && (
+                              <span
+                                style={{
+                                  background: "#1677ff",
+                                  color: "#fff",
+                                  borderRadius: 3,
+                                  padding: "1px 5px",
+                                  fontSize: 11,
+                                  fontWeight: 700,
+                                  flexShrink: 0,
+                                }}
+                              >
+                                ★ DORIS
+                              </span>
+                            )}
+                            <span>
+                              {text as string}
+                              {cleanCode && (
+                                <span style={{ color: "#888", marginLeft: 4, fontSize: 12 }}>
+                                  ({cleanCode})
+                                </span>
+                              )}
+                            </span>
+                          </div>
                         </Select.Option>
                       );
                     })}
@@ -184,19 +237,7 @@ export const MccodTableSection: React.FC<MccodTableSectionProps> = ({
               </Form.Item>
               {dorisValue?.code && (
                 <div style={{ marginTop: 8, fontSize: "12px", background: "#e6f7ff", border: "1px solid #91d5ff", padding: "6px 10px", borderRadius: "4px", color: "#0050b3", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "4px" }}>
-                  <span>💡 WHO DORIS recommends:</span>
-                  <a 
-                    style={{ fontWeight: "bold", textDecoration: "underline", color: "#096dd9" }}
-                    onClick={() => {
-                      if (onSelectUnderlyingCause) {
-                        onSelectUnderlyingCause(dorisValue.text, dorisValue.code);
-                      } else {
-                        form.setFieldsValue({ mQVAyOLbga1: dorisValue.text, n2mScmFMovq: dorisValue.code });
-                      }
-                    }}
-                  >
-                    {dorisValue.text} ({dorisValue.code})
-                  </a>
+                  <span>💡 WHO DORIS recommends selecting the <strong>★ DORIS</strong> marked option above as the underlying cause.</span>
                 </div>
               )}
             </td>

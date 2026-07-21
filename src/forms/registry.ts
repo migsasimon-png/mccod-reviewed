@@ -167,7 +167,7 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
       { key: "name", title: "Deceased", de: "ZYKmQ9GPOaF" },
       { key: "nin", title: "NIN", de: "MOstDqSY0gO" },
       { key: "date", title: "Event date", type: "date", width: 130 },
-      { key: "link", title: "Maternal Link", type: "maternalLink", width: 140 },
+      { key: "link", title: "Link Type", type: "maternalLink", width: 180 },
       { key: "lastUpdated", title: "Last updated", type: "datetime", width: 160 },
     ],
     layout: l.mccod,
