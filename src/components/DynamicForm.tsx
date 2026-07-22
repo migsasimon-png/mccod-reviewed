@@ -86,7 +86,8 @@ export const FieldWidget = observer(
 
     // Case number is an alphanumeric string (e.g. CDR/BrtC10sqp45/2026/00001).
     // Force standard text Input so antd InputNumber does not blank it out.
-    if (field.de === "ZKBE8Xm9DJG" || (def?.caseNumberField && field.de === def.caseNumberField)) {
+    const activeCaseDe = dynamicFormStore.activeForm?.caseNumberField;
+    if (field.de === "ZKBE8Xm9DJG" || (activeCaseDe && field.de === activeCaseDe)) {
       return <Input {...rest} size="middle" disabled={disabled} placeholder={hint} />;
     }
 
