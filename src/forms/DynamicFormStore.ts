@@ -995,7 +995,7 @@ class DynamicFormStore {
         return null;
       }
 
-      const burl = "https://ug.sk-engine.online";
+      const burl = "https://hmis-dev.health.go.ug";
       const url =
         burl +
         "/icd/release/11/2024-01/doris?" +
@@ -1021,7 +1021,7 @@ class DynamicFormStore {
             const nameres: any = await fetch(
               u.replace(
                 "http://id.who.int",
-                "https://ug.sk-engine.online"
+                "https://hmis-dev.health.go.ug"
               ),
               {
                 method: "GET",

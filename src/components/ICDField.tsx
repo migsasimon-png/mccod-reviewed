@@ -52,7 +52,7 @@ export const ICDField: SFC<ICD> = observer(
     const ectBound = useRef(false);
 
     const mySettings = {
-      apiServerUrl: "https://ug.sk-engine.online",
+      apiServerUrl: "https://hmis-dev.health.go.ug",
       icdMinorVersion: "2024-01",
       icdLinearization: "mms",
       language: store.ICDLang ?? "en",

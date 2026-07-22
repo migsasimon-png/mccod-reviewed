@@ -1014,7 +1014,7 @@ export const DynamicForm = observer(() => {
       return;
     }
 
-    const burl = "https://ug.sk-engine.online";
+    const burl = "https://hmis-dev.health.go.ug";
     const url = burl + "/icd/release/11/2024-01/doris?" + new URLSearchParams(payload).toString();
     
     try {
@@ -1036,7 +1036,7 @@ export const DynamicForm = observer(() => {
             const uris = res.uri.split(" / ");
             const titlePromises = uris.map(async (u: string) => {
               const nameres: any = await fetch(
-                u.replace("http://id.who.int", "https://ug.sk-engine.online"),
+                u.replace("http://id.who.int", "https://hmis-dev.health.go.ug"),
                 {
                     method: 'GET',
                     headers: {

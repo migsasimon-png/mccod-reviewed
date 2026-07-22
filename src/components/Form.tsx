@@ -1704,7 +1704,7 @@ export const DataEntryForm = observer(() => {
 
         };
         // "https://icd.who.int/doris/api/ucod/underlyingcauseofdeath/ICD11"
-        const burl = "https://ug.sk-engine.online";
+        const burl = "https://hmis-dev.health.go.ug";
         // const burl = "https://hmis-tests.health.go.ug";
         const url = burl + "/icd/release/11/2024-01/doris?" + new URLSearchParams(payload);
         
@@ -1723,7 +1723,7 @@ export const DataEntryForm = observer(() => {
             });
 
             const nameres = await fetch(
-                res.uri.replace("http://id.who.int", "https://ug.sk-engine.online"),
+                res.uri.replace("http://id.who.int", "https://hmis-dev.health.go.ug"),
                 {
                     method: 'GET',
                     headers: {
