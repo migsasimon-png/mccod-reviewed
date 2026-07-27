@@ -121,6 +121,26 @@ export const FieldWidget = observer(
     }
 
     if (options && options.length) {
+      const isCDR = dynamicFormStore.activeFormId === "cdr";
+      const isYesNoOptions =
+        options.length === 2 &&
+        options.every((o) => {
+          const lower = o.name?.toLowerCase() || "";
+          return lower === "yes" || lower === "no";
+        });
+
+      if (isCDR && isYesNoOptions && !field.multi) {
+        return (
+          <Radio.Group {...rest} disabled={disabled} style={{ width: "100%" }}>
+            {options.map((o) => (
+              <Radio key={o.code} value={o.code}>
+                {o.name}
+              </Radio>
+            ))}
+          </Radio.Group>
+        );
+      }
+
       return (
         <Select
           {...rest}
