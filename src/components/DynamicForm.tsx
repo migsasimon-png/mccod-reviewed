@@ -21,6 +21,7 @@ import {
   notification,
   Popover,
   Progress,
+  Radio,
   Row,
   Select,
   Spin,
@@ -143,6 +144,15 @@ export const FieldWidget = observer(
 
     const vt = meta?.valueType;
     if (vt === "BOOLEAN") {
+      const isCDR = dynamicFormStore.activeFormId === "cdr";
+      if (isCDR) {
+        return (
+          <Radio.Group {...rest} disabled={disabled} style={{ width: "100%" }}>
+            <Radio value="true">Yes</Radio>
+            <Radio value="false">No</Radio>
+          </Radio.Group>
+        );
+      }
       return (
         <Select {...rest} size="middle" allowClear disabled={disabled} style={{ width: "100%" }}>
           <Option value="true">Yes</Option>
