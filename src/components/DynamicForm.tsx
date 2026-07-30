@@ -121,15 +121,28 @@ export const FieldWidget = observer(
     }
 
     if (options && options.length) {
-      const isCDR = dynamicFormStore.activeFormId === "cdr";
       const isYesNoOptions =
-        options.length === 2 &&
+        options.length >= 2 &&
+        options.length <= 4 &&
         options.every((o) => {
-          const lower = o.name?.toLowerCase() || "";
-          return lower === "yes" || lower === "no";
+          const lower = o.name?.trim().toLowerCase() || "";
+          return [
+            "yes",
+            "no",
+            "y",
+            "n",
+            "true",
+            "false",
+            "unknown",
+            "don't know",
+            "not known",
+            "n/a",
+            "not applicable",
+            "none",
+          ].includes(lower);
         });
 
-      if (isCDR && isYesNoOptions && !field.multi) {
+      if (isYesNoOptions && !field.multi) {
         return (
           <Radio.Group {...rest} disabled={disabled} style={{ width: "100%" }}>
             {options.map((o) => (
@@ -164,20 +177,11 @@ export const FieldWidget = observer(
 
     const vt = meta?.valueType;
     if (vt === "BOOLEAN") {
-      const isCDR = dynamicFormStore.activeFormId === "cdr";
-      if (isCDR) {
-        return (
-          <Radio.Group {...rest} disabled={disabled} style={{ width: "100%" }}>
-            <Radio value="true">Yes</Radio>
-            <Radio value="false">No</Radio>
-          </Radio.Group>
-        );
-      }
       return (
-        <Select {...rest} size="middle" allowClear disabled={disabled} style={{ width: "100%" }}>
-          <Option value="true">Yes</Option>
-          <Option value="false">No</Option>
-        </Select>
+        <Radio.Group {...rest} disabled={disabled} style={{ width: "100%" }}>
+          <Radio value="true">Yes</Radio>
+          <Radio value="false">No</Radio>
+        </Radio.Group>
       );
     }
     if (vt === "TRUE_ONLY") {

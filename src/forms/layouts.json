@@ -29,6 +29,14 @@
        "label": "IPNo (Newborn)"
       },
       {
+       "de": "NEW_pdr_mother_nin",
+       "label": "1.1.3 Mother NIN"
+      },
+      {
+       "de": "NEW_pdr_facility_level",
+       "label": "1.4 Level of health facility"
+      },
+      {
        "de": "T0f4UTwxd6Q",
        "label": "Village"
       },
@@ -97,6 +105,10 @@
       {
        "de": "CY6W9fagQ0e",
        "label": "Type of pregnancy"
+      },
+      {
+       "de": "NEW_pdr_multiple_babies_count",
+       "label": "2.2.2.1 If multiple, state the number of babies"
       },
       {
        "de": "GOC04o3duHu",
@@ -170,6 +182,18 @@
       {
        "de": "riyahnxUdTf",
        "label": "Hepatitis B status"
+      },
+      {
+       "de": "NEW_pdr_blood_group",
+       "label": "2.5.9 Blood Group"
+      },
+      {
+       "de": "NEW_pdr_rhesus_factor",
+       "label": "2.5.9.1 Rhesus Factor"
+      },
+      {
+       "de": "NEW_pdr_blood_transfusion",
+       "label": "2.5.9.2 Blood Transfusion During Pregnancy"
       }
      ]
     },
@@ -484,6 +508,10 @@
        "label": "P22 Probable cause of death(Birth Asphyxia)"
       },
       {
+       "de": "NEW_3B8Z",
+       "label": "3B8Z Bleeding disorders (specify)"
+      },
+      {
        "de": "Y5T6DMJiZPJ",
        "label": "Q80 Probable cause of death(Unknown)"
       },
@@ -611,6 +639,34 @@
      ]
     }
    ]
+  },
+  {
+   "title": "SECTION SIX: QUALITY OF MEDICAL RECORDS",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "NEW_pdr_record_legibility",
+       "label": "6.1 Legibility of Medical Records"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "THIS FORM WAS COMPLETED BY",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "NEW_pdr_reviewer_details",
+       "label": "Form Completion Details (Name, Contact, Signatures)"
+      }
+     ]
+    }
+   ]
   }
  ],
  "mdr": [
@@ -623,6 +679,28 @@
       {
        "de": "ZKBE8Xm9DJG",
        "label": "Ministry of Health National Case Number"
+      },
+      {
+       "de": "NEW_mdr_notif_sent",
+       "label": "Was the maternal death notification form completed and sent?"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "SECTION 1: LOCALITY WHERE DEATH OCCURRED",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "NEW_mdr_facility_level",
+       "label": "1.4 Level of health facility"
+      },
+      {
+       "de": "NEW_mdr_ownership",
+       "label": "1.5 Ownership"
       }
      ]
     }
@@ -637,6 +715,10 @@
       {
        "de": "FIfoObQJvNp",
        "label": "Intials"
+      },
+      {
+       "de": "NEW_mdr_nationality",
+       "label": "2.2 Nationality"
       },
       {
        "de": "CupbOInqvJI",
@@ -680,6 +762,10 @@
     {
      "label": null,
      "fields": [
+      {
+       "de": "NEW_mdr_death_place_type",
+       "label": "3.1 Where did the death occur?"
+      },
       {
        "de": "wmNrbtFpcdy",
        "label": "At time of admission (Gravita)"
@@ -1012,7 +1098,7 @@
       {
        "de": "PbayNOhXnyx",
        "label": "Did delivery take place"
-      },
+},
       {
        "de": "LFYN9XzE4cB",
        "label": "No of days after delivery/abortion"
@@ -1020,6 +1106,10 @@
       {
        "de": "AqXDMjrPUEE",
        "label": "Place of delivery"
+      },
+      {
+       "de": "NEW_mdr_delivery_facility_name",
+       "label": "5.8 Specify Name of facility (if delivery took place at facility)"
       }
      ]
     },
@@ -1936,6 +2026,20 @@
       {
        "de": "KijgmSoHqpQ",
        "label": "Please supply a short summary of the recommendations and follow-up actions to address review findings"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "THIS FORM WAS COMPLETED BY",
+   "groups": [
+    {
+     "label": null,
+     "fields": [
+      {
+       "de": "NEW_mdr_reviewer_details",
+       "label": "Form Completion Details (Name, Contact, Signatures)"
       }
      ]
     }

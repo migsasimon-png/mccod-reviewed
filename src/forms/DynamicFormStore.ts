@@ -225,8 +225,117 @@ class DynamicFormStore {
           console.log("loadMeta chunk error", e);
         }
       }
+      const FALLBACK_META: Record<string, DeMeta> = {
+        "NEW_pdr_notif_sent": { id: "NEW_pdr_notif_sent", name: "Was the perinatal death notification form completed and sent/captured?", valueType: "BOOLEAN" },
+        "NEW_pdr_review_date": { id: "NEW_pdr_review_date", name: "Date of Review", valueType: "DATE" },
+        "NEW_pdr_mother_nin": { id: "NEW_pdr_mother_nin", name: "Mother NIN", valueType: "TEXT" },
+        "NEW_pdr_facility_level": {
+          id: "NEW_pdr_facility_level",
+          name: "Level of health facility",
+          valueType: "TEXT",
+          options: [
+            { code: "NRH", name: "National Referral Hospital" },
+            { code: "RRH", name: "Regional Referral Hospital" },
+            { code: "GH", name: "General Hospital" },
+            { code: "HC IV", name: "HC IV" },
+            { code: "HC III", name: "HC III" },
+            { code: "HC II", name: "HC II" },
+            { code: "Others", name: "Others (specify)" },
+          ],
+        },
+        "NEW_pdr_multiple_babies_count": { id: "NEW_pdr_multiple_babies_count", name: "If multiple, state number of babies", valueType: "INTEGER" },
+        "NEW_pdr_blood_group": {
+          id: "NEW_pdr_blood_group",
+          name: "Blood Group",
+          valueType: "TEXT",
+          options: [
+            { code: "A", name: "A" },
+            { code: "B", name: "B" },
+            { code: "AB", name: "AB" },
+            { code: "O", name: "O" },
+          ],
+        },
+        "NEW_pdr_rhesus_factor": {
+          id: "NEW_pdr_rhesus_factor",
+          name: "Rhesus Factor",
+          valueType: "TEXT",
+          options: [
+            { code: "Positive", name: "Positive" },
+            { code: "Negative", name: "Negative" },
+          ],
+        },
+        "NEW_pdr_blood_transfusion": { id: "NEW_pdr_blood_transfusion", name: "Blood Transfusion During Pregnancy", valueType: "BOOLEAN" },
+        "NEW_pdr_neonatal_admission_time": { id: "NEW_pdr_neonatal_admission_time", name: "If Neonatal death, Date and time of Admission", valueType: "DATETIME" },
+        "NEW_3B8Z": { id: "NEW_3B8Z", name: "3B8Z Bleeding disorders (specify)", valueType: "BOOLEAN" },
+        "NEW_pdr_record_legibility": {
+          id: "NEW_pdr_record_legibility",
+          name: "Legibility of Medical Records",
+          valueType: "TEXT",
+          options: [
+            { code: "Good", name: "Good" },
+            { code: "Poor", name: "Poor" },
+          ],
+        },
+        "NEW_pdr_reviewer_details": { id: "NEW_pdr_reviewer_details", name: "Reviewer Details (Name / Contact / Date)", valueType: "LONG_TEXT" },
+        "NEW_mdr_notif_sent": { id: "NEW_mdr_notif_sent", name: "Was the maternal death notification form completed and sent?", valueType: "BOOLEAN" },
+        "NEW_mdr_facility_level": {
+          id: "NEW_mdr_facility_level",
+          name: "Level of health facility",
+          valueType: "TEXT",
+          options: [
+            { code: "National Referral Hospital", name: "National Referral Hospital" },
+            { code: "Regional Referral Hospital", name: "Regional Referral Hospital" },
+            { code: "General Hospital", name: "General Hospital" },
+            { code: "HC IV", name: "HC IV" },
+            { code: "HC III", name: "HC III" },
+            { code: "Private Maternity", name: "Private Maternity" },
+            { code: "Other-specify", name: "Other-specify" },
+          ],
+        },
+        "NEW_mdr_ownership": {
+          id: "NEW_mdr_ownership",
+          name: "Facility Ownership",
+          valueType: "TEXT",
+          options: [
+            { code: "Government", name: "Government" },
+            { code: "Private for profit", name: "Private for profit" },
+            { code: "PNFP", name: "PNFP" },
+          ],
+        },
+        "NEW_mdr_nationality": {
+          id: "NEW_mdr_nationality",
+          name: "Nationality",
+          valueType: "TEXT",
+          options: [
+            { code: "National", name: "National" },
+            { code: "Refugee", name: "Refugee" },
+            { code: "Foreigner", name: "Foreigner" },
+          ],
+        },
+        "NEW_mdr_death_place_type": {
+          id: "NEW_mdr_death_place_type",
+          name: "Where did the death occur?",
+          valueType: "TEXT",
+          options: [
+            { code: "At the facility after Admission", name: "At the facility after Admission" },
+            { code: "Before Admission", name: "Before Admission" },
+          ],
+        },
+        "NEW_mdr_delivery_facility_name": { id: "NEW_mdr_delivery_facility_name", name: "Specify Name of facility", valueType: "TEXT" },
+        "NEW_mdr_record_legibility": {
+          id: "NEW_mdr_record_legibility",
+          name: "Legibility of Medical Records",
+          valueType: "TEXT",
+          options: [
+            { code: "Good", name: "Good" },
+            { code: "Poor", name: "Poor" },
+          ],
+        },
+        "NEW_mdr_reviewer_details": { id: "NEW_mdr_reviewer_details", name: "Reviewer Details (Name / Contact / Date)", valueType: "LONG_TEXT" },
+      };
+
       runInAction(() => {
-        this.meta = meta;
+        this.meta = { ...FALLBACK_META, ...meta };
       });
     } catch (e) {
       console.log("loadMeta error", e);
