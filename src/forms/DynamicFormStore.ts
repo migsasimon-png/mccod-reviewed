@@ -898,7 +898,7 @@ class DynamicFormStore {
           try {
              const headers: Record<string, string> = {
                "Content-Type": "application/json",
-               "Authorization": "Basic aGlzcC5za3VudW5rYTpOb21pc3IxMjMkJCQk"
+               "Authorization": process.env.REACT_APP_DHIS2_AUTHORIZATION || ""
              };
 
              const url = "/api/40/events";

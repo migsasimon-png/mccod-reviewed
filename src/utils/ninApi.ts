@@ -5,7 +5,7 @@ import { parseJsonRes } from "./parseJsonRes";
 
 export const baseURL = "https://hmis-tests.health.go.ug/db-api/api/v2";
 export const defaultToken =
-	"d2p_klok96KmVsASkyZsn7BdXKeWX15Jo9DTwn9uH5FqziS90DBaeH";
+	"d2p_C3GIIK9IHPfzo87XNofax2uVawoLYhvlMgtZhBL98AlV0y8EId";
 
 
 const options = {

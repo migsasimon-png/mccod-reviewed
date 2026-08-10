@@ -503,7 +503,7 @@ export const DataEntryForm = observer(() => {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': 'Basic ' + btoa('hisp.skununka:Nomisr123$$$$'),
+                            'Authorization': process.env.REACT_APP_DHIS2_AUTHORIZATION || '',
                         },
                         body: JSON.stringify(newValues),
                         credentials: 'include',
