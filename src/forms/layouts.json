@@ -2076,6 +2076,10 @@
        "label": "Initials of Child Who Died"
       },
       {
+       "de": "NEW_cdr_nin",
+       "label": "Child / Next of Kin NIN"
+      },
+      {
        "de": "CdceEuqRSwT",
        "label": "Age — days (only if under 1 month)"
       },

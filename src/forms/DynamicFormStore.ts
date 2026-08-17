@@ -277,6 +277,7 @@ class DynamicFormStore {
           ],
         },
         "NEW_pdr_reviewer_details": { id: "NEW_pdr_reviewer_details", name: "Reviewer Details (Name / Contact / Date)", valueType: "LONG_TEXT" },
+        "NEW_cdr_nin": { id: "NEW_cdr_nin", name: "Child / Next of Kin NIN", valueType: "TEXT" },
         "NEW_mdr_notif_sent": { id: "NEW_mdr_notif_sent", name: "Was the maternal death notification form completed and sent?", valueType: "BOOLEAN" },
         "NEW_mdr_facility_level": {
           id: "NEW_mdr_facility_level",

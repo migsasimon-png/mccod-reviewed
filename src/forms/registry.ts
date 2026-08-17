@@ -93,6 +93,7 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
     programStage: "YXed7PnLRco",
     casePrefix: " MATERNAL - ",
     caseNumberField: CASE_NUMBER_DE,
+    ninField: "CupbOInqvJI",
     caseCode: "020",
     linkedField: LINKED_DE,
     listColumns: [
@@ -116,6 +117,7 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
     programStage: "CGz50G2MY16",
     casePrefix: "PERI - ",
     caseNumberField: CASE_NUMBER_DE,
+    ninField: "NEW_pdr_mother_nin",
     caseCode: "017",
     linkedField: LINKED_DE,
     listColumns: [
@@ -139,6 +141,7 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
     programStage: "lLO6f44xh4H",
     casePrefix: "CHILD - ",
     caseNumberField: CASE_NUMBER_DE,
+    ninField: "NEW_cdr_nin",
     caseCode: "CDR",
     listColumns: [
       { key: "case", title: "Case number", de: CASE_NUMBER_DE },
