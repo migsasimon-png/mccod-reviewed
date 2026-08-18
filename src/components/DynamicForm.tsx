@@ -617,6 +617,155 @@ const RecordDetail = observer(
   }
 );
 
+const renderSectionGuidance = (formId: string = "", title: string = "") => {
+  const upper = title.toUpperCase();
+  let recommendations: string[] = [];
+  let summaryText = "";
+
+  if (formId === "pdr" || formId === "017") {
+    if (upper.includes("CASE") || upper.includes("HEADER")) {
+      summaryText = "July 2024 Perinatal Form 017 Header & Tracking Revisions:";
+      recommendations = [
+        "Was perinatal death notification form completed & sent/captured? (Yes/No)",
+        "Date of Review (DatePicker field)",
+        "Ensure National MoH Case Number is filled within 7 days of death"
+      ];
+    } else if (upper.includes("SECTION ONE") || upper.includes("IDENTIFICATION")) {
+      summaryText = "Section 1: Identification Revisions:";
+      recommendations = [
+        "1.1.3 Mother NIN (14-digit national ID grid)",
+        "1.4 Level of Health Facility (NRH, RRH, General Hospital, HC IV, HC III, HC II, Others)",
+        "Verify newborn age in minutes/hours/days and referral source"
+      ];
+    } else if (upper.includes("SECTION TWO") || upper.includes("PREGNANCY")) {
+      summaryText = "Section 2: Pregnancy Progress & ANC Revisions:";
+      recommendations = [
+        "2.2.2.1 State number of babies if multiple pregnancy",
+        "2.5.9 Blood Group (A, B, AB, O)",
+        "2.5.9.1 Rhesus Factor (Positive / Negative)",
+        "2.5.9.2 Blood Transfusion During Pregnancy (Yes / No)"
+      ];
+    } else if (upper.includes("SECTION THREE") || upper.includes("LABOUR")) {
+      summaryText = "Section 3: Labour & Birth Revisions:";
+      recommendations = [
+        "24-hour clock input for delivery time and death time",
+        "Place of delivery expanded options (Intransit/Road, Not Assessed)",
+        "Expanded resuscitation medication list (Freeflow Oxygen, CPAP, Adrenaline, Surfactant, IV Fluids, Caffeine Citrate, Blood Transfusion)",
+        "Neonatal death admission date/time and duration in facility"
+      ];
+    } else if (upper.includes("SECTION FOUR") || upper.includes("CAUSE OF DEATH")) {
+      summaryText = "Section 4: Cause of Death Revisions:";
+      recommendations = [
+        "Added 3B8Z Bleeding Disorders (specify)",
+        "ICD-11 Cause of Death certification using WHO DORIS search tool"
+      ];
+    } else if (upper.includes("SECTION FIVE") || upper.includes("CONTRIBUTING") || upper.includes("AVOIDABLE")) {
+      summaryText = "Section 5: Avoidable Factors Revisions:";
+      recommendations = [
+        "19-item structured 3-Delay Avoidable Factors table (Personal/Family, Logistical, Supply Health System, Personnel Health System, Misconduct)"
+      ];
+    } else if (upper.includes("SECTION SIX") || upper.includes("QUALITY") || upper.includes("MEDICAL RECORDS")) {
+      summaryText = "Section 6: Medical Records Quality Revisions:";
+      recommendations = [
+        "Record Legibility rating (Good / Poor)",
+        "Documentation of missing data elements from patient file"
+      ];
+    } else if (upper.includes("THIS FORM WAS COMPLETED BY") || upper.includes("COMPLETED")) {
+      summaryText = "Form Completion Revisions:";
+      recommendations = [
+        "Reviewer name, contact details, review date, and team signatures"
+      ];
+    }
+  } else if (formId === "mdr" || formId === "020") {
+    if (upper.includes("CASE") || upper.includes("HEADER")) {
+      summaryText = "July 2024 Maternal Form 020 Header Revisions:";
+      recommendations = [
+        "Was maternal death notification form completed & sent? (Yes / No)",
+        "Official MoH National Case Number verification"
+      ];
+    } else if (upper.includes("SECTION 1") || upper.includes("LOCALITY")) {
+      summaryText = "Section 1: Death Locality Revisions:";
+      recommendations = [
+        "1.4 Level of Health Facility (NRH, RRH, GH, HC IV, HC III, Private)",
+        "1.5 Facility Ownership (Government, Private for profit, PNFP)"
+      ];
+    } else if (upper.includes("SECTION 2") || upper.includes("DETAILS OF THE DECEASED")) {
+      summaryText = "Section 2: Deceased Details Revisions:";
+      recommendations = [
+        "2.2 Nationality (National, Refugee, Foreigner)",
+        "2.3.2 14-digit Deceased NIN grid"
+      ];
+    } else if (upper.includes("SECTION 3") || upper.includes("ADMISSION")) {
+      summaryText = "Section 3: Admission & Vital Signs Revisions:";
+      recommendations = [
+        "3.1 Death Locality Type (At facility after admission vs Before admission)",
+        "Numerical Vital Sign readings on admission (BP, Temp, Resp, Consciousness)"
+      ];
+    } else if (upper.includes("SECTION 4") || upper.includes("ANTENATAL CARE")) {
+      summaryText = "Section 4: Antenatal Care Revisions:";
+      recommendations = [
+        "ANC attendance history, risk factor checklist, medications received (IPT, Td, Ferrous, Dewormers), and lab test results"
+      ];
+    } else if (upper.includes("SECTION 5") || upper.includes("DELIVERY")) {
+      summaryText = "Section 5: Delivery & Puerperium Revisions:";
+      recommendations = [
+        "5.8 Delivery Facility Name specification",
+        "Duration of labour stages, delivery mode, main assistant, and obstetrical complications"
+      ];
+    } else if (upper.includes("SECTION 6") || upper.includes("INTERVENTIONS")) {
+      summaryText = "Section 6: Interventions Matrix Revisions:";
+      recommendations = [
+        "14 Interventions across Early Pregnancy, Antenatal, Intrapartum, and Postpartum stages"
+      ];
+    } else if (upper.includes("SECTION 7") || upper.includes("AUTOPSY")) {
+      summaryText = "Section 7: Autopsy & Post Mortem Revisions:";
+      recommendations = [
+        "Autopsy requested/performed status and gross findings description"
+      ];
+    } else if (upper.includes("SECTION 8") || upper.includes("CAUSE OF DEATH")) {
+      summaryText = "Section 8: Cause of Death Revisions:";
+      recommendations = [
+        "Primary & Associated causes checklist + WHO DORIS ICD-11 search for certified direct and underlying causes"
+      ];
+    } else if (upper.includes("SECTION 9") || upper.includes("AVOIDABLE FACTORS")) {
+      summaryText = "Section 9: Avoidable Factors Revisions:";
+      recommendations = [
+        "18-item structured 3-Delay Avoidable Factors table (Personal/Family, Logistical, Supply, Personnel, Misconduct)"
+      ];
+    } else if (upper.includes("SECTION 9.3") || upper.includes("QUALITY") || upper.includes("MEDICAL RECORDS")) {
+      summaryText = "Section 9.3: Medical Record Quality Revisions:";
+      recommendations = [
+        "Record Legibility rating (Good / Poor) and missing data comments"
+      ];
+    } else if (upper.includes("THIS FORM WAS COMPLETED BY") || upper.includes("COMPLETED")) {
+      summaryText = "Form Completion Revisions:";
+      recommendations = [
+        "Reviewer name, contact phone number, review date, and team signatures"
+      ];
+    }
+  }
+
+  if (!recommendations.length) {
+    summaryText = "Section Recommendations & Guidelines:";
+    recommendations = [
+      "Review and complete all required inputs according to July 2024 MPDSR national standards."
+    ];
+  }
+
+  return (
+    <div style={{ maxWidth: 400, fontSize: 13, lineHeight: 1.5, color: "#1f2937" }}>
+      <div style={{ fontWeight: 700, color: "#003eb3", marginBottom: 6 }}>{summaryText}</div>
+      <ul style={{ margin: 0, paddingLeft: 18, listStyleType: "disc" }}>
+        {recommendations.map((rec, i) => (
+          <li key={i} style={{ marginBottom: 4 }}>
+            {rec}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 export const DynamicForm = observer(() => {
   const store = useStore();
   const [form] = Form.useForm();
@@ -1264,12 +1413,35 @@ export const DynamicForm = observer(() => {
             {groupFields.map((field) => {
               const locked = isFieldDisabled(field, skip) || !!field.readOnly;
               const fieldHint = skip.hints[field.de] || field.hint;
+              const isNewField = field.de?.startsWith("NEW_");
+              const displayLabel = isNewField ? (
+                <span style={{ color: "#0958d9", fontWeight: 700 }}>
+                  {field.label}
+                  <span
+                    style={{
+                      background: "#1677ff",
+                      color: "#ffffff",
+                      fontSize: 10,
+                      padding: "1px 6px",
+                      borderRadius: 4,
+                      marginLeft: 6,
+                      fontWeight: 800,
+                      letterSpacing: "0.5px",
+                    }}
+                  >
+                    NEW
+                  </span>
+                </span>
+              ) : (
+                field.label
+              );
+
               return field.icd ? (
                 <Col key={field.de} xs={24} {...fieldSpan(field)}>
                   <div
-                    className={`dform-item dform-icd${locked ? " dform-item-locked" : ""}`}
+                    className={`dform-item dform-icd${locked ? " dform-item-locked" : ""}${isNewField ? " dform-item-new" : ""}`}
                   >
-                    <label className="dform-icd-label">{field.label}</label>
+                    <label className="dform-icd-label">{displayLabel}</label>
                     {fieldHint && (
                       <span className="dform-field-hint">{fieldHint}</span>
                     )}
@@ -1285,10 +1457,10 @@ export const DynamicForm = observer(() => {
                 <Col key={field.de} xs={24} {...fieldSpan(field)} style={{ display: field.de === "ZkNDFfFSTYg" ? "none" : undefined }}>
                   <Form.Item
                     name={field.de}
-                    label={field.label}
+                    label={displayLabel}
                     valuePropName={valuePropName(field)}
                     help={fieldHint}
-                    className={`dform-item${locked ? " dform-item-locked" : ""}`}
+                    className={`dform-item${locked ? " dform-item-locked" : ""}${isNewField ? " dform-item-new" : ""}`}
                   >
                       {field.de === "n2mScmFMovq" ? (
                         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -1537,6 +1709,37 @@ export const DynamicForm = observer(() => {
                         <div className="dform-active-head">
                           <span className="dform-active-title">
                             {def.layout[activeSi].title}
+                            {activeSi != null && (
+                              <Popover
+                                title={
+                                  <div style={{ display: "flex", alignItems: "center", gap: 6, color: "#003eb3", fontWeight: 700 }}>
+                                    <InfoCircleOutlined style={{ color: "#1677ff" }} />
+                                    <span>July 2024 Revisions & Recommendations</span>
+                                  </div>
+                                }
+                                content={renderSectionGuidance(def.id, def.layout[activeSi].title)}
+                                trigger="hover"
+                                placement="bottomLeft"
+                              >
+                                <Tag
+                                  color="blue"
+                                  style={{
+                                    cursor: "pointer",
+                                    borderRadius: 12,
+                                    padding: "1px 8px",
+                                    fontSize: 12,
+                                    fontWeight: 700,
+                                    marginLeft: 10,
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: 4,
+                                    boxShadow: "0 1px 3px rgba(22, 119, 255, 0.2)",
+                                  }}
+                                >
+                                  <InfoCircleOutlined /> <span>(i) Guidance</span>
+                                </Tag>
+                              </Popover>
+                            )}
                             {def.layout[activeSi].title.toUpperCase().includes("CERTIFIED CAUSE OF DEATH") && !def.isMccod && (
                               <>
                                 <Popover
