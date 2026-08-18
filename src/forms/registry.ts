@@ -141,7 +141,7 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
     programStage: "lLO6f44xh4H",
     casePrefix: "CHILD - ",
     caseNumberField: CASE_NUMBER_DE,
-    ninField: "NEW_cdr_nin",
+    ninField: "CupbOInqvJI",
     caseCode: "CDR",
     listColumns: [
       { key: "case", title: "Case number", de: CASE_NUMBER_DE },
