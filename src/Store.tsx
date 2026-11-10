@@ -297,7 +297,7 @@ class Store {
 	@observable activeLanguage: any;
 	@observable ICDLang: any = null;
 	@observable programs: any = [];
-	@observable selectedNationality: any;
+	@observable selectedNationality: any = "l4UMmqvSBe5";
 	@observable optionSets: any;
 	@observable page = 1;
 	@observable pageSize = 10;

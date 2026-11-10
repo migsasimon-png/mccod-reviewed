@@ -78,8 +78,8 @@
   },
   "manifest.webapp": {
     "version": "2.0.0",
-    "name": " Medical Certification of Cause of Death",
-    "description": " Medical Certification of Cause of Death",
+    "name": "NewICD11 Application",
+    "description": "NewICD11 Application",
     "launch_path": "index.html",
     "icons": {
       "16": "assets/icons/image001.png",

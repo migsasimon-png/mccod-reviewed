@@ -34,7 +34,7 @@ export const MccodToMaternalLinkageBanner: React.FC<MccodToMaternalLinkageBanner
         `&filter=ZKBE8Xm9DJG:eq:${encodeURIComponent(caseNumber)}` +
         `&fields=event,orgUnit,eventDate,dataValues[dataElement,value]&pageSize=1`;
 
-      dynamicFormStore.engine.link
+      mainStore.engine.link
         .fetch(url)
         .then((res: any) => {
           const evt = res?.events?.[0];

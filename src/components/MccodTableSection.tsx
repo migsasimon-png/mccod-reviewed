@@ -1,5 +1,6 @@
 import React from "react";
-import { FormInstance, Button, Select, Form } from "antd";
+import { Button, Select, Form } from "antd";
+import { FormInstance } from "antd/lib/form";
 import { SaveOutlined, RobotOutlined } from "@ant-design/icons";
 import { ICDField } from "./ICDField";
 import { FieldWidget } from "./DynamicForm";

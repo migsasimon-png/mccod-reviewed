@@ -7,9 +7,9 @@
     }
   },
   "appType": "APP",
-  "name": " Medical Certification of Cause of Death",
+  "name": "NewICD11 Application",
   "version": "2.0.0",
-  "description": " Medical Certification of Cause of Death",
+  "description": "NewICD11 Application",
   "icons": {
     "16": "assets/icons/image001.png",
     "48": "assets/icons/image001.png",
@@ -19,5 +19,5 @@
     "name": "Simon Kununka",
     "url": "http://dhis2.org"
   },
-  "manifest_generated_at": "Sat Jul 18 2026 15:38:28 GMT+0300 (East Africa Time)"
+  "manifest_generated_at": "Tue Nov 10 2026 20:58:45 GMT+0300 (East Africa Time)"
 }

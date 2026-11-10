@@ -725,8 +725,8 @@ class DynamicFormStore {
           ...(this.currentEvent?.event ? { id: this.currentEvent.event } : {}),
           data: event,
         });
-      } catch (mutateErr: any) {
-        const errString = String(mutateErr?.message || mutateErr || "");
+      } catch (mutateErr) {
+        const errString = String((mutateErr as any)?.message || mutateErr || "");
         if (event.attributeCategoryOptions && (errString.includes("Attribute option combo") || errString.includes("category combo") || errString.includes("409"))) {
           console.warn("[Save Warning] Retrying event save without attributeCategoryOptions due to DHIS2 category combo mismatch:", errString);
           delete event.attributeCategoryOptions;

@@ -1559,7 +1559,7 @@ export const DynamicForm = observer(() => {
                                           { title: "Value in MCCOD", dataIndex: "mccodVal", key: "mccodVal" },
                                         ]}
                                         dataSource={[
-                                          ...Object.entries((def.key === "pdr" || def.title?.toLowerCase().includes("perinatal")) ? PERINATAL_TO_MCCOD_MAP : (def.key === "cdr" || def.title?.toLowerCase().includes("child")) ? CDR_TO_MCCOD_MAP : MATERNAL_TO_MCCOD_MAP).map(([src, dest]) => {
+                                          ...Object.entries((def.id === "pdr" || def.title?.toLowerCase().includes("perinatal")) ? PERINATAL_TO_MCCOD_MAP : (def.id === "cdr" || def.title?.toLowerCase().includes("child")) ? CDR_TO_MCCOD_MAP : MATERNAL_TO_MCCOD_MAP).map(([src, dest]) => {
                                             const val = form.getFieldValue(src);
                                             const srcMeta = dynamicFormStore.meta[src];
                                             const destMeta = dynamicFormStore.meta[dest];

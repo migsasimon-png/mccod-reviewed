@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { useStore } from "../Context";
 import { formDefinitions } from "../forms/registry";
 import { FormDefinition, FormModule } from "../forms/types";
+import EventDownload from "./EventDownload";
 import "./Home.css";
 
 const Icon = ({ name }: { name: FormDefinition["icon"] }) => {
@@ -106,6 +107,7 @@ export const Home = observer(() => {
           badge="Beta"
           onOpen={() => open("cdr")}
         />
+        <EventDownload />
       </div>
 
       <footer className="home-footer">
