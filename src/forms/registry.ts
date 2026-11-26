@@ -1,5 +1,5 @@
 import layouts from "./layouts.json";
-import { FormDefinition, FormId, FormLayout } from "./types";
+import { FormDefinition, FormGroup, FormId, FormLayout } from "./types";
 
 // The MCCOD (ICD-11 certification) program — shared with the legacy flow.
 export const MCCOD_PROGRAM = "vf8dN49jprI";
@@ -8,6 +8,35 @@ export const CASE_NUMBER_DE = "ZKBE8Xm9DJG";
 export const LINKED_DE = "ZkNDFfFSTYg";
 
 const l = layouts as unknown as Record<FormId, FormLayout>;
+
+// A group drawn as side-by-side columns keeps its fields in `columns`. Mirror
+// them into `fields` so skip logic, validation and save see every field.
+for (const layout of Object.values(l)) {
+  for (const section of layout) {
+    for (const group of section.groups) {
+      if (group.columns && group.columns.length) {
+        group.fields = group.columns.reduce<FormGroup["fields"]>((all, column) => all.concat(column.fields), []);
+      }
+    }
+  }
+}
+
+export const CERTIFICATE_PLACE_OF_DEATH = "xNCSFrgdUgi";
+const perinatalCertificationIndex = l.pdr.findIndex((section) => section.title.startsWith("CERTIFIED CAUSE OF DEATH"));
+if (perinatalCertificationIndex >= 0) {
+  l.pdr.splice(perinatalCertificationIndex, 0, {
+    title: "ICD-11 certificate details",
+    groups: [{
+      label: null,
+      fields: [
+        { de: "ZYKmQ9GPOaF", label: "Name of the deceased" },
+        { de: "q7e7FOXKnOf", label: "Age at death (completed years)" },
+        { de: CERTIFICATE_PLACE_OF_DEATH, label: "Place of death", hint: "Required to save the ICD-11 certificate." },
+        { de: "twVlVWM3ffz", label: "Certificate approval" },
+      ],
+    }],
+  });
+}
 
 // The "Certified Cause of Death" free-text cause fields are upgraded to WHO
 // ICD-11 search fields so each review (maternal, perinatal, child) can certify
@@ -121,7 +150,7 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
     listColumns: [
       { key: "case", title: "Case number", de: CASE_NUMBER_DE },
       { key: "mother", title: "Mother's initials", de: "xpJgWYFpvht" },
-      { key: "district", title: "District", de: "u44XP9fZweA" },
+      { key: "district", title: "District", de: "t5nTEmlScSt" },
       { key: "date", title: "Event date", type: "date", width: 130 },
       { key: "lastUpdated", title: "Last updated", type: "datetime", width: 160 },
       { key: "status", title: "Status", type: "status", de: LINKED_DE, width: 120 },
@@ -146,6 +175,7 @@ export const formDefinitions: Record<FormId, FormDefinition> = {
       { key: "sex", title: "Sex", de: "Hq6GGFTlHHj" },
       { key: "district", title: "District", de: "xv0FATnFVms" },
       { key: "date", title: "Event date", type: "date", width: 130 },
+      { key: "reviewStatus", title: "Review status", type: "reviewStatus", width: 140 },
       { key: "lastUpdated", title: "Last updated", type: "datetime", width: 160 },
     ],
     layout: l.cdr,

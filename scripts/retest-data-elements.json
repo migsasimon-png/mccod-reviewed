@@ -1,0 +1,823 @@
+[
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_maternal_infections",
+  "paperItem": "4.4",
+  "name": "020-MDR-Antenatal risk factors (Maternal infections)",
+  "valueType": "TEXT",
+  "stage": "YXed7PnLRco",
+  "optionSetFrom": "y0B7fm7rguE",
+  "options": [
+   "Yes",
+   "No",
+   "Unknown"
+  ],
+  "uid": "qaoRVfLjSP2"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_hb_level",
+  "paperItem": "4.6.7",
+  "name": "020-MDR-Hb level (g/dL)",
+  "valueType": "NUMBER",
+  "stage": "YXed7PnLRco",
+  "uid": "Nh5tdRLGyqu"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_hepb_result",
+  "paperItem": "4.6.8",
+  "name": "020-MDR-Hepatitis B result",
+  "valueType": "TEXT",
+  "stage": "YXed7PnLRco",
+  "optionSetFrom": "riyahnxUdTf",
+  "options": [
+   "Negative",
+   "Positive",
+   "Unknown"
+  ],
+  "uid": "aU2LQN3hnKo"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_urinalysis_result",
+  "paperItem": "4.6.9",
+  "name": "020-MDR-Urinalysis result",
+  "valueType": "TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "pz3BGcrcTmK"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_assistant_nurse",
+  "paperItem": "5.10",
+  "name": "020-MDR-Main assistant at delivery (Nurse)",
+  "valueType": "TRUE_ONLY",
+  "stage": "YXed7PnLRco",
+  "uid": "WrZqX34guzs"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_autopsy_requested",
+  "paperItem": "7.1",
+  "name": "020-MDR-Autopsy/Postmortem requested (Yes/No/Unknown)",
+  "valueType": "TEXT",
+  "stage": "YXed7PnLRco",
+  "optionSetFrom": "y0B7fm7rguE",
+  "options": [
+   "Yes",
+   "No",
+   "Unknown"
+  ],
+  "uid": "BrnL8WKgpzA"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_autopsy_performed",
+  "paperItem": "7.2",
+  "name": "020-MDR-Autopsy/Postmortem performed (Yes/No/Unknown)",
+  "valueType": "TEXT",
+  "stage": "YXed7PnLRco",
+  "optionSetFrom": "y0B7fm7rguE",
+  "options": [
+   "Yes",
+   "No",
+   "Unknown"
+  ],
+  "uid": "NBBMMQsCoxL"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_cause_aki",
+  "paperItem": "8a 5.4",
+  "name": "020-MDR-Acute kidney injury (AKI)",
+  "valueType": "TRUE_ONLY",
+  "stage": "YXed7PnLRco",
+  "uid": "f8tLFOfe1rx"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec1_gap",
+  "paperItem": "11 row 1",
+  "name": "020-MDR-Recommendation 1 - Issue or gap",
+  "valueType": "LONG_TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "Snz0q0aNv2w"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec1_action",
+  "paperItem": "11 row 1",
+  "name": "020-MDR-Recommendation 1 - Recommendation",
+  "valueType": "LONG_TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "XvuDCvyNo6j"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec1_person",
+  "paperItem": "11 row 1",
+  "name": "020-MDR-Recommendation 1 - Responsible person",
+  "valueType": "TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "e8wrScW9mie"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec1_date",
+  "paperItem": "11 row 1",
+  "name": "020-MDR-Recommendation 1 - Timeframe",
+  "valueType": "DATE",
+  "stage": "YXed7PnLRco",
+  "uid": "fqeWDoARXs2"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec2_gap",
+  "paperItem": "11 row 2",
+  "name": "020-MDR-Recommendation 2 - Issue or gap",
+  "valueType": "LONG_TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "UqHNAC3llW9"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec2_action",
+  "paperItem": "11 row 2",
+  "name": "020-MDR-Recommendation 2 - Recommendation",
+  "valueType": "LONG_TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "tx6RAtJN6fO"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec2_person",
+  "paperItem": "11 row 2",
+  "name": "020-MDR-Recommendation 2 - Responsible person",
+  "valueType": "TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "MA3IZpnNt7u"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec2_date",
+  "paperItem": "11 row 2",
+  "name": "020-MDR-Recommendation 2 - Timeframe",
+  "valueType": "DATE",
+  "stage": "YXed7PnLRco",
+  "uid": "ujvDBrt3ZSI"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec3_gap",
+  "paperItem": "11 row 3",
+  "name": "020-MDR-Recommendation 3 - Issue or gap",
+  "valueType": "LONG_TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "iihtZom22ZB"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec3_action",
+  "paperItem": "11 row 3",
+  "name": "020-MDR-Recommendation 3 - Recommendation",
+  "valueType": "LONG_TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "NWqw9QH7z4l"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec3_person",
+  "paperItem": "11 row 3",
+  "name": "020-MDR-Recommendation 3 - Responsible person",
+  "valueType": "TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "HOiQMOe6pGY"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec3_date",
+  "paperItem": "11 row 3",
+  "name": "020-MDR-Recommendation 3 - Timeframe",
+  "valueType": "DATE",
+  "stage": "YXed7PnLRco",
+  "uid": "VFVa7sb881j"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec4_gap",
+  "paperItem": "11 row 4",
+  "name": "020-MDR-Recommendation 4 - Issue or gap",
+  "valueType": "LONG_TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "c3UhXGYZTzP"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec4_action",
+  "paperItem": "11 row 4",
+  "name": "020-MDR-Recommendation 4 - Recommendation",
+  "valueType": "LONG_TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "jaozw1A8gh6"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec4_person",
+  "paperItem": "11 row 4",
+  "name": "020-MDR-Recommendation 4 - Responsible person",
+  "valueType": "TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "UPwVB7fNXol"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec4_date",
+  "paperItem": "11 row 4",
+  "name": "020-MDR-Recommendation 4 - Timeframe",
+  "valueType": "DATE",
+  "stage": "YXed7PnLRco",
+  "uid": "VSKbTsMoNXn"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec5_gap",
+  "paperItem": "11 row 5",
+  "name": "020-MDR-Recommendation 5 - Issue or gap",
+  "valueType": "LONG_TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "rV4ImuQqynF"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec5_action",
+  "paperItem": "11 row 5",
+  "name": "020-MDR-Recommendation 5 - Recommendation",
+  "valueType": "LONG_TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "oVKhOwY1nCS"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec5_person",
+  "paperItem": "11 row 5",
+  "name": "020-MDR-Recommendation 5 - Responsible person",
+  "valueType": "TEXT",
+  "stage": "YXed7PnLRco",
+  "uid": "obkO0TmWVsC"
+ },
+ {
+  "form": "mdr",
+  "placeholder": "NEW_mdr_rec5_date",
+  "paperItem": "11 row 5",
+  "name": "020-MDR-Recommendation 5 - Timeframe",
+  "valueType": "DATE",
+  "stage": "YXed7PnLRco",
+  "uid": "n04RWWTIH7x"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_facility_level",
+  "paperItem": "1.4",
+  "name": "017-PDR-Level of health facility",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "optionSetNew": "017-PDR-Level of health facility",
+  "options": [
+   "National Referral Hospital",
+   "Regional Referral Hospital",
+   "General Hospital",
+   "HC IV",
+   "HC III",
+   "HC II",
+   "Others"
+  ],
+  "uid": "fM4t0767DhD"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_facility_level_other",
+  "paperItem": "1.4",
+  "name": "017-PDR-Level of health facility (Others, specify)",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "QETSefKjaER"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_referred_from_other",
+  "paperItem": "1.7",
+  "name": "017-PDR-Referred from (Others, specify)",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "pTdmeYlezpq"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_ipt",
+  "paperItem": "2.5.1",
+  "name": "017-PDR-IPT received (Yes/No/Unknown)",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "optionSetFrom": "y0B7fm7rguE",
+  "options": [
+   "Yes",
+   "No",
+   "Unknown"
+  ],
+  "uid": "y0sC9j7dOcE"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_td",
+  "paperItem": "2.5.2",
+  "name": "017-PDR-Td received (Yes/No/Unknown)",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "optionSetFrom": "y0B7fm7rguE",
+  "options": [
+   "Yes",
+   "No",
+   "Unknown"
+  ],
+  "uid": "U04tW2AVCIA"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_mode_of_delivery",
+  "paperItem": "3.5",
+  "name": "017-PDR-Mode of delivery (7 choices)",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "optionSetFrom": "kbmErVMP3Cb",
+  "options": [
+   "Vaginal (spontaneous vertex)",
+   "Vaginal (breech)",
+   "Instrumental vaginal - vacuum",
+   "Instrumental vaginal - forceps",
+   "Caesarean section - Elective",
+   "Caesarean section - Emergency",
+   "Destructive operations"
+  ],
+  "uid": "YXGjFCjG5oQ"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_apgar_1",
+  "paperItem": "3.7.1",
+  "name": "017-PDR-Apgar score at 1 minute (0-10)",
+  "valueType": "INTEGER_ZERO_OR_POSITIVE",
+  "stage": "CGz50G2MY16",
+  "uid": "Zk5mRaxmiFU"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_apgar_5",
+  "paperItem": "3.7.1",
+  "name": "017-PDR-Apgar score at 5 minutes (0-10)",
+  "valueType": "INTEGER_ZERO_OR_POSITIVE",
+  "stage": "CGz50G2MY16",
+  "uid": "Cds8LIY8h4j"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_apgar_10",
+  "paperItem": "3.7.1",
+  "name": "017-PDR-Apgar score at 10 minutes (0-10)",
+  "valueType": "INTEGER_ZERO_OR_POSITIVE",
+  "stage": "CGz50G2MY16",
+  "uid": "xp0p3YDfsuM"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_resus_nursing_assistant",
+  "paperItem": "3.7.3",
+  "name": "017-PDR-Resuscitation by (Nursing assistant)",
+  "valueType": "TRUE_ONLY",
+  "stage": "CGz50G2MY16",
+  "uid": "zEKKdqVixT3"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_med_oxygen_free_flow",
+  "paperItem": "3.7.4.2",
+  "name": "017-PDR-Medication received (Oxygen free flow)",
+  "valueType": "TRUE_ONLY",
+  "stage": "CGz50G2MY16",
+  "uid": "oulgAbKL6qN"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_med_oxygen_cpap",
+  "paperItem": "3.7.4.2",
+  "name": "017-PDR-Medication received (Oxygen CPAP)",
+  "valueType": "TRUE_ONLY",
+  "stage": "CGz50G2MY16",
+  "uid": "b5IKnw60KcV"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_med_adrenaline",
+  "paperItem": "3.7.4.2",
+  "name": "017-PDR-Medication received (Adrenaline)",
+  "valueType": "TRUE_ONLY",
+  "stage": "CGz50G2MY16",
+  "uid": "VrhxVTT4fMu"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_med_surfactant",
+  "paperItem": "3.7.4.2",
+  "name": "017-PDR-Medication received (Surfactant)",
+  "valueType": "TRUE_ONLY",
+  "stage": "CGz50G2MY16",
+  "uid": "roPdZNtgsE8"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_med_iv_fluids",
+  "paperItem": "3.7.4.2",
+  "name": "017-PDR-Medication received (IV fluids)",
+  "valueType": "TRUE_ONLY",
+  "stage": "CGz50G2MY16",
+  "uid": "dXJsF4djsmr"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_med_caffeine_citrate",
+  "paperItem": "3.7.4.2",
+  "name": "017-PDR-Medication received (Caffeine citrate)",
+  "valueType": "TRUE_ONLY",
+  "stage": "CGz50G2MY16",
+  "uid": "flr0XVuCUzs"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_med_blood_transfusion",
+  "paperItem": "3.7.4.2",
+  "name": "017-PDR-Medication received (Blood transfusion)",
+  "valueType": "TRUE_ONLY",
+  "stage": "CGz50G2MY16",
+  "uid": "DzYkZCeqZ4n"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_med_other",
+  "paperItem": "3.7.4.2",
+  "name": "017-PDR-Medication received (Others, specify)",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "qtpxeAI3DKe"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af01_specify",
+  "paperItem": "5.1 factor 1",
+  "name": "017-PDR-Contributing factor 1 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "d6mi0jnGKjO"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af02_specify",
+  "paperItem": "5.1 factor 2",
+  "name": "017-PDR-Contributing factor 2 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "TJTuwWDRWTH"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af03_specify",
+  "paperItem": "5.1 factor 3",
+  "name": "017-PDR-Contributing factor 3 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "KXK5kEbM2H3"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af04_specify",
+  "paperItem": "5.1 factor 4",
+  "name": "017-PDR-Contributing factor 4 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "g4mAROnKb5Q"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af05_specify",
+  "paperItem": "5.1 factor 5",
+  "name": "017-PDR-Contributing factor 5 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "mdT3hWazQBN"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af06_specify",
+  "paperItem": "5.1 factor 6",
+  "name": "017-PDR-Contributing factor 6 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "HTATU5TPum9"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af07_specify",
+  "paperItem": "5.1 factor 7",
+  "name": "017-PDR-Contributing factor 7 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "dWZHuUa7vM5"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af08_specify",
+  "paperItem": "5.1 factor 8",
+  "name": "017-PDR-Contributing factor 8 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "jGeKOZ0EJav"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af09_specify",
+  "paperItem": "5.1 factor 9",
+  "name": "017-PDR-Contributing factor 9 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "KxI2s7gO9rO"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af10_specify",
+  "paperItem": "5.1 factor 10",
+  "name": "017-PDR-Contributing factor 10 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "aMjuiagSPOq"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af11_specify",
+  "paperItem": "5.1 factor 11",
+  "name": "017-PDR-Contributing factor 11 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "iqorEJQ1NUQ"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af12_specify",
+  "paperItem": "5.1 factor 12",
+  "name": "017-PDR-Contributing factor 12 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "e9DecnjFHIX"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af13_specify",
+  "paperItem": "5.1 factor 13",
+  "name": "017-PDR-Contributing factor 13 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "fIzgFNxdAqj"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af14_specify",
+  "paperItem": "5.1 factor 14",
+  "name": "017-PDR-Contributing factor 14 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "rPF5xHG3Eqe"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af15_specify",
+  "paperItem": "5.1 factor 15",
+  "name": "017-PDR-Contributing factor 15 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "jHuF8OG1hQc"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af16_specify",
+  "paperItem": "5.1 factor 16",
+  "name": "017-PDR-Contributing factor 16 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "JUf0tyZvCWU"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af17_specify",
+  "paperItem": "5.1 factor 17",
+  "name": "017-PDR-Contributing factor 17 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "JfD4LTPPcvN"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af18_specify",
+  "paperItem": "5.1 factor 18",
+  "name": "017-PDR-Contributing factor 18 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "oQfR6ge1CXA"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_af19_specify",
+  "paperItem": "5.1 factor 19",
+  "name": "017-PDR-Contributing factor 19 - Specify",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "Gn9LNqrGeOH"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec1_gap",
+  "paperItem": "8 row 1",
+  "name": "017-PDR-Recommendation 1 - Issue or gap",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "KfxXxCkAnlb"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec1_action",
+  "paperItem": "8 row 1",
+  "name": "017-PDR-Recommendation 1 - Recommendation",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "RMTapSjxxGZ"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec1_person",
+  "paperItem": "8 row 1",
+  "name": "017-PDR-Recommendation 1 - Responsible person",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "HjupGGtPtFE"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec1_date",
+  "paperItem": "8 row 1",
+  "name": "017-PDR-Recommendation 1 - Timeframe",
+  "valueType": "DATE",
+  "stage": "CGz50G2MY16",
+  "uid": "iawutgQt9Nq"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec2_gap",
+  "paperItem": "8 row 2",
+  "name": "017-PDR-Recommendation 2 - Issue or gap",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "RuGXGQrb9jR"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec2_action",
+  "paperItem": "8 row 2",
+  "name": "017-PDR-Recommendation 2 - Recommendation",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "QV32PM84OMm"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec2_person",
+  "paperItem": "8 row 2",
+  "name": "017-PDR-Recommendation 2 - Responsible person",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "l3zLrhk7UM4"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec2_date",
+  "paperItem": "8 row 2",
+  "name": "017-PDR-Recommendation 2 - Timeframe",
+  "valueType": "DATE",
+  "stage": "CGz50G2MY16",
+  "uid": "LTi3y9wKhDc"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec3_gap",
+  "paperItem": "8 row 3",
+  "name": "017-PDR-Recommendation 3 - Issue or gap",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "vAvRGM9XTMi"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec3_action",
+  "paperItem": "8 row 3",
+  "name": "017-PDR-Recommendation 3 - Recommendation",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "YYDhSGcsUDj"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec3_person",
+  "paperItem": "8 row 3",
+  "name": "017-PDR-Recommendation 3 - Responsible person",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "FhdHF9vw1LK"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec3_date",
+  "paperItem": "8 row 3",
+  "name": "017-PDR-Recommendation 3 - Timeframe",
+  "valueType": "DATE",
+  "stage": "CGz50G2MY16",
+  "uid": "o6yvDahyy2q"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec4_gap",
+  "paperItem": "8 row 4",
+  "name": "017-PDR-Recommendation 4 - Issue or gap",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "PKKtJ5EiuRe"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec4_action",
+  "paperItem": "8 row 4",
+  "name": "017-PDR-Recommendation 4 - Recommendation",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "We54aYrYRyl"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec4_person",
+  "paperItem": "8 row 4",
+  "name": "017-PDR-Recommendation 4 - Responsible person",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "ZqV7Uvo8Cpg"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec4_date",
+  "paperItem": "8 row 4",
+  "name": "017-PDR-Recommendation 4 - Timeframe",
+  "valueType": "DATE",
+  "stage": "CGz50G2MY16",
+  "uid": "BCZo6SImKqt"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec5_gap",
+  "paperItem": "8 row 5",
+  "name": "017-PDR-Recommendation 5 - Issue or gap",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "YBUZZ0XmHO6"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec5_action",
+  "paperItem": "8 row 5",
+  "name": "017-PDR-Recommendation 5 - Recommendation",
+  "valueType": "LONG_TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "sH6WAljuDzd"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec5_person",
+  "paperItem": "8 row 5",
+  "name": "017-PDR-Recommendation 5 - Responsible person",
+  "valueType": "TEXT",
+  "stage": "CGz50G2MY16",
+  "uid": "Oq6o1PVVb9Z"
+ },
+ {
+  "form": "pdr",
+  "placeholder": "NEW_pdr_rec5_date",
+  "paperItem": "8 row 5",
+  "name": "017-PDR-Recommendation 5 - Timeframe",
+  "valueType": "DATE",
+  "stage": "CGz50G2MY16",
+  "uid": "upTJj6f9v1O"
+ }
+]

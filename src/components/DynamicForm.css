@@ -927,3 +927,18 @@
   color: #fff;
   transform: scale(1.1);
 }
+
+/* --- Retest layouts: factors table, recommendations table, column groups --- */
+.dform-factors td,
+.dform-recommendations td { vertical-align: middle; }
+.dform-factors td:first-child,
+.dform-recommendations td:first-child { text-align: center; font-weight: 600; }
+.dform-subgroup-label {
+  font-weight: 600;
+  margin: 4px 0 6px;
+  color: rgba(0, 0, 0, 0.75);
+}
+.dform-list-item.ant-form-item { margin-bottom: 4px; }
+.dform-inline-flag { color: #d4380d; font-size: 12px; margin-top: 2px; }
+.dform-unsaved-alert { margin-bottom: 12px; }
+.dform-unsaved-list { margin-top: 6px; font-size: 12px; opacity: 0.85; }

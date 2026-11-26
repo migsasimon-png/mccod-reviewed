@@ -235,7 +235,12 @@ export const ICDField: SFC<ICD> = observer(
             data-ctw-ino={field}
             id={popupContainerID}
             style={{
-              position: "fixed",
+              // Anchored under the search box (the wrapper is position: relative) so
+              // results open beside the field, not at a fixed viewport position.
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              marginTop: 4,
               zIndex: 10000,
               background: "#fff",
               border: "1px solid #d9d9d9",

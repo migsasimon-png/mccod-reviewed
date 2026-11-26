@@ -14,10 +14,10 @@ module.exports = function (app) {
   const target = (
     process.env.DHIS2_PROXY_TARGET ||
     process.env.REACT_APP_DHIS2_BASE_URL ||
-    "https://hmis-tests.health.go.ug"
+    "https://hmis.health.go.ug"
   ).replace(/\/$/, "");
 
-  const authHeader = buildAuthHeader(process.env.REACT_APP_DHIS2_AUTHORIZATION);
+  const authHeader = buildAuthHeader(process.env.DHIS2_PROXY_AUTHORIZATION);
 
   const proxyOptions = {
     target,
@@ -25,7 +25,7 @@ module.exports = function (app) {
     secure: true,
     logLevel: "warn",
     onProxyReq(proxyReq) {
-      if (authHeader && !proxyReq.getHeader("Authorization")) {
+      if (authHeader) {
         proxyReq.setHeader("Authorization", authHeader);
       }
     },
@@ -33,6 +33,7 @@ module.exports = function (app) {
 
   app.use("/api", proxy(proxyOptions));
   app.use("/dhis-web-commons", proxy(proxyOptions));
+  app.use("/db-api", proxy({ target, changeOrigin: true, secure: true, logLevel: "warn" }));
 
   console.log(
     `[dev-proxy] /api -> ${target}` +

@@ -107,7 +107,7 @@ function registerValidSW(swUrl: string, config?: Config) {
 }
 
 function checkValidServiceWorker(swUrl: string, config?: Config) {
-  // Check if the service worker can be found. If it can't reload the page.
+  // Check that this app still serves its service worker.
   fetch(swUrl, {
     headers: { 'Service-Worker': 'script' }
   })
@@ -118,11 +118,9 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
         response.status === 404 ||
         (contentType != null && contentType.indexOf('javascript') === -1)
       ) {
-        // No service worker found. Probably a different app. Reload the page.
-        navigator.serviceWorker.ready.then(registration => {
-          registration.unregister().then(() => {
-            window.location.reload();
-          });
+        const scope = new URL(".", swUrl).href;
+        return navigator.serviceWorker.getRegistration(scope).then(registration => {
+          if (registration?.scope === scope) return registration.unregister();
         });
       } else {
         // Service worker found. Proceed as normal.

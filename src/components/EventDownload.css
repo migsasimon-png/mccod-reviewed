@@ -4,51 +4,24 @@
 }
 
 /* ── Drawer chrome ───────────────────────────────── */
-.download-drawer .ant-drawer-body {
+.download-modal .ant-modal-body {
+  max-height: 72vh;
+  overflow: auto;
+}
+
+.dd-selected-programs {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-height: 112px;
+  margin-top: 8px;
+  overflow: auto;
 }
 
-.dd-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 24px 24px 16px;
-  background: linear-gradient(135deg, #475569 0%, #1e293b 100%);
-  color: #fff;
-}
-
-.dd-header-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.dd-title {
-  font-size: 20px;
-  font-weight: 800;
-  margin: 0;
-  color: #fff;
-}
-
-.dd-subtitle {
-  font-size: 13px;
-  margin: 4px 0 0;
-  opacity: 0.85;
-  color: #cbd5e1;
-}
-
-/* ── Body ────────────────────────────────────────── */
-.dd-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px 24px 24px;
+.dd-selected-programs .ant-tag {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .dd-section {
@@ -114,15 +87,6 @@
 }
 
 /* ── Actions ─────────────────────────────────────── */
-.dd-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  padding-top: 16px;
-  border-top: 1px solid #e2e8f0;
-  margin-top: 8px;
-}
-
 .dd-download-btn {
   min-width: 180px;
   font-weight: 700;

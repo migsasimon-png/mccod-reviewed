@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
-  Drawer,
+  Modal,
   Select,
   DatePicker,
   Radio,
@@ -41,20 +41,55 @@ const OU_MODES: { value: OuMode; label: string; desc: string }[] = [
 
 const PAGE_SIZE = 250;
 
+interface OrgUnitInfo {
+  name: string;
+  district: string;
+}
+
+const DISTRICT_LEVEL = 3;
+const ORG_UNIT_CHUNK = 100;
+
+/** Names and districts for the org units the exported events belong to. */
+async function loadOrgUnitInfo(
+  engine: any,
+  ids: string[]
+): Promise<Record<string, OrgUnitInfo>> {
+  const info: Record<string, OrgUnitInfo> = {};
+  for (let i = 0; i < ids.length; i += ORG_UNIT_CHUNK) {
+    const chunk = ids.slice(i, i + ORG_UNIT_CHUNK);
+    try {
+      const res: any = await engine.link.fetch(
+        `/api/organisationUnits.json?paging=false&filter=id:in:[${chunk.join(",")}]` +
+          `&fields=id,displayName,level,ancestors[displayName,level]`
+      );
+      for (const ou of res?.organisationUnits || []) {
+        const district =
+          ou.level === DISTRICT_LEVEL
+            ? ou.displayName
+            : (ou.ancestors || []).find((a: any) => a.level === DISTRICT_LEVEL)?.displayName;
+        info[ou.id] = { name: ou.displayName, district: district || "" };
+      }
+    } catch (e) {
+      console.error("Could not load organisation units", e);
+    }
+  }
+  return info;
+}
+
 function flattenEvent(
   ev: any,
   deNames: Record<string, string>,
-  programName: string,
-  multiProgram: boolean
+  orgUnits: Record<string, OrgUnitInfo>
 ): Record<string, string> {
   const row: Record<string, string> = {};
-  if (multiProgram) row["Program"] = programName;
+  const ou = orgUnits[ev.orgUnit];
   row["Event ID"] = ev.event || "";
-  row["Organisation Unit"] = ev.orgUnitName || ev.orgUnit || "";
-  row["Event Date"] = ev.eventDate ? moment(ev.eventDate).format("YYYY-MM-DD") : "";
+  row["Organisation Unit"] = ou?.name || ev.orgUnit || "";
+  row["District"] = ou?.district || "";
+  row["Event Date"] = ev.occurredAt ? moment(ev.occurredAt).format("YYYY-MM-DD") : "";
   row["Status"] = ev.status || "";
-  row["Created"] = ev.created ? moment(ev.created).format("YYYY-MM-DD HH:mm") : "";
-  row["Last Updated"] = ev.lastUpdated ? moment(ev.lastUpdated).format("YYYY-MM-DD HH:mm") : "";
+  row["Created"] = ev.createdAt ? moment(ev.createdAt).format("YYYY-MM-DD HH:mm") : "";
+  row["Last Updated"] = ev.updatedAt ? moment(ev.updatedAt).format("YYYY-MM-DD HH:mm") : "";
   for (const dv of ev.dataValues || []) {
     const label = deNames[dv.dataElement] || dv.dataElement;
     row[label] = dv.value ?? "";
@@ -103,11 +138,11 @@ const EventDownload = observer(() => {
   const store = useStore();
   const csvRef = useRef<any>(null);
 
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [exportOpen, setExportOpen] = useState(false);
 
   const [allPrograms, setAllPrograms] = useState<Dhis2Program[]>([]);
   const [loadingPrograms, setLoadingPrograms] = useState(false);
-  const [selectedProgramIds, setSelectedProgramIds] = useState<string[]>([]);
+  const [selectedProgramId, setSelectedProgramId] = useState<string | undefined>(undefined);
 
   const [dlOrgUnit, setDlOrgUnit] = useState<string | undefined>(undefined);
   const [ouMode, setOuMode] = useState<OuMode>("DESCENDANTS");
@@ -148,8 +183,8 @@ const EventDownload = observer(() => {
   }, [store.engine, allPrograms.length, loadingPrograms]);
 
   useEffect(() => {
-    if (drawerOpen) fetchPrograms();
-  }, [drawerOpen, fetchPrograms]);
+    if (exportOpen) fetchPrograms();
+  }, [exportOpen, fetchPrograms]);
 
   const fetchDeNames = useCallback(
     async (programStageId: string): Promise<Record<string, string>> => {
@@ -184,25 +219,25 @@ const EventDownload = observer(() => {
 
       while (hasMore && !abortRef.current) {
         let url =
-          `/api/events.json?program=${programId}` +
+          `/api/tracker/events?program=${programId}` +
           `&programStage=${programStageId}` +
-          `&order=eventDate:desc` +
+          `&order=occurredAt:desc` +
           `&pageSize=${pageSize}&page=${page}` +
           `&totalPages=true` +
-          `&fields=event,eventDate,orgUnit,orgUnitName,status,created,lastUpdated,` +
+          `&fields=event,occurredAt,orgUnit,status,createdAt,updatedAt,` +
           `dataValues[dataElement,value]`;
 
         if (ouMode === "ACCESSIBLE") {
-          url += `&ouMode=ACCESSIBLE`;
+          url += `&orgUnitMode=ACCESSIBLE`;
         } else if (dlOrgUnit) {
-          url += `&orgUnit=${dlOrgUnit}&ouMode=${ouMode}`;
+          url += `&orgUnit=${dlOrgUnit}&orgUnitMode=${ouMode}`;
         } else {
-          url += `&ouMode=ACCESSIBLE`;
+          url += `&orgUnitMode=ACCESSIBLE`;
         }
 
         if (dateRange) {
-          url += `&startDate=${dateRange[0].format("YYYY-MM-DD")}`;
-          url += `&endDate=${dateRange[1].format("YYYY-MM-DD")}`;
+          url += `&occurredAfter=${dateRange[0].clone().startOf("day").format("YYYY-MM-DDTHH:mm:ss")}`;
+          url += `&occurredBefore=${dateRange[1].clone().endOf("day").format("YYYY-MM-DDTHH:mm:ss")}`;
         }
 
         const res: any = await store.engine.link.fetch(url);
@@ -221,8 +256,8 @@ const EventDownload = observer(() => {
   );
 
   const handleDownload = useCallback(async () => {
-    if (selectedProgramIds.length === 0) {
-      message.warning("Select at least one program to download");
+    if (!selectedProgramId) {
+      message.warning("Select a program to download");
       return;
     }
     if (!dlOrgUnit && ouMode !== "ACCESSIBLE") {
@@ -240,27 +275,19 @@ const EventDownload = observer(() => {
     try {
       const allRows: Record<string, string>[] = [];
 
-      const tasks: { programId: string; programName: string; stageId: string; stageName: string }[] = [];
-      for (const pid of selectedProgramIds) {
-        const prog = allPrograms.find((p) => p.id === pid);
-        if (!prog) continue;
-        for (const stage of prog.programStages) {
-          tasks.push({
-            programId: prog.id,
-            programName: prog.displayName,
-            stageId: stage.id,
-            stageName: stage.displayName,
-          });
-        }
-      }
+      const prog = allPrograms.find((p) => p.id === selectedProgramId);
+      const tasks = (prog?.programStages || []).map((stage) => ({
+        programId: prog!.id,
+        programName: prog!.displayName,
+        stageId: stage.id,
+        stageName: stage.displayName,
+      }));
 
       if (tasks.length === 0) {
-        setError("Selected programs have no program stages.");
+        setError("The selected program has no program stages.");
         setDownloading(false);
         return;
       }
-
-      const multiProgram = selectedProgramIds.length > 1;
 
       for (let i = 0; i < tasks.length; i++) {
         if (abortRef.current) break;
@@ -289,6 +316,10 @@ const EventDownload = observer(() => {
           }
         );
 
+        setProgressLabel(`Looking up districts for ${label}...`);
+        const orgUnitIds = Array.from(new Set<string>(events.map((ev: any) => ev.orgUnit))).filter(Boolean);
+        const orgUnits = await loadOrgUnitInfo(store.engine, orgUnitIds);
+
         for (const ev of events) {
           if (resolveOptionCodes && ev.dataValues) {
             for (const dv of ev.dataValues) {
@@ -298,7 +329,7 @@ const EventDownload = observer(() => {
               }
             }
           }
-          const row = flattenEvent(ev, deNames, task.programName, multiProgram);
+          const row = flattenEvent(ev, deNames, orgUnits);
           allRows.push(row);
         }
         setTotalFetched(allRows.length);
@@ -346,7 +377,7 @@ const EventDownload = observer(() => {
       setProgress(0);
     }
   }, [
-    selectedProgramIds,
+    selectedProgramId,
     allPrograms,
     dlOrgUnit,
     ouMode,
@@ -376,12 +407,17 @@ const EventDownload = observer(() => {
 
   const orgUnits = store.organisationUnits || [];
 
+  const closeExporter = () => {
+    setExportOpen(false);
+    handleCancel();
+  };
+
   return (
     <>
       <button
         className="tile download-tile"
         style={{ background: "linear-gradient(135deg, #475569 0%, #1e293b 100%)" }}
-        onClick={() => setDrawerOpen(true)}
+        onClick={() => setExportOpen(true)}
       >
         <span className="tile-glow" />
         <span className="tile-badge">Export</span>
@@ -401,92 +437,55 @@ const EventDownload = observer(() => {
         </span>
       </button>
 
-      <Drawer
-        title={null}
-        placement="right"
-        width={560}
-        onClose={() => { setDrawerOpen(false); handleCancel(); }}
-        visible={drawerOpen}
-        className="download-drawer"
-        bodyStyle={{ padding: 0 }}
+      <Modal
+        title="Event Data Export"
+        visible={exportOpen}
+        onCancel={closeExporter}
+        width={680}
+        centered
+        className="download-modal"
+        footer={
+          <>
+            <Button onClick={closeExporter}>Close</Button>
+            <Button
+              type="primary"
+              size="large"
+              loading={downloading}
+              disabled={!selectedProgramId}
+              onClick={handleDownload}
+              className="dd-download-btn"
+            >
+              {downloading ? "Downloading..." : "Download"}
+            </Button>
+          </>
+        }
       >
-        <div className="dd-header">
-          <div className="dd-header-icon">
-            <svg viewBox="0 0 24 24" fill="#fff" width="28" height="28">
-              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
-            </svg>
-          </div>
-          <div>
-            <h2 className="dd-title">Event Data Export</h2>
-            <p className="dd-subtitle">
-              Download events from any DHIS2 event program
-            </p>
-          </div>
-        </div>
-
         <div className="dd-body">
           {/* 1. PROGRAM SELECTION */}
           <div className="dd-section">
-            <label className="dd-label">Programs to export</label>
+            <label className="dd-label">Program to export</label>
             {loadingPrograms ? (
               <div style={{ textAlign: "center", padding: 20 }}>
                 <Spin size="small" />
                 <span style={{ marginLeft: 8, color: "#64748b" }}>Loading programs...</span>
               </div>
             ) : (
-              <>
-                <Select
-                  mode="multiple"
-                  style={{ width: "100%" }}
-                  placeholder="Search and select programs..."
-                  value={selectedProgramIds}
-                  onChange={setSelectedProgramIds}
-                  optionFilterProp="children"
-                  showSearch
-                  maxTagCount={3}
-                  maxTagPlaceholder={(omitted) => `+${omitted.length} more`}
-                >
-                  {allPrograms.map((p) => (
-                    <Option key={p.id} value={p.id}>
-                      {p.displayName}
-                    </Option>
-                  ))}
-                </Select>
-                <div style={{ marginTop: 6, display: "flex", gap: 8 }}>
-                  <Button
-                    type="link"
-                    size="small"
-                    style={{ padding: 0 }}
-                    onClick={() => setSelectedProgramIds(allPrograms.map((p) => p.id))}
-                  >
-                    Select all ({allPrograms.length})
-                  </Button>
-                  {selectedProgramIds.length > 0 && (
-                    <Button
-                      type="link"
-                      size="small"
-                      style={{ padding: 0 }}
-                      onClick={() => setSelectedProgramIds([])}
-                    >
-                      Clear
-                    </Button>
-                  )}
-                </div>
-                {selectedProgramIds.length > 0 && (
-                  <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 4 }}>
-                    {selectedProgramIds.map((id) => {
-                      const prog = allPrograms.find((p) => p.id === id);
-                      return (
-                        <Tag key={id} color="blue" closable onClose={() =>
-                          setSelectedProgramIds((prev) => prev.filter((x) => x !== id))
-                        }>
-                          {prog?.displayName || id}
-                        </Tag>
-                      );
-                    })}
-                  </div>
-                )}
-              </>
+              <Select
+                style={{ width: "100%" }}
+                placeholder="Search and select a program..."
+                value={selectedProgramId}
+                onChange={(id: string) => setSelectedProgramId(id)}
+                optionFilterProp="children"
+                showSearch
+                allowClear
+                listHeight={256}
+              >
+                {allPrograms.map((p) => (
+                  <Option key={p.id} value={p.id}>
+                    {p.displayName}
+                  </Option>
+                ))}
+              </Select>
             )}
           </div>
 
@@ -629,24 +628,7 @@ const EventDownload = observer(() => {
             </div>
           )}
 
-          {/* ACTIONS */}
-          <div className="dd-actions">
-            <Button onClick={() => setDrawerOpen(false)}>Close</Button>
-            <Button
-              type="primary"
-              size="large"
-              loading={downloading}
-              disabled={selectedProgramIds.length === 0}
-              onClick={handleDownload}
-              className="dd-download-btn"
-            >
-              {downloading
-                ? "Downloading..."
-                : `Download${selectedProgramIds.length > 0
-                    ? ` (${selectedProgramIds.length} program${selectedProgramIds.length > 1 ? "s" : ""})`
-                    : ""}`}
-            </Button>
-          </div>
+
         </div>
 
         <CSVLink
@@ -655,7 +637,7 @@ const EventDownload = observer(() => {
           filename={csvFilename}
           style={{ display: "none" }}
         />
-      </Drawer>
+      </Modal>
     </>
   );
 });

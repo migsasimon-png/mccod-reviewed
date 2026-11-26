@@ -32,6 +32,7 @@ import { isArray, isEmpty } from "lodash";
 
 import moment from "moment";
 import DistSearchPopup, { validSearchTypes } from "./DistrictSearch";
+import { resolveEventAttributeOptionCombo } from "../forms/trackerCategory";
 import ApprovalRights from "./ApprovalRights";
 import Declarations from "./Declarations";
 
@@ -328,7 +329,7 @@ export const DataEntryForm = observer(() => {
     //     try {
     //         const response = await fetch(
     //             `/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
-    //             // `https://hmis-tests.health.go.ug/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
+    //             // `https://hmis.health.go.ug/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
     //             // `https://hmis.health.go.ug/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
     //         );
     //         const data = await response.json();
@@ -360,8 +361,8 @@ export const DataEntryForm = observer(() => {
     //     try {
     //         const response = await fetch(
     //             // "api/organisationUnits.json?level=5&paging=false&fields=id,displayName,level,parent[id,displayName,level,parent[id,displayName,level]]"
-    //             // "https://hmis-tests.health.go.ug/api/organisationUnits.json?level=5&paging=false&fields=id,displayName,level,parent[id,displayName,level,parent[id,displayName,level]]"
-    //             `https://hmis-tests.health.go.ug/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
+    //             // "https://hmis.health.go.ug/api/organisationUnits.json?level=5&paging=false&fields=id,displayName,level,parent[id,displayName,level,parent[id,displayName,level]]"
+    //             `https://hmis.health.go.ug/api/organisationUnits/${chosenDistrictId}?paging=false&fields=level,id,children[id,displayName,level]`
     //         );
     //         const data = await response.json();
     //         console.log("sub data", chosenDistrictId);
@@ -454,7 +455,6 @@ export const DataEntryForm = observer(() => {
                 // );
 
                 const newValues = {
-                    attributeCategoryOptions: 'l4UMmqvSBe5',
                     // ...filteredData,
                     event: store.currentEvent,
                     orgUnit: store.selectedOrgUnit,
@@ -495,34 +495,33 @@ export const DataEntryForm = observer(() => {
                 };
 
 
-                const saveDataUrl = 'https://hmis-tests.health.go.ug/api/40/events';
-
-                // Post data to a different URL
                 try {
-                    const response = await fetch(saveDataUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Basic ' + btoa('hisp.skununka:Nomisr123$$$$'),
+                    const { eventDate, dataValues, ...event } = newValues;
+                    const attributeOptionCombo = await resolveEventAttributeOptionCombo(
+                        (url) => store.engine.link.fetch(url, { cache: "no-store" }),
+                        event.program,
+                        store.selectedNationality
+                    );
+                    const result = await store.engine.mutate({
+                        type: "create",
+                        resource: "tracker",
+                        params: { async: false, importStrategy: "CREATE_AND_UPDATE" },
+                        data: {
+                            events: [{
+                                ...event,
+                                ...(attributeOptionCombo ? { attributeOptionCombo } : {}),
+                                occurredAt: moment(eventDate).format("YYYY-MM-DDTHH:mm:ss"),
+                                dataValues: dataValues
+                                    .filter(({ value }) => value != null && value !== "")
+                                    .map(({ dataElement, value }) => ({ dataElement, value: String(value) })),
+                            }],
                         },
-                        body: JSON.stringify(newValues),
-                        credentials: 'include',
                     });
-
-                    console.log("payload values are", newValues);
-                    // console.log('storage data:', filteredData)
-
-                    // Check if the request was successful
-                    if (response.ok) {
-                        console.log('Data saved successfully!');
-                        localStorage.clear()
-                        localStorage.removeItem("mcodtemp");
-                        // window.close();
-                        (window.parent as any).closeIframe();
-                        // window.parent.closeIframe();
-                    } else {
-                        console.error('Failed to save data:', response.statusText);
+                    if ((result?.response ?? result)?.status === "ERROR") {
+                        throw new Error("DHIS2 rejected the event");
                     }
+                    localStorage.clear();
+                    (window.parent as any).closeIframe();
                 } catch (error) {
                     console.error('Error saving data:', error);
                 }
@@ -1705,7 +1704,7 @@ export const DataEntryForm = observer(() => {
         };
         // "https://icd.who.int/doris/api/ucod/underlyingcauseofdeath/ICD11"
         const burl = "https://hmis-dev.health.go.ug";
-        // const burl = "https://hmis-tests.health.go.ug";
+        // const burl = "https://hmis.health.go.ug";
         const url = burl + "/icd/release/11/2024-01/doris?" + new URLSearchParams(payload);
         
         try {

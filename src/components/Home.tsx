@@ -6,7 +6,9 @@ import { FormDefinition, FormModule } from "../forms/types";
 import EventDownload from "./EventDownload";
 import "./Home.css";
 
-const Icon = ({ name }: { name: FormDefinition["icon"] }) => {
+type TileIcon = FormDefinition["icon"] | "dashboard";
+
+const Icon = ({ name }: { name: TileIcon }) => {
   switch (name) {
     case "maternal":
       return (
@@ -18,6 +20,12 @@ const Icon = ({ name }: { name: FormDefinition["icon"] }) => {
       return (
         <svg viewBox="0 0 24 24">
           <path d="M12 2C8 2 5 5 5 9c0 3 2 5 2 7 0 2 2 4 5 4s5-2 5-4c0-2 2-4 2-7 0-4-3-7-7-7zm-2 8a1.2 1.2 0 1 1 0 2.4A1.2 1.2 0 0 1 10 10zm4 0a1.2 1.2 0 1 1 0 2.4A1.2 1.2 0 0 1 14 10zm-2 4c1.3 0 2.4.7 3 1.7-.6 1-1.7 1.8-3 1.8s-2.4-.8-3-1.8c.6-1 1.7-1.7 3-1.7z" />
+        </svg>
+      );
+    case "dashboard":
+      return (
+        <svg viewBox="0 0 24 24">
+          <path d="M3 13h2v8H3v-8zm4-6h2v14H7V7zm4 3h2v11h-2V10zm4-7h2v18h-2V3zm4 9h2v9h-2v-9z" />
         </svg>
       );
     case "child":
@@ -39,12 +47,13 @@ interface TileProps {
   title: string;
   subtitle: string;
   color: string;
-  icon: FormDefinition["icon"];
+  icon: TileIcon;
   badge?: string;
+  cta?: string;
   onOpen: () => void;
 }
 
-const Tile = ({ title, subtitle, color, icon, badge, onOpen }: TileProps) => (
+const Tile = ({ title, subtitle, color, icon, badge, cta = "Open form", onOpen }: TileProps) => (
   <button className="tile" style={{ background: color }} onClick={onOpen}>
     <span className="tile-glow" />
     {badge && <span className="tile-badge">{badge}</span>}
@@ -56,7 +65,7 @@ const Tile = ({ title, subtitle, color, icon, badge, onOpen }: TileProps) => (
       <p className="tile-subtitle">{subtitle}</p>
     </div>
     <span className="tile-cta">
-      Open form <span className="arrow">→</span>
+      {cta} <span className="arrow">→</span>
     </span>
   </button>
 );
@@ -106,6 +115,15 @@ export const Home = observer(() => {
           icon={formDefinitions.cdr.icon}
           badge="Beta"
           onOpen={() => open("cdr")}
+        />
+        <Tile
+          title="Simple Analytics"
+          subtitle="Live counts, trends and records that need action for the areas you can see"
+          color="linear-gradient(135deg, #0f766e 0%, #134e4a 100%)"
+          icon="dashboard"
+          badge="New"
+          cta="Open analytics"
+          onOpen={() => open("dashboard")}
         />
         <EventDownload />
       </div>

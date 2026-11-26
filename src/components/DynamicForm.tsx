@@ -9,6 +9,7 @@ import { observer } from "mobx-react";
 import { runInAction } from "mobx";
 import moment from "moment";
 import {
+  Alert,
   Button,
   Checkbox,
   Col,
@@ -18,27 +19,37 @@ import {
   Form,
   Input,
   InputNumber,
+  Modal,
   notification,
   Popover,
   Progress,
   Radio,
   Row,
   Select,
+  Space,
   Spin,
   Table,
   Tag,
   TimePicker,
 } from "antd";
 import { useStore } from "../Context";
+import { isTicked, matchOptionCode } from "../forms/legacyValues";
 import { dynamicFormStore, MATERNAL_TO_MCCOD_MAP, CDR_TO_MCCOD_MAP, PERINATAL_TO_MCCOD_MAP } from "../forms/DynamicFormStore";
 import { getFormDefinition, CASE_NUMBER_DE } from "../forms/registry";
-import { FormField, ListColumn } from "../forms/types";
+import { answered, childDateOfDeath, childDerivedValues, childFieldsForDisplay, extendChildLayout, formatFacilityStay, isChildReviewOverdue, isPendingChildField } from "../forms/childReview";
+import { FormField, FormGroup, ListColumn } from "../forms/types";
+import { confirmFlags, flagsByField, mustCorrectFlags, validateReviewForm } from "../forms/reviewValidation";
+import { isMappedPendingDe, toDhis2DeId } from "../forms/pendingDataElements";
 import {
   applySkipEffects,
   computeSkipState,
   emptySkipState,
   isFieldDisabled,
   isFieldVisible,
+  MDR_ADMISSION,
+  MDR_DEATH,
+  MDR_STAY,
+  stayDuration,
 } from "../forms/skipLogic";
 import { LoadingOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { MccodTableSection } from "./MccodTableSection";
@@ -50,7 +61,19 @@ import { FormContextBar, isFormContextReady } from "./FormContextBar";
 import { DorisReportModal } from "./DorisReportModal";
 import "./DynamicForm.css";
 
-const UGANDAN = "l4UMmqvSBe5";
+const normalizeNin = (value: unknown) => typeof value === "string" ? value.trim().toUpperCase() : "";
+const reviewNinFields = { mdr: "CupbOInqvJI", pdr: "NEW_pdr_mother_nin" };
+interface NiraPerson {
+  givenNames?: string;
+  surname?: string;
+  dateOfBirth?: string;
+  gender?: string;
+  error?: { code?: string | number };
+}
+interface NiraResidence {
+  address?: { village?: string; parish?: string; subCounty?: string; district?: string };
+  error?: unknown;
+}
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -64,6 +87,34 @@ const NUMERIC = [
   "PERCENTAGE",
   "UNIT_INTERVAL",
 ];
+
+/**
+ * Drop-downs and pickers render their popup inside the field's own column.
+ * Without this, antd appends the popup to <body> and, inside the scrolling
+ * form, it can open at the top of the page or below the visible area.
+ */
+const popupAtField = (node: HTMLElement) => node.parentElement ?? document.body;
+
+/** MCCOD usual-residence drop-downs (values are stored by organisation-unit display name). */
+const RESIDENCE = {
+  region: "zwKo51BEayZ",
+  district: "u44XP9fZweA",
+  subcounty: "t5nTEmlScSt",
+};
+
+/** Sub-counties (level 5) under a district, including those nested under a level-4 unit. */
+const subcountyChoices = (data: any) => {
+  const children: any[] = data?.children ?? [];
+  let units = children.filter((c) => c.level === 5);
+  if (!units.length) {
+    children
+      .filter((c) => c.level === 4)
+      .forEach((unit) => {
+        units = [...units, ...(unit.children ?? []).filter((c: any) => c.level === 5)];
+      });
+  }
+  return units.map((u) => ({ code: u.displayName, name: u.displayName }));
+};
 
 /** Renders a single field's widget based on runtime DHIS2 metadata. */
 export const FieldWidget = observer(
@@ -84,6 +135,13 @@ export const FieldWidget = observer(
     [key: string]: any;
   }) => {
     const meta = dynamicFormStore.meta[field.de];
+    if (dynamicFormStore.activeForm?.id === "cdr" && field.de === dynamicFormStore.childFieldIds.stay) {
+      const minutes = Number(rest.value);
+      const text = answered(rest.value) && Number.isInteger(minutes) && minutes >= 0
+        ? formatFacilityStay(minutes)
+        : "Unknown";
+      return <Input id={rest.id} value={text} readOnly />;
+    }
 
     // Case number is an alphanumeric string (e.g. CDR/BrtC10sqp45/2026/00001).
     // Force standard text Input so antd InputNumber does not blank it out.
@@ -105,6 +163,29 @@ export const FieldWidget = observer(
       );
     }
 
+    if (field.widget === "yesNoCheck") {
+      const yes = /^yes$/i.test(String(rest.value ?? ""));
+      const no = /^no$/i.test(String(rest.value ?? ""));
+      return (
+        <Space size="large">
+          <Checkbox
+            disabled={disabled}
+            checked={yes}
+            onChange={(e) => rest.onChange?.(e.target.checked ? "Yes" : null)}
+          >
+            Yes
+          </Checkbox>
+          <Checkbox
+            disabled={disabled}
+            checked={no}
+            onChange={(e) => rest.onChange?.(e.target.checked ? "No" : null)}
+          >
+            No
+          </Checkbox>
+        </Space>
+      );
+    }
+
     let options = meta?.options;
     if (
       (!options || !options.length) &&
@@ -120,7 +201,28 @@ export const FieldWidget = observer(
       ];
     }
 
-    if (options && options.length) {
+    // Retired choices stay out of the list (a saved record still shows its own).
+    if (options && field.hideOptions?.length) {
+      const live = new Set((meta?.options || []).map((o) => o.code));
+      const ready = !field.hideOptionsWhen || field.hideOptionsWhen.every((code) => live.has(code));
+      if (ready) {
+        const current = rest.value == null ? "" : String(rest.value);
+        options = options.filter((o) => !field.hideOptions!.includes(o.code) || o.code === current);
+      }
+    }
+
+    // July 2024 paper: ANC "Unknown" → "Records not available"
+    if (options && options.length && field.de === "QidQVyBFspW") {
+      options = options.map((o) =>
+        /^unknown$/i.test(o.name || "")
+          ? { ...o, name: "Records not available" }
+          : o
+      );
+    }
+
+    // A layout-declared choice list stays a drop-down even while it is empty
+    // (cascading pickers fill it once their parent value is chosen).
+    if (options && (options.length || field.options)) {
       const isYesNoOptions =
         options.length >= 2 &&
         options.length <= 4 &&
@@ -134,6 +236,7 @@ export const FieldWidget = observer(
             "true",
             "false",
             "unknown",
+            "records not available",
             "don't know",
             "not known",
             "n/a",
@@ -159,6 +262,7 @@ export const FieldWidget = observer(
           {...rest}
           mode={field.multi ? "multiple" : undefined}
           size="middle"
+          getPopupContainer={popupAtField}
           allowClear
           showSearch
           showArrow
@@ -193,7 +297,14 @@ export const FieldWidget = observer(
     }
     if (vt === "DATE") {
       return (
-        <DatePicker {...rest} size="middle" disabled={disabled} style={{ width: "100%" }} />
+        <DatePicker
+          {...rest}
+          size="middle"
+          disabled={disabled}
+          getPopupContainer={popupAtField}
+          style={{ width: "100%" }}
+          disabledDate={(current) => !field.allowFuture && !!current && current.isAfter(moment(), "day")}
+        />
       );
     }
     if (vt === "DATETIME") {
@@ -203,7 +314,9 @@ export const FieldWidget = observer(
           size="middle"
           showTime
           disabled={disabled}
+          getPopupContainer={popupAtField}
           style={{ width: "100%" }}
+          disabledDate={(current) => !field.allowFuture && !!current && current.isAfter(moment(), "day")}
         />
       );
     }
@@ -215,6 +328,7 @@ export const FieldWidget = observer(
           format="HH:mm"
           minuteStep={5}
           disabled={disabled}
+          getPopupContainer={popupAtField}
           style={{ width: "100%" }}
         />
       );
@@ -237,7 +351,7 @@ export const FieldWidget = observer(
       }
       return <InputNumber {...rest} {...num} />;
     }
-    if (vt === "LONG_TEXT") {
+    if (vt === "LONG_TEXT" || (isPendingChildField(field.de) && !field.de.endsWith("Nin"))) {
       return <TextArea {...rest} rows={3} disabled={disabled} />;
     }
     return <Input {...rest} size="middle" disabled={disabled} placeholder={hint} />;
@@ -252,6 +366,7 @@ export const FieldWidget = observer(
  * (ICD cause fields are laid out separately and don't use this.)
  */
 const fieldSpan = (field: FormField): { sm: number; lg: number } => {
+  if (isPendingChildField(field.de)) return { sm: 24, lg: 24 };
   // Explicit per-field override (e.g. the wide cause / small interval fields).
   if (field.col) return { sm: field.col >= 12 ? 24 : 12, lg: field.col };
   const meta = dynamicFormStore.meta[field.de];
@@ -292,7 +407,7 @@ const displayValue = (field: FormField, record: any): string => {
   const vt = meta?.valueType;
   if (vt === "BOOLEAN")
     return /^true$/i.test(raw) ? "Yes" : /^false$/i.test(raw) ? "No" : raw;
-  if (vt === "TRUE_ONLY") return /^true$/i.test(raw) ? "Yes" : raw;
+  if (vt === "TRUE_ONLY") return isTicked(raw) ? "Yes" : "No";
   if (vt === "DATE")
     return moment(raw).isValid() ? moment(raw).format("DD MMM YYYY") : raw;
   if (vt === "DATETIME")
@@ -314,7 +429,7 @@ const displayValueByDe = (de: string, record: any): string => {
   const vt = meta?.valueType;
   if (vt === "BOOLEAN")
     return /^true$/i.test(raw) ? "Yes" : /^false$/i.test(raw) ? "No" : raw;
-  if (vt === "TRUE_ONLY") return /^true$/i.test(raw) ? "Yes" : raw;
+  if (vt === "TRUE_ONLY") return isTicked(raw) ? "Yes" : "No";
   if (vt === "DATE")
     return moment(raw).isValid() ? moment(raw).format("DD MMM YYYY") : raw;
   return raw;
@@ -353,6 +468,12 @@ const RecordList = observer(({ def, onNew, onView, onEdit }: RecordListProps) =>
   const rows = dynamicFormStore.records;
   const canAdd = isFormContextReady(store);
   const [searchText, setSearchText] = useState("");
+  const overdueReviews = def.id === "cdr"
+    ? new Set(rows.filter((record) => isChildReviewOverdue(
+        record.status,
+        dynamicFormStore.recordValue(record, childDateOfDeath)
+      )).map((record) => record.event))
+    : new Set();
 
   const filteredRows = useMemo(() => {
     if (!searchText.trim()) return rows;
@@ -377,6 +498,12 @@ const RecordList = observer(({ def, onNew, onView, onEdit }: RecordListProps) =>
     render: (_: any, r: any) => {
       if (col.type === "date")
         return r.eventDate ? moment(r.eventDate).format("DD MMM YYYY") : "—";
+      if (col.type === "reviewStatus") {
+        if (r.status === "COMPLETED") return <Tag color="green">Completed</Tag>;
+        if (overdueReviews.has(r.event)) return <Tag color="red">Overdue</Tag>;
+        if (r.status === "ACTIVE") return <Tag color="blue">In progress</Tag>;
+        return r.status || "—";
+      }
       if (col.type === "datetime") {
         const raw = col.key === "lastUpdated" ? r.lastUpdated : (col.de ? dynamicFormStore.recordValue(r, col.de) : "");
         return raw ? moment(raw).format("DD MMM YYYY HH:mm") : "—";
@@ -415,7 +542,7 @@ const RecordList = observer(({ def, onNew, onView, onEdit }: RecordListProps) =>
         
         // A record is ONLY "Certified" if it has an actual ICD-11 cause filled in OR linkedVal is a real 11-char DHIS2 Event UID
         const isRealUid = typeof linkedVal === "string" && linkedVal.length === 11 && !/^(true|false|1|0|yes|no)$/i.test(linkedVal);
-        const isCertified = Boolean(isRealUid || finalCause || causeA);
+        const isCertified = def.id === "pdr" ? isRealUid : Boolean(isRealUid || finalCause || causeA);
 
         return (
           <Tag color={isCertified ? "green" : "orange"}>
@@ -479,6 +606,11 @@ const RecordList = observer(({ def, onNew, onView, onEdit }: RecordListProps) =>
           </Button>
         </div>
       </div>
+      {store.selectedOrgUnit && overdueReviews.size > 0 && (
+        <p role="status">
+          {overdueReviews.size} {overdueReviews.size === 1 ? "listed review is" : "listed reviews are"} past the seven-day deadline from the date of death.
+        </p>
+      )}
       <Spin spinning={dynamicFormStore.loadingRecords}>
         {filteredRows.length ? (
           <Table
@@ -493,11 +625,11 @@ const RecordList = observer(({ def, onNew, onView, onEdit }: RecordListProps) =>
         ) : (
           <Empty
             description={
-              store.selectedOrgUnit
+              dynamicFormStore.recordLoadError || (store.selectedOrgUnit
                 ? rows.length > 0
                   ? "No matching case numbers found."
                   : "No records yet — create the first one."
-                : "No facility selected."
+                : "No facility selected.")
             }
           />
         )}
@@ -621,8 +753,15 @@ export const DynamicForm = observer(() => {
   const store = useStore();
   const [form] = Form.useForm();
   const ninapi = useNinApi();
-  const def = store.activeFormId ? getFormDefinition(store.activeFormId) : null;
+  const baseDef = store.activeFormId ? getFormDefinition(store.activeFormId) : null;
+  const childFieldIds = dynamicFormStore.childFieldIds;
+  const def = useMemo(
+    () => baseDef?.id === "cdr" ? extendChildLayout(baseDef, childFieldIds) : baseDef,
+    [baseDef, childFieldIds]
+  );
   const [ninLoading, setNinLoading] = useState(false);
+  const ninRequests = useRef(new Map<string, symbol>());
+  const ninTokenRequest = useRef<Promise<void> | null>(null);
   const [formValues, setFormValues] = useState<Record<string, any>>({});
 
 
@@ -631,6 +770,8 @@ export const DynamicForm = observer(() => {
   const [savedOnce, setSavedOnce] = useState(false);
   const [mode, setMode] = useState<"list" | "form">("list");
   const [formKey, setFormKey] = useState(0);
+  const hydratedForm = useRef<{ id: string; key: number } | null>(null);
+  const perinatalDraftKey = useRef<string | null>(null);
   const [saveTrigger, setSaveTrigger] = useState(0);
   const [detailRecord, setDetailRecord] = useState<any | null>(null);
 
@@ -641,6 +782,10 @@ export const DynamicForm = observer(() => {
   const dorisTimeoutRef = useRef<any>(null);
   const [lastFetchedActiveSi, setLastFetchedActiveSi] = useState<number | null>(null);
   const [lastFetchedCase, setLastFetchedCase] = useState<string | null>(null);
+
+  useEffect(() => () => {
+    if (dorisTimeoutRef.current) clearTimeout(dorisTimeoutRef.current);
+  }, [baseDef]);
 
   const finalCauseOptions = useMemo(() => {
     const opts: Record<string, string> = {};
@@ -653,22 +798,22 @@ export const DynamicForm = observer(() => {
 
     // Row a — cause text: sfpqAeqKeyQ, code: Ylht9kCLSRW
     const causeA_text = formValues["sfpqAeqKeyQ"];
-    const causeA_code = formValues["Ylht9kCLSRW"];
+    const causeA_code = formValues[def?.id === "cdr" ? "zD0E77W4rFs" : "Ylht9kCLSRW"];
     if (causeA_text) opts[causeA_code || `_a_${causeA_text}`] = causeA_text;
 
     // Row b — cause text: zb7uTuBCPrN, code: myydnkmLfhp
     const causeB_text = formValues["zb7uTuBCPrN"];
-    const causeB_code = formValues["myydnkmLfhp"];
+    const causeB_code = formValues[def?.id === "cdr" ? "tuMMQsGtE69" : "myydnkmLfhp"];
     if (causeB_text) opts[causeB_code || `_b_${causeB_text}`] = causeB_text;
 
     // Row c — cause text: QGFYJK00ES7, code: aC64sB86ThG
     const causeC_text = formValues["QGFYJK00ES7"];
-    const causeC_code = formValues["aC64sB86ThG"];
+    const causeC_code = formValues[def?.id === "cdr" ? "C8n6hBilwsX" : "aC64sB86ThG"];
     if (causeC_text) opts[causeC_code || `_c_${causeC_text}`] = causeC_text;
 
     // Row d — cause text: CnPGhOcERFF, code: cmZrrHfTxW3
     const causeD_text = formValues["CnPGhOcERFF"];
-    const causeD_code = formValues["cmZrrHfTxW3"];
+    const causeD_code = formValues[def?.id === "cdr" ? "IeS8V8Yf40N" : "cmZrrHfTxW3"];
     if (causeD_text) opts[causeD_code || `_d_${causeD_text}`] = causeD_text;
 
     // NOTE: dorisValue is intentionally NOT added here as a separate option.
@@ -677,7 +822,7 @@ export const DynamicForm = observer(() => {
     // Instead, MccodTableSection highlights the matching existing entry.
 
     return opts;
-  }, [formValues, dorisValue]);
+  }, [formValues, dorisValue, def?.id]);
 
 
   // Live-measure the sticky hero so the sticky sidebar sits exactly below it
@@ -703,15 +848,91 @@ export const DynamicForm = observer(() => {
   );
 
   useEffect(() => {
-    if (!def) return;
+    if (!baseDef) return;
+    hydratedForm.current = null;
+    perinatalDraftKey.current = null;
     setCurrentStep(0);
     setSavedOnce(false);
     setMode("list");
     (async () => {
-      await dynamicFormStore.openForm(def);
-      await dynamicFormStore.loadRecords(def);
+      await dynamicFormStore.openForm(baseDef);
+      await dynamicFormStore.loadRecords(baseDef);
     })();
-  }, [def, sectionKeys]);
+  }, [baseDef]);
+
+  // MCCOD residence drop-downs. Options come from the organisation-unit
+  // hierarchy and are re-applied after each metadata load.
+  const residenceCache = useRef({
+    regionsReady: false,
+    districtsByRegion: new Map<string, any[]>(),
+    districtIds: new Map<string, string>(),
+    subcounties: new Map<string, { code: string; name: string }[]>(),
+  });
+  const [residenceReady, setResidenceReady] = useState(false);
+  const residenceRegion = formValues[RESIDENCE.region];
+  const residenceDistrict = formValues[RESIDENCE.district];
+  const metaLoading = dynamicFormStore.loadingMeta;
+  const isMccod = def?.id === "mccod";
+
+  useEffect(() => {
+    if (!isMccod || metaLoading) return;
+    let cancelled = false;
+    (async () => {
+      const cache = residenceCache.current;
+      if (!cache.regionsReady) {
+        const res: any = await store.getRegions();
+        if (cancelled || !res?.organisationUnits) return;
+        (res.organisationUnits as any[]).forEach((region) => {
+          cache.districtsByRegion.set(region.displayName, region.children || []);
+          (region.children || []).forEach((d: any) => cache.districtIds.set(d.displayName, d.id));
+        });
+        cache.regionsReady = true;
+      }
+      if (cancelled) return;
+      dynamicFormStore.setFieldOptions(
+        RESIDENCE.region,
+        Array.from(cache.districtsByRegion.keys()).map((name) => ({ code: name, name }))
+      );
+      setResidenceReady(true);
+    })().catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [isMccod, metaLoading, store]);
+
+  useEffect(() => {
+    if (!isMccod || metaLoading || !residenceReady) return;
+    const districts = residenceCache.current.districtsByRegion.get(residenceRegion) ?? [];
+    dynamicFormStore.setFieldOptions(
+      RESIDENCE.district,
+      districts.map((d: any) => ({ code: d.displayName, name: d.displayName }))
+    );
+  }, [isMccod, metaLoading, residenceReady, residenceRegion]);
+
+  useEffect(() => {
+    if (!isMccod || metaLoading || !residenceReady) return;
+    const cache = residenceCache.current;
+    const districtId = residenceDistrict ? cache.districtIds.get(residenceDistrict) : undefined;
+    if (!districtId) {
+      dynamicFormStore.setFieldOptions(RESIDENCE.subcounty, []);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      let options = cache.subcounties.get(districtId);
+      if (!options) {
+        const data: any = await store.engine.link.fetch(
+          `/api/organisationUnits/${districtId}?paging=false&fields=level,id,children[id,displayName,level,children[id,displayName,level]]`
+        );
+        options = subcountyChoices(data);
+        cache.subcounties.set(districtId, options);
+      }
+      if (!cancelled) dynamicFormStore.setFieldOptions(RESIDENCE.subcounty, options);
+    })().catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [isMccod, metaLoading, residenceReady, residenceDistrict]);
 
   // Reload records whenever the selected org unit changes.
   useEffect(() => {
@@ -719,11 +940,13 @@ export const DynamicForm = observer(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store.selectedOrgUnit]);
 
-  // Warm up the NIN token so lookups work on the MCCOD certificate.
   useEffect(() => {
-    if (def?.isMccod) store.apiStore?.fetchNINToken?.();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [def]);
+    const requests = ninRequests.current;
+    requests.clear();
+    setNinLoading(false);
+    return () => requests.clear();
+  }, [baseDef, formKey, mode]);
+
 
 
   // Hydrate the form from the record's stored values whenever we enter form
@@ -733,6 +956,10 @@ export const DynamicForm = observer(() => {
   // records.
   useEffect(() => {
     if (mode !== "form" || dynamicFormStore.loadingMeta || !def) return;
+    if (def.id === "pdr") {
+      if (hydratedForm.current?.id === def.id && hydratedForm.current.key === formKey) return;
+      hydratedForm.current = { id: def.id, key: formKey };
+    }
     const hydrated = hydrate(dynamicFormStore.defaultValues);
 
     // If case number is not set in hydrated values, fallback to store defaults or current event
@@ -746,13 +973,8 @@ export const DynamicForm = observer(() => {
     }
 
     setFormValues(hydrated);
-    // Defer to the next tick so the form instance is fully connected and the
-    // current step's fields are registered before we push values in.
-    const t = setTimeout(() => {
-      form.resetFields();
-      form.setFieldsValue(hydrated);
-    }, 0);
-    return () => clearTimeout(t);
+    form.resetFields();
+    form.setFieldsValue(hydrated);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formKey, mode, dynamicFormStore.loadingMeta, dynamicFormStore.defaultValues]);
 
@@ -773,9 +995,19 @@ export const DynamicForm = observer(() => {
       def.id,
       def,
       formValues,
-      dynamicFormStore.meta
+      dynamicFormStore.meta,
+      childFieldIds
     );
-  }, [def, formValues, dynamicFormStore.meta]);
+  }, [def, formValues, dynamicFormStore.meta, childFieldIds]);
+
+  // Live red flags: shown on the field as soon as a value is out of range.
+  const reviewFlags = useMemo(
+    () => (def && (def.id === "mdr" || def.id === "pdr")
+      ? validateReviewForm(def.id, formValues, dynamicFormStore.meta, skip.hiddenFields)
+      : []),
+    [def, formValues, dynamicFormStore.meta, skip]
+  );
+  const flagMap = useMemo(() => flagsByField(reviewFlags), [reviewFlags]);
 
   const applicableSectionKeys = useMemo(() => {
     if (!def) return [];
@@ -828,11 +1060,16 @@ export const DynamicForm = observer(() => {
         dynamicFormStore.fetchMccodEventForCase(def.caseNumberField, caseNumber).then((mccodValues) => {
           if (mccodValues && Object.keys(mccodValues).length > 0) {
             // Only overwrite fields that are currently empty to avoid wiping user input
-            const currentValues = form.getFieldsValue();
+            const currentValues = form.getFieldsValue(true);
+            const certificateFields = def.id === "pdr" ? new Set(
+              def.layout.filter(({ title }) => /^ICD-11 certificate details$|^CERTIFIED CAUSE OF DEATH/i.test(title))
+                .flatMap(({ groups }) => groups.flatMap(({ fields }) =>
+                  fields.flatMap(({ de, codeField, uriField }) => [de, codeField, uriField])))
+            ) : null;
             const updates: Record<string, any> = {};
             for (const key of Object.keys(mccodValues)) {
-              if (!currentValues[key]) {
-                updates[key] = mccodValues[key];
+              if ((!certificateFields || certificateFields.has(key)) && !answered(currentValues[key])) {
+                updates[key] = hydrate({ [key]: mccodValues[key] })[key];
               }
             }
             if (Object.keys(updates).length > 0) {
@@ -874,12 +1111,66 @@ export const DynamicForm = observer(() => {
             ? out[de]
             : [];
       } else if (vt === "TIME" && out[de]) {
-        out[de] = moment(out[de], "HH:mm");
+        out[de] = def?.id === "cdr" ? moment(out[de], ["HH:mm:ss", "HH:mm"], true) : moment(out[de], "HH:mm");
+      } else if (vt === "TRUE_ONLY") {
+        // Legacy records hold "true", "YES" or the answer text itself.
+        out[de] = isTicked(out[de]);
       } else if (vt && DATE_TYPES.includes(vt) && out[de]) {
         out[de] = moment(out[de]);
+      } else if (def?.id === "mccod" && typeof out[de] === "string") {
+        // Older MCCOD answers differ in case ("YES") or wording ("true").
+        const options = dynamicFormStore.meta[de]?.options;
+        if (options?.length) out[de] = matchOptionCode(out[de], options);
       }
     });
-    return out;
+    // A field that replaces an earlier true/false question shows the old answer as Yes/No.
+    def?.layout.forEach((sec) =>
+      sec.groups.forEach((g) =>
+        g.fields.forEach((f) => {
+          if (!f.legacyDe || answered(out[f.de]) || !answered(values[f.legacyDe])) return;
+          const old = String(values[f.legacyDe]).trim().toLowerCase();
+          if (/^(true|yes|1)$/.test(old)) out[f.de] = "Yes";
+          else if (/^(false|no|0)$/.test(old)) out[f.de] = "No";
+        })
+      )
+    );
+    // Duration of stay is always derived from admission and death.
+    if (def?.id === "mdr") {
+      const stay = stayDuration(out[MDR_ADMISSION], out[MDR_DEATH]);
+      if (stay) MDR_STAY.forEach((de, i) => { out[de] = stay[i]; });
+    }
+    return def?.id === "cdr" ? { ...out, ...childDerivedValues(out, childFieldIds) } : out;
+  };
+
+  const readPerinatalDraft = (orgUnit: string, event = "new"): Record<string, any> => {
+    const user = store.user?.id;
+    perinatalDraftKey.current = def.id === "pdr" && user && orgUnit
+      ? `perinatal-review-draft:${user}:${orgUnit}:${event}` : null;
+    const key = perinatalDraftKey.current;
+    if (!key) return {};
+    try {
+      const saved = window.sessionStorage.getItem(key);
+      if (!saved) return {};
+      const draft = JSON.parse(saved);
+      notification.info({ message: "Unsaved perinatal review restored" });
+      return draft;
+    } catch {
+      return {};
+    }
+  };
+
+  const rememberPerinatalDraft = (values: Record<string, any>) => {
+    const key = perinatalDraftKey.current;
+    if (!key) return;
+    try {
+      const snapshot = Object.fromEntries(Object.entries(values).map(([de, value]) => [
+        de, moment.isMoment(value) && dynamicFormStore.meta[de]?.valueType === "TIME"
+          ? value.format("HH:mm") : value ?? null,
+      ]));
+      window.sessionStorage.setItem(key, JSON.stringify(snapshot));
+    } catch {
+      // The in-memory form still works when browser storage is unavailable.
+    }
   };
 
   const openNew = async () => {
@@ -893,21 +1184,24 @@ export const DynamicForm = observer(() => {
       return;
     }
     dynamicFormStore.startNew();
+    const draft = readPerinatalDraft(store.selectedOrgUnit);
     setSavedOnce(false);
     setCurrentStep(0);
     // Seed the case number into the defaults so the hydration effect applies
     // it when the form mounts (rather than racing a direct setFieldsValue).
-    const code = await dynamicFormStore.generateCaseNumber(def);
-    dynamicFormStore.setDefaults(code ? { [def.caseNumberField]: code } : {});
+    const code = draft[def.caseNumberField] || await dynamicFormStore.generateCaseNumber(def);
+    dynamicFormStore.setDefaults({ ...draft, ...(code ? { [def.caseNumberField]: code } : {}) });
     setFormKey((k) => k + 1);
     setMode("form");
   };
 
   const openEdit = (event: any) => {
     dynamicFormStore.loadEventForEdit(event);
+    const draft = readPerinatalDraft(event.orgUnit || store.selectedOrgUnit, event.event);
+    dynamicFormStore.setDefaults({ ...dynamicFormStore.defaultValues, ...draft });
     const hydrated = hydrate(dynamicFormStore.defaultValues);
     setFormValues(hydrated);
-    setSavedOnce(true);
+    setSavedOnce(def.id !== "cdr" || event.status === "COMPLETED");
     setCurrentStep(0);
     setFormKey((k) => k + 1);
     setMode("form");
@@ -932,8 +1226,30 @@ export const DynamicForm = observer(() => {
   // (survives step unmounts) overlaid with the live form store.
   const collectValues = () => ({ ...formValues, ...form.getFieldsValue(true) });
 
+  const saveChildReview = async (mode: "draft" | "complete") => {
+    if (await dynamicFormStore.save(collectValues(), mode)) {
+      const caseNumber = dynamicFormStore.recordValue(dynamicFormStore.currentEvent, def.caseNumberField);
+      form.setFieldsValue({ [def.caseNumberField]: caseNumber });
+      setFormValues((previous) => ({ ...previous, [def.caseNumberField]: caseNumber }));
+      setSavedOnce(mode === "complete");
+      setSaveTrigger((t) => t + 1);
+      dynamicFormStore.loadRecords(def);
+    }
+  };
+
+  /** Open the wizard step that holds a field (used to show a flagged value). */
+  const goToField = (de: string) => {
+    const section = def.layout.findIndex((sec) => sec.groups.some((g) => g.fields.some((f) => f.de === de)));
+    const step = stepKeys.indexOf(String(section));
+    if (step >= 0) setCurrentStep(step);
+  };
+
   const handleSave = async () => {
     const values = collectValues();
+    if (def.id === "cdr") {
+      await saveChildReview("complete");
+      return;
+    }
     // Don't persist answers to fields the skip logic has hidden — recompute
     // from the full value set (not the possibly-stale render state) and drop
     // every hidden field / field in a hidden section.
@@ -943,18 +1259,74 @@ export const DynamicForm = observer(() => {
       values,
       dynamicFormStore.meta
     );
+    // Red flags: a must-correct value stops the save and jumps to its section;
+    // an unusual value asks the reviewer to confirm.
+    if (def.id === "mdr" || def.id === "pdr") {
+      const flags = validateReviewForm(def.id, values, dynamicFormStore.meta, finalSkip.hiddenFields);
+      const blockers = mustCorrectFlags(flags);
+      if (blockers.length) {
+        goToField(blockers[0].field);
+        notification.error({
+          message: "Correct the highlighted values before saving",
+          description: blockers.map((f) => f.message).filter((m, i, all) => all.indexOf(m) === i).join(" "),
+          duration: 6,
+        });
+        return;
+      }
+      const confirms = confirmFlags(flags);
+      if (confirms.length) {
+        const proceed = await new Promise<boolean>((resolve) => {
+          Modal.confirm({
+            title: "Please confirm unusual values",
+            content: (
+              <ul style={{ paddingLeft: 18, margin: 0 }}>
+                {confirms.map((f) => <li key={f.field + f.message}>{f.message}</li>)}
+              </ul>
+            ),
+            okText: "Save anyway",
+            cancelText: "Go back and check",
+            onOk: () => resolve(true),
+            onCancel: () => resolve(false),
+          });
+        });
+        if (!proceed) {
+          goToField(confirms[0].field);
+          return;
+        }
+      }
+    }
+    // Skip logic closed these questions. Answers still on the record are left
+    // alone; an answer cleared by skip logic is kept as an empty value so the
+    // save removes it from DHIS2.
     const cleaned: Record<string, any> = { ...values };
+    const isEmptyAnswer = (v: any) =>
+      v === undefined || v === null || v === "" || v === false || (Array.isArray(v) && v.length === 0);
     def.layout.forEach((sec, i) => {
       const sectionHidden = finalSkip.hiddenSections.has(i);
       sec.groups.forEach((g) =>
         g.fields.forEach((f) => {
-          if (sectionHidden || finalSkip.hiddenFields.has(f.de))
+          if ((sectionHidden || finalSkip.hiddenFields.has(f.de)) && !isEmptyAnswer(cleaned[f.de]))
             delete cleaned[f.de];
         })
       );
     });
+    const draftKey = perinatalDraftKey.current;
+    let submittedDraft: string | null = null;
+    try {
+      if (draftKey) submittedDraft = window.sessionStorage.getItem(draftKey);
+    } catch {}
     const ok = await dynamicFormStore.save(cleaned);
     if (ok) {
+      if (def.id === "pdr") {
+        const caseNumber = dynamicFormStore.recordValue(dynamicFormStore.currentEvent, def.caseNumberField);
+        form.setFieldsValue({ [def.caseNumberField]: caseNumber });
+        setFormValues((previous) => ({ ...previous, [def.caseNumberField]: caseNumber }));
+      }
+      try {
+        if (draftKey && window.sessionStorage.getItem(draftKey) === submittedDraft) {
+          window.sessionStorage.removeItem(draftKey);
+        }
+      } catch {}
       setSavedOnce(true);
       setSaveTrigger((t) => t + 1);
       dynamicFormStore.loadRecords(def);
@@ -963,6 +1335,15 @@ export const DynamicForm = observer(() => {
 
   const handleCertify = async () => {
     const values = collectValues();
+    if (def.id === "pdr") {
+      if (await dynamicFormStore.save(values, "certify")) {
+        const linked = dynamicFormStore.recordValue(dynamicFormStore.currentEvent, def.linkedField);
+        form.setFieldsValue({ [def.linkedField]: linked });
+        setFormValues((previous) => ({ ...previous, [def.linkedField]: linked }));
+        void dynamicFormStore.loadRecords(def);
+      }
+      return;
+    }
     const link = dynamicFormStore.buildMccodLink(def, values);
     localStorage.setItem("mcodtemp", JSON.stringify(link));
     // Hand off to the legacy MCCOD records flow, which carries the full
@@ -979,6 +1360,7 @@ export const DynamicForm = observer(() => {
   };
 
   const debouncedDorisFields = () => {
+    if (def.id === "cdr") return;
     if (dorisTimeoutRef.current) clearTimeout(dorisTimeoutRef.current);
     dorisTimeoutRef.current = setTimeout(() => {
       setDorisFields();
@@ -986,6 +1368,7 @@ export const DynamicForm = observer(() => {
   };
 
   const setDorisFields = async () => {
+    if (def.id === "cdr" || dynamicFormStore.activeForm?.id !== def.id) return;
     setComputingDoris(true);
     setDorisReport("");
 
@@ -1091,6 +1474,7 @@ export const DynamicForm = observer(() => {
           }
         }
         
+        if (dynamicFormStore.activeForm?.id !== def.id) return;
         form.setFieldsValue({
             mQVAyOLbga1: title,
             n2mScmFMovq: res.code
@@ -1121,58 +1505,127 @@ export const DynamicForm = observer(() => {
     }
   };
 
-  // Map an ISO gender letter to the sex data element's option code.
-  const sexCodeFor = (letter: "M" | "F") => {
-    const opts = dynamicFormStore.meta["e96GB4CXyd3"]?.options || [];
-    const match = opts.find((o) =>
-      letter === "M" ? /^male/i.test(o.name) : /^female/i.test(o.name)
-    );
-    return match?.code;
-  };
-
-  const prefillFromNin = async (nin: string) => {
+  const prefillFromNin = async (field: string, nin: string) => {
+    const request = Symbol();
+    ninRequests.current.set(field, request);
+    const isCurrent = () => ninRequests.current.get(field) === request &&
+      normalizeNin(form.getFieldValue(field)) === nin;
     setNinLoading(true);
+
     try {
-      const res: any = await ninapi.getNINPerson(nin);
-      const info = res?.data;
-      if (!info || info.error) {
-        notification.error({
-          message: "NIN not found",
-          description:
-            info?.error?.message ||
-            "The NIN was not found. Double-check for mistakes.",
-        });
-        return;
+      if (!store.apiStore.ninToken) {
+        if (!ninTokenRequest.current) {
+          ninTokenRequest.current = store.apiStore.fetchNINToken().finally(() => {
+            ninTokenRequest.current = null;
+          });
+        }
+        await ninTokenRequest.current;
       }
-      const updates: Record<string, any> = {
-        ZYKmQ9GPOaF: `${info.givenNames ?? ""} ${info.surname ?? ""}`.trim(),
-        roxn33dtLLx: "true",
+      if (!isCurrent()) return;
+      const nextOfKin = def.id === "cdr" && field === childFieldsForDisplay(childFieldIds).nextOfKinNin;
+      const [person, residence] = await Promise.allSettled([
+        ninapi.getNINPerson(nin),
+        nextOfKin ? Promise.resolve(undefined) : ninapi.getNINPlaceOfBirth(nin),
+      ]);
+      if (!isCurrent()) return;
+      const info = person.status === "fulfilled" ? (person.value as { data?: NiraPerson })?.data : undefined;
+      const location = residence.status === "fulfilled" ? (residence.value as { data?: NiraResidence })?.data : undefined;
+      const address = location?.error ? undefined : location?.address;
+      const values = form.getFieldsValue(true);
+      const updates: Record<string, any> = {};
+      const put = (de: string | undefined, value: unknown) => {
+        if (!de || !answered(value)) return;
+        const options = dynamicFormStore.meta[de]?.options;
+        if (!options?.length) {
+          updates[de] = value;
+          return;
+        }
+        const key = String(value).trim().toLowerCase();
+        const match = options.find(({ code, name }) =>
+          String(code).toLowerCase() === key || String(name).trim().toLowerCase() === key);
+        if (match) updates[de] = match.code;
       };
-      const sexCode =
-        info.gender === "M"
-          ? sexCodeFor("M")
-          : info.gender === "F"
-          ? sexCodeFor("F")
-          : undefined;
-      if (sexCode) updates.e96GB4CXyd3 = sexCode;
-      if (info.dateOfBirth) {
-        const dob = moment(info.dateOfBirth, "DD/MM/YYYY");
-        if (dob.isValid()) {
-          updates.RbrUuKFSqkZ = dob;
-          updates.q7e7FOXKnOf = moment().diff(dob, "years");
+      if (info && !info.error) {
+        const names = [info.givenNames, info.surname].filter(Boolean).join(" ").trim();
+        const initials = names.split(/\s+/).filter(Boolean).map((name) => name[0].toUpperCase()).join("");
+        const dob = moment(info.dateOfBirth, ["DD/MM/YYYY", "YYYY-MM-DD", moment.ISO_8601], true);
+        const gender = String(info.gender || "").toUpperCase();
+        const sex = gender === "M" || gender === "MALE" ? "Male" :
+          gender === "F" || gender === "FEMALE" ? "Female" : undefined;
+        const deathField = def.id === "mdr" ? "WzauwhVOwM0" : "i8rrl8YWxLF";
+        const reference = (def.id === "mdr" || def.id === "mccod") && values[deathField]
+          ? moment(values[deathField]) : moment();
+        const age = dob.isValid() && reference.isValid() && !reference.isBefore(dob, "day")
+          ? reference.diff(dob, "years") : undefined;
+        if (def.id === "mccod") {
+          // Name is held as parts; the joined full name is kept for lists/certificates.
+          put("Q7VM7swIWb6", info.surname);
+          put("QmcOqkcNTip", info.givenNames);
+          put("ZYKmQ9GPOaF", names);
+          put("e96GB4CXyd3", sex);
+          if (age !== undefined) {
+            updates.roxn33dtLLx = "Yes";
+            updates.RbrUuKFSqkZ = dob;
+            updates.q7e7FOXKnOf = age;
+          }
+        } else if (def.id === "mdr") {
+          put("FIfoObQJvNp", initials);
+          put("iJqBq0kQtWO", age);
+        } else if (def.id === "pdr") {
+          put("xpJgWYFpvht", initials);
+          put("hTYVRRvhYEt", age);
+        } else if (nextOfKin) {
+          put("vY1rgZCGd2r", age);
+        } else {
+          put("GTI7EqoQokL", initials);
+          put("Hq6GGFTlHHj", sex);
+          if (age !== undefined && childFieldIds.birthDate) updates[childFieldIds.birthDate] = dob;
         }
       }
-      form.setFieldsValue(updates);
-      setFormValues((prev) => ({ ...prev, ...updates }));
-      notification.success({
-        message: "Deceased details prefilled from NIN",
-        duration: 3,
-      });
-    } catch (e) {
-      console.log("prefillFromNin error", e);
-      notification.error({ message: "Error fetching NIN information" });
+
+      if (address) {
+        const addressFields = {
+          // village, parish, subcounty, district (live DHIS2 names)
+          mccod: ["dsiwvNQLe5n", "bNpMzyShDCX", "t5nTEmlScSt", "u44XP9fZweA"],
+          mdr: ["hcu4LCAMSkz", undefined, "ioXkKfrgCJa", "FHmHV9mElbD"],
+          pdr: ["T0f4UTwxd6Q", "dKQIx7sVFbD", "u44XP9fZweA", "t5nTEmlScSt"],
+          cdr: ["FA5JmqKlrUT", "m2N3Ea9gdz6", "Q6LIN4M0CU2", "xv0FATnFVms"],
+        }[def.id];
+        const layoutFields = new Set(def.layout.flatMap((section) => section.groups.flatMap((group) => group.fields.map(({ de }) => de))));
+        [address.village, address.parish, address.subCounty, address.district].forEach((value, index) => {
+          const de = addressFields[index];
+          if (de && layoutFields.has(de)) put(de, value);
+        });
+      }
+      if (!Object.keys(updates).length) {
+        if (person.status === "rejected") {
+          const description = person.reason instanceof Error ? person.reason.message : undefined;
+          notification.error({ message: "NIRA lookup failed", description });
+        } else if (String(info?.error?.code) === "320") {
+          notification.warning({ message: "NIRA could not find a record for this NIN" });
+        } else if (info?.error) {
+          notification.error({
+            message: "NIRA rejected the lookup",
+            description: info.error.code ? `NIRA error code: ${info.error.code}` : undefined,
+          });
+        } else {
+          notification.warning({ message: "NIRA response contained no usable details for this form" });
+        }
+        return;
+      }
+      if (def.id === "cdr") Object.assign(updates, childDerivedValues({ ...values, ...updates }, childFieldIds));
+      const patch = { [field]: nin, ...updates };
+      form.setFieldsValue(patch);
+      rememberPerinatalDraft({ ...form.getFieldsValue(true), ...patch });
+      setFormValues((prev) => ({ ...prev, ...patch }));
+      notification.success({ message: "Details filled from NIRA", duration: 3 });
+    } catch {
+      if (isCurrent()) notification.error({ message: "Could not fetch details from NIRA" });
     } finally {
-      setNinLoading(false);
+      if (ninRequests.current.get(field) === request) {
+        ninRequests.current.delete(field);
+        setNinLoading(ninRequests.current.size > 0);
+      }
     }
   };
 
@@ -1180,25 +1633,42 @@ export const DynamicForm = observer(() => {
     // Accumulate rather than replace: fields from other wizard steps may be
     // unmounted and absent from `allValues`, and we must not lose their values.
     setFormValues((prev) => ({ ...prev, ...allValues }));
-    const patch = applySkipEffects(
+    const patch = def.id === "cdr"
+      ? childDerivedValues({ ...formValues, ...allValues }, childFieldIds)
+      : applySkipEffects(
       changed,
-      allValues,
+      { ...formValues, ...allValues },
       dynamicFormStore.meta,
-      def.id
+      def.id,
+      def,
+      formValues
     );
+    // Changing a higher residence level clears the levels below it.
+    if (def.id === "mccod") {
+      if (RESIDENCE.region in changed) {
+        patch[RESIDENCE.district] = null;
+        patch[RESIDENCE.subcounty] = null;
+      } else if (RESIDENCE.district in changed) {
+        patch[RESIDENCE.subcounty] = null;
+      }
+    }
     if (Object.keys(patch).length) {
       form.setFieldsValue(patch);
       setFormValues((prev) => ({ ...prev, ...allValues, ...patch }));
     }
+    rememberPerinatalDraft({ ...formValues, ...form.getFieldsValue(true), ...patch });
 
-    if (def.isMccod && def.ninField) {
-      const nin = changed[def.ninField];
-      if (
-        typeof nin === "string" &&
-        nin.length === 14 &&
-        store.selectedNationality === UGANDAN
-      ) {
-        prefillFromNin(nin);
+    const displayIds = childFieldsForDisplay(childFieldIds);
+    const ninFields = def.id === "cdr" ? [displayIds.childNin, displayIds.nextOfKinNin] :
+      [def.id === "mccod" ? def.ninField : reviewNinFields[def.id]];
+    for (const field of ninFields) {
+      if (!field || !(field in changed)) continue;
+      const nin = normalizeNin(changed[field]);
+      if (/^[A-Z0-9]{14}$/.test(nin)) {
+        void prefillFromNin(field, nin);
+      } else {
+        ninRequests.current.delete(field);
+        setNinLoading(ninRequests.current.size > 0);
       }
     }
 
@@ -1218,6 +1688,35 @@ export const DynamicForm = observer(() => {
   // Render the groups + fields of a single section (used by the wizard step).
   const renderSection = (si: number) => {
     const sectionTitle = def.layout[si].title;
+    if (def.id === "cdr" && sectionTitle === "SECTION SEVEN: Action Plan") {
+      const fields = def.layout[si].groups.flatMap((group) => group.fields)
+        .filter((field) => isFieldVisible(field, si, skip));
+      return (
+        <div className="mccod-table-container" style={{ overflowX: "auto" }}>
+          <table className="mccod-table" aria-label="Action plan" style={{ minWidth: 640 }}>
+            <thead>
+              <tr>{fields.map((field) => <th key={field.de} scope="col">{field.label}</th>)}</tr>
+            </thead>
+            <tbody>
+              <tr>
+                {fields.map((field) => (
+                  <td key={field.de}>
+                    <Form.Item name={field.de} valuePropName={valuePropName(field)} noStyle>
+                      <FieldWidget
+                        field={field}
+                        form={form}
+                        disabled={isFieldDisabled(field, skip) || field.readOnly}
+                        aria-label={field.label}
+                      />
+                    </Form.Item>
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
     
     if (
       sectionTitle?.toUpperCase().includes("CERTIFIED CAUSE OF DEATH") ||
@@ -1230,12 +1729,13 @@ export const DynamicForm = observer(() => {
        
         return (
           <MccodTableSection 
+            childCertification={def.id === "cdr"}
             fields={allFields} 
             form={form} 
             locked={false}
             skipLogic={skip} 
             dorisReport={dorisReport}
-            onSave={handleSave}
+            onSave={def.id === "pdr" ? handleCertify : handleSave}
             saving={dynamicFormStore.saving}
             finalCauseOptions={finalCauseOptions}
             onComputeDoris={debouncedDorisFields}
@@ -1254,16 +1754,10 @@ export const DynamicForm = observer(() => {
         );
     }
 
-    return def.layout[si].groups.map((group, gi) => {
-      const groupFields = group.fields.filter((f) => isFieldVisible(f, si, skip));
-      if (!groupFields.length) return null;
-      return (
-        <div className="dform-group" key={gi}>
-          {group.label && <div className="dform-group-label">{group.label}</div>}
-          <Row gutter={[14, 4]}>
-            {groupFields.map((field) => {
+    const renderFieldCol = (field: FormField) => {
               const locked = isFieldDisabled(field, skip) || !!field.readOnly;
               const fieldHint = skip.hints[field.de] || field.hint;
+              const flag = flagMap[field.de];
               return field.icd ? (
                 <Col key={field.de} xs={24} {...fieldSpan(field)}>
                   <div
@@ -1287,7 +1781,8 @@ export const DynamicForm = observer(() => {
                     name={field.de}
                     label={field.label}
                     valuePropName={valuePropName(field)}
-                    help={fieldHint}
+                    validateStatus={flag ? (flag.type === "mustCorrect" ? "error" : "warning") : undefined}
+                    help={flag ? flag.message : fieldHint}
                     className={`dform-item${locked ? " dform-item-locked" : ""}`}
                   >
                       {field.de === "n2mScmFMovq" ? (
@@ -1361,12 +1856,188 @@ export const DynamicForm = observer(() => {
                   </Form.Item>
                 </Col>
               );
-            })}
+    };
+
+    /** A tick box (or any other widget) drawn as a compact list row. */
+    const renderListItem = (field: FormField) => {
+      const locked = isFieldDisabled(field, skip) || !!field.readOnly;
+      const flag = flagMap[field.de];
+      if (dynamicFormStore.meta[field.de]?.valueType === "TRUE_ONLY") {
+        return (
+          <Form.Item
+            key={field.de}
+            name={field.de}
+            valuePropName="checked"
+            validateStatus={flag ? (flag.type === "mustCorrect" ? "error" : "warning") : undefined}
+            help={flag?.message}
+            className="dform-list-item"
+          >
+            <Checkbox disabled={locked}>{field.label}</Checkbox>
+          </Form.Item>
+        );
+      }
+      return <Row key={field.de}>{renderFieldCol(field)}</Row>;
+    };
+
+    const visible = (f: FormField) => isFieldVisible(f, si, skip);
+    const numberOf = (label?: string) => (label || "").match(/^\s*(\d+)\./)?.[1] ?? "";
+    const withoutNumber = (label?: string) => (label || "").replace(/^\s*\d+\.\s*/, "");
+
+    /** Capture style: No. | Factor | Yes | Specify, one row per factor. */
+    const renderFactorsTable = (group: FormGroup, gi: number) => {
+      const rows = group.fields.filter((f) => !f.specifyFor);
+      return (
+        <div className="dform-group" key={gi}>
+          {group.label && <div className="dform-group-label">{group.label}</div>}
+          <div className="mccod-table-container" style={{ overflowX: "auto" }}>
+            <table className="mccod-table dform-factors" aria-label={group.label || "Factors"}>
+              <thead>
+                <tr>
+                  <th scope="col" style={{ width: 48 }}>No.</th>
+                  <th scope="col">Factor</th>
+                  <th scope="col" style={{ width: 70 }}>Yes</th>
+                  <th scope="col" style={{ width: "34%" }}>Specify</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((factor) => {
+                  const specify = group.fields.find((f) => f.specifyFor === factor.de);
+                  const ticked = dynamicFormStore.meta[factor.de]?.valueType === "TRUE_ONLY";
+                  const flag = flagMap[factor.de];
+                  return (
+                    <tr key={factor.de}>
+                      <td>{numberOf(factor.label)}</td>
+                      <td>{withoutNumber(factor.label)}</td>
+                      {ticked ? (
+                        <>
+                          <td>
+                            <Form.Item name={factor.de} valuePropName="checked" noStyle>
+                              <Checkbox disabled={isFieldDisabled(factor, skip)} aria-label={factor.label} />
+                            </Form.Item>
+                          </td>
+                          <td>
+                            {specify && visible(specify) ? (
+                              <Form.Item name={specify.de} noStyle>
+                                <Input size="small" aria-label={specify.label} />
+                              </Form.Item>
+                            ) : null}
+                          </td>
+                        </>
+                      ) : (
+                        <td colSpan={2}>
+                          <Form.Item
+                            name={factor.de}
+                            noStyle
+                          >
+                            <FieldWidget field={factor} form={form} disabled={isFieldDisabled(factor, skip)} />
+                          </Form.Item>
+                          {flag && <div className="dform-inline-flag">{flag.message}</div>}
+                        </td>
+                      )}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      );
+    };
+
+    /** Table of 5 recommendations. Row n+1 opens once row n has an answer. */
+    const renderRecommendationsTable = (group: FormGroup, gi: number) => {
+      const rows: FormField[][] = [];
+      for (let i = 0; i < group.fields.length; i += 4) rows.push(group.fields.slice(i, i + 4));
+      const filled = (row: FormField[]) => row.some((f) => answered(formValues[f.de]));
+      const open = rows.filter((row, index) => index === 0 || filled(rows[index - 1]) || filled(row));
+      const columns = ["Issue or gap", "Recommendation", "Responsible person", "Timeframe"];
+      return (
+        <div className="dform-group" key={gi}>
+          {group.label && <div className="dform-group-label">{group.label}</div>}
+          <div className="mccod-table-container" style={{ overflowX: "auto" }}>
+            <table className="mccod-table dform-recommendations" aria-label="Recommendations" style={{ minWidth: 720 }}>
+              <thead>
+                <tr>
+                  <th scope="col" style={{ width: 48 }}>No.</th>
+                  {columns.map((title) => <th key={title} scope="col">{title}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {open.map((row, index) => (
+                  <tr key={row[0].de}>
+                    <td>{numberOf(row[0].label) || index + 1}</td>
+                    {row.map((field) => (
+                      <td key={field.de}>
+                        <Form.Item name={field.de} noStyle>
+                          <FieldWidget
+                            field={field}
+                            form={form}
+                            disabled={isFieldDisabled(field, skip) || field.readOnly}
+                            aria-label={field.label}
+                          />
+                        </Form.Item>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {open.length < rows.length && (
+            <div className="dform-field-hint">The next row opens once this one has an answer.</div>
+          )}
+        </div>
+      );
+    };
+
+    /** Sub-groups drawn side by side, each with its own heading. */
+    const renderColumnsGroup = (group: FormGroup, gi: number) => {
+      const columns = (group.columns || []).filter((column) => column.fields.some(visible));
+      const span = Math.max(8, Math.floor(24 / Math.max(1, columns.length)));
+      return (
+        <div className="dform-group" key={gi}>
+          {group.label && <div className="dform-group-label">{group.label}</div>}
+          <Row gutter={[24, 4]}>
+            {columns.map((column, ci) => (
+              <Col key={ci} xs={24} md={span}>
+                {column.label && <div className="dform-subgroup-label">{column.label}</div>}
+                {column.fields.filter(visible).map(renderListItem)}
+              </Col>
+            ))}
           </Row>
+        </div>
+      );
+    };
+
+    return def.layout[si].groups.map((group, gi) => {
+      const groupFields = group.fields.filter(visible);
+      if (!groupFields.length) return null;
+      if (group.table === "factors") return renderFactorsTable(group, gi);
+      if (group.table === "recommendations") return renderRecommendationsTable(group, gi);
+      if (group.columns && group.columns.length) return renderColumnsGroup(group, gi);
+      return (
+        <div className="dform-group" key={gi}>
+          {group.label && <div className="dform-group-label">{group.label}</div>}
+          <Row gutter={[14, 4]}>{groupFields.map(renderFieldCol)}</Row>
         </div>
       );
     });
   };
+
+  // Questions shown on the form whose data element is not on the programme
+  // stage yet. DHIS2 would reject them, so the save leaves them out silently;
+  // tell the reviewer instead.
+  const unsavedQuestions: string[] = [];
+  if ((def.id === "mdr" || def.id === "pdr") && !dynamicFormStore.loadingMeta && dynamicFormStore.stageDataElements.size > 0) {
+    def.layout.forEach((sec, si) => {
+      if (/CERTIFIED CAUSE|ICD-11 certificate/i.test(sec.title)) return;
+      sec.groups.forEach((g) => g.fields.forEach((f) => {
+        if (!isFieldVisible(f, si, skip) || f.de === "ZkNDFfFSTYg" || f.readOnly) return;
+        const resolved = isMappedPendingDe(f.de) ? toDhis2DeId(f.de) : f.de;
+        if (!dynamicFormStore.stageDataElements.has(resolved)) unsavedQuestions.push(f.label || f.de);
+      }));
+    });
+  }
 
   const clampedStep = Math.min(currentStep, Math.max(0, stepKeys.length - 1));
   const activeStepKey = stepKeys[clampedStep];
@@ -1392,6 +2063,14 @@ export const DynamicForm = observer(() => {
             <button className="dform-link" onClick={store.goHome}>
               ← All forms
             </button>
+            {store.returnToDashboard && (
+              <>
+                <span className="dform-sep">/</span>
+                <button className="dform-link" onClick={() => store.openModule("dashboard")}>
+                  ← Dashboard
+                </button>
+              </>
+            )}
             <span className="dform-sep">/</span>
             <span className="dform-hero-name">{def.title}</span>
           </div>
@@ -1522,6 +2201,25 @@ export const DynamicForm = observer(() => {
                 {def.isMccod && def.caseNumberField && (
                   <MccodToMaternalLinkageBanner
                     caseNumber={resolvedCaseNumber}
+                  />
+                )}
+
+                {unsavedQuestions.length > 0 && (
+                  <Alert
+                    className="dform-unsaved-alert"
+                    type="warning"
+                    showIcon
+                    message={`${unsavedQuestions.length} question${unsavedQuestions.length === 1 ? "" : "s"} on this form cannot be saved yet`}
+                    description={
+                      <>
+                        Their data elements are not on the DHIS2 programme stage, so answers to them are not stored.
+                        Ask a DHIS2 administrator to run the retest metadata script.
+                        <div className="dform-unsaved-list">
+                          {unsavedQuestions.slice(0, 12).join("; ")}
+                          {unsavedQuestions.length > 12 ? `; and ${unsavedQuestions.length - 12} more` : ""}
+                        </div>
+                      </>
+                    }
                   />
                 )}
 
@@ -1666,6 +2364,15 @@ export const DynamicForm = observer(() => {
           {clampedStep === 0 ? "← Records" : "← Back"}
         </Button>
         <div className="dform-actions-right">
+          {def.id === "cdr" && !savedOnce && (
+            <Button
+              onClick={() => saveChildReview("draft")}
+              loading={dynamicFormStore.saving}
+              disabled={dynamicFormStore.loadingMeta || !dynamicFormStore.program}
+            >
+              Save draft
+            </Button>
+          )}
           {isLastStep ? (
             <>
               {!def.isMccod && savedOnce && (
@@ -1679,7 +2386,7 @@ export const DynamicForm = observer(() => {
                 onClick={handleSave}
                 disabled={def.placeholder && !dynamicFormStore.program}
               >
-                Save {def.title}
+                {def.id === "cdr" && !savedOnce ? "Complete review" : `Save ${def.title}`}
               </Button>
             </>
           ) : (

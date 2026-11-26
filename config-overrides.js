@@ -11,3 +11,10 @@ module.exports = override(
         javascriptEnabled: true
     })
 );
+
+module.exports.devServer = (configure) => (proxy, allowedHost) => ({
+    ...configure(proxy, allowedHost),
+    hot: false,
+    liveReload: false,
+    watchContentBase: false,
+});

@@ -1,0 +1,315 @@
+{
+  "birthDate": {
+    "code": "CDSR_BIRTH_DATE",
+    "type": "DATE",
+    "label": "Date of birth"
+  },
+  "ageYears": {
+    "code": "CDSR_AGE_YEARS",
+    "type": "INTEGER_ZERO_OR_POSITIVE",
+    "label": "Age in completed years"
+  },
+  "ageMonths": {
+    "code": "CDSR_AGE_MONTHS",
+    "type": "INTEGER_ZERO_OR_POSITIVE",
+    "label": "Additional completed months"
+  },
+  "ageDays": {
+    "code": "CDSR_NEONATAL_DAYS",
+    "type": "INTEGER_ZERO_OR_POSITIVE",
+    "label": "Completed days of life"
+  },
+  "ageSource": {
+    "code": "CDSR_AGE_SOURCE",
+    "type": "TEXT",
+    "label": "Source of age"
+  },
+  "childNin": {
+    "code": "CDSR_CHILD_NIN",
+    "type": "TEXT",
+    "label": "Child NIN"
+  },
+  "nextOfKinNin": {
+    "code": "CDSR_NEXT_OF_KIN_NIN",
+    "type": "TEXT",
+    "label": "Next-of-kin NIN"
+  },
+  "admission": {
+    "code": "CDSR_ADMISSION_DATETIME",
+    "type": "DATETIME",
+    "label": "Admission date and time"
+  },
+  "stay": {
+    "code": "CDSR_STAY_MINUTES",
+    "type": "INTEGER_ZERO_OR_POSITIVE",
+    "label": "Time spent at the facility"
+  },
+  "referralTime": {
+    "code": "CDSR_REFERRAL_DATETIME",
+    "type": "DATETIME",
+    "label": "Referral date and time"
+  },
+  "referralReason": {
+    "code": "CDSR_REFERRAL_REASON",
+    "type": "LONG_TEXT",
+    "label": "Reason for referral"
+  },
+  "referralArrival": {
+    "code": "CDSR_REFERRAL_ARRIVAL",
+    "type": "DATETIME",
+    "label": "Arrival date and time"
+  },
+  "referralDocuments": {
+    "code": "CDSR_REFERRAL_DOCUMENTS",
+    "type": "TEXT",
+    "label": "Was referral documentation available?",
+    "options": ["Yes", "No", "Unknown"]
+  },
+  "previousFacility": {
+    "code": "CDSR_PREVIOUS_ADMISSION_FACILITY",
+    "type": "TEXT",
+    "label": "Previous admission facility"
+  },
+  "previousPeriod": {
+    "code": "CDSR_PREVIOUS_ADMISSION_PERIOD",
+    "type": "TEXT",
+    "label": "Previous admission date or approximate period"
+  },
+  "previousDetails": {
+    "code": "CDSR_PREVIOUS_ADMISSION_DETAILS",
+    "type": "LONG_TEXT",
+    "label": "Previous admission reason, diagnosis, treatment and outcome"
+  },
+  "smartScore": {
+    "code": "CDSR_SMART_TRIAGE_SCORE",
+    "type": "NUMBER",
+    "label": "Smart Triage score recorded in the source system (manual entry)"
+  },
+  "smartRisk": {
+    "code": "CDSR_SMART_TRIAGE_RISK",
+    "type": "TEXT",
+    "label": "Smart Triage risk category recorded in the source system"
+  },
+  "smartTime": {
+    "code": "CDSR_SMART_TRIAGE_DATETIME",
+    "type": "DATETIME",
+    "label": "Smart Triage assessment date and time"
+  },
+  "smartSource": {
+    "code": "CDSR_SMART_TRIAGE_SOURCE",
+    "type": "TEXT",
+    "label": "Smart Triage source system and version"
+  },
+  "tbScreened": {
+    "code": "CDSR_TB_SCREENED",
+    "type": "TEXT",
+    "label": "Was the child screened for TB?",
+    "options": ["Yes", "No", "Unknown", "Not_Assessed"]
+  },
+  "tbDetails": {
+    "code": "CDSR_TB_SCREENING_DETAILS",
+    "type": "LONG_TEXT",
+    "label": "TB screening result, date, method and follow-up"
+  },
+  "scdScreened": {
+    "code": "CDSR_SCD_SCREENED",
+    "type": "TEXT",
+    "label": "Was the child screened for sickle cell disease?",
+    "options": ["Yes", "No", "Unknown", "Not_Assessed"]
+  },
+  "scdDetails": {
+    "code": "CDSR_SCD_SCREENING_DETAILS",
+    "type": "LONG_TEXT",
+    "label": "Sickle cell screening result, date, method and follow-up"
+  },
+  "disabilityScreened": {
+    "code": "CDSR_DISABILITY_SCREENED",
+    "type": "TEXT",
+    "label": "Was the child screened for disability?",
+    "options": ["Yes", "No", "Unknown", "Not_Assessed"]
+  },
+  "disabilityDetails": {
+    "code": "CDSR_DISABILITY_SCREENING_DETAILS",
+    "type": "LONG_TEXT",
+    "label": "Disability screening result, date, method and follow-up"
+  },
+  "stabilized": {
+    "code": "CDSR_STABILIZED",
+    "type": "TEXT",
+    "label": "Was the child stabilized?",
+    "options": ["Yes", "No", "Unknown"]
+  },
+  "ward": {
+    "code": "CDSR_ADMITTED_TO_WARD",
+    "type": "TEXT",
+    "label": "Was the child admitted to a ward or subsequent assessment location?",
+    "options": ["Yes", "No", "Unknown"]
+  },
+  "assessmentAppropriate": {
+    "code": "CDSR_GROWTH_ASSESSMENT_APPROPRIATE",
+    "type": "TEXT",
+    "label": "Was assessment appropriate and possible after stabilization?",
+    "options": ["Yes", "No", "Unknown"]
+  },
+  "growthPerformed": {
+    "code": "CDSR_GROWTH_ASSESSED",
+    "type": "BOOLEAN",
+    "label": "Was growth assessed?"
+  },
+  "developmentPerformed": {
+    "code": "CDSR_DEVELOPMENT_ASSESSED",
+    "type": "BOOLEAN",
+    "label": "Was development assessed?"
+  },
+  "growthAssessmentTime": {
+    "code": "CDSR_GROWTH_ASSESSMENT_DATETIME",
+    "type": "DATETIME",
+    "label": "Assessment date and time"
+  },
+  "growthFindings": {
+    "code": "CDSR_GROWTH_FINDINGS",
+    "type": "LONG_TEXT",
+    "label": "Growth findings and measurements with units"
+  },
+  "developmentFindings": {
+    "code": "CDSR_DEVELOPMENT_FINDINGS",
+    "type": "LONG_TEXT",
+    "label": "Development findings from the approved assessment instrument"
+  },
+  "assessmentReason": {
+    "code": "CDSR_GROWTH_NOT_ASSESSED_REASON",
+    "type": "LONG_TEXT",
+    "label": "Reason growth or development was not assessed"
+  },
+  "pregnancyTreatment": {
+    "code": "CDSR_PREGNANCY_TREATMENT",
+    "type": "LONG_TEXT",
+    "label": "Pregnancy medical history, known medicines and treatment"
+  },
+  "pregnancySocial": {
+    "code": "CDSR_PREGNANCY_SOCIAL_FACTORS",
+    "type": "LONG_TEXT",
+    "label": "Social conditions and risk factors during pregnancy"
+  },
+  "apgarAssessed": {
+    "code": "CDSR_APGAR_ASSESSED",
+    "type": "TEXT",
+    "label": "Was Apgar assessed at one and five minutes?",
+    "options": ["Yes", "No", "Unknown"]
+  },
+  "apgarOne": {
+    "code": "CDSR_APGAR_ONE",
+    "type": "INTEGER_ZERO_OR_POSITIVE",
+    "label": "Apgar score at one minute"
+  },
+  "apgarFive": {
+    "code": "CDSR_APGAR_FIVE",
+    "type": "INTEGER_ZERO_OR_POSITIVE",
+    "label": "Apgar score at five minutes"
+  },
+  "birthAsphyxia": {
+    "code": "CDSR_BIRTH_ASPHYXIA_DOCUMENTED",
+    "type": "TEXT",
+    "label": "Was birth asphyxia documented?",
+    "options": ["Yes", "No", "Unknown"]
+  },
+  "immediateCry": {
+    "code": "CDSR_CRY_IMMEDIATELY",
+    "type": "TEXT",
+    "label": "Did the child cry immediately after delivery?",
+    "options": ["Yes", "No", "Unknown"]
+  },
+  "birthEvidence": {
+    "code": "CDSR_BIRTH_ASPHYXIA_EVIDENCE",
+    "type": "LONG_TEXT",
+    "label": "Birth history and evidence"
+  },
+  "otherHistory": {
+    "code": "CDSR_OTHER_SIGNIFICANT_HISTORY",
+    "type": "TRUE_ONLY",
+    "label": "Other significant history"
+  },
+  "otherHistoryDetails": {
+    "code": "CDSR_OTHER_SIGNIFICANT_HISTORY_DETAILS",
+    "type": "LONG_TEXT",
+    "label": "Specify other significant history"
+  },
+  "hbsStatus": {
+    "code": "CDSR_HBS_TEST_STATUS",
+    "type": "TEXT",
+    "label": "HbS / sickle cell investigation status",
+    "options": ["Requested", "Done", "Not Done", "Unknown"]
+  },
+  "hbsResult": {
+    "code": "CDSR_HBS_TEST_RESULT",
+    "type": "LONG_TEXT",
+    "label": "HbS / sickle cell investigation findings"
+  },
+  "geneXpertStatus": {
+    "code": "CDSR_GENEXPERT_STATUS",
+    "type": "TEXT",
+    "label": "GeneXpert investigation status",
+    "options": ["Requested", "Done", "Not Done", "Unknown"]
+  },
+  "geneXpertResult": {
+    "code": "CDSR_GENEXPERT_RESULT",
+    "type": "LONG_TEXT",
+    "label": "GeneXpert investigation findings"
+  },
+  "unavailableDetails": {
+    "code": "CDSR_UNAVAILABLE_INVESTIGATION_DETAILS",
+    "type": "LONG_TEXT",
+    "label": "Unavailable investigations and reasons"
+  },
+  "complicationDetails": {
+    "code": "CDSR_TREATMENT_COMPLICATION_DETAILS",
+    "type": "LONG_TEXT",
+    "label": "Complication, related treatment and outcome"
+  },
+  "municipality": {
+    "code": "CDSR_RESIDENCE_MUNICIPALITY",
+    "type": "TEXT",
+    "label": "Residence — Municipality"
+  },
+  "referralFacilityType": {
+    "code": "CDSR_REFERRAL_FACILITY_TYPE",
+    "type": "TEXT",
+    "label": "Referring facility type",
+    "options": ["Government", "PNFP", "PFP"]
+  },
+  "criticalStaffDetails": {
+    "code": "CDSR_CRITICAL_STAFF_ABSENCE_DETAILS",
+    "type": "LONG_TEXT",
+    "label": "Which critical staff were absent?"
+  },
+  "staffSkillsDetails": {
+    "code": "CDSR_STAFF_SKILLS_GAP_DETAILS",
+    "type": "LONG_TEXT",
+    "label": "Specify the skills or expertise gap"
+  },
+  "staffMisconductDetails": {
+    "code": "CDSR_STAFF_MISCONDUCT_DETAILS",
+    "type": "LONG_TEXT",
+    "label": "Describe the professional misconduct"
+  },
+  "actionFollowUp": {
+    "code": "CDSR_ACTION_FOLLOW_UP",
+    "type": "LONG_TEXT",
+    "label": "Follow-up"
+  },
+  "completedBy": {
+    "code": "CDSR_FORM_COMPLETED_BY",
+    "type": "TEXT",
+    "label": "Name of person completing this form"
+  },
+  "feedbackContact": {
+    "code": "CDSR_FEEDBACK_CONTACT",
+    "type": "TEXT",
+    "label": "Phone or email for feedback"
+  },
+  "reviewParticipants": {
+    "code": "CDSR_REVIEW_PARTICIPANTS",
+    "type": "LONG_TEXT",
+    "label": "Review team members (one name and role per line)"
+  }
+}

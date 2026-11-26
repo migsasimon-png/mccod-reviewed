@@ -8,7 +8,7 @@
   },
   "appType": "APP",
   "name": "NewICD11 Application",
-  "version": "2.0.0",
+  "version": "4.0.0",
   "description": "NewICD11 Application",
   "icons": {
     "16": "assets/icons/image001.png",
@@ -16,8 +16,8 @@
     "128": "assets/icons/image001.png"
   },
   "developer": {
-    "name": "Simon Kununka",
+    "name": "DHI & Simon Kununka",
     "url": "http://dhis2.org"
   },
-  "manifest_generated_at": "Tue Nov 10 2026 20:58:45 GMT+0300 (East Africa Time)"
+  "manifest_generated_at": "Thu Nov 26 2026 21:28:12 GMT+0300 (Türkiye Standard Time)"
 }

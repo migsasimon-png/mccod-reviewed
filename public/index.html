@@ -23,34 +23,16 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title> Medical Certificate of Cause of Death</title>
+  <style>
+    /* Ant Design portals attach to body and align in viewport coordinates. */
+    #root {
+      zoom: 90%;
+    }
+  </style>
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <script>
-    function queryStringToObject() {
-      let queryString = window.location.search;
-      queryString = queryString.substring(1)
-
-      const obj = {};
-      const pairs = queryString.split('&');
-
-      for (let i = 0; i < pairs.length; i++) {
-        const pair = pairs[i].split('=');
-        if (pair.length === 2) {
-          const key = decodeURIComponent(pair[0]);
-          const value = decodeURIComponent(pair[1]);
-          obj[key] = value;
-        }
-      }
-      localStorage.setItem("mcodtemp", JSON.stringify(obj));
-      console.log(obj);
-      return obj;
-    }
-
-    window.onload = queryStringToObject;
-
-  </script>
   <div id="root"></div>
   <!--
       This HTML file is a template.

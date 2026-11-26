@@ -30,9 +30,9 @@ export const MccodToMaternalLinkageBanner: React.FC<MccodToMaternalLinkageBanner
       setState("loading");
       // Search for maternal event by Case Number in maternal program stage (YXed7PnLRco)
       const url =
-        `/api/events.json?programStage=YXed7PnLRco` +
+        `/api/tracker/events?program=k7i7qPFQV5n&programStage=YXed7PnLRco&orgUnitMode=ACCESSIBLE` +
         `&filter=ZKBE8Xm9DJG:eq:${encodeURIComponent(caseNumber)}` +
-        `&fields=event,orgUnit,eventDate,dataValues[dataElement,value]&pageSize=1`;
+        `&fields=event,orgUnit,occurredAt,dataValues[dataElement,value]&pageSize=1`;
 
       mainStore.engine.link
         .fetch(url)

@@ -21,12 +21,55 @@ export interface FormField {
   multi?: boolean;
   /** Explicit large-screen column span (1–24) overriding the default sizing. */
   col?: number;
+  /**
+   * Presentation override applied on top of the DHIS2 metadata:
+   *  - "date"       → date picker (for DATE-like answers stored as text)
+   *  - "checkbox"   → single tick box labelled Yes (stored true/false)
+   *  - "yesNo"      → Yes / No radio pair
+   *  - "yesNoCheck" → Yes / No tick boxes, mutually exclusive
+   */
+  widget?: "date" | "checkbox" | "yesNo" | "yesNoCheck";
+  /** Fixed choices for a coded field when the DHIS2 option set is absent. */
+  options?: { code: string; name: string }[];
+  /**
+   * Option codes that stay out of the choice list (retired choices). A saved
+   * record that already holds one still shows it, so old answers stay readable.
+   */
+  hideOptions?: string[];
+  /**
+   * Retired options are hidden only when every code listed here exists in the
+   * live option set (the replacement choices have been created). Without this
+   * the options are hidden unconditionally.
+   */
+  hideOptionsWhen?: string[];
+  /**
+   * Earlier boolean data element this field replaces. A saved record that holds
+   * the old true/false answer shows it here as Yes/No.
+   */
+  legacyDe?: string;
+  /** Allow future dates in a date picker (follow-up deadlines, not events). */
+  allowFuture?: boolean;
+  /**
+   * In a "factors" table: this field is the Specify box of the tick box with
+   * this data element id. It only opens once that factor is ticked.
+   */
+  specifyFor?: string;
 }
 
 export interface FormGroup {
   /** Sub-heading shown above the group, or null for an ungrouped block. */
   label: string | null;
   fields: FormField[];
+  /**
+   * How the group is drawn:
+   *  - default           a responsive grid of labelled fields
+   *  - "factors"         table of No. / Factor / Yes / Specify rows (Capture style)
+   *  - "recommendations" table of No. / Gap / Recommendation / Responsible / Timeframe,
+   *                      4 fields per row; row n+1 opens once row n has an answer
+   */
+  table?: "factors" | "recommendations";
+  /** Sub-groups drawn side by side, each with its own heading. */
+  columns?: FormGroup[];
 }
 
 export interface FormSection {
@@ -53,7 +96,7 @@ export interface ListColumn {
    *  - "status" → renders the linked/certified tag from `de`
    *  - default  → shows the raw/coded value of `de`
    */
-  type?: "value" | "date" | "status" | "datetime" | "maternalLink";
+  type?: "value" | "date" | "status" | "datetime" | "maternalLink" | "reviewStatus";
   /** Optional fixed width in pixels. */
   width?: number;
   /** Text alignment. */
@@ -100,4 +143,4 @@ export interface FormDefinition {
 export type FormId = "mdr" | "pdr" | "cdr" | "mccod";
 
 /** "records" opens the legacy MCCOD case list + analytics flow. */
-export type FormModule = "home" | "records" | FormId;
+export type FormModule = "home" | "dashboard" | "records" | FormId;

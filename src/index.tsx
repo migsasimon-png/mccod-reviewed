@@ -32,7 +32,7 @@ const appConfig = {
   // baseUrl: process.env.REACT_APP_DHIS2_BASE_URL,
   // baseUrl: "https://qihmisug.org/dhis/",
   baseUrl: actualBaseUrl,
-  apiVersion: 32,
+  apiVersion: 43,
 };
 
 ReactDOM.render(
@@ -48,12 +48,7 @@ serviceWorker.register({
   onSuccess: (registration) => {
     console.log('Service Worker registered successfully:', registration);
   },
-  onUpdate: (registration) => {
-    console.log('Service Worker updated:', registration);
-    // Notify user that a new version is available
-    if (window.confirm('A new version of the app is available. Reload to update?')) {
-      registration.waiting?.postMessage({ type: 'SKIP_WAITING' });
-      window.location.reload();
-    }
+  onUpdate: () => {
+    console.info("An app update is ready and will activate after the open app tabs close.");
   }
 });

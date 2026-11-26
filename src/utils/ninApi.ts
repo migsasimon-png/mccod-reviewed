@@ -1,9 +1,8 @@
 import originalFetch from "isomorphic-unfetch";
 import fetchBuilder from "fetch-retry-ts";
 import { useStore } from "../Context";
-import { parseJsonRes } from "./parseJsonRes";
 
-export const baseURL = "https://hmis-tests.health.go.ug/db-api/api/v2";
+export const baseURL = "https://hmis.health.go.ug/db-api/api/v2";
 export const defaultToken =
 	"d2p_klok96KmVsASkyZsn7BdXKeWX15Jo9DTwn9uH5FqziS90DBaeH";
 
@@ -18,32 +17,33 @@ const fetch = fetchBuilder(originalFetch);
 
 export const useNinApi = () => {
 	const store = useStore().apiStore;
-
-	
+	const isLocal = process.env.NODE_ENV === "development" &&
+		["localhost", "127.0.0.1"].includes(window.location.hostname);
+	const endpoint = isLocal ? "/db-api/api/v2" : baseURL;
+	const lookup = async (nin: string, method: string) => {
+		if (!store.ninToken?.trim()) throw new Error("NIRA lookup has no configured token.");
+		const response = await fetch(`${endpoint}/${method}`, {
+			method: "POST",
+			...options,
+			headers: { "Content-Type": "application/json", Accept: "application/json" },
+			body: JSON.stringify({ nationalId: nin, token: store.ninToken, method }),
+		});
+		const result = await response.json().catch(() => undefined);
+		if (!response.ok) {
+			const code = result?.data?.error?.code ?? result?.error?.code;
+			if (String(code) === "320") return { data: { error: { code } } };
+			throw new Error(`NIRA endpoint returned HTTP ${response.status}.`);
+		}
+		if (!result || typeof result !== "object") {
+			throw new Error("NIRA endpoint did not return a JSON record.");
+		}
+		return result.error ? { data: { error: result.error } } :
+			"data" in result ? result : { data: result };
+	};
 
 	return {
-		getNINPerson: async (nin) => {
-			return fetch(`${baseURL}/getPerson`, {
-				method: "POST",
-				...options,
-				body: JSON.stringify({
-					nationalId: nin,
-					token: store.ninToken,
-					method: 'getPerson'
-				}),
-			}).then((response) => parseJsonRes(response));
-		},
-		getNINPlaceOfBirth: async (nin) => {
-			return fetch(`${baseURL}/getPlaceOfResidence`, {
-				method: "POST",
-				...options,
-				body: JSON.stringify({
-					nationalId: nin,
-					token: store.ninToken,
-					method: 'getPlaceOfResidence'
-				}),
-			}).then((response) => parseJsonRes(response));
-		}
+		getNINPerson: (nin: string) => lookup(nin, "getPerson"),
+		getNINPlaceOfBirth: (nin: string) => lookup(nin, "getPlaceOfResidence"),
 	}
 }
 

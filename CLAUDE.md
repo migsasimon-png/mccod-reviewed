@@ -41,6 +41,14 @@ Config-driven engine for MDR/PDR/CDR/MCCOD, decoupled from the legacy `Form.tsx`
 - `skipLogic.ts` — field visibility/disabled/hint rules from runtime values.
 - `types.ts` — `FormField`, `FormGroup`, `FormSection`, `FormDefinition`.
 
+### Dashboard (`src/dashboard/`)
+Opened from the Home tile (`store.openModule("dashboard")`). Scope comes from the
+signed-in user's own org units (`/api/me`), and every tracker query is limited to
+them, so national / region / district / facility users each see their own tree.
+- `dashboardApi.ts` — loads scope, then streams tracker events per form and root.
+- `dashboardData.ts` — pure logic (records, KPIs, filters, hierarchy); unit-tested.
+- `Dashboard.tsx` — UI; keeps its view and loaded data for the session.
+
 ### Offline & PWA
 - `src/services/offlineDataService.ts` — IndexedDB stores: `formData`, `syncQueue`, `organisationUnits`.
 - `src/services/syncService.ts` — batch-pushes queued events to DHIS2, retries up to 3×.

@@ -1,6 +1,7 @@
 import { action, computed, observable, runInAction } from "mobx";
 import { escapeRegExp, flatten, fromPairs, isArray } from "lodash";
 import moment from "moment";
+import { resolveEventAttributeOptionCombo } from "./forms/trackerCategory";
 import englishMeta from "./components/LanguageConfigPage/fullMetaData.json";
 import { CauseOfDeathFilter } from "./filters";
 import { ApiStore } from "./stores/api";
@@ -56,7 +57,7 @@ export const mcodmap = {
 	iJqBq0kQtWO: "q7e7FOXKnOf", // age mapping for 020
 	AqXDMjrPUEE: "Z41di0TRjIu",
 	XW2CKaAiMKc: "xAWYJtQsg8M",
-	js6jQi1rx1j: "jY3K6Bv4o9Q",
+	BrnL8WKgpzA: "jY3K6Bv4o9Q", // autopsy requested (020 retest data element)
 	ZKBE8Xm9DJG: "ZKBE8Xm9DJG",
 	itNUbtIXfCT: "ZKBE8Xm9DJG",
 	sfpqAeqKeyQ: "sfpqAeqKeyQ",
@@ -309,7 +310,7 @@ class Store {
 	@observable sorter = "created:desc";
 	@observable search = "";
 	@observable currentPage = "1";
-	@observable activeModule: "home" | "records" | "mdr" | "pdr" | "cdr" | "mccod" = "home";
+	@observable activeModule: "home" | "dashboard" | "records" | "mdr" | "pdr" | "cdr" | "mccod" = "home";
 	@observable activeFormId: "mdr" | "pdr" | "cdr" | "mccod" | null = null;
 	@observable programOrganisationUnits = []; /** !!!!!!!!!! */
 	@observable allOrgUnits: any = null;
@@ -448,7 +449,11 @@ class Store {
 		this.selectedOrgUnit = this.actualSelOrgUnit ?? this.selectedOrgUnit;
 		this.currentPage = "1";
 	};
-	@action openModule = (m: "home" | "records" | "mdr" | "pdr" | "cdr" | "mccod") => {
+	/** True when a form was opened from the dashboard, so the form can offer a way back. */
+	@observable returnToDashboard: boolean = false;
+
+	@action openModule = (m: "home" | "dashboard" | "records" | "mdr" | "pdr" | "cdr" | "mccod") => {
+		if (m === "home" || m === "dashboard") this.returnToDashboard = false;
 		this.activeModule = m;
 		if (m === "mdr" || m === "pdr" || m === "cdr" || m === "mccod") {
 			this.activeFormId = m;
@@ -462,6 +467,7 @@ class Store {
 	};
 
 	@action goHome = () => {
+		this.returnToDashboard = false;
 		this.activeModule = "home";
 		this.activeFormId = null;
 		this.data = null;
@@ -874,7 +880,8 @@ class Store {
 
 		// Default the nationality to "National" (l4UMmqvSBe5) so the form opens
 		// ready-to-use, while leaving the selector editable for other cases.
-		if (!this.selectedNationality && this.nationalitySelect.length) {
+		if (this.nationalitySelect.length &&
+			!this.nationalitySelect.some((option: any) => option.id === this.selectedNationality)) {
 			const national = this.nationalitySelect.find(
 				(n: any) =>
 					n?.id === "l4UMmqvSBe5" ||
@@ -1867,109 +1874,36 @@ class Store {
 		}
 	};
 
-	@action getEventByCase = async (casenumber) => {
-		let query1: any = {
-			events: {
-				resource: `events.json`,
-				params: {
-					program: this.program,
-					programStage: this.programStage,
-					filter: `ZKBE8Xm9DJG:in:${casenumber}`,
-				},
-			},
-		};
-
+	/** First event in the current stage whose data element equals the value (Tracker API). */
+	private findEventByValue = async (dataElement: string, value: any) => {
+		if (value === undefined || value === null || value === "") return null;
 		try {
-			console.log("case number query", query1);
-			const data = await this.engine.query(query1);
-			console.log("case number daya", data);
-			return !!data.events ? data.events.events[0] : null;
-			// runInAction(() => {
-			// 	this.data = data.events;
-
-			// 	this.data.headers = this.data.headers.map(
-			// 		(a: any, i: number) => {
-			// 			return {
-			// 				...a,
-			// 				i,
-			// 			};
-			// 		}
-			// 	);
-			// 	this.total = this.data.metaData.pager.total;
-			// });
+			const url =
+				`/api/tracker/events?program=${this.program}` +
+				`&programStage=${this.programStage}&orgUnitMode=ACCESSIBLE` +
+				`&filter=${dataElement}:eq:${encodeURIComponent(String(value))}` +
+				`&fields=event,orgUnit,occurredAt,dataValues[dataElement,value]&pageSize=1`;
+			const res: any = await this.engine.link.fetch(url, { cache: "no-store" });
+			return res?.events?.[0] ?? null;
 		} catch (e) {
-			console.log("exxx", e);
+			console.log("event lookup failed", dataElement, e);
 		}
 	};
 
-	getEventByNIN = async (nin) => {
-		let query1: any = {
-			events: {
-				resource: `events.json`,
-				params: {
-					program: this.program,
-					programStage: this.programStage,
-					filter: `MOstDqSY0gO:in:${nin}`,
-				},
-			},
-		};
+	@action getEventByCase = async (casenumber) =>
+		this.findEventByValue("ZKBE8Xm9DJG", casenumber);
 
-		try {
-			const data = await this.engine.query(query1);
-			console.log("nin data", data);
-			return !!data.events ? data.events.events[0] : null;
-		} catch (e) {
-			console.log("error", e);
-		}
-	};
+	getEventByNIN = async (nin) => this.findEventByValue("MOstDqSY0gO", nin);
 
-	@action getEventByInpatientNo = async (inpatientno) => {
-		let query1: any = {
-			events: {
-				resource: `events.json`,
-				params: {
-					program: this.program,
-					programStage: this.programStage,
-					filter: `FGagV1Utrdh:in:${inpatientno}`,
-				},
-			},
-		};
-
-		try {
-			console.log("inpatient number", query1);
-			const data = await this.engine.query(query1);
-			console.log("inpatient number", data);
-			return !!data.events ? data.events.events[0] : null;
-		} catch (e) {
-			console.log("exxx", e);
-		}
-	};
+	@action getEventByInpatientNo = async (inpatientno) =>
+		this.findEventByValue("FGagV1Utrdh", inpatientno);
 
 	@action getEvent = async (eventId) => {
-		let query1: any = {
-			event: {
-				resource: `events/${eventId}.json`,
-			},
-		};
-
 		try {
-			console.log("q11", query1);
-			const data = await this.engine.query(query1);
-			console.log({ data });
-			return data.event;
-			// runInAction(() => {
-			// 	this.data = data.events;
-
-			// 	this.data.headers = this.data.headers.map(
-			// 		(a: any, i: number) => {
-			// 			return {
-			// 				...a,
-			// 				i,
-			// 			};
-			// 		}
-			// 	);
-			// 	this.total = this.data.metaData.pager.total;
-			// });
+			const url =
+				`/api/tracker/events/${eventId}` +
+				`?fields=event,orgUnit,occurredAt,status,dataValues[dataElement,value]`;
+			return await this.engine.link.fetch(url, { cache: "no-store" });
 		} catch (e) {
 			console.log("exxx", e);
 		}
@@ -1982,52 +1916,48 @@ class Store {
 	@action queryEvents = async () => {
 		console.log("canFetch", this.canFetchData);
 		if (this.canFetchData) {
-			let query1: any = {
-				events: {
-					resource: "tracker/events",
-					params: {
-						page: this.page,
-						pageSize: this.pageSize,
-						programStage: this.programStage,
-						orgUnit: this.selectedOrgUnit,
-						ouMode: "DESCENDANTS",
-						totalPages: "true",
-						attributeCc: this.attributeCC,
-						attributeCos: this.selectedNationality,
-						includeAllDataElements: "true",
-						...(this.selectedDlDateRange && {
-							startDate: this.selectedDlDateRange[0],
-							endDate: this.selectedDlDateRange[1],
-						}),
-						// query: this.search === "" ? "" : `LIKE:${this.search}`,
-					},
-				},
-			};
+			// Tracker API order keys differ from the legacy Events API.
+			const [orderField, orderDir] = String(this.sorter || "created:desc").split(":");
+			const trackerOrder =
+				({ created: "createdAt", lastUpdated: "updatedAt", eventDate: "occurredAt" } as any)[orderField] ||
+				(/^[A-Za-z][A-Za-z0-9]{10}$/.test(orderField) ? orderField : "createdAt");
 
+			const params = [
+				`program=${this.program}`,
+				`programStage=${this.programStage}`,
+				`orgUnit=${this.selectedOrgUnit}`,
+				`orgUnitMode=DESCENDANTS`,
+				`page=${this.page}`,
+				`pageSize=${this.pageSize}`,
+				`totalPages=true`,
+				`attributeCategoryCombo=${this.attributeCC}`,
+				`attributeCategoryOptions=${this.selectedNationality}`,
+				`order=${trackerOrder}:${orderDir === "asc" ? "asc" : "desc"}`,
+				`fields=event,orgUnit,occurredAt,status,createdAt,updatedAt,dataValues[dataElement,value]`,
+			];
+			if (this.selectedDlDateRange) {
+				const [from, to] = this.selectedDlDateRange;
+				params.push(`occurredAfter=${from}`);
+				// A bare date means midnight; include the whole end day.
+				params.push(`occurredBefore=${/^\d{4}-\d{2}-\d{2}$/.test(to) ? `${to}T23:59:59` : to}`);
+			}
 			if (!!this.filters) {
-				query1.events.params["filter"] = [];
 				Object.keys(this.filters).forEach((key) => {
 					if (!!this.filters[key]?.value)
-						query1.events.params.filter.push(
-							`${key}:LIKE:${this.filters[key].value}`
+						params.push(
+							`filter=${key}:like:${encodeURIComponent(String(this.filters[key].value))}`
 						);
 				});
 			}
 
 			try {
-				const data = await this.engine.query(query1);
-				console.log(query1, data);
+				const url = `/api/tracker/events?${params.join("&")}`;
+				const data: any = await this.engine.link.fetch(url, { cache: "no-store" });
+				console.log(url, data);
 
 				runInAction(() => {
-					this.data = data.events.events;
-
-					// this.data.headers = this.data.headers.map((a: any, i: number) => {
-					//   return {
-					//     ...a,
-					//     i,
-					//   };
-					// });
-					this.total = data.events.total ?? this.data.length;
+					this.data = data?.events ?? [];
+					this.total = data?.pager?.total ?? this.data.length;
 					console.log("total", this.total);
 				});
 			} catch (e) {
@@ -2341,7 +2271,7 @@ class Store {
 
 		try {
 			console.log("muation", createMutation);
-			await this.engine.mutate(createMutation);
+			await this.importLegacyEvent(createMutation.data);
 
 			notification.success({
 				message: "MCCOD record saved successfully!",
@@ -2366,16 +2296,56 @@ class Store {
 		this.showEvents();
 	};
 
+	/** Save a legacy-form event through the Tracker import API (the Events API no longer exists). */
+	private importLegacyEvent = async (legacy: any) => {
+		const { eventDate, event, attributeCategoryOptions, ...rest } = legacy;
+		const attributeOptionCombo = await resolveEventAttributeOptionCombo(
+			(url) => this.engine.link.fetch(url, { cache: "no-store" }),
+			rest.program,
+			this.selectedNationality
+		);
+		const result: any = await this.engine.mutate({
+			type: "create",
+			resource: "tracker",
+			params: { async: false, importStrategy: "CREATE_AND_UPDATE" },
+			data: {
+				events: [
+					{
+						...rest,
+						...(event ? { event } : {}),
+						status: "ACTIVE",
+						occurredAt: moment(eventDate).format("YYYY-MM-DDTHH:mm:ss"),
+						...(attributeOptionCombo ? { attributeOptionCombo } : {}),
+						dataValues: (rest.dataValues || []).map(({ dataElement, value }: any) => ({
+							dataElement,
+							value: String(value),
+						})),
+					},
+				],
+			},
+		});
+		const report = (result?.response ?? result) as any;
+		if (report?.status === "ERROR") {
+			throw new Error(
+				report.validationReport?.errorReports?.map((e: any) => e.message).join("; ") ||
+					"DHIS2 rejected the event."
+			);
+		}
+	};
+
 	@action deleteEvent = async (eventId = null) => {
 		const eid = eventId ?? this.currentEvent;
 		try {
 			if (eid) {
-				const createMutation = {
-					type: "delete",
-					resource: "events",
-					id: eid,
-				};
-				await this.engine.mutate(createMutation);
+				const result: any = await this.engine.mutate({
+					type: "create",
+					resource: "tracker",
+					params: { async: false, importStrategy: "DELETE" },
+					data: { events: [{ event: eid }] },
+				});
+				if ((result?.response ?? result)?.status === "ERROR") {
+					throw new Error("DHIS2 rejected the delete");
+				}
 				this.showEvents();
 			}
 		} catch (e) {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Select, Form } from "antd";
+import { Button, Select, Form, Input } from "antd";
 import { FormInstance } from "antd/lib/form";
 import { SaveOutlined, RobotOutlined } from "@ant-design/icons";
 import { ICDField } from "./ICDField";
@@ -12,6 +12,7 @@ interface MccodTableSectionProps {
   locked: boolean;
   skipLogic: any;
   dorisReport: string;
+  childCertification?: boolean;
   onSave?: () => void;
   saving?: boolean;
   finalCauseOptions?: Record<string, string>;
@@ -31,6 +32,7 @@ export const MccodTableSection: React.FC<MccodTableSectionProps> = ({
   locked,
   skipLogic,
   dorisReport,
+  childCertification,
   onSave,
   saving,
   finalCauseOptions,
@@ -66,6 +68,16 @@ export const MccodTableSection: React.FC<MccodTableSectionProps> = ({
     const rowTypeLocked = typeField ? isFieldLocked(typeField) : locked;
     const rowTimeLocked = timeField ? isFieldLocked(timeField) : locked;
 
+    const unit = typeField && (
+      <Form.Item name={typeField.de} noStyle>
+        <FieldWidget field={typeField} form={form} disabled={rowTypeLocked} aria-label={`Line ${id} interval unit`} />
+      </Form.Item>
+    );
+    const amount = timeField && (
+      <Form.Item name={timeField.de} noStyle>
+        <FieldWidget field={timeField} form={form} disabled={rowTimeLocked} aria-label={`Line ${id} interval value`} />
+      </Form.Item>
+    );
     return (
       <tr key={id}>
         <td>{label}</td>
@@ -86,28 +98,24 @@ export const MccodTableSection: React.FC<MccodTableSectionProps> = ({
         <td>
           {causeField.codeField && (
             <Form.Item name={causeField.codeField} noStyle>
-              <FieldWidget
+              {childCertification ? <Input readOnly aria-label={`Line ${id} ICD-11 code`} /> : <FieldWidget
                 field={{ ...causeField, de: causeField.codeField }}
                 form={form}
                 disabled={rowCodeLocked}
-              />
+              />}
             </Form.Item>
           )}
         </td>
-        <td>
-          {typeField && (
-            <Form.Item name={typeField.de} noStyle>
-              <FieldWidget field={typeField} form={form} disabled={rowTypeLocked} />
-            </Form.Item>
-          )}
-        </td>
-        <td>
-          {timeField && (
-            <Form.Item name={timeField.de} noStyle>
-              <FieldWidget field={timeField} form={form} disabled={rowTimeLocked} />
-            </Form.Item>
-          )}
-        </td>
+        {childCertification ? (
+          <td colSpan={2}>
+            {amount && unit && (
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+                <div>Value{amount}</div>
+                <div>Unit{unit}</div>
+              </div>
+            )}
+          </td>
+        ) : <><td>{unit}</td><td>{amount}</td></>}
       </tr>
     );
   };
@@ -130,8 +138,12 @@ export const MccodTableSection: React.FC<MccodTableSectionProps> = ({
             <th style={{ width: "5%", textAlign: "center" }}></th>
             <th style={{ width: "40%" }}>Cause of death</th>
             <th style={{ width: "10%" }}>Code</th>
-            <th style={{ width: "12%" }}>Time interval type from onset to death</th>
-            <th style={{ width: "8%" }}>Time interval from onset to death</th>
+            {childCertification ? <th colSpan={2}>Interval from onset to death</th> : (
+              <>
+                <th style={{ width: "12%" }}>Time interval type from onset to death</th>
+                <th style={{ width: "8%" }}>Time interval from onset to death</th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -153,13 +165,17 @@ export const MccodTableSection: React.FC<MccodTableSectionProps> = ({
               Final Underlying Cause
             </td>
             <td>
-              <Form.Item name="mQVAyOLbga1" noStyle>
+              <Form.Item name={childCertification ? undefined : "mQVAyOLbga1"} noStyle>
                 <Select
                   disabled={locked}
                   style={{ width: "100%" }}
                   placeholder="Select or compute underlying cause"
                   optionLabelProp="label"
                   onChange={(val: any) => {
+                    if (childCertification) {
+                      onSelectUnderlyingCause?.(finalCauseOptions?.[val] || "", val.startsWith("_") ? "" : val);
+                      return;
+                    }
                     const code = finalCauseOptions
                       ? Object.keys(finalCauseOptions).find(
                           (k) => finalCauseOptions[k] === val
@@ -171,7 +187,10 @@ export const MccodTableSection: React.FC<MccodTableSectionProps> = ({
                       form.setFieldsValue({ mQVAyOLbga1: val, n2mScmFMovq: code });
                     }
                   }}
-                  value={form.getFieldValue("mQVAyOLbga1")}
+                  value={childCertification
+                    ? form.getFieldValue("n2mScmFMovq") ||
+                      (form.getFieldValue("mQVAyOLbga1") ? `_manual_${form.getFieldValue("mQVAyOLbga1")}` : undefined)
+                    : form.getFieldValue("mQVAyOLbga1")}
                 >
                   {finalCauseOptions &&
                     Object.entries(finalCauseOptions).map(([code, text]) => {
@@ -192,7 +211,7 @@ export const MccodTableSection: React.FC<MccodTableSectionProps> = ({
                       return (
                         <Select.Option
                           key={code}
-                          value={text as string}
+                          value={childCertification ? code : text}
                           label={labelText}
                           title={fullDescription}
                         >
@@ -245,7 +264,11 @@ export const MccodTableSection: React.FC<MccodTableSectionProps> = ({
             <td>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 <div style={{ flex: 1 }}>
-                  {findField(fields, "n2mScmFMovq") && (
+                  {childCertification ? (
+                    <Form.Item name="n2mScmFMovq" noStyle>
+                      <Input readOnly aria-label="Underlying cause ICD-11 code" />
+                    </Form.Item>
+                  ) : findField(fields, "n2mScmFMovq") && (
                     <Form.Item name="n2mScmFMovq" noStyle>
                       <FieldWidget
                         field={findField(fields, "n2mScmFMovq")}
